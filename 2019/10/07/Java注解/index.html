@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT">
+  <meta name="keywords" content="Java,注解,">
 
 
 
@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="Just so so :)">
-<meta name="keywords" content="tobing&#39;s blog">
+<meta name="description" content="注解 定义：注解（Annotation），也叫元数据。一种代码级别的说明。 它是JDK1.5及以后版本引入的一个特性，与类、接口、枚举是在同一个层次。它可以声明在包、类、字段、方法、局部变量、方法参数等的前面，用来对这些元素进行说明，注释。 作用分类： 编写文档：通过代码里标识的元数据生成文档【生成文档doc文档】 代码分析：通过代码里标识的元数据对代码进行分析【使用反射】 编译检查：通过代码里标">
+<meta name="keywords" content="Java,注解">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Java注解">
 <meta property="og:url" content="https://tobing.top/2019/10/07/Java注解/index.html">
 <meta property="og:site_name" content="tobing">
-<meta property="og:description" content="Just so so :)">
+<meta property="og:description" content="注解 定义：注解（Annotation），也叫元数据。一种代码级别的说明。 它是JDK1.5及以后版本引入的一个特性，与类、接口、枚举是在同一个层次。它可以声明在包、类、字段、方法、局部变量、方法参数等的前面，用来对这些元素进行说明，注释。 作用分类： 编写文档：通过代码里标识的元数据生成文档【生成文档doc文档】 代码分析：通过代码里标识的元数据对代码进行分析【使用反射】 编译检查：通过代码里标">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-10-07T09:22:54.768Z">
+<meta property="og:updated_time" content="2019-10-08T12:58:00.630Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java注解">
-<meta name="twitter:description" content="Just so so :)">
+<meta name="twitter:description" content="注解 定义：注解（Annotation），也叫元数据。一种代码级别的说明。 它是JDK1.5及以后版本引入的一个特性，与类、接口、枚举是在同一个层次。它可以声明在包、类、字段、方法、局部变量、方法参数等的前面，用来对这些元素进行说明，注释。 作用分类： 编写文档：通过代码里标识的元数据生成文档【生成文档doc文档】 代码分析：通过代码里标识的元数据对代码进行分析【使用反射】 编译检查：通过代码里标">
 
 
 
@@ -333,6 +333,28 @@
           </span>
 
           
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
 
           
             
@@ -370,7 +392,146 @@
       
 
       
-        
+        <h1 id="注解"><a href="#注解" class="headerlink" title="注解"></a>注解</h1><ul>
+<li>定义：注解（Annotation），也叫元数据。一种代码级别的说明。</li>
+<li>它是<code>JDK1.5</code>及以后版本引入的一个特性，与类、接口、枚举是在同一个层次。它可以声明在包、类、字段、方法、局部变量、方法参数等的前面，用来对这些元素进行说明，注释。</li>
+<li>作用分类：<ul>
+<li>编写文档：通过代码里标识的元数据生成文档【生成文档doc文档】</li>
+<li>代码分析：通过代码里标识的元数据对代码进行分析【使用反射】</li>
+<li>编译检查：通过代码里标识的元数据让编译器能够实现基本的编译检查【Override】</li>
+</ul>
+</li>
+<li>类比<ul>
+<li>注释：给程序员看</li>
+<li>注解：给计算机看</li>
+</ul>
+</li>
+</ul>
+<h3 id="1-编译检查"><a href="#1-编译检查" class="headerlink" title="1. 编译检查"></a>1. 编译检查</h3><ul>
+<li>@Override：</li>
+</ul>
+<h3 id="2-编写文档"><a href="#2-编写文档" class="headerlink" title="2. 编写文档"></a>2. 编写文档</h3><ul>
+<li>@author ：作者</li>
+<li>@version：版本</li>
+<li>@since：</li>
+<li>@return：返回值</li>
+</ul>
+<h3 id="3-Java中预定义的注解"><a href="#3-Java中预定义的注解" class="headerlink" title="3. Java中预定义的注解"></a>3. Java中预定义的注解</h3><ul>
+<li><p><code>@Override</code>：检测该被该注解标注的方法是否是继承自父类（接口）</p>
+</li>
+<li><p><code>@Deprecated</code>：表示该方法已经过时</p>
+</li>
+<li><p><code>@SuppressWarnings()</code>：压制警告</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> top.tobing.annotation;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Java内预定义的注解</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> Tobing</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@version</span> 1.0</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@since</span> 1.5</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Demo01Annotation01</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		Cat cat = <span class="keyword">new</span> Cat();</span><br><span class="line">		cat.run();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Animal</span></span>&#123;</span><br><span class="line">	<span class="keyword">private</span> String name;</span><br><span class="line">	<span class="function"><span class="keyword">public</span>  <span class="keyword">void</span> <span class="title">eat</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		System.out.println(<span class="string">"吃吃吃！！！"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 压制所有的警告</span></span><br><span class="line"><span class="meta">@SuppressWarnings</span>(<span class="string">"all"</span>)</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Cat</span> <span class="keyword">extends</span> <span class="title">Animal</span></span>&#123;</span><br><span class="line">	<span class="comment">// 表示该方法是继承自父类的</span></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span>  <span class="keyword">void</span> <span class="title">eat</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		System.out.println(<span class="string">"吃鱼！！！"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">// 表示该方法已经过时，不建议使用</span></span><br><span class="line">	<span class="meta">@Deprecated</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		System.out.println(<span class="string">"飞檐走壁！！！！"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h3 id="4-自定义注解"><a href="#4-自定义注解" class="headerlink" title="4. 自定义注解"></a>4. 自定义注解</h3><ul>
+<li><p>如何自定义呢？<code>照葫芦画瓢</code>    — &gt; 查看@Deprecated源码</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Documented</span></span><br><span class="line"><span class="meta">@Retention</span>(RetentionPolicy.RUNTIME)</span><br><span class="line"><span class="meta">@Target</span>(value=&#123;CONSTRUCTOR, FIELD, LOCAL_VARIABLE, METHOD, PACKAGE, MODULE, PARAMETER, TYPE&#125;)</span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> Deprecated &#123;</span><br><span class="line">    ......</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>以下是自定义的注解：<code>MyAnno.java</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> top.tobing.annotation;</span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> MyAnno &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>对自定义的注解反编译</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">E:\Code&gt;javac MyAnno.java   <span class="comment"># 编译获取字节码文件</span></span><br><span class="line">E:\Code&gt;javap MyAnno		<span class="comment"># 反编译字节码文件</span></span><br><span class="line">Compiled from <span class="string">"MyAnno.java"</span></span><br><span class="line"><span class="comment"># 反编译得到的代码</span></span><br><span class="line">public interface MyAnno extends java.lang.annotation.Annotation &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>从以上编译所的代码可以知道<code>注解的本质</code></p>
+<ul>
+<li><p>本质：注解本质上就是一个接口，该接口默认继承了Annotation接口</p>
+<ul>
+<li><code>public interface MyAnno extends java.lang.annotation.Annotation</code></li>
+<li>Annotation：The common interface extended by all annotation types.</li>
+<li>Annotation：所有注解类型拓展的公共接口。</li>
+</ul>
+</li>
+<li><p>注解属性：接口的抽象方法</p>
+<ul>
+<li>要求：<ul>
+<li>属性返回值类型<ul>
+<li>基本数据类型</li>
+<li>String</li>
+<li>枚举</li>
+<li>注解</li>
+<li>以上类型的数值</li>
+</ul>
+</li>
+<li>定义了属性，在使用时需要给属性赋值<ol>
+<li>定义属性时，使用default关键字给定默认值，使用注解时可以不进行赋值</li>
+<li>只有一个属性需要赋值，并且名称是value，可以value可以省略，直接赋值即可。</li>
+<li>数值赋值是，值需要用{}包裹。如果数组中只有一个值则可以省略{}</li>
+</ol>
+</li>
+</ul>
+</li>
+<li>以下是代码演示</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> top.tobing.annotation;</span><br><span class="line"><span class="comment">// 自定义注解Anno</span></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> MyAnno &#123;</span><br><span class="line">	<span class="comment">//int show();			// int</span></span><br><span class="line">	<span class="comment">//String show2();		// String</span></span><br><span class="line">	<span class="comment">//MyAnno1 anno1();	// 注解类型</span></span><br><span class="line">	<span class="function">String <span class="title">name</span><span class="params">()</span></span>;</span><br><span class="line">	String[] cats();</span><br><span class="line">	<span class="keyword">int</span>[] ages();</span><br><span class="line">	<span class="function"><span class="keyword">int</span> <span class="title">age</span><span class="params">()</span> <span class="keyword">default</span> 10</span>;	<span class="comment">// 赋值了默认，可以不需要数值</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 自定义注解</span></span><br><span class="line"><span class="meta">@interface</span> MyAnno1&#123;</span><br><span class="line">	<span class="function">String <span class="title">value</span><span class="params">()</span></span>; 	<span class="comment">// 只有一个值，且值的名称为value</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//////////////使用注解//////////////////</span></span><br><span class="line"><span class="comment">// age由于定义了default，可以不赋值</span></span><br><span class="line"><span class="comment">// cats是数组，赋值多个的时候使用大括号包裹</span></span><br><span class="line"><span class="comment">// ages是数值，赋值一个的时候，可以省略大括号</span></span><br><span class="line"><span class="meta">@MyAnno</span>(name=<span class="string">"张三"</span>,cats= &#123;<span class="string">"小王"</span>,<span class="string">"小白"</span>&#125;,ages=<span class="number">10</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 省略了value=</span></span><br><span class="line"><span class="meta">@MyAnno</span>1(<span class="string">"Value"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Demo01Annotation2</span> </span>&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>元注解</p>
+<ul>
+<li>用于描述注解的注解（可以体会到元意思）</li>
+<li>@Target：描述注解的作用时机<ul>
+<li><code>ElementType</code>取值<ul>
+<li><code>ElementType.TYPE</code>：可以作用在类上</li>
+<li><code>ElementType.METHOD</code>：可以作用在方法上</li>
+<li><code>ElementType.FIELD</code>：可以作用在成员变量上</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>@Retention：描述注解被保留的阶段<ul>
+<li>@Retention(保留阶段)</li>
+<li><code>RetentionPolicy.RUNTIME</code>：保留到class字节码文件中，并且被JVM读取到（这个最常用）</li>
+<li><code>RetentionPolicy.SOURCE</code>：略</li>
+<li><code>RetentionPolicy.CLASS</code>：略</li>
+</ul>
+</li>
+<li>@Documented：描述注解是否被抽取到api中</li>
+<li>@Inherited：描述注解是否被子类继承</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 以下元注解表述了：注解保留到class字节码文件中，并且被JVM读取到（这个最常用）</span></span><br><span class="line"><span class="meta">@Retention</span>(RetentionPolicy.RUNTIME)</span><br><span class="line"><span class="comment">// 以下元注解表述了：注解可以被抽取到API中</span></span><br><span class="line"><span class="meta">@Documented</span></span><br><span class="line"><span class="comment">// 以下元注解表述了：自定义注解可以被子类继承</span></span><br><span class="line"><span class="meta">@Inherited</span></span><br><span class="line"><span class="comment">// 以下元注解表述了：自定义注解可以被使用在类（TYPE）、方法（METHOD）、成员变量（FIELD）</span></span><br><span class="line"><span class="meta">@Target</span>(&#123;ElementType.TYPE,ElementType.METHOD,ElementType.FIELD&#125;)</span><br><span class="line"><span class="meta">@interface</span> MyAnno2&#123;</span><br><span class="line">	<span class="function">String <span class="title">value</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">package</span> top.tobing.annotation;</span><br><span class="line"><span class="meta">@MyAnno</span>2(<span class="string">"类"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Demo01Annotation3</span> </span>&#123;</span><br><span class="line">	<span class="meta">@MyAnno</span>2(<span class="string">"成员变量"</span>)</span><br><span class="line">	<span class="keyword">private</span> String name;</span><br><span class="line">	<span class="meta">@MyAnno</span>2(<span class="string">"方法"</span>)</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">show</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h3 id="5-注解的应用"><a href="#5-注解的应用" class="headerlink" title="5. 注解的应用"></a>5. 注解的应用</h3><h5 id="1-代替xml配置文件"><a href="#1-代替xml配置文件" class="headerlink" title="1. 代替xml配置文件"></a>1. 代替xml配置文件</h5><ul>
+<li><p>传统的获取全限定类名，方法名，需要定义xml配置文件中，利用文件流获取xml，并将其中内容读取。操作比较麻烦。</p>
+</li>
+<li><p>使用注解可以代替此功能</p>
+<ul>
+<li>自定义获取<code>className</code> <code>methodName</code>的注解:Load.java</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> top.tobing.annotation;</span><br><span class="line"><span class="keyword">import</span> java.lang.annotation.ElementType;</span><br><span class="line"><span class="keyword">import</span> java.lang.annotation.Retention;</span><br><span class="line"><span class="keyword">import</span> java.lang.annotation.RetentionPolicy;</span><br><span class="line"><span class="keyword">import</span> java.lang.annotation.Target;</span><br><span class="line"><span class="meta">@Target</span>(ElementType.TYPE)</span><br><span class="line"><span class="meta">@Retention</span>(RetentionPolicy.RUNTIME)</span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> Load &#123;</span><br><span class="line">	<span class="function">String <span class="title">className</span><span class="params">()</span></span>;</span><br><span class="line">	<span class="function">String <span class="title">methodName</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>通过自定义注解获取<code>className</code>，<code>methodName</code>，利用反射执行该方法</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> top.tobing.annotation;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Method;</span><br><span class="line"><span class="meta">@Load</span>(className=<span class="string">"top.tobing.annotation.Demo"</span>,methodName=<span class="string">"show"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Demo04AnnotationReflect</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">		<span class="comment">// 获取本类字节码文件对象</span></span><br><span class="line">		Class&lt;Demo04AnnotationReflect&gt; demoClass = Demo04AnnotationReflect.class;</span><br><span class="line">		<span class="comment">/**</span></span><br><span class="line"><span class="comment">		 此处本质上是获取了，内存中实现的Load接口的子类对象执行方法的返回值</span></span><br><span class="line"><span class="comment">		 public class LoadImpl&#123;</span></span><br><span class="line"><span class="comment">		 	public String className()&#123;</span></span><br><span class="line"><span class="comment">		 		return "top.tobing.annotation.Demo";</span></span><br><span class="line"><span class="comment">		 	&#125;</span></span><br><span class="line"><span class="comment">			public String methodName()&#123;</span></span><br><span class="line"><span class="comment">				return "show";</span></span><br><span class="line"><span class="comment">			&#125;</span></span><br><span class="line"><span class="comment">		 &#125;</span></span><br><span class="line"><span class="comment">		 */</span></span><br><span class="line">		<span class="comment">// 获取注解对象 </span></span><br><span class="line">		Load load = demoClass.getAnnotation(Load.class);</span><br><span class="line">		<span class="comment">// 获取注解的内容</span></span><br><span class="line">		String className = load.className();</span><br><span class="line">		String methodName = load.methodName();</span><br><span class="line">		System.out.println(className);</span><br><span class="line">		System.out.println(methodName);</span><br><span class="line">		<span class="comment">// 通过类名以及方法名称利用反射，执行方法</span></span><br><span class="line">		<span class="comment">//3.加载该类进内存</span></span><br><span class="line">        Class cls = Class.forName(className);</span><br><span class="line">        <span class="comment">//4.创建对象</span></span><br><span class="line">        Object obj = cls.newInstance();</span><br><span class="line">        <span class="comment">//5.获取方法对象</span></span><br><span class="line">        Method method = cls.getMethod(methodName);</span><br><span class="line">        <span class="comment">//6.执行方法</span></span><br><span class="line">        method.invoke(obj);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h5 id="2-自动以测试"><a href="#2-自动以测试" class="headerlink" title="2. 自动以测试"></a>2. 自动以测试</h5><ul>
+<li><p>要测试的类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> top.tobing.annotation.test;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Cal</span> </span>&#123;</span><br><span class="line">    <span class="comment">//加法</span></span><br><span class="line">    <span class="meta">@MyCheck</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">add</span><span class="params">()</span></span>&#123;</span><br><span class="line">        String str = <span class="keyword">null</span>;</span><br><span class="line">        str.toString();</span><br><span class="line">        System.out.println(<span class="string">"1 + 0 ="</span> + (<span class="number">1</span> + <span class="number">0</span>));</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//减法</span></span><br><span class="line">    <span class="meta">@MyCheck</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">sub</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"1 - 0 ="</span> + (<span class="number">1</span> - <span class="number">0</span>));</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//乘法</span></span><br><span class="line">    <span class="meta">@MyCheck</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">mul</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"1 * 0 ="</span> + (<span class="number">1</span> * <span class="number">0</span>));</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//除法</span></span><br><span class="line">    <span class="meta">@MyCheck</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">div</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"1 / 0 ="</span> + (<span class="number">1</span> / <span class="number">0</span>));</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">show</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"永无bug..."</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>测试使用的注解</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> top.tobing.annotation.test;</span><br><span class="line"><span class="keyword">import</span> java.lang.annotation.ElementType;</span><br><span class="line"><span class="keyword">import</span> java.lang.annotation.Retention;</span><br><span class="line"><span class="keyword">import</span> java.lang.annotation.RetentionPolicy;</span><br><span class="line"><span class="keyword">import</span> java.lang.annotation.Target;</span><br><span class="line"><span class="meta">@Retention</span>(RetentionPolicy.RUNTIME)</span><br><span class="line"><span class="meta">@Target</span>(ElementType.METHOD)</span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> MyCheck &#123;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>测试类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> top.tobing.annotation.test;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Method;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CalTest</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		<span class="comment">//1. 创建计算器对象</span></span><br><span class="line">		Cal c = <span class="keyword">new</span> Cal();</span><br><span class="line">		<span class="comment">//2. 获取计算器字节码文件</span></span><br><span class="line">		Class cls = c.getClass();</span><br><span class="line">		<span class="comment">//3. 通过字节码文件获取使用方法</span></span><br><span class="line">		Method[] methods = cls.getMethods();</span><br><span class="line">		<span class="keyword">int</span> num = <span class="number">0</span>;<span class="comment">//记录异常出现的次数</span></span><br><span class="line">		<span class="keyword">for</span>(Method m:methods) &#123;</span><br><span class="line">			<span class="comment">// 判断方法上是否包含注解</span></span><br><span class="line">			<span class="keyword">if</span>(m.isAnnotationPresent(MyCheck.class)) &#123;</span><br><span class="line">				<span class="comment">// 包含，捕获异常</span></span><br><span class="line">				<span class="keyword">try</span> &#123;</span><br><span class="line">					m.invoke(c);</span><br><span class="line">				&#125;<span class="keyword">catch</span>(Exception e) &#123;</span><br><span class="line">					num++;</span><br><span class="line">					System.out.println(m.getName()+<span class="string">"出现异常了"</span>);</span><br><span class="line">					System.out.println(<span class="string">"异常名称为："</span>+e.getCause().getClass().getSimpleName());</span><br><span class="line">					System.out.println(<span class="string">"异常原因是："</span>+e.getCause().getMessage());</span><br><span class="line">					System.out.println(<span class="string">"----------------------"</span>);</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		System.out.println(<span class="string">"本次测试一共出现"</span>+num+<span class="string">"次异常"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>运行结果</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">add出现异常了</span><br><span class="line">异常名称为：NullPointerException</span><br><span class="line">异常原因是：null</span><br><span class="line">----------------------</span><br><span class="line">1 - 0 =1</span><br><span class="line">div出现异常了</span><br><span class="line">异常名称为：ArithmeticException</span><br><span class="line">异常原因是：/ by zero</span><br><span class="line">----------------------</span><br><span class="line">1 * 0 =0</span><br><span class="line">本次测试一共出现2次异常</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><ul>
+<li>在实战开发中，我们通常是使用注解，而并不是定义注解</li>
+<li>此处复习注解是为了更好地学习框架。</li>
+</ul>
+
       
     </div>
     
@@ -384,6 +545,14 @@
     
 
     <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Java/" rel="tag"># Java</a>
+          
+            <a href="/tags/注解/" rel="tag"># 注解</a>
+          
+        </div>
       
 
       
@@ -403,10 +572,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/10/07/注解/" rel="prev" title="注解">
-                注解 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -468,8 +633,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -484,7 +658,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-count">11</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -539,6 +713,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#注解"><span class="nav-number">1.</span> <span class="nav-text">注解</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-编译检查"><span class="nav-number">1.0.1.</span> <span class="nav-text">1. 编译检查</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-编写文档"><span class="nav-number">1.0.2.</span> <span class="nav-text">2. 编写文档</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-Java中预定义的注解"><span class="nav-number">1.0.3.</span> <span class="nav-text">3. Java中预定义的注解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-自定义注解"><span class="nav-number">1.0.4.</span> <span class="nav-text">4. 自定义注解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-注解的应用"><span class="nav-number">1.0.5.</span> <span class="nav-text">5. 注解的应用</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-代替xml配置文件"><span class="nav-number">1.0.5.0.1.</span> <span class="nav-text">1. 代替xml配置文件</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-自动以测试"><span class="nav-number">1.0.5.0.2.</span> <span class="nav-text">2. 自动以测试</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">1.0.6.</span> <span class="nav-text">总结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
