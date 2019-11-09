@@ -89,7 +89,8 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://tobing.top/images/20191025%E7%9F%A9%E9%98%B5%E9%94%AE%E7%9B%98%E6%89%AB%E6%8F%8F.png">
 <meta property="og:image" content="https://tobing.top/images/clip_image001.jpg">
-<meta property="og:updated_time" content="2019-11-03T00:45:57.228Z">
+<meta property="og:image" content="https://tobing.top/images/%E5%8D%95%E7%89%87%E6%9C%BA-%E4%B8%B2%E5%8F%A3%E5%8A%A9%E6%89%8B.png">
+<meta property="og:updated_time" content="2019-11-09T03:57:27.459Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="单片机实验">
 <meta name="twitter:description" content="单片机实验运行环境 单片机：STC89C52开发板，某宝有售 KEIL：用于编写程序 STC-ISP：程序写入  1. LED灯循环点亮 实现LED灯循环点亮 123456789101112131415161718192021222324252627282930#include &quot;reg52.h&quot;   // 导入C52库#define uchar unsigned char// 延时函数void">
@@ -481,12 +482,232 @@
 </ol>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"reg52.h"</span></span></span><br><span class="line">sbit beep = P2^<span class="number">3</span>; <span class="comment">// 蜂鸣器所在端口</span></span><br><span class="line"><span class="keyword">double</span> tones[] = &#123;<span class="number">523</span>,<span class="number">587</span>,<span class="number">659</span>,<span class="number">698</span>,<span class="number">783</span>,<span class="number">880</span>,<span class="number">987</span>&#125;; <span class="comment">// 中音的7个音调</span></span><br><span class="line"><span class="keyword">unsigned</span> <span class="keyword">char</span> flag;   </span><br><span class="line"><span class="keyword">unsigned</span> <span class="keyword">int</span> i;</span><br><span class="line"><span class="comment">// "两个老虎"的简单音谱</span></span><br><span class="line"><span class="keyword">unsigned</span> <span class="keyword">int</span> tigers[] = &#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">1</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">5</span>,<span class="number">6</span>,<span class="number">5</span>,<span class="number">6</span>,<span class="number">4</span>,<span class="number">3</span>,<span class="number">2</span>,<span class="number">7</span>,<span class="number">5</span>,<span class="number">6</span>,<span class="number">4</span>,<span class="number">3</span>,<span class="number">2</span>,<span class="number">7</span>,<span class="number">1</span>,<span class="number">5</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">5</span>,<span class="number">1</span>&#125;;</span><br><span class="line"><span class="comment">// 中断主程序</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">timer</span><span class="params">()</span> interrupt 1 </span>&#123;</span><br><span class="line">	TH0 = (<span class="keyword">unsigned</span> <span class="keyword">int</span>)(<span class="number">65536</span><span class="number">-11059200</span>/tones[flag]/<span class="number">24</span>)/<span class="number">256</span>;</span><br><span class="line">	TL0 = (<span class="keyword">unsigned</span> <span class="keyword">int</span>)(<span class="number">65536</span><span class="number">-11059200</span>/tones[flag]/<span class="number">24</span>)%<span class="number">256</span>;</span><br><span class="line">	<span class="keyword">if</span>(i==<span class="number">34</span>)&#123; <span class="comment">// 循环一遍之后，将蜂鸣器置空一段时间</span></span><br><span class="line">		beep = <span class="number">1</span>;</span><br><span class="line">	&#125;<span class="keyword">else</span>&#123;  </span><br><span class="line">		beep = ~beep;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 延时</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">delay</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="keyword">unsigned</span> <span class="keyword">int</span> i;</span><br><span class="line">	<span class="keyword">unsigned</span> <span class="keyword">char</span> j;</span><br><span class="line">	<span class="keyword">for</span>(i=<span class="number">0</span>;i&lt;<span class="number">300</span>;i++)</span><br><span class="line">	<span class="keyword">for</span>(j=<span class="number">0</span>;j&lt;<span class="number">110</span>;j++);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="keyword">unsigned</span> <span class="keyword">char</span> k =<span class="number">5</span>;</span><br><span class="line">	TMOD = <span class="number">0x01</span>;</span><br><span class="line">	flag = <span class="number">0</span>;</span><br><span class="line">	TH0 = (<span class="keyword">unsigned</span> <span class="keyword">int</span>)(<span class="number">65536</span><span class="number">-11059200</span>/tones[flag]/<span class="number">24</span>)/<span class="number">256</span>;</span><br><span class="line">	TL0 = (<span class="keyword">unsigned</span> <span class="keyword">int</span>)(<span class="number">65536</span><span class="number">-11059200</span>/tones[flag]/<span class="number">24</span>)%<span class="number">256</span>;</span><br><span class="line">	beep = <span class="number">0</span>;</span><br><span class="line">	EA = <span class="number">1</span>;</span><br><span class="line">	ET0 = <span class="number">1</span>;</span><br><span class="line">	TR0 = <span class="number">1</span>;</span><br><span class="line">	<span class="keyword">while</span>(<span class="number">1</span>)&#123;</span><br><span class="line">		<span class="keyword">for</span>(i=<span class="number">0</span>;i&lt;<span class="number">34</span>;i++)&#123;  <span class="comment">// 遍历“两个老虎”音调谱</span></span><br><span class="line">			flag = tigers[i]<span class="number">-1</span>;</span><br><span class="line">			delay();</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">while</span>(k--)&#123;</span><br><span class="line">			delay();</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-
+</li>
+</ul>
+<h4 id="9-串口编程入门"><a href="#9-串口编程入门" class="headerlink" title="9. 串口编程入门"></a>9. 串口编程入门</h4><ul>
+<li><p>步骤</p>
+<blockquote>
+<ol>
+<li>初始化<ol>
+<li>串口初始化：SCON-&gt;REN</li>
+<li>定时器初始化：PCON-&gt;TMOD</li>
+<li>初始化初值：TMOD-&gt;比特率</li>
+<li>启动定时器</li>
+<li>开中断</li>
+</ol>
+</li>
+<li>中断接收</li>
+</ol>
+</blockquote>
+</li>
+<li><p>SCON：串口控制寄存器</p>
+<table>
+<thead>
+<tr>
+<th>每个位</th>
+<th>SM0</th>
+<th>SM1</th>
+<th>SM2</th>
+<th>REN</th>
+<th>TB8</th>
+<th>RB8</th>
+<th>TI</th>
+<th align="center">RI</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>功能</td>
+<td>方式选择</td>
+<td>方式选择</td>
+<td>-</td>
+<td>允许串行接收位</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td align="center">-</td>
+</tr>
+<tr>
+<td></td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td></td>
+<td></td>
+<td></td>
+<td align="center"></td>
+</tr>
+</tbody></table>
+<blockquote>
+<ul>
+<li>SM0、SM1（最常用）<ul>
+<li>方式1：8位异步收发，波特率可变</li>
+</ul>
+</li>
+<li>REN<ul>
+<li>允许：1</li>
+<li>禁止：0</li>
+</ul>
+</li>
+<li>SCON常用赋值：0x50</li>
+</ul>
+</blockquote>
+</li>
+</ul>
+<ul>
+<li><p>PCON：特殊功能寄存器</p>
+<table>
+<thead>
+<tr>
+<th>SMOD</th>
+<th>-</th>
+<th>-</th>
+<th>-</th>
+<th>GF1</th>
+<th>GF0</th>
+<th>PD</th>
+<th>IDL</th>
+</tr>
+</thead>
+<tbody><tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>PCON仅有最高位与串行口相关，其余是电源相关，因此使用是需要谨慎。</p>
+</blockquote>
+</li>
+</ul>
+<blockquote>
+<ul>
+<li><p>PCON仅有最高位与串行口相关，其余是电源相关，因此使用是需要谨慎。</p>
+</li>
+<li><p>PCON最高位：波特率</p>
+<ul>
+<li>1比0翻倍。</li>
+</ul>
+</li>
+<li><p>此处为了不干扰其他选项：PCOM|=（0x01&lt;&lt;7）;</p>
+</li>
+</ul>
+</blockquote>
+<ul>
+<li><p>TMOD：定时、计数器寄存器</p>
+<table>
+<thead>
+<tr>
+<th>TMOD</th>
+<th>GATE</th>
+<th>C/T</th>
+<th>M1</th>
+<th>M0</th>
+<th>GATE</th>
+<th>C/T</th>
+<th>M1</th>
+<th>M0</th>
+</tr>
+</thead>
+<tbody><tr>
+<td></td>
+<td>T1</td>
+<td>T1</td>
+<td>T1</td>
+<td>T1</td>
+<td>T0</td>
+<td>T0</td>
+<td>T0</td>
+<td>T0</td>
+</tr>
+</tbody></table>
+<blockquote>
+<ul>
+<li>GATE：门控位，是否计数</li>
+<li>M1、M0工作方式：此处选择8位自动填装 M1= 1，M0=0，GATE</li>
+<li>TMOD  = 0x20; </li>
+</ul>
+</blockquote>
+</li>
+<li><p>将以上初始化代码封装为函数</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">init</span><span class="params">()</span></span>&#123; <span class="comment">// 使用该函数的前提是导入了 reg52.h</span></span><br><span class="line">    SCON = <span class="number">0x40</span>;</span><br><span class="line">    PCON |= <span class="number">0x80</span>;</span><br><span class="line">    TMOD &amp;= <span class="number">0x0F</span>; <span class="comment">// 将高4位置0</span></span><br><span class="line">    TMOD |= <span class="number">0x10</span>;</span><br><span class="line">    <span class="comment">// 赋初值 19.2kbit</span></span><br><span class="line">    TH1 = <span class="number">0xFD</span>;</span><br><span class="line">    TL1 = <span class="number">0xFD</span>;</span><br><span class="line">    <span class="comment">// 启动定时器</span></span><br><span class="line">    TR1 = <span class="number">1</span>;</span><br><span class="line">    <span class="comment">// 开中断</span></span><br><span class="line">    EA = <span class="number">1</span>;</span><br><span class="line">    ES = <span class="number">1</span>;   </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>定义发送字符串函数</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">sendchar</span><span class="params">(<span class="keyword">char</span> data)</span></span>&#123;</span><br><span class="line">    <span class="comment">// 给发送缓冲区写值</span></span><br><span class="line">    SBUF = data;</span><br><span class="line">    <span class="comment">// 判断是否读取完毕</span></span><br><span class="line">    <span class="keyword">while</span>(TI==<span class="number">0</span>);</span><br><span class="line">    TI=<span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>定义中断的方式接收字符</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">getChar</span><span class="params">()</span> interrupt 4 </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(RI)&#123;</span><br><span class="line">        RI = <span class="number">0</span>;</span><br><span class="line">        ch = SBUF;</span><br><span class="line">       	read_flag = <span class="number">1</span>; <span class="comment">// 读取一个字节的标志位（全局）    </span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 </li>
 </ul>
+<h4 id="10-串口通信-发送与接收"><a href="#10-串口通信-发送与接收" class="headerlink" title="10.  串口通信-发送与接收"></a>10.  串口通信-发送与接收</h4><ul>
+<li><p>在PC端通过串口工具发送字符，在单片机一侧实现接收字符，再把接收到的字符发送回PC</p>
+</li>
+<li><p>代码</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"reg52.h"</span></span></span><br><span class="line">bit read_flag = <span class="number">0</span>;	<span class="comment">// 读取的标志位</span></span><br><span class="line"><span class="keyword">unsigned</span> <span class="keyword">char</span> ch;		<span class="comment">// 存放读取到的字符</span></span><br><span class="line"><span class="comment">// 串口通信的初始化</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">init_serialcom</span><span class="params">( <span class="keyword">void</span> )</span> </span>&#123; </span><br><span class="line">     SCON = <span class="number">0x50</span> ;  <span class="comment">//SCON: serail mode 1, 8-bit UART, enable ucvr </span></span><br><span class="line">	   TMOD |= <span class="number">0x20</span> ; <span class="comment">//TMOD: timer 1, mode 2, 8-bit reload </span></span><br><span class="line">	   PCON |= <span class="number">0x80</span> ; <span class="comment">//SMOD=1; </span></span><br><span class="line">	   TH1 = <span class="number">0xFA</span> ;   <span class="comment">//Baud:9600 fosc=11.0592MHz </span></span><br><span class="line">	   IE |= <span class="number">0x90</span> ;   <span class="comment">//Enable Serial Interrupt </span></span><br><span class="line">	   TR1 = <span class="number">1</span> ;     <span class="comment">// timer 1 run </span></span><br><span class="line">	   TI=<span class="number">1</span>; </span><br><span class="line">	&#125;</span><br><span class="line"><span class="comment">// 发送字符</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">send_char_com</span><span class="params">( <span class="keyword">unsigned</span> <span class="keyword">char</span> ch)</span> </span>&#123; </span><br><span class="line">	SBUF = ch; </span><br><span class="line">	<span class="keyword">while</span> (TI== <span class="number">0</span>); </span><br><span class="line">	TI= <span class="number">0</span> ; </span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 串口监听字符</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">serial</span> <span class="params">()</span> interrupt 4 <span class="keyword">using</span> 3 </span>&#123; </span><br><span class="line">	<span class="keyword">if</span> (RI) &#123;  </span><br><span class="line">		RI = <span class="number">0</span> ; </span><br><span class="line">		ch=SBUF; </span><br><span class="line">		read_flag= <span class="number">1</span> ;	</span><br><span class="line">		&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	init_serialcom();					</span><br><span class="line">	<span class="keyword">while</span>(<span class="number">1</span>)&#123;</span><br><span class="line">	<span class="keyword">if</span>(read_flag==<span class="number">1</span>)&#123;				<span class="comment">// 判断是否读取到数据</span></span><br><span class="line">				send_char_com(ch);	<span class="comment">// 将读取到的数据发送出去</span></span><br><span class="line">				read_flag=<span class="number">0</span>;				<span class="comment">// 将读取标志清零</span></span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h4 id="11-串口通信-pc控制单片机"><a href="#11-串口通信-pc控制单片机" class="headerlink" title="11. 串口通信-pc控制单片机"></a>11. 串口通信-pc控制单片机</h4><ul>
+<li><p>PC端通过串口发送命令，控制单片机外设工作，如PC端用十六进制发送0x01，点亮单片机上第一个LED灯，发送0x02，点亮第二个LED，以此类推</p>
+</li>
+<li><p>代码</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"reg52.h"</span></span></span><br><span class="line">bit read_flag = <span class="number">0</span>;	<span class="comment">// 读取的标志位</span></span><br><span class="line"><span class="keyword">unsigned</span> <span class="keyword">char</span> ch;		<span class="comment">// 存放读取到的字符</span></span><br><span class="line"><span class="comment">// 串口通信的初始化</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">init_serialcom</span><span class="params">( <span class="keyword">void</span> )</span> </span></span><br><span class="line"><span class="function">   </span>&#123; </span><br><span class="line">     SCON = <span class="number">0x50</span> ;  <span class="comment">//SCON: serail mode 1, 8-bit UART, enable ucvr </span></span><br><span class="line">	   TMOD |= <span class="number">0x20</span> ; <span class="comment">//TMOD: timer 1, mode 2, 8-bit reload </span></span><br><span class="line">	   PCON |= <span class="number">0x80</span> ; <span class="comment">//SMOD=1; </span></span><br><span class="line">	   TH1 = <span class="number">0xFA</span> ;   <span class="comment">//Baud:9600 fosc=11.0592MHz </span></span><br><span class="line">	   IE |= <span class="number">0x90</span> ;   <span class="comment">//Enable Serial Interrupt </span></span><br><span class="line">	   TR1 = <span class="number">1</span> ;     <span class="comment">// timer 1 run </span></span><br><span class="line">	   TI=<span class="number">1</span>; </span><br><span class="line">	&#125;</span><br><span class="line"><span class="comment">// 发送字符</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">send_char_com</span><span class="params">( <span class="keyword">unsigned</span> <span class="keyword">char</span> ch)</span> </span>&#123; </span><br><span class="line">	SBUF = ch; </span><br><span class="line">	<span class="keyword">while</span> (TI== <span class="number">0</span>); </span><br><span class="line">	TI= <span class="number">0</span> ; </span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 串口监听字符</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">serial</span> <span class="params">()</span> interrupt 4 <span class="keyword">using</span> 3 </span>&#123; </span><br><span class="line">	<span class="keyword">if</span> (RI) &#123;  </span><br><span class="line">		RI = <span class="number">0</span> ; </span><br><span class="line">		ch=SBUF; </span><br><span class="line">		read_flag= <span class="number">1</span> ;	</span><br><span class="line">		&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	init_serialcom();					</span><br><span class="line">	<span class="keyword">while</span>(<span class="number">1</span>)&#123;</span><br><span class="line">	<span class="keyword">if</span>(read_flag==<span class="number">1</span>)&#123;				<span class="comment">// 判断是否读取到数据</span></span><br><span class="line">			<span class="keyword">switch</span>(ch)&#123;</span><br><span class="line">				<span class="keyword">case</span> <span class="number">0x01</span>:</span><br><span class="line">					P1 = ~(<span class="number">0x01</span>);</span><br><span class="line">					<span class="keyword">break</span>;</span><br><span class="line">				<span class="keyword">case</span> <span class="number">0x02</span>:</span><br><span class="line">					P1 = ~(<span class="number">0x01</span>&lt;&lt;<span class="number">1</span>);</span><br><span class="line">					<span class="keyword">break</span>;</span><br><span class="line">				<span class="keyword">case</span> <span class="number">0x03</span>:</span><br><span class="line">					P1 = ~(<span class="number">0x01</span>&lt;&lt;<span class="number">2</span>);</span><br><span class="line">					<span class="keyword">break</span>;</span><br><span class="line">				<span class="keyword">case</span> <span class="number">0x04</span>:</span><br><span class="line">					P1 = ~(<span class="number">0x01</span>&lt;&lt;<span class="number">3</span>);</span><br><span class="line">					<span class="keyword">break</span>;</span><br><span class="line">				<span class="keyword">case</span> <span class="number">0x05</span>:</span><br><span class="line">					P1 = ~(<span class="number">0x01</span>&lt;&lt;<span class="number">4</span>);</span><br><span class="line">					<span class="keyword">break</span>;</span><br><span class="line">				<span class="keyword">case</span> <span class="number">0x06</span>:</span><br><span class="line">					P1 = ~(<span class="number">0x01</span>&lt;&lt;<span class="number">5</span>);</span><br><span class="line">					<span class="keyword">break</span>;</span><br><span class="line">				<span class="keyword">case</span> <span class="number">0x07</span>:</span><br><span class="line">					P1 = ~(<span class="number">0x01</span>&lt;&lt;<span class="number">6</span>);</span><br><span class="line">					<span class="keyword">break</span>;</span><br><span class="line">				<span class="keyword">default</span>:</span><br><span class="line">					P1 = ~(<span class="number">0x01</span>&lt;&lt;<span class="number">7</span>);</span><br><span class="line">					<span class="keyword">break</span>;</span><br><span class="line">			&#125;</span><br><span class="line">			read_flag=<span class="number">0</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h4 id="12-串口通信-多命令的读取与判断"><a href="#12-串口通信-多命令的读取与判断" class="headerlink" title="12. 串口通信-多命令的读取与判断"></a>12. 串口通信-多命令的读取与判断</h4><ul>
+<li><p>制定一个简单的串口通信协议，如下表，编写单片机的串口中断程序，解析以下命令并执行</p>
+</li>
+<li><table>
+<thead>
+<tr>
+<th>第一个字节</th>
+<th>第二个字节</th>
+<th>第三个字节</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>0xff：命令头部</td>
+<td>0x01：点亮  0x02：熄灭</td>
+<td>0x01：第一个LED  0x02：第二个LED  …</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>例如：当PC端向单片机发送0xff 0x01 0x02 命令 则点亮第二个LED</p>
+<p>当PC端向单片机发送0xff 0x02 0x05 命令 则熄灭第五个LED</p>
+</blockquote>
+</li>
+<li><p>代码</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"reg52.h"</span></span></span><br><span class="line"><span class="keyword">unsigned</span> <span class="keyword">char</span> read_flag;	<span class="comment">// 命令标志位</span></span><br><span class="line"><span class="keyword">unsigned</span> <span class="keyword">char</span> ch;					<span class="comment">// 读取来自PC端的字符</span></span><br><span class="line"><span class="keyword">unsigned</span> <span class="keyword">char</span> is_light;		<span class="comment">// 灯亮标志位</span></span><br><span class="line"><span class="comment">// 串口通信的初始化</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">init_serialcom</span><span class="params">( <span class="keyword">void</span> )</span> </span>&#123; </span><br><span class="line">	 SCON = <span class="number">0x50</span> ;  <span class="comment">//SCON: serail mode 1, 8-bit UART, enable ucvr </span></span><br><span class="line">	 TMOD |= <span class="number">0x20</span> ; <span class="comment">//TMOD: timer 1, mode 2, 8-bit reload </span></span><br><span class="line">	 PCON |= <span class="number">0x80</span> ; <span class="comment">//SMOD=1; </span></span><br><span class="line">	 TH1 = <span class="number">0xFA</span> ;   <span class="comment">//Baud:9600 fosc=11.0592MHz </span></span><br><span class="line">	 IE |= <span class="number">0x90</span> ;   <span class="comment">//Enable Serial Interrupt </span></span><br><span class="line">	 TR1 = <span class="number">1</span> ;     <span class="comment">// timer 1 run </span></span><br><span class="line">	 TI=<span class="number">1</span>; </span><br><span class="line">&#125; </span><br><span class="line"><span class="comment">// 监听中断</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">serial</span> <span class="params">()</span> interrupt 4 <span class="keyword">using</span> 3 </span>&#123; </span><br><span class="line">	<span class="keyword">if</span> (RI)&#123; 		<span class="comment">// 每当RI读取1个字节，就会置1  。</span></span><br><span class="line">		RI=<span class="number">0</span>;			<span class="comment">// 读取标志位清零</span></span><br><span class="line">		ch=SBUF;	<span class="comment">// 从缓冲区获取数据</span></span><br><span class="line">		<span class="keyword">if</span>(ch==<span class="number">0xff</span>)&#123;		<span class="comment">// 读取到第一个命令（标志命令的开端）</span></span><br><span class="line">			read_flag = <span class="number">1</span>;<span class="comment">// 判断读到第一个命令</span></span><br><span class="line">		&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">			<span class="keyword">if</span>(read_flag==<span class="number">1</span>)&#123;		<span class="comment">// 读取到第2个命令（灯亮的标志位）</span></span><br><span class="line">				read_flag=<span class="number">2</span>;			<span class="comment">// 设置标志位为2</span></span><br><span class="line">				<span class="keyword">if</span>(ch==<span class="number">0x01</span>)&#123;</span><br><span class="line">					is_light = <span class="number">1</span>; 	<span class="comment">// 设置灯亮</span></span><br><span class="line">				&#125;<span class="keyword">else</span> <span class="keyword">if</span>(ch==<span class="number">0x02</span>)&#123;</span><br><span class="line">					is_light = <span class="number">0</span>; 	<span class="comment">// 设置灯灭</span></span><br><span class="line">				&#125;</span><br><span class="line">			&#125;<span class="keyword">else</span> <span class="keyword">if</span>(read_flag==<span class="number">2</span>)&#123;	<span class="comment">// 读取到第3个命令（灯控位）</span></span><br><span class="line">				read_flag =<span class="number">0</span>; 				<span class="comment">// 将标志位清空</span></span><br><span class="line">				<span class="keyword">if</span>(is_light)&#123;		<span class="comment">// 灯亮(将该位，置0，其他位不变)</span></span><br><span class="line">					<span class="keyword">switch</span>(ch)&#123;</span><br><span class="line">						<span class="keyword">case</span> <span class="number">0x01</span>:</span><br><span class="line">							P1 &amp;= ~(<span class="number">0x01</span>);</span><br><span class="line">							<span class="keyword">break</span>;</span><br><span class="line">						<span class="keyword">case</span> <span class="number">0x02</span>:</span><br><span class="line">							P1 &amp;= ~(<span class="number">0x01</span>&lt;&lt;<span class="number">1</span>);</span><br><span class="line">							<span class="keyword">break</span>;</span><br><span class="line">						<span class="keyword">case</span> <span class="number">0x03</span>:</span><br><span class="line">							P1 &amp;= ~(<span class="number">0x01</span>&lt;&lt;<span class="number">2</span>);</span><br><span class="line">							<span class="keyword">break</span>;</span><br><span class="line">						<span class="keyword">case</span> <span class="number">0x04</span>:</span><br><span class="line">							P1 &amp;= ~(<span class="number">0x01</span>&lt;&lt;<span class="number">3</span>);</span><br><span class="line">							<span class="keyword">break</span>;</span><br><span class="line">						<span class="keyword">case</span> <span class="number">0x05</span>:</span><br><span class="line">							P1 &amp;= ~(<span class="number">0x01</span>&lt;&lt;<span class="number">4</span>);</span><br><span class="line">							<span class="keyword">break</span>;</span><br><span class="line">						<span class="keyword">case</span> <span class="number">0x06</span>:</span><br><span class="line">							P1 &amp;= ~(<span class="number">0x01</span>&lt;&lt;<span class="number">5</span>);</span><br><span class="line">							<span class="keyword">break</span>;</span><br><span class="line">						<span class="keyword">case</span> <span class="number">0x07</span>:</span><br><span class="line">							P1 &amp;= ~(<span class="number">0x01</span>&lt;&lt;<span class="number">6</span>);</span><br><span class="line">							<span class="keyword">break</span>;</span><br><span class="line">						<span class="keyword">case</span> <span class="number">0x08</span>:</span><br><span class="line">							P1 &amp;= ~(<span class="number">0x01</span>&lt;&lt;<span class="number">7</span>);</span><br><span class="line">							<span class="keyword">break</span>;</span><br><span class="line">					&#125;</span><br><span class="line">				&#125;<span class="keyword">else</span>&#123;	<span class="comment">// 灯灭(将该位，置1，其他位不变)</span></span><br><span class="line">					<span class="keyword">switch</span>(ch)&#123;</span><br><span class="line">						<span class="keyword">case</span> <span class="number">0x01</span>:</span><br><span class="line">							P1 |= (<span class="number">0x01</span>);</span><br><span class="line">							<span class="keyword">break</span>;</span><br><span class="line">						<span class="keyword">case</span> <span class="number">0x02</span>:</span><br><span class="line">							P1 |= (<span class="number">0x01</span>&lt;&lt;<span class="number">1</span>);</span><br><span class="line">							<span class="keyword">break</span>;</span><br><span class="line">						<span class="keyword">case</span> <span class="number">0x03</span>:</span><br><span class="line">							P1 |= (<span class="number">0x01</span>&lt;&lt;<span class="number">2</span>);</span><br><span class="line">							<span class="keyword">break</span>;</span><br><span class="line">						<span class="keyword">case</span> <span class="number">0x04</span>:</span><br><span class="line">							P1 |= (<span class="number">0x01</span>&lt;&lt;<span class="number">3</span>);</span><br><span class="line">							<span class="keyword">break</span>;</span><br><span class="line">						<span class="keyword">case</span> <span class="number">0x05</span>:</span><br><span class="line">							P1 |= (<span class="number">0x01</span>&lt;&lt;<span class="number">4</span>);</span><br><span class="line">							<span class="keyword">break</span>;</span><br><span class="line">						<span class="keyword">case</span> <span class="number">0x06</span>:</span><br><span class="line">							P1 |= (<span class="number">0x01</span>&lt;&lt;<span class="number">5</span>);</span><br><span class="line">							<span class="keyword">break</span>;</span><br><span class="line">						<span class="keyword">case</span> <span class="number">0x07</span>:</span><br><span class="line">							P1 |= (<span class="number">0x01</span>&lt;&lt;<span class="number">6</span>);</span><br><span class="line">							<span class="keyword">break</span>;</span><br><span class="line">						<span class="keyword">case</span> <span class="number">0x08</span>:</span><br><span class="line">							P1 |= (<span class="number">0x01</span>&lt;&lt;<span class="number">7</span>);</span><br><span class="line">							<span class="keyword">break</span>;</span><br><span class="line">					&#125;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	init_serialcom();	<span class="comment">// 初始化参数</span></span><br><span class="line">	<span class="keyword">while</span>(<span class="number">1</span>);					<span class="comment">// 死循环等待读取完毕中断产生</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>注意：</p>
+<ul>
+<li>本题难点不在于代码逻辑的实现，而是在于通信之间数据的交互</li>
+</ul>
+</blockquote>
+</li>
+<li><p>串口助手</p>
+<p><img src="/images/%E5%8D%95%E7%89%87%E6%9C%BA-%E4%B8%B2%E5%8F%A3%E5%8A%A9%E6%89%8B.png" alt="单片机-串口助手"></p>
+<blockquote>
+<p>注意：</p>
+<ul>
+<li><p>在使用该助手的时候，在PC发送数据给单片机的时候，在选择HEX模式（十六进制）的时候，发送数据时不要加0x前缀或者在前面补0，直接写对应的数值，例如：ff 2 5不要写成0xff 0x02 0x05或者ff 02 05。否则出现的逻辑错误调试调到怀疑人生</p>
+</li>
+<li><p>每次使用时记得打开串口，而且使用前，波特率记得要选对，串口在左上角串口号可以看到当前使用的是哪一个串口。</p>
+</li>
+</ul>
+</blockquote>
+</li>
+</ul>
 <hr>
-<p>未完待续……</p>
+<p>已经完结了！！！！发现有什么错误，欢迎留言指出。</p>
 
       
     </div>
@@ -681,7 +902,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#单片机实验"><span class="nav-number">1.</span> <span class="nav-text">单片机实验</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#运行环境"><span class="nav-number">1.0.0.1.</span> <span class="nav-text">运行环境</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-LED灯循环点亮"><span class="nav-number">1.0.0.2.</span> <span class="nav-text">1. LED灯循环点亮</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-航标灯"><span class="nav-number">1.0.0.3.</span> <span class="nav-text">2. 航标灯</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-LED灯前进"><span class="nav-number">1.0.0.4.</span> <span class="nav-text">3. LED灯前进</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-动态刷新-显示学号"><span class="nav-number">1.0.0.5.</span> <span class="nav-text">4. 动态刷新-显示学号</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-动态显示000000001-gt-99999999"><span class="nav-number">1.0.0.6.</span> <span class="nav-text">5. 动态显示000000001-&gt;99999999</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-矩阵键盘扫描"><span class="nav-number">1.0.0.7.</span> <span class="nav-text">6. 矩阵键盘扫描</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-中断控制数码管计数"><span class="nav-number">1.0.0.8.</span> <span class="nav-text">7. 中断控制数码管计数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#8-蜂鸣器输出不同音调"><span class="nav-number">1.0.0.9.</span> <span class="nav-text">8. 蜂鸣器输出不同音调</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#单片机实验"><span class="nav-number">1.</span> <span class="nav-text">单片机实验</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#运行环境"><span class="nav-number">1.0.0.1.</span> <span class="nav-text">运行环境</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-LED灯循环点亮"><span class="nav-number">1.0.0.2.</span> <span class="nav-text">1. LED灯循环点亮</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-航标灯"><span class="nav-number">1.0.0.3.</span> <span class="nav-text">2. 航标灯</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-LED灯前进"><span class="nav-number">1.0.0.4.</span> <span class="nav-text">3. LED灯前进</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-动态刷新-显示学号"><span class="nav-number">1.0.0.5.</span> <span class="nav-text">4. 动态刷新-显示学号</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-动态显示000000001-gt-99999999"><span class="nav-number">1.0.0.6.</span> <span class="nav-text">5. 动态显示000000001-&gt;99999999</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-矩阵键盘扫描"><span class="nav-number">1.0.0.7.</span> <span class="nav-text">6. 矩阵键盘扫描</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-中断控制数码管计数"><span class="nav-number">1.0.0.8.</span> <span class="nav-text">7. 中断控制数码管计数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#8-蜂鸣器输出不同音调"><span class="nav-number">1.0.0.9.</span> <span class="nav-text">8. 蜂鸣器输出不同音调</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#9-串口编程入门"><span class="nav-number">1.0.0.10.</span> <span class="nav-text">9. 串口编程入门</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#10-串口通信-发送与接收"><span class="nav-number">1.0.0.11.</span> <span class="nav-text">10.  串口通信-发送与接收</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#11-串口通信-pc控制单片机"><span class="nav-number">1.0.0.12.</span> <span class="nav-text">11. 串口通信-pc控制单片机</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#12-串口通信-多命令的读取与判断"><span class="nav-number">1.0.0.13.</span> <span class="nav-text">12. 串口通信-多命令的读取与判断</span></a></li></ol></li></ol></div>
             
 
           </div>
