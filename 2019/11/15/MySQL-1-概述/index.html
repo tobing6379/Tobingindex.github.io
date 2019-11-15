@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="MySQL,">
+  <meta name="keywords" content="MySQL,复习,">
 
 
 
@@ -79,19 +79,20 @@
 
 
 
-<meta name="description" content="MySQL复习笔记1-数据库概述1. 数据库的引入 常见不同存放数据介质的比较    存储位置 优点 缺点    内存 速度快 断电丢失   硬盘 永久保存 操作数据不方便   数据库 永久保存、查询速度快、易于管理数据 占用资源，收费    何为数据库  存储数据的仓库 本质上是一个文件系统，还是以文件的方式存放在服务器中。 所有的关系型数据库都可以使用通用的SQL（ 指结构化查询语言，全称是">
-<meta name="keywords" content="MySQL">
+<meta name="description" content="MySQL-1-概述1. 数据库引入 常见不同存放数据介质的比较    存储位置 优点 缺点    内存 速度快 断电丢失   硬盘 永久保存 操作数据不方便   数据库 永久保存、查询速度快、易于管理数据 占用资源，收费    何为数据库  存储数据的仓库 本质上是一个文件系统，还是以文件的方式存放在服务器中。 所有的关系型数据库都可以使用通用的SQL（ 指结构化查询语言，全称是 Structu">
+<meta name="keywords" content="MySQL,复习">
 <meta property="og:type" content="article">
-<meta property="og:title" content="MySQL复习1">
-<meta property="og:url" content="https://tobing.top/2019/11/01/MySQL复习1/index.html">
+<meta property="og:title" content="MySQL-1-概述">
+<meta property="og:url" content="https://tobing.top/2019/11/15/MySQL-1-概述/index.html">
 <meta property="og:site_name" content="tobing">
-<meta property="og:description" content="MySQL复习笔记1-数据库概述1. 数据库的引入 常见不同存放数据介质的比较    存储位置 优点 缺点    内存 速度快 断电丢失   硬盘 永久保存 操作数据不方便   数据库 永久保存、查询速度快、易于管理数据 占用资源，收费    何为数据库  存储数据的仓库 本质上是一个文件系统，还是以文件的方式存放在服务器中。 所有的关系型数据库都可以使用通用的SQL（ 指结构化查询语言，全称是">
+<meta property="og:description" content="MySQL-1-概述1. 数据库引入 常见不同存放数据介质的比较    存储位置 优点 缺点    内存 速度快 断电丢失   硬盘 永久保存 操作数据不方便   数据库 永久保存、查询速度快、易于管理数据 占用资源，收费    何为数据库  存储数据的仓库 本质上是一个文件系统，还是以文件的方式存放在服务器中。 所有的关系型数据库都可以使用通用的SQL（ 指结构化查询语言，全称是 Structu">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://tobing.top/images/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F-%E6%95%B0%E6%8D%AE%E5%BA%93%E5%92%8C%E8%A1%A8%E7%9A%84%E5%85%B3%E7%B3%BB-1572069432517.png">
-<meta property="og:updated_time" content="2019-11-01T12:55:37.285Z">
+<meta property="og:image" content="https://tobing.top/images/SQL%E4%B8%8EMySQL.png">
+<meta property="og:updated_time" content="2019-11-15T14:10:17.249Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="MySQL复习1">
-<meta name="twitter:description" content="MySQL复习笔记1-数据库概述1. 数据库的引入 常见不同存放数据介质的比较    存储位置 优点 缺点    内存 速度快 断电丢失   硬盘 永久保存 操作数据不方便   数据库 永久保存、查询速度快、易于管理数据 占用资源，收费    何为数据库  存储数据的仓库 本质上是一个文件系统，还是以文件的方式存放在服务器中。 所有的关系型数据库都可以使用通用的SQL（ 指结构化查询语言，全称是">
+<meta name="twitter:title" content="MySQL-1-概述">
+<meta name="twitter:description" content="MySQL-1-概述1. 数据库引入 常见不同存放数据介质的比较    存储位置 优点 缺点    内存 速度快 断电丢失   硬盘 永久保存 操作数据不方便   数据库 永久保存、查询速度快、易于管理数据 占用资源，收费    何为数据库  存储数据的仓库 本质上是一个文件系统，还是以文件的方式存放在服务器中。 所有的关系型数据库都可以使用通用的SQL（ 指结构化查询语言，全称是 Structu">
 <meta name="twitter:image" content="https://tobing.top/images/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F-%E6%95%B0%E6%8D%AE%E5%BA%93%E5%92%8C%E8%A1%A8%E7%9A%84%E5%85%B3%E7%B3%BB-1572069432517.png">
 
 
@@ -122,13 +123,13 @@
 
 
 
-  <link rel="canonical" href="https://tobing.top/2019/11/01/MySQL复习1/">
+  <link rel="canonical" href="https://tobing.top/2019/11/15/MySQL-1-概述/">
 
 
 
 
 
-  <title>MySQL复习1 | tobing</title>
+  <title>MySQL-1-概述 | tobing</title>
   
 
 
@@ -295,7 +296,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://tobing.top/2019/11/01/MySQL复习1/">
+    <link itemprop="mainEntityOfPage" href="https://tobing.top/2019/11/15/MySQL-1-概述/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="tobing">
@@ -312,7 +313,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">MySQL复习1</h1>
+          <h1 class="post-title" itemprop="name headline">MySQL-1-概述</h1>
         
 
         <div class="post-meta">
@@ -324,8 +325,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-11-01T20:46:24+08:00">
-                2019-11-01
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-11-15T22:06:55+08:00">
+                2019-11-15
               </time>
             
 
@@ -347,8 +348,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/MySQL/" itemprop="url" rel="index">
-                    <span itemprop="name">MySQL</span>
+                  <a href="/categories/数据库/" itemprop="url" rel="index">
+                    <span itemprop="name">数据库</span>
                   </a>
                 </span>
 
@@ -365,8 +366,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2019/11/01/MySQL复习1/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/11/01/MySQL复习1/" itemprop="commentCount"></span>
+                <a href="/2019/11/15/MySQL-1-概述/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/11/15/MySQL-1-概述/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -374,7 +375,7 @@
 
           
           
-             <span id="/2019/11/01/MySQL复习1/" class="leancloud_visitors" data-flag-title="MySQL复习1">
+             <span id="/2019/11/15/MySQL-1-概述/" class="leancloud_visitors" data-flag-title="MySQL-1-概述">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -405,7 +406,7 @@
       
 
       
-        <h1 id="MySQL复习笔记1-数据库概述"><a href="#MySQL复习笔记1-数据库概述" class="headerlink" title="MySQL复习笔记1-数据库概述"></a>MySQL复习笔记1-数据库概述</h1><h4 id="1-数据库的引入"><a href="#1-数据库的引入" class="headerlink" title="1. 数据库的引入"></a>1. 数据库的引入</h4><ol>
+        <h1 id="MySQL-1-概述"><a href="#MySQL-1-概述" class="headerlink" title="MySQL-1-概述"></a>MySQL-1-概述</h1><h2 id="1-数据库引入"><a href="#1-数据库引入" class="headerlink" title="1. 数据库引入"></a>1. 数据库引入</h2><ol>
 <li><p>常见不同存放数据介质的比较</p>
 <table>
 <thead>
@@ -449,22 +450,22 @@
 </ul>
 </li>
 </ol>
-<h4 id="2-安装"><a href="#2-安装" class="headerlink" title="2. 安装"></a>2. 安装</h4><ul>
+<h2 id="2-数据库安装与使用"><a href="#2-数据库安装与使用" class="headerlink" title="2. 数据库安装与使用"></a>2. 数据库安装与使用</h2><h4 id="1-安装"><a href="#1-安装" class="headerlink" title="1. 安装"></a>1. 安装</h4><ul>
 <li>下载<a href="https://dev.mysql.com/downloads/mysql/5.7.html" target="_blank" rel="noopener">Mysql5.X</a></li>
 <li>自行百度</li>
 </ul>
-<h4 id="3-卸载"><a href="#3-卸载" class="headerlink" title="3. 卸载"></a>3. 卸载</h4><ol>
+<h4 id="2-卸载"><a href="#2-卸载" class="headerlink" title="2. 卸载"></a>2. 卸载</h4><ol>
 <li>服务</li>
 <li>找到名称为：<code>MySql</code>关闭</li>
 <li>程序与功能中卸载</li>
 <li>删除MySQL中的所有文件</li>
 <li>删除C盘中<code>ProgramDate</code>目录关于MySQL的目录，且该目录为隐藏文件。</li>
 </ol>
-<h4 id="4-MySQL服务启动"><a href="#4-MySQL服务启动" class="headerlink" title="4.  MySQL服务启动"></a>4.  MySQL服务启动</h4><ul>
+<h4 id="3-MySQL服务启动"><a href="#3-MySQL服务启动" class="headerlink" title="3.  MySQL服务启动"></a>3.  MySQL服务启动</h4><ul>
 <li>搜索：服务</li>
 <li>找到：名称为MySQL，开启</li>
 </ul>
-<h4 id="5-MySQL登录与退出"><a href="#5-MySQL登录与退出" class="headerlink" title="5. MySQL登录与退出"></a>5. MySQL登录与退出</h4><ul>
+<h4 id="4-MySQL登录与退出"><a href="#4-MySQL登录与退出" class="headerlink" title="4. MySQL登录与退出"></a>4. MySQL登录与退出</h4><ul>
 <li><p>登录</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mysql -u[用户名] -p[密码]       # 显式输入密码</span><br><span class="line">mysql -u[用户名] -p # 直接回车   # 隐式输入密码</span><br></pre></td></tr></table></figure>
 
@@ -475,16 +476,16 @@
 
 </li>
 </ul>
-<h4 id="6-MySQL图形化软件"><a href="#6-MySQL图形化软件" class="headerlink" title="6. MySQL图形化软件"></a>6. MySQL图形化软件</h4><ul>
+<h4 id="5-MySQL图形化软件"><a href="#5-MySQL图形化软件" class="headerlink" title="5. MySQL图形化软件"></a>5. MySQL图形化软件</h4><ul>
 <li><code>SQLyog</code></li>
 </ul>
-<h4 id="7-MySQL目录结构"><a href="#7-MySQL目录结构" class="headerlink" title="7. MySQL目录结构"></a>7. MySQL目录结构</h4><ul>
+<h4 id="6-MySQL目录结构"><a href="#6-MySQL目录结构" class="headerlink" title="6. MySQL目录结构"></a>6. MySQL目录结构</h4><ul>
 <li>bin：所有MySQL可执行文件，如mysql.exe。</li>
 <li>data：存放系统必须的数据库</li>
 <li>MySQLInstanceConfig.exe：数据库配置向导</li>
 <li><code>C:\ProgramData\MySQL\MySQL Server 5.5\data</code>：隐藏文件夹，存放自定义的数据库</li>
 </ul>
-<h4 id="8-数据库管理系统"><a href="#8-数据库管理系统" class="headerlink" title="8. 数据库管理系统"></a>8. 数据库管理系统</h4><ul>
+<h4 id="7-数据库管理系统"><a href="#7-数据库管理系统" class="headerlink" title="7. 数据库管理系统"></a>7. 数据库管理系统</h4><ul>
 <li><p>数据库管理系统：DataBase Management System，DBMS。指一种操作和管理数据库的大型软件，用于建 立、使用和维护数据库，对数据库进行统一管理和控制，以保证数据库的安全性和完整性。用户通过数据库管理 系统访问数据库中表内的数据 </p>
 </li>
 <li><p>数据库管理程序(DBMS)可以管理多个数据库，一般开发人员会针对每一个应用创建一个数据库。为保存应用 中实体的数据，一般会在数据库创建多个表，以保存程序中实体 User 的数据。 </p>
@@ -497,6 +498,44 @@
 <li>一张表包含多条记录</li>
 </ul>
 </li>
+</ul>
+<h2 id="3-数据库语法初识"><a href="#3-数据库语法初识" class="headerlink" title="3. 数据库语法初识"></a>3. 数据库语法初识</h2><h4 id="1-SQL是什么"><a href="#1-SQL是什么" class="headerlink" title="1. SQL是什么"></a>1. SQL是什么</h4><ul>
+<li>SQL：Structured Query Language 结构化查询语言 </li>
+</ul>
+<h4 id="2-SQL的作用"><a href="#2-SQL的作用" class="headerlink" title="2. SQL的作用"></a>2. SQL的作用</h4><ul>
+<li><p>是一种所有关系型数据库的查询规范，不同的数据库都支持。 </p>
+</li>
+<li><p>通用的数据库操作语言，可以用在不同的数据库中。 </p>
+</li>
+<li><p>不同的数据库 SQL 语句有一些区别 </p>
+<p><img src="/images/SQL%E4%B8%8EMySQL.png" alt="SQL与MySQL"></p>
+</li>
+</ul>
+<h4 id="3-SQL语句分类"><a href="#3-SQL语句分类" class="headerlink" title="3. SQL语句分类"></a>3. SQL语句分类</h4><ul>
+<li>DDL：数据定义语言（Data Definition Language ）<ul>
+<li>建表，建库</li>
+</ul>
+</li>
+<li><code>DML</code>：数据操纵语言（Data Manipulation Language）<ul>
+<li>对表中记录增删改查</li>
+</ul>
+</li>
+<li><code>DQL</code>：数据查询语言（Data Query Language）<ul>
+<li>查询表中数据</li>
+</ul>
+</li>
+<li>DCL：数据控制语言（Data Control Language）<ul>
+<li>用户权限</li>
+</ul>
+</li>
+</ul>
+<h4 id="4-MySQL方言"><a href="#4-MySQL方言" class="headerlink" title="4. MySQL方言"></a>4. MySQL方言</h4><ul>
+<li><p>每条语句以分号结尾，如果在 SQLyog 中不是必须加的。 </p>
+</li>
+<li><p>SQL 中不区分大小写，关键字中认为大写和小写是一样的  </p>
+</li>
+<li><p>3中注释</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">-- 这是注释</span><br><span class="line">/*  这也是注释 */</span><br><span class="line"># 这还是注释</span><br></pre></td></tr></table></figure></li>
 </ul>
 
       
@@ -517,6 +556,8 @@
           
             <a href="/tags/MySQL/" rel="tag"># MySQL</a>
           
+            <a href="/tags/复习/" rel="tag"># 复习</a>
+          
         </div>
       
 
@@ -528,8 +569,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/10/26/电信校园宽带安装路由器/" rel="next" title="电信校园宽带安装路由器">
-                <i class="fa fa-chevron-left"></i> 电信校园宽带安装路由器
+              <a href="/2019/11/04/JDBC的封装/" rel="next" title="JDBC的封装">
+                <i class="fa fa-chevron-left"></i> JDBC的封装
               </a>
             
           </div>
@@ -538,8 +579,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/11/01/MySQL复习2/" rel="prev" title="MySQL复习2">
-                MySQL复习2 <i class="fa fa-chevron-right"></i>
+              <a href="/2019/11/15/MySQL-2-基本操作/" rel="prev" title="MySQL-2-基本操作">
+                MySQL-2-基本操作 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -649,7 +690,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">24</span>
+                  <span class="site-state-item-count">25</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -692,7 +733,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#MySQL复习笔记1-数据库概述"><span class="nav-number">1.</span> <span class="nav-text">MySQL复习笔记1-数据库概述</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-数据库的引入"><span class="nav-number">1.0.0.1.</span> <span class="nav-text">1. 数据库的引入</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-安装"><span class="nav-number">1.0.0.2.</span> <span class="nav-text">2. 安装</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-卸载"><span class="nav-number">1.0.0.3.</span> <span class="nav-text">3. 卸载</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-MySQL服务启动"><span class="nav-number">1.0.0.4.</span> <span class="nav-text">4.  MySQL服务启动</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-MySQL登录与退出"><span class="nav-number">1.0.0.5.</span> <span class="nav-text">5. MySQL登录与退出</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-MySQL图形化软件"><span class="nav-number">1.0.0.6.</span> <span class="nav-text">6. MySQL图形化软件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-MySQL目录结构"><span class="nav-number">1.0.0.7.</span> <span class="nav-text">7. MySQL目录结构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#8-数据库管理系统"><span class="nav-number">1.0.0.8.</span> <span class="nav-text">8. 数据库管理系统</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#MySQL-1-概述"><span class="nav-number">1.</span> <span class="nav-text">MySQL-1-概述</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-数据库引入"><span class="nav-number">1.1.</span> <span class="nav-text">1. 数据库引入</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-数据库安装与使用"><span class="nav-number">1.2.</span> <span class="nav-text">2. 数据库安装与使用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-安装"><span class="nav-number">1.2.0.1.</span> <span class="nav-text">1. 安装</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-卸载"><span class="nav-number">1.2.0.2.</span> <span class="nav-text">2. 卸载</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-MySQL服务启动"><span class="nav-number">1.2.0.3.</span> <span class="nav-text">3.  MySQL服务启动</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-MySQL登录与退出"><span class="nav-number">1.2.0.4.</span> <span class="nav-text">4. MySQL登录与退出</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-MySQL图形化软件"><span class="nav-number">1.2.0.5.</span> <span class="nav-text">5. MySQL图形化软件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-MySQL目录结构"><span class="nav-number">1.2.0.6.</span> <span class="nav-text">6. MySQL目录结构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-数据库管理系统"><span class="nav-number">1.2.0.7.</span> <span class="nav-text">7. 数据库管理系统</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-数据库语法初识"><span class="nav-number">1.3.</span> <span class="nav-text">3. 数据库语法初识</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-SQL是什么"><span class="nav-number">1.3.0.1.</span> <span class="nav-text">1. SQL是什么</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-SQL的作用"><span class="nav-number">1.3.0.2.</span> <span class="nav-text">2. SQL的作用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-SQL语句分类"><span class="nav-number">1.3.0.3.</span> <span class="nav-text">3. SQL语句分类</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-MySQL方言"><span class="nav-number">1.3.0.4.</span> <span class="nav-text">4. MySQL方言</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -854,9 +895,9 @@
     
       <script type="text/javascript">
         var disqus_config = function () {
-          this.page.url = 'https://tobing.top/2019/11/01/MySQL复习1/';
-          this.page.identifier = '2019/11/01/MySQL复习1/';
-          this.page.title = 'MySQL复习1';
+          this.page.url = 'https://tobing.top/2019/11/15/MySQL-1-概述/';
+          this.page.identifier = '2019/11/15/MySQL-1-概述/';
+          this.page.title = 'MySQL-1-概述';
         };
         var d = document, s = d.createElement('script');
         s.src = 'https://tobing.disqus.com/embed.js';
