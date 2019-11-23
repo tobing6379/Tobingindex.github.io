@@ -1,0 +1,1247 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="MySQL,复习,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="MySQL-4-多表查询与事务1. 多表查询 语法 123456select	[列名列表]from	[表名列表]where	.....  案例准备：两张表，部门表、员工表 123456789101112131415161718192021222324-- 创建部门表create table dept(	id int primary key auto_increment, -- id 主键 自增长">
+<meta name="keywords" content="MySQL,复习">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MySQL-4-多表查询与事务">
+<meta property="og:url" content="https://tobing.top/2019/11/23/MySQL-4-多表查询与事务/index.html">
+<meta property="og:site_name" content="tobing">
+<meta property="og:description" content="MySQL-4-多表查询与事务1. 多表查询 语法 123456select	[列名列表]from	[表名列表]where	.....  案例准备：两张表，部门表、员工表 123456789101112131415161718192021222324-- 创建部门表create table dept(	id int primary key auto_increment, -- id 主键 自增长">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="e:%5CCode%5CPersonal_website%5Ctobing%5Csource_posts%5Cassets%5C%E4%BA%8B%E5%8A%A1.png">
+<meta property="og:updated_time" content="2019-11-23T02:20:11.123Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="MySQL-4-多表查询与事务">
+<meta name="twitter:description" content="MySQL-4-多表查询与事务1. 多表查询 语法 123456select	[列名列表]from	[表名列表]where	.....  案例准备：两张表，部门表、员工表 123456789101112131415161718192021222324-- 创建部门表create table dept(	id int primary key auto_increment, -- id 主键 自增长">
+<meta name="twitter:image" content="e:%5CCode%5CPersonal_website%5Ctobing%5Csource_posts%5Cassets%5C%E4%BA%8B%E5%8A%A1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://tobing.top/2019/11/23/MySQL-4-多表查询与事务/">
+
+
+
+
+
+  <title>MySQL-4-多表查询与事务 | tobing</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?79d1a38a3f2e0804e9fb5f960582fdd2";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">tobing</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Just so so :)</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br>
+            
+            站点地图
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br>
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://tobing.top/2019/11/23/MySQL-4-多表查询与事务/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="tobing">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="tobing">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">MySQL-4-多表查询与事务</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-11-23T10:11:26+08:00">
+                2019-11-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/数据库/" itemprop="url" rel="index">
+                    <span itemprop="name">数据库</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/11/23/MySQL-4-多表查询与事务/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/11/23/MySQL-4-多表查询与事务/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2019/11/23/MySQL-4-多表查询与事务/" class="leancloud_visitors" data-flag-title="MySQL-4-多表查询与事务">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="MySQL-4-多表查询与事务"><a href="#MySQL-4-多表查询与事务" class="headerlink" title="MySQL-4-多表查询与事务"></a>MySQL-4-多表查询与事务</h1><h2 id="1-多表查询"><a href="#1-多表查询" class="headerlink" title="1. 多表查询"></a>1. 多表查询</h2><ul>
+<li><p>语法</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span></span><br><span class="line">	[列名列表]</span><br><span class="line"><span class="keyword">from</span></span><br><span class="line">	[表名列表]</span><br><span class="line"><span class="keyword">where</span></span><br><span class="line">	.....</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>案例准备：两张表，部门表、员工表</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 创建部门表</span></span><br><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> dept(</span><br><span class="line">	<span class="keyword">id</span> <span class="built_in">int</span> primary <span class="keyword">key</span> auto_increment, <span class="comment">-- id 主键 自增长</span></span><br><span class="line">    <span class="keyword">name</span> <span class="built_in">varchar</span>(<span class="number">20</span>)</span><br><span class="line">);</span><br><span class="line"><span class="comment">-- 创建员工表</span></span><br><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> emp(</span><br><span class="line">	<span class="keyword">id</span> <span class="built_in">int</span> primary <span class="keyword">key</span> auto_increment, <span class="comment">-- id 主键 自增长</span></span><br><span class="line">	<span class="keyword">name</span> <span class="built_in">varchar</span>(<span class="number">20</span>),	<span class="comment">-- 姓名</span></span><br><span class="line">	gender <span class="built_in">char</span>(<span class="number">1</span>),		<span class="comment">-- 性别</span></span><br><span class="line">	salary <span class="keyword">double</span>,		<span class="comment">-- 薪资</span></span><br><span class="line">	join_date <span class="built_in">date</span>,		<span class="comment">-- 入职时间</span></span><br><span class="line">	dept_id <span class="built_in">int</span>,		</span><br><span class="line">	<span class="keyword">foreign</span> <span class="keyword">key</span>(dept_id) <span class="keyword">references</span> dept(<span class="keyword">id</span>) <span class="comment">-- 外键，关联dept表中的id</span></span><br><span class="line">);</span><br><span class="line"><span class="comment">-- 给部门表添加信息</span></span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> dept(<span class="keyword">name</span>) <span class="keyword">values</span>(<span class="string">'开发部'</span>),(<span class="string">'市场部'</span>),(<span class="string">'财务部'</span>);</span><br><span class="line"><span class="comment">-- 给员工表插入数据</span></span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> emp(<span class="keyword">name</span>,gender,salary,join_date,dept_id) <span class="keyword">values</span></span><br><span class="line">	(<span class="string">'Tobing'</span>,<span class="string">'男'</span>,<span class="number">10000</span>,<span class="string">'2018-10-01'</span>,<span class="number">1</span>),</span><br><span class="line">	(<span class="string">'Rongon'</span>,<span class="string">'男'</span>,<span class="number">12000</span>,<span class="string">'2018-10-01'</span>,<span class="number">2</span>),</span><br><span class="line">	(<span class="string">'Zenyet'</span>,<span class="string">'男'</span>,<span class="number">13000</span>,<span class="string">'2018-11-01'</span>,<span class="number">1</span>),</span><br><span class="line">	(<span class="string">'Actogo'</span>,<span class="string">'男'</span>,<span class="number">10000</span>,<span class="string">'2018-10-02'</span>,<span class="number">2</span>),</span><br><span class="line">	(<span class="string">'尼古拉斯'</span>,<span class="string">'男'</span>,<span class="number">10000</span>,<span class="string">'2018-10-01'</span>,<span class="number">3</span>);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>笛卡尔积</p>
+<blockquote>
+<ul>
+<li>每张表中元素的排列组合。</li>
+<li>例如，集合A（n条数据）和集合B（m条数据），其笛卡尔积为m * n条</li>
+</ul>
+</blockquote>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- emp有3条数据</span></span><br><span class="line"><span class="comment">-- dept有5条数据</span></span><br><span class="line"><span class="comment">-- 以下语句查询为两表的笛卡尔积，一共15条数据</span></span><br><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> emp,dept;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>笛卡尔积得出的数据很多都是无用的，实际中常常根据需求消除数据。</p>
+</blockquote>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 查询emp表中每个员工的姓名，id，薪资以及部门。</span></span><br><span class="line"><span class="keyword">SELECT</span> </span><br><span class="line"> 	<span class="comment">-- 查询emp表中的id、nam、salary以及dept表中的name</span></span><br><span class="line">	emp.id,emp.name,emp.<span class="string">`salary`</span>,dept.<span class="string">`name`</span> </span><br><span class="line"><span class="keyword">FROM</span></span><br><span class="line">	emp,dept  <span class="comment">-- 此处通常可以起别名</span></span><br><span class="line"><span class="keyword">WHERE</span> emp.<span class="string">`dept_id`</span>= dept.id;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>多表查询的分类</p>
+<blockquote>
+<ol>
+<li>内连接查询：显示、隐式</li>
+<li>外连接查询：左外连接、右外连接</li>
+</ol>
+</blockquote>
+<ol>
+<li><p>隐式内连接：使用where消除无用数据</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 以上笛卡尔积实例代码就是隐式外连接</span></span><br><span class="line"><span class="keyword">select</span></span><br><span class="line">	[列名列表]</span><br><span class="line"><span class="keyword">from</span></span><br><span class="line">	表<span class="number">1</span>，表<span class="number">2.</span>..</span><br><span class="line"><span class="keyword">where</span></span><br><span class="line">	.....</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>显示内连接</p>
+<blockquote>
+<p>语法</p>
+</blockquote>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> 字段列表 <span class="keyword">from</span> 表<span class="number">1</span> [<span class="keyword">inner</span>] <span class="keyword">join</span> 表<span class="number">2</span> <span class="keyword">on</span> 条件</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>示例</p>
+</blockquote>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span>  * <span class="keyword">FROM</span> emp <span class="keyword">JOIN</span> dept <span class="keyword">ON</span> emp.<span class="string">`dept_id`</span>=dept.<span class="string">`id`</span>;</span><br><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> dept <span class="keyword">JOIN</span> emp <span class="keyword">ON</span> emp.<span class="string">`dept_id`</span> = dept.id;</span><br><span class="line"><span class="keyword">SELECT</span> </span><br><span class="line">	dept.<span class="string">`name`</span> ,emp.<span class="string">`name`</span>, emp.<span class="string">`salary`</span> </span><br><span class="line"><span class="keyword">FROM</span> </span><br><span class="line">	dept </span><br><span class="line"><span class="keyword">JOIN</span> </span><br><span class="line">	emp </span><br><span class="line"><span class="keyword">ON</span> </span><br><span class="line">	emp.<span class="string">`dept_id`</span> = dept.id;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>内连接查询</p>
+<blockquote>
+<ol>
+<li>需要那些表的数据</li>
+<li>条件是什么</li>
+<li>查询什么字段</li>
+</ol>
+</blockquote>
+</li>
+</ol>
+<p>​        </p>
+<ol start="4">
+<li><p>左外连接：查询【左表】中的所有数据，以及右表中与左表【交集部分】</p>
+<blockquote>
+<p>语法</p>
+</blockquote>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> 字段列表 <span class="keyword">from</span> 表<span class="number">1</span> <span class="keyword">left</span> [<span class="keyword">outer</span>] <span class="keyword">join</span> 表<span class="number">2</span> <span class="keyword">on</span> 条件;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>示例：查emp表中的所有员工【存在部门为null】，以及每个员工对应的部门。</p>
+</blockquote>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 此处是可以查出dept_id 为null的员工</span></span><br><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> emp <span class="keyword">left</span> <span class="keyword">join</span> dept <span class="keyword">on</span> emp.dept_id = dept.id;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>右外连接：查询【右表】中的所有数据，以及左表中与右表【交集部分】</p>
+</li>
+</ol>
+</li>
+<li><p>子查询</p>
+<blockquote>
+<p>查询中嵌套查询，嵌套查询就称为子查询</p>
+<ol>
+<li>子查询结果为单行单列</li>
+<li>子查询结果为多行单列</li>
+<li>子查询结果为多行多列</li>
+</ol>
+</blockquote>
+<ol>
+<li><p>子查询结果为单行单列【用于条件】</p>
+<blockquote>
+<p>需求：查询所有大于平均薪资的员工</p>
+<p>结果用于条件。</p>
+</blockquote>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> </span><br><span class="line">	<span class="keyword">name</span>,salary </span><br><span class="line"><span class="keyword">from</span> </span><br><span class="line">	emp </span><br><span class="line"><span class="keyword">where</span> </span><br><span class="line">	salary &gt; (<span class="keyword">select</span> <span class="keyword">avg</span>(salary) <span class="keyword">from</span> emp); </span><br><span class="line"><span class="comment">-- 以上语句==&gt; avg.. 得到平均，在使用where查询</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>子查询结果为多行单列【使用in，用于条件】</p>
+<blockquote>
+<p>需求：查询财务表和市场部所有员工</p>
+</blockquote>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span></span><br><span class="line">	* </span><br><span class="line"><span class="keyword">from</span> </span><br><span class="line">	emp </span><br><span class="line"><span class="keyword">where</span></span><br><span class="line">	dept_id </span><br><span class="line"><span class="keyword">in</span></span><br><span class="line">	(<span class="keyword">select</span> <span class="keyword">id</span> <span class="keyword">from</span> dept <span class="keyword">where</span> <span class="keyword">name</span> <span class="keyword">in</span>(<span class="string">'财务部'</span>,<span class="string">'市场部'</span>)); <span class="comment">-- 得到财务部和市场部的id</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>子查询结果为多行多列【用于虚拟表参与查询】</p>
+<blockquote>
+<p>需求：查询入职时间为2019-10-01之后的员工信息和部门信息</p>
+</blockquote>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span></span><br><span class="line">	* </span><br><span class="line"><span class="keyword">from</span> </span><br><span class="line">	dept t1,</span><br><span class="line">    (<span class="keyword">select</span> * <span class="keyword">from</span> emp <span class="keyword">where</span> emp.join_date &gt; <span class="string">'2018-10-01'</span>) t2 <span class="comment">-- 起别名</span></span><br><span class="line"><span class="keyword">where</span> </span><br><span class="line">	t1.id = t2.dept_id</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>从员工入职时间大于2018-10-01的【表t2】中，以及【dept表】中。查询两个id对应的信息。</p>
+<p>t2是子查询得到的多行多列的，可以理解为一张新表</p>
+</blockquote>
+<ul>
+<li><p>以上代码也可以通过内连接来实现相同功能。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> dept,emp <span class="keyword">where</span> emp.join_date &gt; <span class="string">'2018-10-01'</span> <span class="keyword">and</span> emp.dept_id = dept.id;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+</li>
+</ol>
+</li>
+</ul>
+<h2 id="2-多表查询案例"><a href="#2-多表查询案例" class="headerlink" title="2. 多表查询案例"></a>2. 多表查询案例</h2><blockquote>
+<ol>
+<li>创建三张表</li>
+<li>添加数据</li>
+<li>根据需求查询</li>
+</ol>
+</blockquote>
+<ol>
+<li><p>创建4张表：部门表dept、职务表job、工作等级表和员工表</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 创建部门表</span></span><br><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> dept(</span><br><span class="line">	<span class="keyword">id</span> <span class="built_in">int</span> primary <span class="keyword">key</span> auto_increment,	</span><br><span class="line">    dname <span class="built_in">varchar</span>(<span class="number">50</span>),	<span class="comment">-- 部门名称</span></span><br><span class="line">    loc <span class="built_in">varchar</span>(<span class="number">50</span>)		<span class="comment">-- 工作地点</span></span><br><span class="line">);</span><br><span class="line"><span class="comment">-- 创建职务表</span></span><br><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> job(</span><br><span class="line">	<span class="keyword">id</span> <span class="built_in">int</span> primary <span class="keyword">key</span>,</span><br><span class="line">    jname <span class="built_in">varchar</span>(<span class="number">20</span>), 	<span class="comment">-- 职务名称</span></span><br><span class="line">    description <span class="built_in">varchar</span>(<span class="number">50</span>) <span class="comment">-- 职务描述</span></span><br><span class="line">);</span><br><span class="line"><span class="comment">-- 创建员工表</span></span><br><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> emp(</span><br><span class="line">	<span class="keyword">id</span> <span class="built_in">int</span> primary <span class="keyword">key</span> auto_increment,</span><br><span class="line">    ename <span class="built_in">varchar</span>(<span class="number">50</span>), 	<span class="comment">-- 员工姓名</span></span><br><span class="line">    job_id <span class="built_in">int</span>,			<span class="comment">-- 职务id</span></span><br><span class="line">    mgr <span class="built_in">int</span>, 			<span class="comment">-- 上级领导</span></span><br><span class="line">    joindate <span class="built_in">date</span>, 		<span class="comment">-- 入职日期</span></span><br><span class="line">    salary <span class="keyword">double</span>,		<span class="comment">-- 薪资</span></span><br><span class="line">    bonus <span class="keyword">double</span>,		<span class="comment">-- 奖金</span></span><br><span class="line">    dept_id <span class="built_in">int</span>,		<span class="comment">-- 部门编号</span></span><br><span class="line">    <span class="keyword">constraint</span> emp_jobid_ref_job_id_fk <span class="keyword">foreign</span> <span class="keyword">key</span> (job_id) <span class="keyword">references</span> job(<span class="keyword">id</span>),</span><br><span class="line">    <span class="keyword">foreign</span> <span class="keyword">key</span>(job_id) <span class="keyword">references</span> job(<span class="keyword">id</span>) <span class="comment">-- 简写外键</span></span><br><span class="line">);</span><br><span class="line"><span class="comment">-- 创建工资等级表</span></span><br><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> salarygrade(</span><br><span class="line">	grade <span class="built_in">int</span> primary <span class="keyword">key</span>, <span class="comment">-- 等级</span></span><br><span class="line">    losalary <span class="built_in">int</span>,	<span class="comment">-- 最高工资</span></span><br><span class="line">    hisalary <span class="built_in">int</span>	<span class="comment">-- 最低工资</span></span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ol>
+<ol start="2">
+<li><p>分别给4张表添加数据</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 添加4个部门</span></span><br><span class="line">			<span class="keyword">INSERT</span> <span class="keyword">INTO</span> dept(<span class="keyword">id</span>,dname,loc) <span class="keyword">VALUES</span> </span><br><span class="line">			(<span class="number">10</span>,<span class="string">'教研部'</span>,<span class="string">'北京'</span>),</span><br><span class="line">			(<span class="number">20</span>,<span class="string">'学工部'</span>,<span class="string">'上海'</span>),</span><br><span class="line">			(<span class="number">30</span>,<span class="string">'销售部'</span>,<span class="string">'广州'</span>),</span><br><span class="line">			(<span class="number">40</span>,<span class="string">'财务部'</span>,<span class="string">'深圳'</span>);</span><br><span class="line">			</span><br><span class="line"><span class="comment">-- 添加4个职务</span></span><br><span class="line">			<span class="keyword">INSERT</span> <span class="keyword">INTO</span> job (<span class="keyword">id</span>, jname, description) <span class="keyword">VALUES</span></span><br><span class="line">			(<span class="number">1</span>, <span class="string">'董事长'</span>, <span class="string">'管理整个公司，接单'</span>),</span><br><span class="line">			(<span class="number">2</span>, <span class="string">'经理'</span>, <span class="string">'管理部门员工'</span>),</span><br><span class="line">			(<span class="number">3</span>, <span class="string">'销售员'</span>, <span class="string">'向客人推销产品'</span>),</span><br><span class="line">			(<span class="number">4</span>, <span class="string">'文员'</span>, <span class="string">'使用办公软件'</span>);	</span><br><span class="line">            </span><br><span class="line"><span class="comment">-- 添加员工			</span></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> emp(<span class="keyword">id</span>,ename,job_id,mgr,joindate,salary,bonus,dept_id) <span class="keyword">VALUES</span> </span><br><span class="line">			(<span class="number">1001</span>,<span class="string">'孙悟空'</span>,<span class="number">4</span>,<span class="number">1004</span>,<span class="string">'2000-12-17'</span>,<span class="string">'8000.00'</span>,<span class="literal">NULL</span>,<span class="number">20</span>),</span><br><span class="line">			(<span class="number">1002</span>,<span class="string">'卢俊义'</span>,<span class="number">3</span>,<span class="number">1006</span>,<span class="string">'2001-02-20'</span>,<span class="string">'16000.00'</span>,<span class="string">'3000.00'</span>,<span class="number">30</span>),</span><br><span class="line">			(<span class="number">1003</span>,<span class="string">'林冲'</span>,<span class="number">3</span>,<span class="number">1006</span>,<span class="string">'2001-02-22'</span>,<span class="string">'12500.00'</span>,<span class="string">'5000.00'</span>,<span class="number">30</span>),</span><br><span class="line">			(<span class="number">1004</span>,<span class="string">'唐僧'</span>,<span class="number">2</span>,<span class="number">1009</span>,<span class="string">'2001-04-02'</span>,<span class="string">'29750.00'</span>,<span class="literal">NULL</span>,<span class="number">20</span>),</span><br><span class="line">			(<span class="number">1005</span>,<span class="string">'李逵'</span>,<span class="number">4</span>,<span class="number">1006</span>,<span class="string">'2001-09-28'</span>,<span class="string">'12500.00'</span>,<span class="string">'14000.00'</span>,<span class="number">30</span>),</span><br><span class="line">			(<span class="number">1006</span>,<span class="string">'宋江'</span>,<span class="number">2</span>,<span class="number">1009</span>,<span class="string">'2001-05-01'</span>,<span class="string">'28500.00'</span>,<span class="literal">NULL</span>,<span class="number">30</span>),</span><br><span class="line">			(<span class="number">1007</span>,<span class="string">'刘备'</span>,<span class="number">2</span>,<span class="number">1009</span>,<span class="string">'2001-09-01'</span>,<span class="string">'24500.00'</span>,<span class="literal">NULL</span>,<span class="number">10</span>),</span><br><span class="line">			(<span class="number">1008</span>,<span class="string">'猪八戒'</span>,<span class="number">4</span>,<span class="number">1004</span>,<span class="string">'2007-04-19'</span>,<span class="string">'30000.00'</span>,<span class="literal">NULL</span>,<span class="number">20</span>),</span><br><span class="line">			(<span class="number">1009</span>,<span class="string">'罗贯中'</span>,<span class="number">1</span>,<span class="literal">NULL</span>,<span class="string">'2001-11-17'</span>,<span class="string">'50000.00'</span>,<span class="literal">NULL</span>,<span class="number">10</span>),</span><br><span class="line">			(<span class="number">1010</span>,<span class="string">'吴用'</span>,<span class="number">3</span>,<span class="number">1006</span>,<span class="string">'2001-09-08'</span>,<span class="string">'15000.00'</span>,<span class="string">'0.00'</span>,<span class="number">30</span>),</span><br><span class="line">			(<span class="number">1011</span>,<span class="string">'沙僧'</span>,<span class="number">4</span>,<span class="number">1004</span>,<span class="string">'2007-05-23'</span>,<span class="string">'11000.00'</span>,<span class="literal">NULL</span>,<span class="number">20</span>),</span><br><span class="line">			(<span class="number">1012</span>,<span class="string">'李逵'</span>,<span class="number">4</span>,<span class="number">1006</span>,<span class="string">'2001-12-03'</span>,<span class="string">'9500.00'</span>,<span class="literal">NULL</span>,<span class="number">30</span>),</span><br><span class="line">			(<span class="number">1013</span>,<span class="string">'小白龙'</span>,<span class="number">4</span>,<span class="number">1004</span>,<span class="string">'2001-12-03'</span>,<span class="string">'30000.00'</span>,<span class="literal">NULL</span>,<span class="number">20</span>),</span><br><span class="line">			(<span class="number">1014</span>,<span class="string">'关羽'</span>,<span class="number">4</span>,<span class="number">1007</span>,<span class="string">'2002-01-23'</span>,<span class="string">'13000.00'</span>,<span class="literal">NULL</span>,<span class="number">10</span>);</span><br><span class="line"><span class="comment">-- 添加工资等级</span></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> salarygrade(grade,losalary,hisalary) <span class="keyword">VALUES</span> </span><br><span class="line">			(<span class="number">1</span>,<span class="number">7000</span>,<span class="number">12000</span>),</span><br><span class="line">			(<span class="number">2</span>,<span class="number">12010</span>,<span class="number">14000</span>),</span><br><span class="line">			(<span class="number">3</span>,<span class="number">14010</span>,<span class="number">20000</span>),</span><br><span class="line">			(<span class="number">4</span>,<span class="number">20010</span>,<span class="number">30000</span>),</span><br><span class="line">			(<span class="number">5</span>,<span class="number">30010</span>,<span class="number">99990</span>);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>按照需求查询从三张表中查询相应数据</p>
+<blockquote>
+<ol>
+<li>查询所有员工信息。查询员工编号，员工姓名，工资，职务名称，职务描述</li>
+</ol>
+</blockquote>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span>  <span class="comment">-- 2. 分析需要查询的数据</span></span><br><span class="line">	emp.id,</span><br><span class="line">	emp.ename,</span><br><span class="line">	emp.salary,</span><br><span class="line">	job.jname,</span><br><span class="line">	job.description</span><br><span class="line"><span class="keyword">from</span>	<span class="comment">-- 1. 分析需要使用的表</span></span><br><span class="line">	emp,</span><br><span class="line">	job</span><br><span class="line"><span class="keyword">where</span>	<span class="comment">-- 3. 分析查询数据的条件</span></span><br><span class="line">	emp.job_id = job.id;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<ol start="2">
+<li>查询员工编号，员工姓名，工资，职务名称，职务描述，部门名称，部门位置</li>
+</ol>
+</blockquote>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> 		<span class="comment">-- 2. 分析查询的数据</span></span><br><span class="line">	emp.ename,</span><br><span class="line">	emp.salary,</span><br><span class="line">	job.jname,</span><br><span class="line">	job.description,</span><br><span class="line">	dept.dname,</span><br><span class="line">	dept.loc</span><br><span class="line"><span class="keyword">from</span> 		<span class="comment">-- 1. 分析需要的表</span></span><br><span class="line">	emp,</span><br><span class="line">	job,</span><br><span class="line">	dept</span><br><span class="line"><span class="keyword">where</span> 		<span class="comment">-- 3. 分析查询条件</span></span><br><span class="line">	emp.job_id = job.id <span class="keyword">and</span> emp.dept_id = dept.id;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<ol start="3">
+<li>查询员工姓名，工资，工资等级</li>
+</ol>
+</blockquote>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> 		<span class="comment">-- 2. 分析显示的数据</span></span><br><span class="line">	emp.ename,</span><br><span class="line">	emp.salary,</span><br><span class="line">	salarygrade.grade</span><br><span class="line"><span class="keyword">from</span>  		<span class="comment">-- 1.分析需要表</span></span><br><span class="line">	emp,</span><br><span class="line">	salarygrade</span><br><span class="line"><span class="keyword">where</span> 		<span class="comment">-- 3. 分析条件【重点，难点】</span></span><br><span class="line">	emp.salary &gt;= salarygrade.losalary <span class="keyword">and</span> emp.salary &lt;= salarygrade.hisalary</span><br><span class="line">	<span class="comment">-- emp.salary BETWEEN salarygrade.losalary and salarygrade.hisalary</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<ol start="4">
+<li>查询员工姓名，工资，职务名称，职务描述，部门名称，部门位置，工资等级</li>
+</ol>
+</blockquote>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> 		<span class="comment">-- 2. 分析显示的数据</span></span><br><span class="line">	emp.ename,</span><br><span class="line">	emp.salary,</span><br><span class="line">	job.description,</span><br><span class="line">	job.jname,</span><br><span class="line">	dept.loc,</span><br><span class="line">	salarygrade.grade</span><br><span class="line"><span class="keyword">from</span>  		<span class="comment">-- 1.分析需要表</span></span><br><span class="line">	emp,</span><br><span class="line">	job,</span><br><span class="line">	salarygrade,</span><br><span class="line">	dept</span><br><span class="line"><span class="keyword">where</span> 		<span class="comment">-- 3. 分析条件【重点，难点】</span></span><br><span class="line">	emp.salary &gt;= salarygrade.losalary <span class="keyword">and</span> emp.salary &lt;= salarygrade.hisalary <span class="keyword">and</span> emp.job_id = job.id <span class="keyword">and</span> emp.dept_id = dept.id;</span><br><span class="line">	<span class="comment">-- emp.salary BETWEEN salarygrade.losalary and salarygrade.hisalary</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<ol start="5">
+<li>查询出部门编号、部门名称、部门位置、部门人数</li>
+</ol>
+<p>条件分析：</p>
+<pre><code>1. 先统计出emp表中的每个部门的人数。
+    2. 根据统计部门人数的表，以及部门表查询出结果</code></pre></blockquote>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> 		</span><br><span class="line">	dept.id,</span><br><span class="line">	dept.dname,</span><br><span class="line">	dept.loc,</span><br><span class="line">	t2.total</span><br><span class="line"><span class="keyword">from</span>  		</span><br><span class="line">	dept t1,</span><br><span class="line">	(<span class="keyword">select</span> dept_id,<span class="keyword">count</span>(<span class="keyword">id</span>) total <span class="keyword">from</span> emp <span class="keyword">group</span> <span class="keyword">by</span> dept_id) t2  <span class="comment">-- 辅助表</span></span><br><span class="line"><span class="keyword">where</span> 		</span><br><span class="line">	t1.id = t2.dept_id;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<ol start="6">
+<li>查询所有员工的姓名及其直接上级的姓名,没有领导的员工也需要查询</li>
+</ol>
+</blockquote>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 不可以查出空</span></span><br><span class="line"><span class="keyword">select</span> </span><br><span class="line">	t1.ename,</span><br><span class="line">	t1.mgr,</span><br><span class="line">	t2.id,</span><br><span class="line">	t2.ename</span><br><span class="line"><span class="keyword">from</span></span><br><span class="line">	emp t1,</span><br><span class="line">	emp t2</span><br><span class="line"><span class="keyword">where</span> t1.mgr = t2.id;</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 可以查出空</span></span><br><span class="line"><span class="keyword">select</span> </span><br><span class="line">	t1.ename,</span><br><span class="line">	t1.mgr,</span><br><span class="line">	t2.id,</span><br><span class="line">	t2.ename</span><br><span class="line"><span class="keyword">from</span></span><br><span class="line">	emp t1</span><br><span class="line"><span class="keyword">left</span> <span class="keyword">join</span> emp t2</span><br><span class="line"><span class="keyword">on</span> t1.mgr = t2.id;</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ol>
+<h2 id="3-事务"><a href="#3-事务" class="headerlink" title="3. 事务"></a>3. 事务</h2><ol>
+<li><p>引入</p>
+<ul>
+<li><p>在实际开发中，一个业务操作通常包含了多次数据库的操作。例如：转账。</p>
+</li>
+<li><p>创建表、添加数据</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 创建账号表</span></span><br><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> <span class="keyword">account</span>(</span><br><span class="line">	<span class="keyword">id</span> <span class="built_in">int</span> primary <span class="keyword">key</span> auto_increment,</span><br><span class="line">    <span class="keyword">name</span> <span class="built_in">varchar</span>(<span class="number">10</span>),</span><br><span class="line">    balance <span class="keyword">double</span></span><br><span class="line">);</span><br><span class="line"><span class="comment">-- 添加数据</span></span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> <span class="keyword">account</span> <span class="keyword">values</span>(<span class="number">1</span>,<span class="string">"Tobing"</span>,<span class="number">1000</span>),(<span class="literal">null</span>,<span class="string">"Zenyet"</span>,<span class="number">1000</span>);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>模拟转账【正常情况】</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 1.Tobing - 500</span></span><br><span class="line"><span class="keyword">update</span> <span class="keyword">account</span> <span class="keyword">set</span> balance = balance - <span class="number">500</span> <span class="keyword">where</span> <span class="keyword">name</span> = <span class="string">'Tobing'</span>;</span><br><span class="line"><span class="comment">-- 2.Zenyet + 500</span></span><br><span class="line"><span class="keyword">update</span> <span class="keyword">account</span> <span class="keyword">set</span> balance = balance + <span class="number">500</span> <span class="keyword">where</span> <span class="keyword">name</span> = <span class="string">'Zenyet'</span>;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>模拟转账【出现异常】</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 1.Tobing - 500</span></span><br><span class="line"><span class="keyword">update</span> <span class="keyword">account</span> <span class="keyword">set</span> balance = balance - <span class="number">500</span> <span class="keyword">where</span> <span class="keyword">name</span> = <span class="string">'Tobing'</span>;</span><br><span class="line">出现异常</span><br><span class="line"><span class="comment">-- 2.Zenyet + 500</span></span><br><span class="line"><span class="keyword">update</span> <span class="keyword">account</span> <span class="keyword">set</span> balance = balance + <span class="number">500</span> <span class="keyword">where</span> <span class="keyword">name</span> = <span class="string">'Zenyet'</span>;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>此时会出现Tobing已经减掉500，而Zenyet却没有加上500。500凭空消失了</p>
+</blockquote>
+</li>
+<li><p>有以上案例我们可以看出</p>
+<blockquote>
+<ol>
+<li>在实际开发中，一个事务往往包含了多次的数据库操作（本例中转账就包含了两个步骤），如果其中一个步骤出现了异常，往往会导致结果出现异常。</li>
+<li>而数据库通过使用事务这一操作。将若干的数据库操作，定义在一个事务中，如果事务中任意语句执行出现异常，可以选择进行rollback，是数据库回滚到事务开始状态。如果执行没有问题，则可以commit，提交事务。</li>
+</ol>
+</blockquote>
+<p><img src="E:%5CCode%5CPersonal_website%5Ctobing%5Csource_posts%5Cassets%5C%E4%BA%8B%E5%8A%A1.png" alt="事务"></p>
+</li>
+</ul>
+</li>
+</ol>
+<ol start="2">
+<li><p>事务提交的分类</p>
+<blockquote>
+<ol>
+<li>手动提交：MySQL默认自动提交，一条DML自动提交一次事务。</li>
+<li>自动提交：Oracle默认手动提交，先开启事务，然后再提交</li>
+</ol>
+</blockquote>
+<ol>
+<li><p>MySQL中修改事务默认的提交方式。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 查看事务提交的方式</span></span><br><span class="line"><span class="keyword">select</span> @@autocommit;</span><br><span class="line"><span class="comment">-- 修改默认提交方式 1代表自动提价 | 0代表手动提交</span></span><br><span class="line"><span class="keyword">set</span> @@autocommit = <span class="number">0</span>;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>事务的四大特征【重点】</p>
+<blockquote>
+<ol>
+<li>原子性：是不可分割的最小单位，事务中的所有操作要么同时成功，要么同时失败。</li>
+<li>持久性：事务commit或者rollback，数据库都会持久化保存数据</li>
+<li>隔离性：多个事务之间相互独立</li>
+<li>一致性：事务操作前后，数据总量不变。</li>
+</ol>
+</blockquote>
+</li>
+<li><p>事务的隔离级别</p>
+<ol>
+<li><p>引入：多个事务之间隔离，相互独立。但是如果多个事务操作同一数据，会引发一些问题，设置隔离级别可以解决这些问题。</p>
+</li>
+<li><p>引发的问题</p>
+<ol>
+<li>脏读：一个事务读取到另外一个事务没有提交（commit）的数据。</li>
+<li>虚读（不可重复读）：同一事务中，两次读到的数据不一样。</li>
+<li>幻读：一个事务操作数据表中的所有记录，另一个事务添加了一条数据，则第一个事务查询不到自己的修改。</li>
+</ol>
+</li>
+<li><p>隔离级别</p>
+<ol>
+<li><p>read uncommitted（读未提交）</p>
+<ul>
+<li>产生：脏读、不可重复读、幻读。</li>
+</ul>
+</li>
+<li><p>read committed（读已提交）：</p>
+<ul>
+<li>产生：不可重复读、幻读。</li>
+</ul>
+</li>
+<li><p>repeatable read（可重复读）：</p>
+<ul>
+<li>产生：幻读。</li>
+</ul>
+</li>
+<li><p>serializable（串行化）：</p>
+<ul>
+<li>解决所有</li>
+</ul>
+</li>
+<li><p>注意</p>
+<ul>
+<li>隔离级别从小到大安全性越来越高，但是效率越来越低</li>
+<li>通常在特殊场景才会修改 隔离级别。一般使用默认隔离级别</li>
+<li>Oracle默认read committed</li>
+<li>MySQL默认repeatable read</li>
+</ul>
+</li>
+<li><p>隔离级别操作</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 查询隔离级别</span></span><br><span class="line"><span class="keyword">select</span> @@tx_isolation;</span><br><span class="line"><span class="comment">-- 修改隔离级别</span></span><br><span class="line"><span class="keyword">set</span> <span class="keyword">global</span> <span class="keyword">transaction</span> <span class="keyword">isolation</span> <span class="keyword">level</span> [隔离级别字符串]</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+
+
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/MySQL/" rel="tag"># MySQL</a>
+          
+            <a href="/tags/复习/" rel="tag"># 复习</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/11/23/MySQL-3-数据库的设计/" rel="next" title="MySQL-3-数据库的设计">
+                <i class="fa fa-chevron-left"></i> MySQL-3-数据库的设计
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/11/23/Mybatis-2-CRUD/" rel="prev" title="Mybatis-2-CRUD">
+                Mybatis-2-CRUD <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">tobing</p>
+              <p class="site-description motion-element" itemprop="description">Just so so :)</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">28</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">25</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/Tobingindex" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#MySQL-4-多表查询与事务"><span class="nav-number">1.</span> <span class="nav-text">MySQL-4-多表查询与事务</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-多表查询"><span class="nav-number">1.1.</span> <span class="nav-text">1. 多表查询</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-多表查询案例"><span class="nav-number">1.2.</span> <span class="nav-text">2. 多表查询案例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-事务"><span class="nav-number">1.3.</span> <span class="nav-text">3. 事务</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">tobing</span>
+
+  
+</div>
+
+
+ 
+
+
+
+
+
+
+  
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://tobing.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'https://tobing.top/2019/11/23/MySQL-4-多表查询与事务/';
+          this.page.identifier = '2019/11/23/MySQL-4-多表查询与事务/';
+          this.page.title = 'MySQL-4-多表查询与事务';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://tobing.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: '9Attg0S1XuhfBVvR3wBfOC8N-gzGzoHsz',
+        appKey: 'TgdvNng6nOLFleKQfi3yvse8',
+        placeholder: 'Just go go :)',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("Vy5O9liYY1EruxX5WAaSWiFU-gzGzoHsz", "LkbvdUheh7noXFlcQzKXf4hV");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
