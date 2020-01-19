@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="Mybatis-2-简单CRUD 步骤  创建Maven工程 关联坐标 编写实体类和持久层接口 编写SqlMapConfig.xml 编写映射配置文件 编写测试类 添加其他查询功能   使用要求   持久层接口和持久层接口的映射配置必须在相同包下 持久层映射中mapper标签的namespace属性取值必须是持久层接口的全限定类名。 SQL语句的配置标签：的id属性必须和持久层接口的方法名相同。">
+<meta name="description" content="Mybatis-2-简单CRUD 步骤  创建Maven工程 关联坐标 编写实体类和持久层接口 编写SqlMapConfig.xml 编写映射配置文件 编写测试类 添加其他查询功能   使用要求   持久层接口和持久层接口的映射配置必须在相同包下 持久层映射中mapper标签的namespace属性取值必须是持久层接口的全限定类名。 SQL语句的配置标签：select、insert、delete、">
 <meta name="keywords" content="Mybatis">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Mybatis-2-CRUD">
 <meta property="og:url" content="https://tobing.top/2019/11/23/Mybatis-2-CRUD/index.html">
 <meta property="og:site_name" content="tobing">
-<meta property="og:description" content="Mybatis-2-简单CRUD 步骤  创建Maven工程 关联坐标 编写实体类和持久层接口 编写SqlMapConfig.xml 编写映射配置文件 编写测试类 添加其他查询功能   使用要求   持久层接口和持久层接口的映射配置必须在相同包下 持久层映射中mapper标签的namespace属性取值必须是持久层接口的全限定类名。 SQL语句的配置标签：的id属性必须和持久层接口的方法名相同。">
+<meta property="og:description" content="Mybatis-2-简单CRUD 步骤  创建Maven工程 关联坐标 编写实体类和持久层接口 编写SqlMapConfig.xml 编写映射配置文件 编写测试类 添加其他查询功能   使用要求   持久层接口和持久层接口的映射配置必须在相同包下 持久层映射中mapper标签的namespace属性取值必须是持久层接口的全限定类名。 SQL语句的配置标签：select、insert、delete、">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-11-23T02:19:07.515Z">
+<meta property="og:updated_time" content="2020-01-10T02:25:13.609Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Mybatis-2-CRUD">
-<meta name="twitter:description" content="Mybatis-2-简单CRUD 步骤  创建Maven工程 关联坐标 编写实体类和持久层接口 编写SqlMapConfig.xml 编写映射配置文件 编写测试类 添加其他查询功能   使用要求   持久层接口和持久层接口的映射配置必须在相同包下 持久层映射中mapper标签的namespace属性取值必须是持久层接口的全限定类名。 SQL语句的配置标签：的id属性必须和持久层接口的方法名相同。">
+<meta name="twitter:description" content="Mybatis-2-简单CRUD 步骤  创建Maven工程 关联坐标 编写实体类和持久层接口 编写SqlMapConfig.xml 编写映射配置文件 编写测试类 添加其他查询功能   使用要求   持久层接口和持久层接口的映射配置必须在相同包下 持久层映射中mapper标签的namespace属性取值必须是持久层接口的全限定类名。 SQL语句的配置标签：select、insert、delete、">
 
 
 
@@ -420,7 +420,7 @@
 <ol>
 <li>持久层接口和持久层接口的映射配置必须在相同包下</li>
 <li>持久层映射中mapper标签的namespace属性取值必须是持久层接口的全限定类名。</li>
-<li>SQL语句的配置标签：<select><insert><delete><update>的id属性必须和持久层接口的方法名相同。</update></delete></insert></select></li>
+<li>SQL语句的配置标签：select、insert、delete、update的id属性必须和持久层接口的方法名相同。</li>
 </ol>
 </blockquote>
 </li>
@@ -455,7 +455,7 @@
 <h4 id="5-编写映射配置文件"><a href="#5-编写映射配置文件" class="headerlink" title="5. 编写映射配置文件"></a>5. 编写映射配置文件</h4><ul>
 <li><p>每一个Dao接口对应一个映射配置文件</p>
 </li>
-<li><p>在resources下创建UserDao三级目录top-&gt;tobing-&gt;dao（切忌一级一级创建，不能和包一样创建）</p>
+<li><p>在resources下创建UserDao三级目录top-&gt;tobing-&gt;dao（记住要一级一级创建，不能和包一样创建）</p>
 </li>
 <li><p>在dao目录下创建UserDao.xml</p>
 <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=<span class="string">"1.0"</span> encoding=<span class="string">"UTF-8"</span>?&gt;</span><br><span class="line">&lt;!DOCTYPE mapper</span><br><span class="line">        PUBLIC <span class="string">"-//mybatis.org//DTD Mapper 3.0//EN"</span></span><br><span class="line">        <span class="string">"http://mybatis.org/dtd/mybatis-3-mapper.dtd"</span>&gt;</span><br><span class="line">        </span><br><span class="line">&lt;mapper namespace=<span class="string">"top.tobing.dao.UserDao"</span>&gt;</span><br><span class="line">    &lt;select id=<span class="string">"findAll"</span> resultType=<span class="string">"top.tobing.domain.User"</span>&gt;</span><br><span class="line">        SELECT * from user ;</span><br><span class="line">    &lt;/select&gt;</span><br><span class="line">&lt;/mapper&gt;</span><br></pre></td></tr></table></figure>
@@ -732,7 +732,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">36</span>
+                  <span class="site-state-item-count">37</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -754,7 +754,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">27</span>
+                  <span class="site-state-item-count">28</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
