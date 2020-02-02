@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="tobing">
 <meta property="og:description" content="Oracle-下1. 视图 视图就是提供一个查询的窗口，所有数据来自于原表   数据准备 12-- 查询语句创建表create table emp as select * from scott.emp;  视图操作 12345678-- 创建视图【必须要dba权限】create view v_emp as select ename,job from emp;-- 查询视图select * from">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2020-01-22T17:02:39.042Z">
+<meta property="og:updated_time" content="2020-01-23T06:44:00.763Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Oracle-下">
 <meta name="twitter:description" content="Oracle-下1. 视图 视图就是提供一个查询的窗口，所有数据来自于原表   数据准备 12-- 查询语句创建表create table emp as select * from scott.emp;  视图操作 12345678-- 创建视图【必须要dba权限】create view v_emp as select ename,job from emp;-- 查询视图select * from">
@@ -541,13 +541,49 @@
 <li><p>触发器应用</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">---需求：实现主键自增长</span><br><span class="line">---分析：insert、插入之后、监听表</span><br><span class="line"></span><br><span class="line">--创建触发器</span><br><span class="line">create or replace triggle t3</span><br><span class="line">before</span><br><span class="line">insert</span><br><span class="line">on person</span><br><span class="line">for each row</span><br><span class="line">declare</span><br><span class="line"></span><br><span class="line">begin</span><br><span class="line">	select s_person.nextval into:new.pid from dual;</span><br><span class="line">end;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">--触发t3</span><br><span class="line">insert into emp(ename) values(&apos;zzz&apos;);</span><br><span class="line">commit;</span><br></pre></td></tr></table></figure>
 
+</li>
+</ol>
+<h2 id="8-Java操作Oracle"><a href="#8-Java操作Oracle" class="headerlink" title="8. Java操作Oracle"></a>8. Java操作Oracle</h2><blockquote>
+<p>Maven环境下使用Java连接Oracle执行SQL语句。</p>
+</blockquote>
+<ol>
+<li><p>普通SQL语句</p>
+<blockquote>
+<p>pom.xml</p>
+</blockquote>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--连接oracle--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.oracle<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>ojdbc14<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">version</span>&gt;</span>10.2.0.4.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>junit<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>junit<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">version</span>&gt;</span>4.11<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">scope</span>&gt;</span>test<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>测试方法</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">OJdbcTest</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 测试直接执行SQL语句</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@throws</span> Exception</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">ojdbcCallTrodiction</span><span class="params">()</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        <span class="comment">//1.注册驱动</span></span><br><span class="line">        Class.forName(<span class="string">"oracle.jdbc.driver.OracleDriver"</span>);</span><br><span class="line">        <span class="comment">//2.获取连接</span></span><br><span class="line">        Connection connection = DriverManager.getConnection(<span class="string">"jdbc:oracle:thin:@192.168.106.10:1521:orcl"</span>, <span class="string">"tobing"</span>, <span class="string">"tobing"</span>);</span><br><span class="line">        <span class="comment">//3.获取预处理对象</span></span><br><span class="line">        PreparedStatement pstmt = connection.prepareStatement(<span class="string">"select * from emp where empno=?"</span>);</span><br><span class="line">        <span class="comment">//4.设置参数</span></span><br><span class="line">        pstmt.setObject(<span class="number">1</span>,<span class="number">7788</span>);</span><br><span class="line">        <span class="comment">//5.执行查询</span></span><br><span class="line">        ResultSet rs = pstmt.executeQuery();</span><br><span class="line">        <span class="comment">//6.遍历结果集</span></span><br><span class="line">        <span class="keyword">while</span>(rs.next())&#123;</span><br><span class="line">            String ename = rs.getString(<span class="string">"ename"</span>);</span><br><span class="line">            System.out.println(ename);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//7.关闭资源</span></span><br><span class="line">        rs.close();</span><br><span class="line">        pstmt.close();</span><br><span class="line">        connection.close();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 
 
 </li>
 </ol>
-<hr>
+<ol start="2">
+<li><p>存储过程</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 调用存储过程</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@throws</span> Exception</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">ojdbcCallProcedure</span><span class="params">()</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">    <span class="comment">//1.注册驱动</span></span><br><span class="line">    Class.forName(<span class="string">"oracle.jdbc.driver.OracleDriver"</span>);</span><br><span class="line">    <span class="comment">//2.获取连接</span></span><br><span class="line">    Connection connection = DriverManager.getConnection(<span class="string">"jdbc:oracle:thin:@192.168.106.10:1521:orcl"</span>, <span class="string">"tobing"</span>, <span class="string">"tobing"</span>);</span><br><span class="line">    <span class="comment">//3.获取预处理对象</span></span><br><span class="line">    CallableStatement cstat = connection.prepareCall(<span class="string">"&#123; call p2(?,?) &#125;"</span>);</span><br><span class="line">    <span class="comment">//4.设置参数</span></span><br><span class="line">    cstat.setObject(<span class="number">1</span>,<span class="number">7788</span>);</span><br><span class="line">    cstat.registerOutParameter(<span class="number">2</span>, OracleTypes.NUMBER);</span><br><span class="line">    <span class="comment">//5.执行完毕</span></span><br><span class="line">    cstat.execute();</span><br><span class="line">    System.out.println(<span class="string">"执行完毕"</span>);</span><br><span class="line">    System.out.println(<span class="string">"年薪为："</span>+cstat.getObject(<span class="number">2</span>));</span><br><span class="line">    <span class="comment">//6.关闭资源</span></span><br><span class="line">    cstat.close();</span><br><span class="line">    connection.close();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>【未完】</p>
+
+
+</li>
+</ol>
+<ol start="3">
+<li><p>存储函数</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 测试调用存储函数</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@throws</span> Exception</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">ojdbcCallFunction</span><span class="params">()</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">    <span class="comment">//1.注册驱动</span></span><br><span class="line">    Class.forName(<span class="string">"oracle.jdbc.driver.OracleDriver"</span>);</span><br><span class="line">    <span class="comment">//2.获取连接</span></span><br><span class="line">    Connection connection = DriverManager.getConnection(<span class="string">"jdbc:oracle:thin:@192.168.106.10:1521:orcl"</span>, <span class="string">"tobing"</span>, <span class="string">"tobing"</span>);</span><br><span class="line">    <span class="comment">//3.获取预处理对象</span></span><br><span class="line">    CallableStatement cstat = connection.prepareCall(<span class="string">"&#123; ?=call f_yearsal(?) &#125;"</span>);</span><br><span class="line">    <span class="comment">//4.设置参数</span></span><br><span class="line">    cstat.setObject(<span class="number">2</span>,<span class="number">7788</span>);</span><br><span class="line">    cstat.registerOutParameter(<span class="number">1</span>, OracleTypes.NUMBER);</span><br><span class="line">    <span class="comment">//5.执行完毕</span></span><br><span class="line">    cstat.execute();</span><br><span class="line">    System.out.println(<span class="string">"执行完毕"</span>);</span><br><span class="line">    System.out.println(<span class="string">"年薪为："</span>+cstat.getObject(<span class="number">1</span>));</span><br><span class="line">    <span class="comment">//6.关闭资源</span></span><br><span class="line">    cstat.close();</span><br><span class="line">    connection.close();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>CallableStatment接口</p>
+<blockquote>
+<p>CallableStatement是PreparedStatement子接口，是用于执行 SQL 存储过程的接口。</p>
+<p>JDBC API 提供了一个存储过程 SQL 转义语法，该语法允许对所有 RDBMS  使用标准方式调用存储过程。此转义语法有一个包含结果参数的形式和一个不包含结果参数的形式。如果使用结果参数，则必须将其注册为 OUT  参数。其他参数可用于输入、输出或同时用于二者。参数是根据编号按顺序引用的，第一个参数的编号是 1。 </p>
+<blockquote>
+<p>  {?= call <procedure-name>[(<arg1>,<arg2>, …)]}<br>  {call <procedure-name>[(<arg1>,<arg2>, …)]}</arg2></arg1></procedure-name></arg2></arg1></procedure-name></p>
+</blockquote>
+</blockquote>
+</li>
+</ol>
 
       
     </div>
@@ -587,6 +623,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/02/03/2019/" rel="prev" title="2019">
+                2019 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -673,7 +713,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">38</span>
+                  <span class="site-state-item-count">39</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -684,7 +724,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-count">11</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -695,7 +735,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">28</span>
+                  <span class="site-state-item-count">29</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -738,7 +778,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Oracle-下"><span class="nav-number">1.</span> <span class="nav-text">Oracle-下</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-视图"><span class="nav-number">1.1.</span> <span class="nav-text">1. 视图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-索引"><span class="nav-number">1.2.</span> <span class="nav-text">2. 索引</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-pl-sql编程语言"><span class="nav-number">1.3.</span> <span class="nav-text">3. pl/sql编程语言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-存储过程"><span class="nav-number">1.4.</span> <span class="nav-text">4. 存储过程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-存储函数"><span class="nav-number">1.5.</span> <span class="nav-text">5. 存储函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-out类型"><span class="nav-number">1.6.</span> <span class="nav-text">6. out类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-触发器"><span class="nav-number">1.7.</span> <span class="nav-text">7. 触发器</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Oracle-下"><span class="nav-number">1.</span> <span class="nav-text">Oracle-下</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-视图"><span class="nav-number">1.1.</span> <span class="nav-text">1. 视图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-索引"><span class="nav-number">1.2.</span> <span class="nav-text">2. 索引</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-pl-sql编程语言"><span class="nav-number">1.3.</span> <span class="nav-text">3. pl/sql编程语言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-存储过程"><span class="nav-number">1.4.</span> <span class="nav-text">4. 存储过程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-存储函数"><span class="nav-number">1.5.</span> <span class="nav-text">5. 存储函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-out类型"><span class="nav-number">1.6.</span> <span class="nav-text">6. out类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-触发器"><span class="nav-number">1.7.</span> <span class="nav-text">7. 触发器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#8-Java操作Oracle"><span class="nav-number">1.8.</span> <span class="nav-text">8. Java操作Oracle</span></a></li></ol></li></ol></div>
             
 
           </div>
