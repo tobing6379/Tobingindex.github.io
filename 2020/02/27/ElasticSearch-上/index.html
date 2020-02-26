@@ -1,0 +1,1151 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="ElasticSearch,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="ElasticSearch-上Elaticsearch，简称为es， es是一个开源的高扩展的分布式全文检索引擎，它可以近乎实时的存储、检索数据；本 身扩展性很好，可以扩展到上百台服务器，处理PB级别的数据。es也使用Java开发并使用Lucene作为其核心来实 现所有索引和搜索的功能，但是它的目的是通过简单的RESTful API来隐藏Lucene的复杂性，从而让全文搜索变得 简单。 1. 使用">
+<meta name="keywords" content="ElasticSearch">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ElasticSearch-上">
+<meta property="og:url" content="https://tobing.top/2020/02/27/ElasticSearch-上/index.html">
+<meta property="og:site_name" content="tobing">
+<meta property="og:description" content="ElasticSearch-上Elaticsearch，简称为es， es是一个开源的高扩展的分布式全文检索引擎，它可以近乎实时的存储、检索数据；本 身扩展性很好，可以扩展到上百台服务器，处理PB级别的数据。es也使用Java开发并使用Lucene作为其核心来实 现所有索引和搜索的功能，但是它的目的是通过简单的RESTful API来隐藏Lucene的复杂性，从而让全文搜索变得 简单。 1. 使用">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2020-02-26T16:06:09.448Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ElasticSearch-上">
+<meta name="twitter:description" content="ElasticSearch-上Elaticsearch，简称为es， es是一个开源的高扩展的分布式全文检索引擎，它可以近乎实时的存储、检索数据；本 身扩展性很好，可以扩展到上百台服务器，处理PB级别的数据。es也使用Java开发并使用Lucene作为其核心来实 现所有索引和搜索的功能，但是它的目的是通过简单的RESTful API来隐藏Lucene的复杂性，从而让全文搜索变得 简单。 1. 使用">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://tobing.top/2020/02/27/ElasticSearch-上/">
+
+
+
+
+
+  <title>ElasticSearch-上 | tobing</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?79d1a38a3f2e0804e9fb5f960582fdd2";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">tobing</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Just so so :)</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br>
+            
+            站点地图
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br>
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://tobing.top/2020/02/27/ElasticSearch-上/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="tobing">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="tobing">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">ElasticSearch-上</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-02-27T00:02:29+08:00">
+                2020-02-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2020/02/27/ElasticSearch-上/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/02/27/ElasticSearch-上/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2020/02/27/ElasticSearch-上/" class="leancloud_visitors" data-flag-title="ElasticSearch-上">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="ElasticSearch-上"><a href="#ElasticSearch-上" class="headerlink" title="ElasticSearch-上"></a>ElasticSearch-上</h1><p>Elaticsearch，简称为es， es是一个开源的高扩展的分布式全文检索引擎，它可以近乎实时的存储、检索数据；本 身扩展性很好，可以扩展到上百台服务器，处理PB级别的数据。es也使用Java开发并使用Lucene作为其核心来实 现所有索引和搜索的功能，但是它的目的是通过简单的RESTful API来隐藏Lucene的复杂性，从而让全文搜索变得 简单。</p>
+<h2 id="1-使用ES"><a href="#1-使用ES" class="headerlink" title="1. 使用ES"></a>1. 使用ES</h2><ol>
+<li><p>官网 <a href="https://www.elastic.co/products/elasticsearch" target="_blank" rel="noopener">https://www.elastic.co/products/elasticsearch</a></p>
+</li>
+<li><p>解压ES压缩包</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">bin		<span class="comment"># 可执行二进制文件</span></span><br><span class="line">config	<span class="comment"># 配置信息目录</span></span><br><span class="line">lib		<span class="comment"># jar包存放目录</span></span><br><span class="line">logs	<span class="comment"># 日志存放目录</span></span><br><span class="line">modules	<span class="comment"># 模块存放目录</span></span><br><span class="line">plugins	<span class="comment"># 插件安装目录</span></span><br><span class="line">.....</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>启动ES访问</p>
+<p>Windows：elasticsearch.bat</p>
+<p>Linux：elasticsearch.sh</p>
+</li>
+<li><p>启动ES之后</p>
+<p>9300端口：es的tcp通讯端口，集群间和TCPClient都执行该端口。</p>
+<p>9200端口：http协议的RESTful接口。</p>
+<blockquote>
+<p>打开ES之后，在浏览器中访问127.0.0.1:9200，出现下面结果即表示启动成功。</p>
+</blockquote>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"name"</span>: <span class="string">"4R2QZyN"</span>,</span><br><span class="line">  <span class="attr">"cluster_name"</span>: <span class="string">"elasticsearch"</span>,</span><br><span class="line">  <span class="attr">"cluster_uuid"</span>: <span class="string">"YQsfD7T8TgmT4tQf2RkEhQ"</span>,</span><br><span class="line">  <span class="attr">"version"</span>: &#123;</span><br><span class="line">    <span class="attr">"number"</span>: <span class="string">"5.6.8"</span>,</span><br><span class="line">    <span class="attr">"build_hash"</span>: <span class="string">"688ecce"</span>,</span><br><span class="line">    <span class="attr">"build_date"</span>: <span class="string">"2018-02-16T16:46:30.010Z"</span>,</span><br><span class="line">    <span class="attr">"build_snapshot"</span>: <span class="literal">false</span>,</span><br><span class="line">    <span class="attr">"lucene_version"</span>: <span class="string">"6.6.1"</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">"tagline"</span>: <span class="string">"You Know, for Search"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<h2 id="2-使用ES可视化插件"><a href="#2-使用ES可视化插件" class="headerlink" title="2. 使用ES可视化插件"></a>2. 使用ES可视化插件</h2><ol>
+<li><p>下载head插件</p>
+<p><a href="https://github.com/mobz/elasticsearch-head" target="_blank" rel="noopener">https://github.com/mobz/elasticsearch-head</a></p>
+</li>
+<li><p>解压缩软件</p>
+</li>
+<li><p>下载安装nodejs</p>
+<p><a href="https://nodejs.org/zh-cn/" target="_blank" rel="noopener">https://nodejs.org/zh-cn/</a> </p>
+</li>
+<li><p>使用npm安装工具</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 安装grunt</span></span><br><span class="line">npm install -g grunt-cli</span><br><span class="line"><span class="meta">#</span><span class="bash"> 在解压后的header根目录执行下面命令，启动head</span></span><br><span class="line">npm install</span><br><span class="line">grunt server</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>访问测试</p>
+<p>浏览器中输入：<a href="http://localhost:9100测试" target="_blank" rel="noopener">http://localhost:9100测试</a></p>
+</li>
+<li><p>配置es的config文件下yml配置文件配置跨域</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">http.cors.enabled:</span> <span class="literal">true</span></span><br><span class="line"><span class="string">http.cors.allow-origin:</span> <span class="string">"*"</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>重启ES</p>
+</blockquote>
+</li>
+</ol>
+<h2 id="3-ES中的术语"><a href="#3-ES中的术语" class="headerlink" title="3. ES中的术语"></a>3. ES中的术语</h2><ol>
+<li><p>概述</p>
+<p>ES是面向文档（Document）的，可以存储整个对象或者文档。然而他不仅存储，还可以索引每个文档的内容，使之可以被搜索。在ES中，你可以对文档进行索引、搜索、排序、过滤。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> ES对比传统关系型数据库</span></span><br><span class="line">关系型数据库  --&gt;Databases   ---&gt;Tables    ---&gt;Rows      ---&gt;Colums</span><br><span class="line">   ES       --&gt;Indices     ---&gt;Types     ---&gt;Documents ---&gt;Fields</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>ES核心概念</p>
+<p><strong>索引Index</strong>：</p>
+<p>​    一个索引就是一个拥有几分相似特征的文档的集合。比如说，你可以有一个客户数据的索引，另一个产品目录的索 引，还有一个订单数据的索引。一个索引由一个名字来标识（必须全部是小写字母的），并且当我们要对对应于这 个索引中的文档进行索引、搜索、更新和删除的时候，都要使用到这个名字。在一个集群中，可以定义任意多的索 引。 </p>
+<p><strong>类型Type</strong>：</p>
+<p>​    在一个索引中，你可以定义一种或多种类型。一个类型是你的索引的一个逻辑上的分类/分区，其语义完全由你来 定。通常，会为具有一组共同字段的文档定义一个类型。比如说，我们假设你运营一个博客平台并且将你所有的数 据存储到一个索引中。在这个索引中，你可以为用户数据定义一个类型，为博客数据定义另一个类型，当然，也可 以为评论数据定义另一个类型。 </p>
+<p><strong>字段Field</strong>：</p>
+<p>​    相当于是数据表的字段，对文档数据根据不同属性进行的分类标识 </p>
+<p><strong>映射mapping</strong>：</p>
+<p>​    mapping是处理数据的方式和规则方面做一些限制，如某个字段的数据类型、默认值、分析器、是否被索引等等， 这些都是映射里面可以设置的，其它就是处理es里面数据的一些使用规则设置也叫做映射，按着最优规则处理数据 对性能提高很大，因此才需要建立映射，并且需要思考如何建立映射才能对性能更好。 </p>
+<p><strong>文档document</strong>：</p>
+<p>​    一个文档是一个可被索引的基础信息单元。比如，你可以拥有某一个客户的文档，某一个产品的一个文档，当然， 也可以拥有某个订单的一个文档。文档以JSON（Javascript Object Notation）格式来表示，而JSON是一个到处存 在的互联网数据交互格式。<br>​    在一个index/type里面，你可以存储任意多的文档。注意，尽管一个文档，物理上存在于一个索引之中，文档必须 被索引/赋予一个索引的type。 </p>
+<p><strong>接近实时NRT</strong>：</p>
+<p>​    Elasticsearch是一个接近实时的搜索平台。这意味着，从索引一个文档直到这个文档能够被搜索到有一个轻微的延 迟（通常是1秒以内） </p>
+<p><strong>集群cluster</strong>：</p>
+<p>​    一个集群就是由一个或多个节点组织在一起，它们共同持有整个的数据，并一起提供索引和搜索功能。一个集群由 一个唯一的名字标识，这个名字默认就是“elasticsearch”。这个名字是重要的，因为一个节点只能通过指定某个集 群的名字，来加入这个集群 </p>
+<p><strong>节点node</strong>：</p>
+<p>​    一个节点是集群中的一个服务器，作为集群的一部分，它存储数据，参与集群的索引和搜索功能。</p>
+<p><strong>分片和复制 shards&amp;replicas</strong>：</p>
+<p>​    一个索引可以存储超出单个结点硬件限制的大量数据。比如，一个具有10亿文档的索引占据1TB的磁盘空间，而任 一节点都没有这样大的磁盘空间；或者单个节点处理搜索请求，响应太慢。为了解决这个问题，Elasticsearch提供 了将索引划分成多份的能力，这些份就叫做分片。当你创建一个索引的时候，你可以指定你想要的分片的数量。每 个分片本身也是一个功能完善并且独立的“索引”，这个“索引”可以被放置到集群中的任何节点上。分片很重要，主 要有两方面的原因： 1）允许你水平分割/扩展你的内容容量。 2）允许你在分片（潜在地，位于多个节点上）之上 进行分布式的、并行的操作，进而提高性能/吞吐量。 </p>
+<p>​    在一个网络/云的环境里，失败随时都可能发生，在某个分片/节点不知怎么的就处于离线状态，或者由于任何原因 消失了，这种情况下，有一个故障转移机制是非常有用并且是强烈推荐的。为此目的，Elasticsearch允许你创建分 片的一份或多份拷贝，这些拷贝叫做复制分片，或者直接叫复制。</p>
+</li>
+</ol>
+<h2 id="4-ES的客户端操作"><a href="#4-ES的客户端操作" class="headerlink" title="4. ES的客户端操作"></a>4. ES的客户端操作</h2><p>操作的三种方式【在postman下测试】</p>
+<blockquote>
+<p>es-head插件</p>
+<p>es提供的RESTful接口直接访问</p>
+<p>ES提供的API访问</p>
+</blockquote>
+<ol>
+<li><p>下载、注册并使用Postman</p>
+<p><a href="https://www.postman.com/downloads/" target="_blank" rel="noopener">https://www.postman.com/downloads/</a> </p>
+</li>
+<li><p>创建索引index和映射mapping【同时】</p>
+<blockquote>
+<p>请求url</p>
+</blockquote>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">post	http://127.0.0.1:9200/index1   -- 可近似认为是数据库名</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>body</p>
+</blockquote>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">&#123;	</span><br><span class="line">	"mappings":&#123;    				-- mapping关键字</span><br><span class="line">		"article":&#123;					-- 可近似为数据库表名</span><br><span class="line">			"properties":&#123;			-- properties关键字</span><br><span class="line">				"id":&#123;				-- 可近似数据库类名</span><br><span class="line">					"type":"long",	</span><br><span class="line">					"store": true,</span><br><span class="line">					"index":"not_analyzed"</span><br><span class="line">				&#125;,</span><br><span class="line">				"title":&#123;</span><br><span class="line">					"type":"text",</span><br><span class="line">					"store": true,</span><br><span class="line">					"index": "analyzed",</span><br><span class="line">					"analyzer": "standard"</span><br><span class="line">				&#125;,</span><br><span class="line">				"content":&#123;</span><br><span class="line">					"type":"text",</span><br><span class="line">					"store":true,</span><br><span class="line">					"index":"analyzed",</span><br><span class="line">					"analyzer":"standard"</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ol>
+<ol start="3">
+<li><p>先创建index再创建mapping</p>
+<p>先创建index，不带body</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">put http://127.0.0.1:9200/index1</span><br></pre></td></tr></table></figure>
+
+<p>创建mapping</p>
+<blockquote>
+<p>请求url</p>
+</blockquote>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">put http://127.0.0.1:9200/index1/_mapping</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>body</p>
+</blockquote>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">	"tb1":&#123;</span><br><span class="line">		"properties":&#123;</span><br><span class="line">			"id":&#123;</span><br><span class="line">				"type":"long",</span><br><span class="line">				"store":"true"</span><br><span class="line">			&#125;,</span><br><span class="line">			"title":&#123;</span><br><span class="line">				"type":"text",</span><br><span class="line">				"store":true,</span><br><span class="line">				"index":true,</span><br><span class="line">				"analyzer":"standard"</span><br><span class="line">			&#125;,</span><br><span class="line">			"content":&#123;</span><br><span class="line">				"type":"text",</span><br><span class="line">				"store":true,</span><br><span class="line">				"index":true,</span><br><span class="line">				"analyzer:"standard"</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>删除index</p>
+<blockquote>
+<p>请求url</p>
+</blockquote>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">delete http://127.0.0.1:9200/index1  -- 删除索引index1</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ol>
+<ol start="5">
+<li><p>创建文档document</p>
+<blockquote>
+<p>请求url</p>
+</blockquote>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">post http://127.0.01:9200/index1/tb1/1  --近似给数据库表中插入数据</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>body</p>
+</blockquote>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">	"id":1,</span><br><span class="line">	"title":"震惊，LOL",</span><br><span class="line">	"content":"LoL竟然有更新，没错，就是标题党，你来打我啊"</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>修改文档document</p>
+<blockquote>
+<p>请求url</p>
+</blockquote>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">post http://127.0.01:9200/index1/tb1/1  -- 修改id为1的记录</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>body</p>
+</blockquote>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">	"id":1,</span><br><span class="line">	"title":"指定修改的标题",</span><br><span class="line">	"content":"指定修改的内容"</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>删除文档document</p>
+<blockquote>
+<p>请求url</p>
+</blockquote>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">delete http://127.0.01:9200/index1/tb1/1   -- 删除记录1</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>查询文档-根据id查询</p>
+<blockquote>
+<p>请求url</p>
+</blockquote>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">get http://127.0.01:9200/index1/tb1/1</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>查询文档-querystring查询</p>
+<blockquote>
+<p>请求url</p>
+</blockquote>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">post http://127.0.01:9200/index1/tb1/_search</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>body</p>
+</blockquote>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">	"query":&#123;</span><br><span class="line">		"query_string":&#123;</span><br><span class="line">			"defalut_field":"title",</span><br><span class="line">			"query":"英"</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>查询文档-term查询</p>
+<blockquote>
+<p>请求url</p>
+</blockquote>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">post http://127.0.01:9200/index1/tb1/_search</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>body</p>
+</blockquote>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">	"query":&#123;</span><br><span class="line">		"term":&#123;</span><br><span class="line">			"title":"震"</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>总结</strong></p>
+<p>对ES操作可以近似为对数据库的操作。RESTful的风格请求可以近似SQL语句。</p>
+<p>对<strong>索引</strong>的操作—–近似—-&gt;对<strong>数据库</strong>的操作</p>
+<p>对<strong>映射</strong>的操作—–近似—-&gt;对数据库<strong>表</strong>的操作</p>
+<p>对<strong>文档</strong>操作—–近似—-&gt;对数据库<strong>记录</strong>的操作</p>
+</li>
+</ol>
+<h2 id="5-使用中文分词器"><a href="#5-使用中文分词器" class="headerlink" title="5. 使用中文分词器"></a>5. 使用中文分词器</h2><p>ES默认的分词器是不支持中文分词的，如果想给中文分词要是用IKAnalyzer分词器进行分词。</p>
+<ol>
+<li><p>下载IKAnalyzer</p>
+<p> <a href="https://github.com/medcl/elasticsearch-analysis-ik/" target="_blank" rel="noopener">https://github.com/medcl/elasticsearch-analysis-ik/</a> </p>
+</li>
+<li><p>解压并安装</p>
+<p>将解压之后的elasticsearch文件夹放在ES安装目录下的plugins，重启服务。</p>
+</li>
+<li><p>测试中文分词器</p>
+<blockquote>
+<p>请求url</p>
+</blockquote>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GET localhost:9200/_analyze?analyzer=ik_smart&amp;pretty=true&amp;text=广东省位于中国东南部</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>如果结果出现广东等词语则表明使用中文分词器成功。</p>
+</blockquote>
+</li>
+</ol>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/ElasticSearch/" rel="tag"># ElasticSearch</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/02/16/Spring-Security简单使用/" rel="next" title="Spring-Security简单使用">
+                <i class="fa fa-chevron-left"></i> Spring-Security简单使用
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">tobing</p>
+              <p class="site-description motion-element" itemprop="description">Just so so :)</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">42</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">33</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/Tobingindex" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#ElasticSearch-上"><span class="nav-number">1.</span> <span class="nav-text">ElasticSearch-上</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-使用ES"><span class="nav-number">1.1.</span> <span class="nav-text">1. 使用ES</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-使用ES可视化插件"><span class="nav-number">1.2.</span> <span class="nav-text">2. 使用ES可视化插件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-ES中的术语"><span class="nav-number">1.3.</span> <span class="nav-text">3. ES中的术语</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-ES的客户端操作"><span class="nav-number">1.4.</span> <span class="nav-text">4. ES的客户端操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-使用中文分词器"><span class="nav-number">1.5.</span> <span class="nav-text">5. 使用中文分词器</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2019 &mdash; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">tobing</span>
+
+  
+</div>
+
+
+ 
+
+
+
+
+
+
+  
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://tobing.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'https://tobing.top/2020/02/27/ElasticSearch-上/';
+          this.page.identifier = '2020/02/27/ElasticSearch-上/';
+          this.page.title = 'ElasticSearch-上';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://tobing.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'Vy5O9liYY1EruxX5WAaSWiFU-gzGzoHsz',
+        appKey: 'LkbvdUheh7noXFlcQzKXf4hV',
+        placeholder: 'Just go go :)',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("Vy5O9liYY1EruxX5WAaSWiFU-gzGzoHsz", "LkbvdUheh7noXFlcQzKXf4hV");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
