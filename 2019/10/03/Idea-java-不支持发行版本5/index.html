@@ -79,21 +79,21 @@
 
 
 
-<meta name="description" content="Intellij idea : java 不支持发行版本51. 问题描述 在使用Intellij idea构建Maven工程的时候，运行报错Error : java 不支持发行版本5。  2. 问题原因 Idea 中的java的编译器使用了1.5版本来编译，导致无法通过。 其他因素尚不明确  3. 解决办法 File—-&amp;gt;ProjectStructure—–&amp;gt;Module File—-">
+<meta name="description" content="Intellij idea : java 不支持发行版本51. 问题描述 在使用Intellij idea构建Maven工程的时候，运行报错Error : java 不支持发行版本5。  2. 问题原因 Idea 中的java的编译器使用了1.5版本来编译，导致无法通过。【不够严谨】 maven工程默认以JDK1.5作为编译运行的版本，但是1.5版本太低，不被idea支持。  3. 解决办法 方法">
 <meta name="keywords" content="idea,Java">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Idea:java 不支持发行版本5">
 <meta property="og:url" content="https://tobing.top/2019/10/03/Idea-java-不支持发行版本5/index.html">
 <meta property="og:site_name" content="tobing">
-<meta property="og:description" content="Intellij idea : java 不支持发行版本51. 问题描述 在使用Intellij idea构建Maven工程的时候，运行报错Error : java 不支持发行版本5。  2. 问题原因 Idea 中的java的编译器使用了1.5版本来编译，导致无法通过。 其他因素尚不明确  3. 解决办法 File—-&amp;gt;ProjectStructure—–&amp;gt;Module File—-">
+<meta property="og:description" content="Intellij idea : java 不支持发行版本51. 问题描述 在使用Intellij idea构建Maven工程的时候，运行报错Error : java 不支持发行版本5。  2. 问题原因 Idea 中的java的编译器使用了1.5版本来编译，导致无法通过。【不够严谨】 maven工程默认以JDK1.5作为编译运行的版本，但是1.5版本太低，不被idea支持。  3. 解决办法 方法">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://tobing.top/images/ideaError1_1.png">
 <meta property="og:image" content="https://tobing.top/images/ideaError1_2.png">
 <meta property="og:image" content="https://tobing.top/images/ideaError1_3.png">
-<meta property="og:updated_time" content="2019-10-03T11:28:29.259Z">
+<meta property="og:updated_time" content="2020-02-28T13:27:00.453Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Idea:java 不支持发行版本5">
-<meta name="twitter:description" content="Intellij idea : java 不支持发行版本51. 问题描述 在使用Intellij idea构建Maven工程的时候，运行报错Error : java 不支持发行版本5。  2. 问题原因 Idea 中的java的编译器使用了1.5版本来编译，导致无法通过。 其他因素尚不明确  3. 解决办法 File—-&amp;gt;ProjectStructure—–&amp;gt;Module File—-">
+<meta name="twitter:description" content="Intellij idea : java 不支持发行版本51. 问题描述 在使用Intellij idea构建Maven工程的时候，运行报错Error : java 不支持发行版本5。  2. 问题原因 Idea 中的java的编译器使用了1.5版本来编译，导致无法通过。【不够严谨】 maven工程默认以JDK1.5作为编译运行的版本，但是1.5版本太低，不被idea支持。  3. 解决办法 方法">
 <meta name="twitter:image" content="https://tobing.top/images/ideaError1_1.png">
 
 
@@ -411,10 +411,13 @@
 <li>在使用Intellij idea构建Maven工程的时候，运行报错<code>Error : java 不支持发行版本5</code>。</li>
 </ul>
 <h3 id="2-问题原因"><a href="#2-问题原因" class="headerlink" title="2. 问题原因"></a>2. 问题原因</h3><ul>
-<li>Idea 中的java的编译器使用了1.5版本来编译，导致无法通过。</li>
-<li>其他因素尚不明确</li>
+<li><del>Idea 中的java的编译器使用了1.5版本来编译，导致无法通过。</del>【不够严谨】</li>
+<li>maven工程默认以JDK1.5作为编译运行的版本，但是1.5版本太低，不被idea支持。</li>
 </ul>
-<h3 id="3-解决办法"><a href="#3-解决办法" class="headerlink" title="3. 解决办法"></a>3. 解决办法</h3><ul>
+<h3 id="3-解决办法"><a href="#3-解决办法" class="headerlink" title="3. 解决办法"></a>3. 解决办法</h3><ol>
+<li><strong>方法一</strong></li>
+</ol>
+<ul>
 <li>File—-&gt;ProjectStructure—–&gt;Module</li>
 <li>File—-&gt;ProjectStructure—–&gt;Project </li>
 <li>修改如下设置，使其为1.5以上</li>
@@ -425,6 +428,16 @@
 <li>再到File—&gt;Settings—&gt;Build,Ex….—&gt;Java Compiler，将其内容修改问如下。</li>
 </ul>
 <p><img src="/images/ideaError1_3.png" alt="ideaError1_3"></p>
+<ol start="2">
+<li><p><strong>方法二</strong>【推荐】</p>
+<p>在maven工程的pom文件中指定编译和运行的jdk版本</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">properties</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">maven.compiler.source</span>&gt;</span>1.9<span class="tag">&lt;/<span class="name">maven.compiler.source</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">maven.compiler.target</span>&gt;</span>1.9<span class="tag">&lt;/<span class="name">maven.compiler.target</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">properties</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>properties标签与dependencies同一级</p>
+</blockquote>
+</li>
+</ol>
 
       
     </div>
