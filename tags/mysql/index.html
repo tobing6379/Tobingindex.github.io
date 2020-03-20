@@ -83,7 +83,7 @@
 <meta name="keywords" content="tobing&#39;s blog">
 <meta property="og:type" content="website">
 <meta property="og:title" content="tobing">
-<meta property="og:url" content="https://tobing.top/tags/MySQL/index.html">
+<meta property="og:url" content="https://tobing.top/tags/mysql/index.html">
 <meta property="og:site_name" content="tobing">
 <meta property="og:description" content="Just so so :)">
 <meta property="og:locale" content="zh-Hans">
@@ -119,13 +119,13 @@
 
 
 
-  <link rel="canonical" href="https://tobing.top/tags/MySQL/">
+  <link rel="canonical" href="https://tobing.top/tags/mysql/">
 
 
 
 
 
-  <title>标签: MySQL | tobing</title>
+  <title>标签: mysql | tobing</title>
   
 
 
@@ -285,7 +285,7 @@
 
     <div id="posts" class="posts-collapse">
       <div class="collection-title">
-        <h1>MySQL<small>标签</small>
+        <h1>mysql<small>标签</small>
         </h1>
       </div>
 
@@ -297,95 +297,17 @@
 
       <h2 class="post-title">
         
-            <a class="post-title-link" href="/2019/11/23/MySQL-4-多表查询与事务/" itemprop="url">
+            <a class="post-title-link" href="/2019/10/12/Java-Mysql实现简略超市信息管理系统/" itemprop="url">
               
-                <span itemprop="name">MySQL-4-多表查询与事务</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-11-23T10:11:26+08:00" content="2019-11-23">
-          11-23
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2019/11/23/MySQL-3-数据库的设计/" itemprop="url">
-              
-                <span itemprop="name">MySQL-3-数据库的设计</span>
+                <span itemprop="name">Java+Mysql实现简略超市信息管理系统</span>
               
             </a>
         
       </h2>
 
       <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-11-23T10:11:12+08:00" content="2019-11-23">
-          11-23
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2019/11/15/MySQL-2-基本操作/" itemprop="url">
-              
-                <span itemprop="name">MySQL-2-基本操作</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-11-15T22:07:48+08:00" content="2019-11-15">
-          11-15
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2019/11/15/MySQL-1-概述/" itemprop="url">
-              
-                <span itemprop="name">MySQL-1-概述</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-11-15T22:06:55+08:00" content="2019-11-15">
-          11-15
+        <time class="post-time" itemprop="dateCreated" datetime="2019-10-12T21:41:54+08:00" content="2019-10-12">
+          10-12
         </time>
       </div>
 
@@ -493,6 +415,28 @@
           
 
           
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                友情链接
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://mirrorsquare.com/" title="Zenyet" target="_blank">Zenyet</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://changtong1819.top/" title="于无声处听惊雷" target="_blank">于无声处听惊雷</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://vvvyyt.club/" title="Y涛" target="_blank">Y涛</a>
+                  </li>
+                
+              </ul>
+            </div>
           
 
           
@@ -760,6 +704,76 @@
 
       query.equalTo("url", url);
       query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
+find({
         success: function(results) {
           if (results.length > 0) {
             var counter = results[0];
