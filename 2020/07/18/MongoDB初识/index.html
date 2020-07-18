@@ -1,0 +1,1144 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="MongoDB,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="MongoDB初识1. 简介​        MongoDB是一个跨平台、面向文档的数据库，是当前NoSQL中最热门的一种。它介于关系型和非关系型数据库之间，是非关系型数据库中：功能最丰富、最像关系型数据库的产品。它支持的数据结构非常松散，是类似Json的Bson格式，因此可以存储较为复杂的数据。 ​        MongoDB官网： https://www.mongodb.com/  1. 特">
+<meta name="keywords" content="MongoDB">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MongoDB初识">
+<meta property="og:url" content="https://tobing.top/2020/07/18/MongoDB初识/index.html">
+<meta property="og:site_name" content="tobing">
+<meta property="og:description" content="MongoDB初识1. 简介​        MongoDB是一个跨平台、面向文档的数据库，是当前NoSQL中最热门的一种。它介于关系型和非关系型数据库之间，是非关系型数据库中：功能最丰富、最像关系型数据库的产品。它支持的数据结构非常松散，是类似Json的Bson格式，因此可以存储较为复杂的数据。 ​        MongoDB官网： https://www.mongodb.com/  1. 特">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2020-07-18T07:02:32.722Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="MongoDB初识">
+<meta name="twitter:description" content="MongoDB初识1. 简介​        MongoDB是一个跨平台、面向文档的数据库，是当前NoSQL中最热门的一种。它介于关系型和非关系型数据库之间，是非关系型数据库中：功能最丰富、最像关系型数据库的产品。它支持的数据结构非常松散，是类似Json的Bson格式，因此可以存储较为复杂的数据。 ​        MongoDB官网： https://www.mongodb.com/  1. 特">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://tobing.top/2020/07/18/MongoDB初识/">
+
+
+
+
+
+  <title>MongoDB初识 | tobing</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?79d1a38a3f2e0804e9fb5f960582fdd2";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">tobing</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Just so so :)</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br>
+            
+            站点地图
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br>
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://tobing.top/2020/07/18/MongoDB初识/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="tobing">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="tobing">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">MongoDB初识</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-07-18T15:01:51+08:00">
+                2020-07-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/数据库/" itemprop="url" rel="index">
+                    <span itemprop="name">数据库</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2020/07/18/MongoDB初识/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/07/18/MongoDB初识/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2020/07/18/MongoDB初识/" class="leancloud_visitors" data-flag-title="MongoDB初识">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="MongoDB初识"><a href="#MongoDB初识" class="headerlink" title="MongoDB初识"></a>MongoDB初识</h1><h2 id="1-简介"><a href="#1-简介" class="headerlink" title="1. 简介"></a>1. 简介</h2><p>​        MongoDB是一个跨平台、面向文档的数据库，是当前NoSQL中最热门的一种。它介于关系型和非关系型数据库之间，是非关系型数据库中：功能最丰富、最像关系型数据库的产品。它支持的数据结构非常松散，是类似Json的Bson格式，因此可以存储较为复杂的数据。</p>
+<p>​        MongoDB官网： <a href="https://www.mongodb.com/" target="_blank" rel="noopener">https://www.mongodb.com/</a> </p>
+<h3 id="1-特点"><a href="#1-特点" class="headerlink" title="1. 特点"></a>1. 特点</h3><p>​        MongoDB最大特点是：支持的查询语言非常强大，语法类似面向对象的查询语句，几乎可以实现所有关系型数据库单表查询的绝大部分功能，而且还支持对数据库建立索引。MongoDB是面向集合的，模式自由的文档型数据库。</p>
+<p>1）面向集合存储，易于存储对象型数据</p>
+<p>2）模式自由</p>
+<p>3）支持动态查询</p>
+<p>4）支持完全索引，包含内部对象</p>
+<p>5）支持复制和故障恢复</p>
+<p>6）使用高效的二进制数据存储，包括大型对象（比如视频等）</p>
+<p>7）支持Python、PHP、Java、Ruby、C、C#、JS等语言的驱动程序。</p>
+<p>8）文件存储格式为BSON（JSON的扩展）</p>
+<h3 id="2-体系结构"><a href="#2-体系结构" class="headerlink" title="2. 体系结构"></a>2. 体系结构</h3><p>​        MongoDB的逻辑结构是一种层次结构，由Document、Collection、Database三部分组成，逻辑结构是面向用户的。</p>
+<p>1）Document：相当关系型数据库表的一行<strong>记录</strong>。</p>
+<p>2）Collection：相当于关系型数据库的一张<strong>表</strong>，可以存储多个Document。</p>
+<p>3）Database：相当于关系型数据库的一个<strong>数据库</strong>，可以存储多个Collection。</p>
+<h3 id="3-数据类型"><a href="#3-数据类型" class="headerlink" title="3. 数据类型"></a>3. 数据类型</h3><table>
+<thead>
+<tr>
+<th>数据类型</th>
+<th>特点</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>null</td>
+<td>空值、或不存在的值</td>
+<td>{“x”:nul}</td>
+</tr>
+<tr>
+<td>布尔型</td>
+<td>true、false</td>
+<td>{“x”:true}</td>
+</tr>
+<tr>
+<td>数值</td>
+<td>默认使用64浮点型，NumberInt可以定义使用整型</td>
+<td>{“x”:NumberInt(1)}</td>
+</tr>
+<tr>
+<td>字符串</td>
+<td>UTF-8</td>
+<td>{“x”:”呵呵”}</td>
+</tr>
+<tr>
+<td>日期</td>
+<td>毫秒数，不存储时区</td>
+<td>{“x”:new Date()}</td>
+</tr>
+<tr>
+<td>正则表达式</td>
+<td>查询时，可以作为条件</td>
+<td>{“x”:/[abc]/}</td>
+</tr>
+<tr>
+<td>数组</td>
+<td>类别Java</td>
+<td>{“x”:[“a”,”b”]}</td>
+</tr>
+<tr>
+<td>内嵌对象</td>
+<td>文档内可以嵌套其他文档对象</td>
+<td>{“x”:{“y”:3}}</td>
+</tr>
+<tr>
+<td>对象id</td>
+<td>12字节字符串，文档的唯一标识</td>
+<td>{“x”:objectId()}</td>
+</tr>
+<tr>
+<td>二进制数据</td>
+<td>非UTF-8数据</td>
+<td></td>
+</tr>
+<tr>
+<td>代码</td>
+<td>查询和文档中可以包含任何JS代码</td>
+<td>{“x”:function(){…}}</td>
+</tr>
+</tbody></table>
+<h2 id="2-MongoDB简单使用"><a href="#2-MongoDB简单使用" class="headerlink" title="2. MongoDB简单使用"></a>2. MongoDB简单使用</h2><h3 id="1-安装【Windows】"><a href="#1-安装【Windows】" class="headerlink" title="1. 安装【Windows】"></a>1. 安装【Windows】</h3><p>​    1）下载安装文件</p>
+<p>​    2）安装在指定目录</p>
+<p>​    3）将该目录添加到环境变量中 </p>
+<p> <a href="https://docs.mongodb.com/manual/tutorial/install-mongodb-on-windows/" target="_blank" rel="noopener">https://docs.mongodb.com/manual/tutorial/install-mongodb-on-windows/</a> </p>
+<h3 id="2-启动"><a href="#2-启动" class="headerlink" title="2. 启动"></a>2. 启动</h3><p>1）新建cmd窗口</p>
+<p>2）使用mongod设置数据库存放目录</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 创建目录</span></span><br><span class="line">md D:\mongodata</span><br><span class="line"><span class="meta">#</span><span class="bash"> 指定目录</span></span><br><span class="line">mongod --dbpath=D:\mongodata</span><br></pre></td></tr></table></figure>
+
+<p>2）输入mongo，进入mongoDB中</p>
+<p>3）输入exit，退出</p>
+<h3 id="3-Docker下安装MongoDB"><a href="#3-Docker下安装MongoDB" class="headerlink" title="3. Docker下安装MongoDB"></a>3. Docker下安装MongoDB</h3><ol>
+<li><p>拉取镜像</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 搜索镜像</span></span><br><span class="line">docker search mongo</span><br><span class="line"><span class="meta">#</span><span class="bash"> 拉取镜像</span></span><br><span class="line">docker pull mongo</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>创建容器</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 守护式方式创建容器</span></span><br><span class="line">docker run -di --name=my_mongodb -p 27017:27017 mongo</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>远程登录</p>
+<p>​    我们之前安装的MongoDB既是服务器端，也是客户端，因此我们使用windows下的远程连接部署在docker上的。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mongo [docker宿主机IP地址]</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<h3 id="4-常用命令"><a href="#4-常用命令" class="headerlink" title="4. 常用命令"></a>4. 常用命令</h3><p>​        在使用客户端连上了docker的mongoDB之后，我们使用起来学习常用命令。</p>
+<ol>
+<li><p>选择和创建数据库</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">use [数据库名称]</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>与MySQL不同，MongoDB下，当指定的数据库名称不存在，则会自动创建一个数据库。</p>
+</blockquote>
+</li>
+<li><p>插入与查询文档</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 插入文档</span></span><br><span class="line">db.[集合名称].insert(数据);</span><br><span class="line"><span class="meta">#</span><span class="bash"> 查询所有文档</span></span><br><span class="line">db.[集合名称].find();</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>演示</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 创建msgdb数据库</span></span><br><span class="line">use msgdb</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 插入文档信息 包含:context,name</span></span><br><span class="line">db.msg.insert(&#123;content:"你好啊，MongoDB！",name:"tobing")&#125;);</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 查询所有，查看是否插入成功</span></span><br><span class="line">db.msg.find();</span><br></pre></td></tr></table></figure>
+
+<p>查询结果</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123; "_id" : ObjectId("5f1289f78d22f2d94c6e42de"), "content" : "你好啊，MongoDB，这是一句话", "username" : "tobing" &#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>观察查询结果我们发现，文档中多了一条<strong>“_id”</strong>的字段，这相当于关系型数据库中的<strong>主键</strong>。</p>
+<p>当插入文档时没有注定，MongoDB会帮我们自动创建，类型为ObjectID类型。</p>
+<p>我们插入时也可以指定，可以是ObjectID类型或者MongoDB支持的任意类型。</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 添加第二条记录</span></span><br><span class="line">db.spit.insert(&#123;"_id":"1",content:"你好啊，赤橙梦魇过","username":"zenyet"&#125;)</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 再次查询所有</span></span><br><span class="line">db.spit.find()</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 查询一个：查询_id为1的数据</span></span><br><span class="line">db.spit.findOne(&#123;"_id":"1"&#125;)</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 查询前n条记录</span></span><br><span class="line">db.spit.find().limit(3)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">查询所有</span></span><br><span class="line">&#123; "_id" : ObjectId("5f1289f78d22f2d94c6e42de"), "content" : "你好啊，MongoDB，这是一句话", "username" : "tobing" &#125;</span><br><span class="line">&#123; "_id" : "1", "content" : "你好啊，赤橙梦魇过", "username" : "zenyet" &#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 查询一个</span></span><br><span class="line">&#123; "_id" : "1", "content" : "你好啊，赤橙梦魇过", "username" : "zenyet" &#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>修改和删除文档</p>
+<p>修改</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.集合名称.update(条件，修改的数据)</span><br></pre></td></tr></table></figure>
+
+<p>删除</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.集合名称.remove(条件)</span><br></pre></td></tr></table></figure>
+
+<p>示例</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 更新_id为1的content</span></span><br><span class="line">db.spit.update(&#123;"_id":"1"&#125;,&#123;$set:&#123;content:"Hello, This is new !"&#125;&#125;)</span><br><span class="line"><span class="meta">#</span><span class="bash"> 删除_id为1的文档</span></span><br><span class="line">db.spit.remove(&#123;"_id":"1"&#125;)</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>注意：当不加上<code>$set</code>的时候，会将符合条件的记录的其他字段全部清空。</p>
+</blockquote>
+</li>
+<li><p>统计条数</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 统计所有</span></span><br><span class="line">dp.spit.count()</span><br><span class="line"><span class="meta">#</span><span class="bash"> 统计符合条件</span></span><br><span class="line">dp.spit.count(条件)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>模糊查询</p>
+<p>MongoDB的模糊查询通过正则表达式方式实现的。格式为：/模糊查询字符串/ </p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 查询所有content字段包含tobing的文档</span></span><br><span class="line">db.spit.find(&#123;content:/流量/&#125;)</span><br><span class="line"><span class="meta">#</span><span class="bash"> 查询所有content字段以流量开头的文档</span></span><br><span class="line">db.spit.find(&#123;content:/^流量/&#125;)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>比较运算符</p>
+<p>&lt;、&gt;、&lt;=、&gt;=操作</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">db.集合名称.find(&#123;"Field":&#123;$gt:value&#125;&#125;) 	// 大于：field &gt; value</span><br><span class="line">db.集合名称.find(&#123;"Field":&#123;$lt:value&#125;&#125;) 	// 小于：field &lt; value</span><br><span class="line">db.集合名称.find(&#123;"Field":&#123;$gte:value&#125;&#125;) 	// 大于等于：field &gt;= value</span><br><span class="line">db.集合名称.find(&#123;"Field":&#123;$lte:value&#125;&#125;) 	// 小于等于：field &lt;= value</span><br><span class="line">db.集合名称.find(&#123;"Field":&#123;$ne:value&#125;&#125;) 	// 不等于：field != value</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>包含与不包含</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 查询id包含101,102的文档</span></span><br><span class="line">db.spit.find(&#123;id:&#123;$in:["101","102"]&#125;&#125;)</span><br><span class="line"><span class="meta">#</span><span class="bash"> 查询不包含的</span></span><br><span class="line">db.spit.find(&#123;id:&#123;$nin:["101","102"]&#125;&#125;)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>条件连接</p>
+<p>需要查询同时满足两个条件的时候，使用and</p>
+<p>需要查询满足其中一个条件的时候，用or</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash">and:[&#123;&#125;,&#123;&#125;,&#123;&#125;]</span></span><br><span class="line"></span><br><span class="line"><span class="meta">$</span><span class="bash">or:[&#123;&#125;,&#123;&#125;,...]</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 查询符合id=1且name=<span class="string">"tobing"</span>的文档</span></span><br><span class="line">db.spit.find(&#123;$and:[&#123;"id":1&#125;,&#123;"name":"tobing"&#125;]&#125;)</span><br><span class="line"><span class="meta">#</span><span class="bash"> 查询符合id=1或name=<span class="string">"tobing"</span>的文档</span></span><br><span class="line">db.spit.find(&#123;$or:[&#123;"id":1&#125;,&#123;"name":"tobing"&#125;]&#125;)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>列值增长</p>
+<p>可以使用<code>$inc运算符</code>对原有的值进行增加或减少</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.spit.udpate(&#123;_id:"2"&#125;,&#123;$inc:&#123;visits:NumberInt(1)&#125;&#125;)</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ol>
+<h2 id="3-Java操作MongoDB"><a href="#3-Java操作MongoDB" class="headerlink" title="3. Java操作MongoDB"></a>3. Java操作MongoDB</h2><h3 id="1-创建maven、导入依赖坐标"><a href="#1-创建maven、导入依赖坐标" class="headerlink" title="1. 创建maven、导入依赖坐标"></a>1. 创建maven、导入依赖坐标</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.mongodb<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mongodb-driver<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>3.6.3<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="2-创建测试类"><a href="#2-创建测试类" class="headerlink" title="2. 创建测试类"></a>2. 创建测试类</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> top.tobing.test;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.mongodb.BasicDBObject;</span><br><span class="line"><span class="keyword">import</span> com.mongodb.MongoClient;</span><br><span class="line"><span class="keyword">import</span> com.mongodb.client.FindIterable;</span><br><span class="line"><span class="keyword">import</span> com.mongodb.client.MongoCollection;</span><br><span class="line"><span class="keyword">import</span> com.mongodb.client.MongoDatabase;</span><br><span class="line"><span class="keyword">import</span> org.bson.Document;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.HashMap;</span><br><span class="line"><span class="keyword">import</span> java.util.Map;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> Tobing</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MongoTest</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 创建连接</span></span><br><span class="line">        MongoClient client = <span class="keyword">new</span> MongoClient(<span class="string">"192.168.8.128"</span>);</span><br><span class="line">        <span class="comment">// 打开数据库</span></span><br><span class="line">        MongoDatabase spitdb = client.getDatabase(<span class="string">"spitdb"</span>);</span><br><span class="line">        <span class="comment">// 查询所有</span></span><br><span class="line">        <span class="comment">// testFindAll(spitdb);</span></span><br><span class="line">        <span class="comment">// 条件查询</span></span><br><span class="line">        <span class="comment">// testFindByEx(spitdb);</span></span><br><span class="line">        <span class="comment">// 插入数据</span></span><br><span class="line">        testInsertData(spitdb);</span><br><span class="line">        testFindAll(spitdb);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 关闭连接</span></span><br><span class="line">        client.close();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">testInsertData</span><span class="params">(MongoDatabase spitdb)</span> </span>&#123;</span><br><span class="line">        MongoCollection&lt;Document&gt; spit = spitdb.getCollection(<span class="string">"spit"</span>);</span><br><span class="line"></span><br><span class="line">        Map&lt;String, Object&gt; map = <span class="keyword">new</span> HashMap&lt;String, Object&gt;();</span><br><span class="line">        map.put(<span class="string">"username"</span>,<span class="string">"张三丰"</span>);</span><br><span class="line">        map.put(<span class="string">"content"</span>,<span class="string">"我是太极创始人，有我拽？"</span>);</span><br><span class="line">        Document document = <span class="keyword">new</span> Document(map);</span><br><span class="line">        spit.insertOne(document);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 条件查询</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> spitdb</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">testFindByEx</span><span class="params">(MongoDatabase spitdb)</span> </span>&#123;</span><br><span class="line">        MongoCollection&lt;Document&gt; spit = spitdb.getCollection(<span class="string">"spit"</span>);</span><br><span class="line">        <span class="comment">// 构造查询条件</span></span><br><span class="line">        BasicDBObject bson = <span class="keyword">new</span> BasicDBObject(<span class="string">"username"</span>, <span class="string">"tobing"</span>);</span><br><span class="line">        FindIterable&lt;Document&gt; documents = spit.find(bson);</span><br><span class="line">        <span class="keyword">for</span> (Document document : documents) &#123;</span><br><span class="line">            System.out.println(</span><br><span class="line">                    document.get(<span class="string">"username"</span>) + <span class="string">":"</span> + document.get(<span class="string">"content"</span>));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 查询所有</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> spitdb</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">testFindAll</span><span class="params">(MongoDatabase spitdb)</span> </span>&#123;</span><br><span class="line">        MongoCollection&lt;Document&gt; spit = spitdb.getCollection(<span class="string">"spit"</span>);</span><br><span class="line">        FindIterable&lt;Document&gt; documents = spit.find();</span><br><span class="line">        <span class="keyword">for</span> (Document document : documents) &#123;</span><br><span class="line">            System.out.println(</span><br><span class="line">                    document.get(<span class="string">"username"</span>) + <span class="string">":"</span> + document.get(<span class="string">"content"</span>));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/MongoDB/" rel="tag"># MongoDB</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/07/17/Docker初识/" rel="next" title="Docker初识">
+                <i class="fa fa-chevron-left"></i> Docker初识
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">tobing</p>
+              <p class="site-description motion-element" itemprop="description">Just so so :)</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">47</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">40</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/Tobingindex" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                友情链接
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://mirrorsquare.com/" title="Zenyet" target="_blank">Zenyet</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://changtong1819.top/" title="于无声处听惊雷" target="_blank">于无声处听惊雷</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://vvvyyt.club/" title="秃鹫网友" target="_blank">秃鹫网友</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#MongoDB初识"><span class="nav-number">1.</span> <span class="nav-text">MongoDB初识</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-简介"><span class="nav-number">1.1.</span> <span class="nav-text">1. 简介</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-特点"><span class="nav-number">1.1.1.</span> <span class="nav-text">1. 特点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-体系结构"><span class="nav-number">1.1.2.</span> <span class="nav-text">2. 体系结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-数据类型"><span class="nav-number">1.1.3.</span> <span class="nav-text">3. 数据类型</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-MongoDB简单使用"><span class="nav-number">1.2.</span> <span class="nav-text">2. MongoDB简单使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-安装【Windows】"><span class="nav-number">1.2.1.</span> <span class="nav-text">1. 安装【Windows】</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-启动"><span class="nav-number">1.2.2.</span> <span class="nav-text">2. 启动</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-Docker下安装MongoDB"><span class="nav-number">1.2.3.</span> <span class="nav-text">3. Docker下安装MongoDB</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-常用命令"><span class="nav-number">1.2.4.</span> <span class="nav-text">4. 常用命令</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-Java操作MongoDB"><span class="nav-number">1.3.</span> <span class="nav-text">3. Java操作MongoDB</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-创建maven、导入依赖坐标"><span class="nav-number">1.3.1.</span> <span class="nav-text">1. 创建maven、导入依赖坐标</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-创建测试类"><span class="nav-number">1.3.2.</span> <span class="nav-text">2. 创建测试类</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2019 &mdash; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">tobing</span>
+
+  
+</div>
+
+
+ 
+
+
+
+
+
+
+  
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://tobing.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'https://tobing.top/2020/07/18/MongoDB初识/';
+          this.page.identifier = '2020/07/18/MongoDB初识/';
+          this.page.title = 'MongoDB初识';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://tobing.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'Vy5O9liYY1EruxX5WAaSWiFU-gzGzoHsz',
+        appKey: 'LkbvdUheh7noXFlcQzKXf4hV',
+        placeholder: '傍晚，躺着草坪，望向湛蓝的天空',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("Vy5O9liYY1EruxX5WAaSWiFU-gzGzoHsz", "LkbvdUheh7noXFlcQzKXf4hV");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
