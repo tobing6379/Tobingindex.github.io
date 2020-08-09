@@ -1,0 +1,1298 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Mybatis,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Mybatis-6-延迟加载与缓存1. 延迟加载1. 什么是延迟加载  延迟加载机制是为了避免一些无谓的性能开销而提出来的，所谓延迟加载就是当在真正需要数据的时候，才真正执行数据加载操作。 延迟加载(lazy load)是(也称为懒加载)。   2. 为什么要使用延迟加载  实际开发中一张表往往关联着其他表，但每次查询不一定要用到其他表。 查询一张表比查询多张表速度要快，可以大大提高查询速度。">
+<meta name="keywords" content="Mybatis">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Mybatis-6-延迟加载">
+<meta property="og:url" content="https://tobing.top/2019/11/30/Mybatis-6-延迟加载/index.html">
+<meta property="og:site_name" content="tobing">
+<meta property="og:description" content="Mybatis-6-延迟加载与缓存1. 延迟加载1. 什么是延迟加载  延迟加载机制是为了避免一些无谓的性能开销而提出来的，所谓延迟加载就是当在真正需要数据的时候，才真正执行数据加载操作。 延迟加载(lazy load)是(也称为懒加载)。   2. 为什么要使用延迟加载  实际开发中一张表往往关联着其他表，但每次查询不一定要用到其他表。 查询一张表比查询多张表速度要快，可以大大提高查询速度。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://tobing.top/images/Mybatis/my-6-1.png">
+<meta property="og:image" content="https://tobing.top/images/Mybatis/my-6-2.png">
+<meta property="og:updated_time" content="2019-11-30T13:22:22.094Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Mybatis-6-延迟加载">
+<meta name="twitter:description" content="Mybatis-6-延迟加载与缓存1. 延迟加载1. 什么是延迟加载  延迟加载机制是为了避免一些无谓的性能开销而提出来的，所谓延迟加载就是当在真正需要数据的时候，才真正执行数据加载操作。 延迟加载(lazy load)是(也称为懒加载)。   2. 为什么要使用延迟加载  实际开发中一张表往往关联着其他表，但每次查询不一定要用到其他表。 查询一张表比查询多张表速度要快，可以大大提高查询速度。">
+<meta name="twitter:image" content="https://tobing.top/images/Mybatis/my-6-1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://tobing.top/2019/11/30/Mybatis-6-延迟加载/">
+
+
+
+
+
+  <title>Mybatis-6-延迟加载 | tobing</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?79d1a38a3f2e0804e9fb5f960582fdd2";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">tobing</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Just so so :)</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br>
+            
+            站点地图
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br>
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://tobing.top/2019/11/30/Mybatis-6-延迟加载/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="tobing">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="tobing">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Mybatis-6-延迟加载</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-11-30T21:15:57+08:00">
+                2019-11-30
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/11/30/Mybatis-6-延迟加载/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/11/30/Mybatis-6-延迟加载/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2019/11/30/Mybatis-6-延迟加载/" class="leancloud_visitors" data-flag-title="Mybatis-6-延迟加载">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="Mybatis-6-延迟加载与缓存"><a href="#Mybatis-6-延迟加载与缓存" class="headerlink" title="Mybatis-6-延迟加载与缓存"></a>Mybatis-6-延迟加载与缓存</h1><h2 id="1-延迟加载"><a href="#1-延迟加载" class="headerlink" title="1. 延迟加载"></a>1. 延迟加载</h2><h3 id="1-什么是延迟加载"><a href="#1-什么是延迟加载" class="headerlink" title="1. 什么是延迟加载"></a>1. 什么是延迟加载</h3><blockquote>
+<ol>
+<li>延迟加载机制是为了避免一些无谓的性能开销而提出来的，所谓延迟加载就是当在真正需要数据的时候，才真正执行数据加载操作。</li>
+<li>延迟加载(lazy load)是(也称为懒加载)。</li>
+</ol>
+</blockquote>
+<h3 id="2-为什么要使用延迟加载"><a href="#2-为什么要使用延迟加载" class="headerlink" title="2. 为什么要使用延迟加载"></a>2. 为什么要使用延迟加载</h3><blockquote>
+<ol>
+<li>实际开发中一张表往往关联着其他表，但每次查询不一定要用到其他表。</li>
+<li>查询一张表比查询多张表速度要快，可以大大提高查询速度。</li>
+</ol>
+</blockquote>
+<h3 id="3-延迟加载存在的问题"><a href="#3-延迟加载存在的问题" class="headerlink" title="3. 延迟加载存在的问题"></a>3. 延迟加载存在的问题</h3><blockquote>
+<p>由于是用到了数据才去加载，所以在用户大量使用查询的时候，会导致查询结果较慢。</p>
+</blockquote>
+<h3 id="4-延迟加载应用示例"><a href="#4-延迟加载应用示例" class="headerlink" title="4. 延迟加载应用示例"></a>4. 延迟加载应用示例</h3><ol>
+<li><p>场景</p>
+<ol>
+<li><p>Account和User表</p>
+<table>
+<thead>
+<tr>
+<th align="center">表名</th>
+<th align="center">列名1</th>
+<th align="center">列名2</th>
+<th align="center">列名3</th>
+<th align="center">列名4</th>
+<th align="center">列名5</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">Account</td>
+<td align="center">id</td>
+<td align="center">uid</td>
+<td align="center">money</td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">User</td>
+<td align="center">id</td>
+<td align="center">username</td>
+<td align="center">birthday</td>
+<td align="center">sex</td>
+<td align="center">address</td>
+</tr>
+</tbody></table>
+<blockquote>
+<ol>
+<li><p>User可以有多个Account（即是一对多）。</p>
+</li>
+<li><p>Account通过uid与唯一的User关联。</p>
+</li>
+</ol>
+</blockquote>
+</li>
+<li><p>需求</p>
+<blockquote>
+<ol>
+<li>在通过查询Account时，不直接查询出其中的User。</li>
+<li>在需要使用User信息部分（例如：调用getUser模拟使用User信息）时，才实行加载。</li>
+</ol>
+</blockquote>
+</li>
+</ol>
+</li>
+<li><p>分析</p>
+<blockquote>
+<ol>
+<li>Account中有User的属性用于关联User表查询的信息。</li>
+<li>不调用其中的getUser方法的时候不查询User的数据（延迟加载）。</li>
+<li>在Account的dao.xml配置返回值的时候将resultMap中的association添加select明确是使用延迟加载来查询User属性。</li>
+</ol>
+</blockquote>
+<p><img src="/images/Mybatis/my-6-1.png" alt="延迟加载"></p>
+</li>
+<li><p>编码</p>
+<ol>
+<li><p>给Account实体类中添加唯一User属性</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Account</span> <span class="keyword">implements</span> <span class="title">Serializable</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> id;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> uid;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">double</span> money;</span><br><span class="line">    <span class="keyword">private</span> User user; <span class="comment">// 唯一user</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ol>
+</li>
+</ol>
+<ol start="2">
+<li><p>在UserDao中添加根据id查询唯一User的抽象方法findById。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">UserDao</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> User <span class="title">findById</span><span class="params">(Integer uid)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ol>
+<ol start="3">
+<li><p>在AccountDao中添加findAll查询所有的方法。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">public interface AccountDao &#123;</span><br><span class="line">    public List<span class="tag">&lt;<span class="name">Account</span>&gt;</span> findAll();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ol>
+<ol start="4">
+<li><p>在AccountDao.xml中Mapper下添加关联findAll查询方法的配置。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">mapper</span> <span class="attr">namespace</span>=<span class="string">"top.tobing.dao.AccountDao"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">resultMap</span> <span class="attr">id</span>=<span class="string">"accountMap"</span> <span class="attr">type</span>=<span class="string">"top.tobing.domain.Account"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">id</span> <span class="attr">column</span>=<span class="string">"id"</span> <span class="attr">property</span>=<span class="string">"id"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">result</span> <span class="attr">column</span>=<span class="string">"aid"</span> <span class="attr">property</span>=<span class="string">"id"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">result</span> <span class="attr">column</span>=<span class="string">"uid"</span> <span class="attr">property</span>=<span class="string">"uid"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">result</span> <span class="attr">column</span>=<span class="string">"money"</span> <span class="attr">property</span>=<span class="string">"money"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">association</span> <span class="attr">property</span>=<span class="string">"user"</span> <span class="attr">javaType</span>=<span class="string">"top.tobing.domain.User"</span></span></span><br><span class="line"><span class="tag">                     <span class="attr">select</span>=<span class="string">"top.tobing.dao.UserDao.findById"</span> <span class="attr">column</span>=<span class="string">"uid"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">association</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">resultMap</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"findAll"</span> <span class="attr">resultMap</span>=<span class="string">"accountMap"</span>&gt;</span></span><br><span class="line">        select * from account;</span><br><span class="line">    <span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">mapper</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>此步骤在association中包含了select，可以实现按需加载User。</p>
+</blockquote>
+</li>
+<li><p>在UserDao.xml中添加关联findById的方法。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">mapper</span> <span class="attr">namespace</span>=<span class="string">"top.tobing.dao.UserDao"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"findById"</span> <span class="attr">resultType</span>=<span class="string">"top.tobing.domain.User"</span>&gt;</span></span><br><span class="line">        select * from user where id = #&#123;uid&#125;;</span><br><span class="line">    <span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">mapper</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在测试方法中测试是否实现延迟加载</p>
+<blockquote>
+<p>不调用getUser等，与User信息相关的方法。</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">findAllTest</span><span class="params">()</span></span>&#123;</span><br><span class="line">      List&lt;Account&gt; accounts = accountDao.findAll();</span><br><span class="line">      <span class="keyword">for</span> (Account account : accounts) &#123;</span><br><span class="line">          System.out.println(account.getMoney());</span><br><span class="line">      &#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>查询结果</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">2019-11-28 12:18:36,346 224    [           main] DEBUG ansaction.jdbc.JdbcTransaction  - Opening JDBC Connection</span><br><span class="line">2019-11-28 12:18:36,578 456    [           main] DEBUG source.pooled.PooledDataSource  - Created connection 1038677529.</span><br><span class="line">2019-11-28 12:18:36,578 456    [           main] DEBUG ansaction.jdbc.JdbcTransaction  - Setting autocommit to <span class="literal">false</span> on JDBC Connection [com.mysql.jdbc.JDBC4Connection@3de8f619]</span><br><span class="line">2019-11-28 12:18:36,582 460    [           main] DEBUG .tobing.dao.AccountDao.findAll  - ==&gt;  Preparing: select * from account; </span><br><span class="line">2019-11-28 12:18:36,617 495    [           main] DEBUG .tobing.dao.AccountDao.findAll  - ==&gt; Parameters: </span><br><span class="line">2019-11-28 12:18:36,673 551    [           main] DEBUG .tobing.dao.AccountDao.findAll  - &lt;==      Total: 6</span><br><span class="line">20000.0</span><br><span class="line">40000.0</span><br><span class="line">30000.0</span><br><span class="line">21000.0</span><br><span class="line">40000.0</span><br><span class="line">50000.0</span><br><span class="line">2019-11-28 12:18:36,675 553    [           main] DEBUG ansaction.jdbc.JdbcTransaction  - Resetting autocommit to <span class="literal">true</span> on JDBC Connection [com.mysql.jdbc.JDBC4Connection@3de8f619]</span><br><span class="line">2019-11-28 12:18:36,675 553    [           main] DEBUG ansaction.jdbc.JdbcTransaction  - Closing JDBC Connection [com.mysql.jdbc.JDBC4Connection@3de8f619]</span><br><span class="line">2019-11-28 12:18:36,676 554    [           main] DEBUG source.pooled.PooledDataSource  - Returned connection 1038677529 to pool.</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>只查询了一次。</p>
+</blockquote>
+</li>
+</ol>
+<pre><code>&gt; id为42时，调用getUser方法
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">findAllTest</span><span class="params">()</span></span>&#123;</span><br><span class="line">      List&lt;Account&gt; accounts = accountDao.findAll();</span><br><span class="line">      <span class="keyword">for</span> (Account account : accounts) &#123;</span><br><span class="line">          System.out.println(account.getMoney());</span><br><span class="line">          <span class="keyword">if</span>(account.getUid()==<span class="number">42</span>)&#123;  <span class="comment">// 只有id为42才查询。</span></span><br><span class="line">              System.out.println(account.getUser());</span><br><span class="line">          &#125;</span><br><span class="line">      &#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+&gt; 只有id为42，才去执行查询User表（调用UserDao.xml中的findById）
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">User&#123;id=42, username=<span class="string">'Rongon'</span>, birthday=null, sex=<span class="string">'男'</span>, address=<span class="string">'江苏'</span>&#125;</span><br><span class="line">30000.0</span><br><span class="line">21000.0</span><br><span class="line">40000.0</span><br><span class="line">50000.0</span><br><span class="line">User&#123;id=42, username=<span class="string">'Rongon'</span>, birthday=null, sex=<span class="string">'男'</span>, address=<span class="string">'江苏'</span>&#125;</span><br></pre></td></tr></table></figure></code></pre><h3 id="5-练习：以第4为例，实现查询用户User表，延迟加载用户的Account信息。"><a href="#5-练习：以第4为例，实现查询用户User表，延迟加载用户的Account信息。" class="headerlink" title="5. 练习：以第4为例，实现查询用户User表，延迟加载用户的Account信息。"></a>5. 练习：以第4为例，实现查询用户User表，延迟加载用户的Account信息。</h3><ol>
+<li><p>User表中添加关联的Account的字段。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">User</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> Integer id;</span><br><span class="line">    <span class="keyword">private</span> String username;</span><br><span class="line">    <span class="keyword">private</span> Date birthday;</span><br><span class="line">    <span class="keyword">private</span> String sex;</span><br><span class="line">    <span class="keyword">private</span> String address;</span><br><span class="line">    <span class="keyword">private</span> List&lt;Account&gt; accounts;	<span class="comment">// 用户对应的多个账号</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ol>
+<ol start="2">
+<li><p>AccountDao接口中添加按照uid查询多个Account的方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">AccountDao</span> </span>&#123;</span><br><span class="line">    <span class="function">List&lt;Account&gt; <span class="title">findAllByUid</span><span class="params">(Integer uid)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ol>
+<ol start="3">
+<li><p>UserDao接口中添加按照查询所有的方法\</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">UserDao</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> List&lt;User&gt; <span class="title">findAllAccount</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ol>
+<ol start="4">
+<li><p>AccountDao.xml中添加AccountDao接口对应的方法的配置</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"findAllByUid"</span> <span class="attr">resultMap</span>=<span class="string">"top.tobing.domain.Account"</span>&gt;</span></span><br><span class="line">     select * from account where uid = #&#123;id&#125;;</span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ol>
+<ol start="5">
+<li><p>UserDao.xml中添加UserDao接口对应的方法配置。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">mapper</span> <span class="attr">namespace</span>=<span class="string">"top.tobing.dao.UserDao"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">resultMap</span> <span class="attr">id</span>=<span class="string">"userMap"</span> <span class="attr">type</span>=<span class="string">"top.tobing.domain.User"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">id</span> <span class="attr">column</span>=<span class="string">"id"</span> <span class="attr">property</span>=<span class="string">"id"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">result</span> <span class="attr">column</span>=<span class="string">"username"</span> <span class="attr">property</span>=<span class="string">"username"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">result</span> <span class="attr">column</span>=<span class="string">"birthday"</span> <span class="attr">property</span>=<span class="string">"birthday"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">result</span> <span class="attr">column</span>=<span class="string">"address"</span> <span class="attr">property</span>=<span class="string">"address"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">result</span> <span class="attr">column</span>=<span class="string">"sex"</span> <span class="attr">property</span>=<span class="string">"sex"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">association</span> <span class="attr">property</span>=<span class="string">"accounts"</span> <span class="attr">javaType</span>=<span class="string">"List"</span></span></span><br><span class="line"><span class="tag">   <span class="attr">select</span>=<span class="string">"top.tobing.dao.AccountDao.findAllByUid"</span> <span class="attr">column</span>=<span class="string">"id"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">association</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">resultMap</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"findAllAccount"</span> <span class="attr">resultMap</span>=<span class="string">"userMap"</span>&gt;</span></span><br><span class="line">        select * from user;</span><br><span class="line">    <span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br><span class="line">    </span><br><span class="line"><span class="tag">&lt;/<span class="name">mapper</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>注意：</p>
+<ol>
+<li>association中的javaType是account对应的数据类型（List<account>）</account></li>
+<li>association中的column参数是传给top/tobing/AccountDao.xml中的findAllByUid对应的mapper.</li>
+</ol>
+</blockquote>
+</li>
+<li><p>检验是否实现延迟查询</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">2019-11-28 16:21:04,172 501    [           main] DEBUG ing.dao.UserDao.findAllAccount  - ==&gt;  Preparing: select * from user; </span><br><span class="line">2019-11-28 16:21:04,207 536    [           main] DEBUG ing.dao.UserDao.findAllAccount  - ==&gt; Parameters: </span><br><span class="line">2019-11-28 16:21:04,261 590    [           main] DEBUG ing.dao.UserDao.findAllAccount  - &lt;==      Total: 6</span><br><span class="line">Tobing</span><br><span class="line">男</span><br><span class="line">==============================</span><br><span class="line">Rongon</span><br><span class="line">男</span><br><span class="line">==============================</span><br><span class="line">Zenyet</span><br><span class="line">男</span><br><span class="line">==============================</span><br><span class="line">尼古拉斯</span><br><span class="line">男</span><br><span class="line">==============================</span><br><span class="line">张无忌</span><br><span class="line">男</span><br><span class="line">==============================</span><br><span class="line">张三丰</span><br><span class="line">男</span><br><span class="line">==============================</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">2019-11-28 16:21:44,570 217    [           main] DEBUG ansaction.jdbc.JdbcTransaction  - Opening JDBC Connection</span><br><span class="line">2019-11-28 16:21:44,776 423    [           main] DEBUG source.pooled.PooledDataSource  - Created connection 1314838582.</span><br><span class="line">2019-11-28 16:21:44,776 423    [           main] DEBUG ansaction.jdbc.JdbcTransaction  - Setting autocommit to <span class="literal">false</span> on JDBC Connection [com.mysql.jdbc.JDBC4Connection@4e5ed836]</span><br><span class="line">2019-11-28 16:21:44,779 426    [           main] DEBUG ing.dao.UserDao.findAllAccount  - ==&gt;  Preparing: select * from user; </span><br><span class="line">2019-11-28 16:21:44,816 463    [           main] DEBUG ing.dao.UserDao.findAllAccount  - ==&gt; Parameters: </span><br><span class="line">2019-11-28 16:21:44,868 515    [           main] DEBUG ing.dao.UserDao.findAllAccount  - &lt;==      Total: 6</span><br><span class="line">Tobing</span><br><span class="line">男</span><br><span class="line">2019-11-28 16:21:44,869 516    [           main] DEBUG ng.dao.AccountDao.findAllByUid  - ==&gt;  Preparing: select * from account <span class="built_in">where</span> uid = ?; </span><br><span class="line">2019-11-28 16:21:44,870 517    [           main] DEBUG ng.dao.AccountDao.findAllByUid  - ==&gt; Parameters: 41(Integer)</span><br><span class="line">2019-11-28 16:21:44,871 518    [           main] DEBUG ng.dao.AccountDao.findAllByUid  - &lt;==      Total: 1</span><br><span class="line">[Account&#123;id=1, uid=41, money=20000.0&#125;]</span><br><span class="line">==============================</span><br><span class="line">Rongon</span><br><span class="line">男</span><br><span class="line">2019-11-28 16:21:44,880 527    [           main] DEBUG ng.dao.AccountDao.findAllByUid  - ==&gt;  Preparing: select * from account <span class="built_in">where</span> uid = ?; </span><br><span class="line">2019-11-28 16:21:44,881 528    [           main] DEBUG ng.dao.AccountDao.findAllByUid  - ==&gt; Parameters: 42(Integer)</span><br><span class="line">2019-11-28 16:21:44,882 529    [           main] DEBUG ng.dao.AccountDao.findAllByUid  - &lt;==      Total: 2</span><br><span class="line">[Account&#123;id=2, uid=42, money=40000.0&#125;, Account&#123;id=6, uid=42, money=50000.0&#125;]</span><br><span class="line">==============================</span><br><span class="line">Zenyet</span><br><span class="line">男</span><br><span class="line">2019-11-28 16:21:44,882 529    [           main] DEBUG ng.dao.AccountDao.findAllByUid  - ==&gt;  Preparing: select * from account <span class="built_in">where</span> uid = ?; </span><br><span class="line">2019-11-28 16:21:44,883 530    [           main] DEBUG ng.dao.AccountDao.findAllByUid  - ==&gt; Parameters: 43(Integer)</span><br><span class="line">2019-11-28 16:21:44,883 530    [           main] DEBUG ng.dao.AccountDao.findAllByUid  - &lt;==      Total: 1</span><br><span class="line">[Account&#123;id=3, uid=43, money=30000.0&#125;]</span><br><span class="line">==============================</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<h3 id="6-总结"><a href="#6-总结" class="headerlink" title="6. 总结"></a>6. 总结</h3><ol>
+<li><p>与之前的立即相比。延迟加载在要延迟加载的association中添加了select、column等属性。</p>
+<blockquote>
+<p>select:用于指定调用那个方法执行查询延迟加载部分内容。</p>
+<p>column：用于指定查询延迟加载部分的参数。</p>
+<p>javaType：要合实体类一一对应。</p>
+</blockquote>
+</li>
+<li><p>所谓延迟加载，在此处的体现是，根据需求，决定是否调用其他的方法（该方法可以实现查询延迟加载的部分数据）。</p>
+</li>
+</ol>
+<h2 id="2-Mybatis中的缓存"><a href="#2-Mybatis中的缓存" class="headerlink" title="2.Mybatis中的缓存"></a>2.Mybatis中的缓存</h2><h3 id="1-缓存"><a href="#1-缓存" class="headerlink" title="1. 缓存"></a>1. 缓存</h3><blockquote>
+<ol>
+<li>What：存储在内存中临时数据。</li>
+<li>Why：减少和数据库交互次数，提高执行效率。</li>
+<li>When：<ol>
+<li>使用缓存：数据经常查询、数据不经常改变、数据正确性对最终结果影响不大。</li>
+<li>不使用缓存：数据经常改变、数据正确性对最终结果影响很大（例如：商品库存、银行汇率、股市牌价等）</li>
+</ol>
+</li>
+</ol>
+</blockquote>
+<h3 id="2-Mybatis中缓存机制"><a href="#2-Mybatis中缓存机制" class="headerlink" title="2. Mybatis中缓存机制"></a>2. Mybatis中缓存机制</h3><blockquote>
+<ol>
+<li>一级缓存：<ul>
+<li>是指Mybatis中SqlSession对象的缓存</li>
+<li>当我们执行查询后，查询的结果会存入到SqlSession对象提供的一块区域中（一个Map）。</li>
+<li>当我们查询同样的数据时，Mybatis会先去SqlSession中的区域找，如果存在直接拿来用。</li>
+<li>因为一级缓存保存在SqlSession，所以当SqlSession对象消失，一级缓存自动消失。</li>
+</ul>
+</li>
+<li>二级缓存：<ul>
+<li>是指存储在SqlSessionFactory对象的缓存。由同一个SqlSessionFactory对象创建的SqlSession共享其缓存。</li>
+<li>Mybatis默认不开启二级缓存</li>
+<li>SqlSession执行相同Mapper映射下sql，执行commit提交，将会清空Mapper映射下的二级缓存</li>
+<li></li>
+</ul>
+</li>
+</ol>
+</blockquote>
+<p><img src="/images/Mybatis/my-6-2.png" alt="缓存机制"></p>
+<h3 id="3-一级缓存"><a href="#3-一级缓存" class="headerlink" title="3. 一级缓存"></a>3. 一级缓存</h3><blockquote>
+<ul>
+<li><p>Mybatis中默认开启一级缓存</p>
+</li>
+<li><p>验证步骤</p>
+<ol>
+<li>创建User、UserDao、UserDao.xml</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&gt;   <span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">User</span> </span>&#123;</span><br><span class="line">&gt;       <span class="keyword">private</span> <span class="keyword">int</span> id;</span><br><span class="line">&gt;       <span class="keyword">private</span> String username;</span><br><span class="line">&gt;       <span class="keyword">private</span> Date birthday;</span><br><span class="line">&gt;       <span class="keyword">private</span> String sex;</span><br><span class="line">&gt;       <span class="keyword">private</span> String address;</span><br><span class="line">&gt;   &#125;</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</blockquote>
+<blockquote>
+<ol start="2">
+<li><p>UserDao中添加一个用于查询的查询方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&gt;   <span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">UserDao</span> </span>&#123;</span><br><span class="line">&gt;       <span class="function"><span class="keyword">public</span> User <span class="title">findById</span><span class="params">(<span class="keyword">int</span> id)</span></span>;</span><br><span class="line">&gt;   &#125;</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+</blockquote>
+<blockquote>
+<ol start="3">
+<li><p>UserDao.xml配置查询的SQL语句</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&gt;   <span class="tag">&lt;<span class="name">mapper</span> <span class="attr">namespace</span>=<span class="string">"top.tobing.dao.UserDao"</span>&gt;</span></span><br><span class="line">&gt;       <span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"findById"</span> <span class="attr">resultType</span>=<span class="string">"top.tobing.domain.User"</span>&gt;</span></span><br><span class="line">&gt;           select * from user where id = #&#123;id&#125; ;</span><br><span class="line">&gt;       <span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br><span class="line">&gt;   <span class="tag">&lt;/<span class="name">mapper</span>&gt;</span></span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+</blockquote>
+<blockquote>
+<ol start="4">
+<li><p>验证缓存查询结果</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&gt;      <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">findByIdTest</span><span class="params">()</span></span>&#123;</span><br><span class="line">&gt;           User user = userDao.findById(<span class="number">44</span>);  <span class="comment">// 第一次查询</span></span><br><span class="line">&gt;           System.out.println(user);</span><br><span class="line">&gt;           User user1 = userDao.findById(<span class="number">44</span>);  <span class="comment">// 第二次查询</span></span><br><span class="line">&gt;           System.out.println(user1);</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+</blockquote>
+<blockquote>
+  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&gt;   DEBUG op.tobing.dao.UserDao.findById  - ==&gt;  Preparing: select * from user <span class="built_in">where</span> id = ? ; </span><br><span class="line">&gt;   DEBUG op.tobing.dao.UserDao.findById  - ==&gt; Parameters: 44(Integer)</span><br><span class="line">&gt;   DEBUG op.tobing.dao.UserDao.findById  - &lt;==      Total: 1</span><br><span class="line">&gt;   top.tobing.domain.User@7fd7a283</span><br><span class="line">&gt;   top.tobing.domain.User@7fd7a283</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+<pre><code>&gt; 两次查询出来的对象地址相同</code></pre><ol start="5">
+<li><p>验证清楚缓存</p>
+<blockquote>
+<p>调用clearCache、close等方法。</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&gt;   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">findByIdTest</span><span class="params">()</span></span>&#123;</span><br><span class="line">&gt;           User user = userDao.findById(<span class="number">44</span>);  <span class="comment">// 第一次查询</span></span><br><span class="line">&gt;           System.out.println(user);</span><br><span class="line">&gt;           <span class="comment">// 再次获取session</span></span><br><span class="line">&gt;   <span class="comment">//        session.close();</span></span><br><span class="line">&gt;   <span class="comment">//        session = factory.openSession();</span></span><br><span class="line">&gt;   <span class="comment">//        userDao = session.getMapper(UserDao.class);</span></span><br><span class="line">&gt;           <span class="comment">// 另外一种方式清空数据</span></span><br><span class="line">&gt;          session.clearCache();</span><br><span class="line">&gt;   </span><br><span class="line">&gt;           User user1 = userDao.findById(<span class="number">44</span>);  <span class="comment">// 第二次查询</span></span><br><span class="line">&gt;           System.out.println(user1);</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+</blockquote>
+<blockquote>
+<pre><code>&gt; 结果查询了两次
+
+&gt; 调用了commit更新等操作。</code></pre>  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&gt;     	<span class="meta">@Test</span></span><br><span class="line">&gt;       <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">firstCacheTest</span><span class="params">()</span></span>&#123;</span><br><span class="line">&gt;           User user = userDao.findById(<span class="number">44</span>);  <span class="comment">// 第一次查询</span></span><br><span class="line">&gt;           System.out.println(user);</span><br><span class="line">&gt;           user.setUsername(<span class="string">"CacheTest"</span>);</span><br><span class="line">&gt;           userDao.updateUser(user);</span><br><span class="line">&gt;           user = userDao.findById(<span class="number">44</span>);</span><br><span class="line">&gt;           System.out.println(user);</span><br><span class="line">&gt;           System.out.println(<span class="string">"--------------"</span>);</span><br><span class="line">&gt;       &#125;</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+<pre><code>&gt; 此处也会跳过缓存，直接查询。</code></pre></blockquote>
+<h3 id="4-二级缓存"><a href="#4-二级缓存" class="headerlink" title="4. 二级缓存"></a>4. 二级缓存</h3><blockquote>
+<p>同一个SqlSessionFactory得到的SqlSession可以共享二级缓存数据。</p>
+</blockquote>
+<blockquote>
+<p>使用步骤：</p>
+<ol>
+<li>SqlMapConfig中开启二级缓存</li>
+<li>Mapper中开启二级缓存</li>
+<li>statement中使用二级缓存</li>
+</ol>
+</blockquote>
+<ol>
+<li><p>SQLMapConfig开启二级缓存</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--开启二级缓存--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">settings</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">setting</span> <span class="attr">name</span>=<span class="string">"cacheEnable"</span> <span class="attr">value</span>=<span class="string">"true"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">settings</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ol>
+<ol start="2">
+<li><p>Mapper中开启二级缓存、statement使用二级缓存</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">mapper</span> <span class="attr">namespace</span>=<span class="string">"top.tobing.dao.UserDao"</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--Mapper开启缓存--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">cache</span>&gt;</span><span class="tag">&lt;/<span class="name">cache</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--查询时使用缓存--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"findById"</span> <span class="attr">resultType</span>=<span class="string">"top.tobing.domain.User"</span> <span class="attr">useCache</span>=<span class="string">"true"</span>&gt;</span></span><br><span class="line">        select * from user where id = #&#123;id&#125; ;</span><br><span class="line">    <span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">mapper</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>检验结果</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">secondCacheTest</span><span class="params">()</span></span>&#123;</span><br><span class="line">    SqlSession sqlSession1 = factory.openSession();</span><br><span class="line">    UserDao userDao1 = sqlSession1.getMapper(UserDao.class);</span><br><span class="line">    User user1 = userDao1.findById(<span class="number">44</span>);</span><br><span class="line">    System.out.println(user1);</span><br><span class="line">    sqlSession1.close();</span><br><span class="line">   </span><br><span class="line">    SqlSession sqlSession2 = factory.openSession();</span><br><span class="line">    UserDao userDao2 = sqlSession2.getMapper(UserDao.class);</span><br><span class="line">    User user2 = userDao2.findById(<span class="number">44</span>);</span><br><span class="line">    System.out.println(user2);</span><br><span class="line">    sqlSession2.close();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>结果显示查询了一次。</p>
+</blockquote>
+</li>
+</ol>
+<h3 id="5-总结"><a href="#5-总结" class="headerlink" title="5. 总结"></a>5. 总结</h3><blockquote>
+<ul>
+<li>缓存是可以数据库开销。</li>
+<li>Mybatis中有两种缓存：一级缓存和二级缓存</li>
+<li>一级缓存作用范围在SqlSession中，SqlSession，commit（增删改）会清空缓存。</li>
+<li>二级缓存作用范围在SqlSessionFactory，即是一个SqlSessionFactory生产出来的SqlSession共享同一二级缓存。</li>
+<li>二级缓存会随着同一mapper任意一个SqlSession进行了commit而清空</li>
+<li>一级缓存不需要手动开启。</li>
+<li>二级缓存需要设置SqlMapConfig、Mapper、和要查询的方法。</li>
+</ul>
+</blockquote>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Mybatis/" rel="tag"># Mybatis</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/11/23/Mybatis-5-多表查询2/" rel="next" title="Mybatis-5-多表查询2">
+                <i class="fa fa-chevron-left"></i> Mybatis-5-多表查询2
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/11/30/Mybatis-7-注解开发/" rel="prev" title="Mybatis-7-注解开发">
+                Mybatis-7-注解开发 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">tobing</p>
+              <p class="site-description motion-element" itemprop="description">Just so so :)</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">50</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">44</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/Tobingindex" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                友情链接
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://mirrorsquare.com/" title="Zenyet" target="_blank">Zenyet</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://changtong1819.top/" title="于无声处听惊雷" target="_blank">于无声处听惊雷</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://vvvyyt.club/" title="秃鹫网友" target="_blank">秃鹫网友</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Mybatis-6-延迟加载与缓存"><span class="nav-number">1.</span> <span class="nav-text">Mybatis-6-延迟加载与缓存</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-延迟加载"><span class="nav-number">1.1.</span> <span class="nav-text">1. 延迟加载</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-什么是延迟加载"><span class="nav-number">1.1.1.</span> <span class="nav-text">1. 什么是延迟加载</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-为什么要使用延迟加载"><span class="nav-number">1.1.2.</span> <span class="nav-text">2. 为什么要使用延迟加载</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-延迟加载存在的问题"><span class="nav-number">1.1.3.</span> <span class="nav-text">3. 延迟加载存在的问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-延迟加载应用示例"><span class="nav-number">1.1.4.</span> <span class="nav-text">4. 延迟加载应用示例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-练习：以第4为例，实现查询用户User表，延迟加载用户的Account信息。"><span class="nav-number">1.1.5.</span> <span class="nav-text">5. 练习：以第4为例，实现查询用户User表，延迟加载用户的Account信息。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-总结"><span class="nav-number">1.1.6.</span> <span class="nav-text">6. 总结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-Mybatis中的缓存"><span class="nav-number">1.2.</span> <span class="nav-text">2.Mybatis中的缓存</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-缓存"><span class="nav-number">1.2.1.</span> <span class="nav-text">1. 缓存</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-Mybatis中缓存机制"><span class="nav-number">1.2.2.</span> <span class="nav-text">2. Mybatis中缓存机制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-一级缓存"><span class="nav-number">1.2.3.</span> <span class="nav-text">3. 一级缓存</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-二级缓存"><span class="nav-number">1.2.4.</span> <span class="nav-text">4. 二级缓存</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-总结"><span class="nav-number">1.2.5.</span> <span class="nav-text">5. 总结</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2019 &mdash; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">tobing</span>
+
+  
+</div>
+
+
+ 
+
+
+
+
+
+
+  
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://tobing.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'https://tobing.top/2019/11/30/Mybatis-6-延迟加载/';
+          this.page.identifier = '2019/11/30/Mybatis-6-延迟加载/';
+          this.page.title = 'Mybatis-6-延迟加载';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://tobing.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'Vy5O9liYY1EruxX5WAaSWiFU-gzGzoHsz',
+        appKey: 'LkbvdUheh7noXFlcQzKXf4hV',
+        placeholder: '傍晚，躺着草坪，望向湛蓝的天空',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("Vy5O9liYY1EruxX5WAaSWiFU-gzGzoHsz", "LkbvdUheh7noXFlcQzKXf4hV");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
