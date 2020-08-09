@@ -1,0 +1,1186 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="MySQL,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="MySQL进阶-1-架构介绍1. MySQL简介1.1 概述 MySQL是一个关系型数据库管理系统（RDBMS），由瑞典MySQL AB 公司开放，目前属于ORACLE公司。 MySQL是一种关系数据库管理系统，将数据保存在不同的表中，而不是将所有数据放在一个大仓库内，这样增加了速度并提高了灵活性。 MySQL是开源的，所以不需要支付额外的费用。 MySQL支持大型的数据库，可以出来拥有成千上万条">
+<meta name="keywords" content="MySQL">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MySQL进阶-1-架构介绍">
+<meta property="og:url" content="https://tobing.top/2020/08/09/MySQL进阶-1-架构介绍/index.html">
+<meta property="og:site_name" content="tobing">
+<meta property="og:description" content="MySQL进阶-1-架构介绍1. MySQL简介1.1 概述 MySQL是一个关系型数据库管理系统（RDBMS），由瑞典MySQL AB 公司开放，目前属于ORACLE公司。 MySQL是一种关系数据库管理系统，将数据保存在不同的表中，而不是将所有数据放在一个大仓库内，这样增加了速度并提高了灵活性。 MySQL是开源的，所以不需要支付额外的费用。 MySQL支持大型的数据库，可以出来拥有成千上万条">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://tobing.top/images/1596985484052.png">
+<meta property="og:updated_time" content="2020-08-09T15:48:53.381Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="MySQL进阶-1-架构介绍">
+<meta name="twitter:description" content="MySQL进阶-1-架构介绍1. MySQL简介1.1 概述 MySQL是一个关系型数据库管理系统（RDBMS），由瑞典MySQL AB 公司开放，目前属于ORACLE公司。 MySQL是一种关系数据库管理系统，将数据保存在不同的表中，而不是将所有数据放在一个大仓库内，这样增加了速度并提高了灵活性。 MySQL是开源的，所以不需要支付额外的费用。 MySQL支持大型的数据库，可以出来拥有成千上万条">
+<meta name="twitter:image" content="https://tobing.top/images/1596985484052.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://tobing.top/2020/08/09/MySQL进阶-1-架构介绍/">
+
+
+
+
+
+  <title>MySQL进阶-1-架构介绍 | tobing</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?79d1a38a3f2e0804e9fb5f960582fdd2";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">tobing</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Just so so :)</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br>
+            
+            站点地图
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br>
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://tobing.top/2020/08/09/MySQL进阶-1-架构介绍/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="tobing">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="tobing">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">MySQL进阶-1-架构介绍</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-08-09T23:44:18+08:00">
+                2020-08-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2020/08/09/MySQL进阶-1-架构介绍/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/08/09/MySQL进阶-1-架构介绍/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2020/08/09/MySQL进阶-1-架构介绍/" class="leancloud_visitors" data-flag-title="MySQL进阶-1-架构介绍">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="MySQL进阶-1-架构介绍"><a href="#MySQL进阶-1-架构介绍" class="headerlink" title="MySQL进阶-1-架构介绍"></a>MySQL进阶-1-架构介绍</h1><h2 id="1-MySQL简介"><a href="#1-MySQL简介" class="headerlink" title="1. MySQL简介"></a>1. MySQL简介</h2><h3 id="1-1-概述"><a href="#1-1-概述" class="headerlink" title="1.1 概述"></a>1.1 概述</h3><ol>
+<li>MySQL是一个关系型数据库管理系统（RDBMS），由瑞典MySQL AB 公司开放，目前属于ORACLE公司。</li>
+<li>MySQL是一种关系数据库管理系统，将数据保存在不同的表中，而不是将所有数据放在一个大仓库内，这样增加了速度并提高了灵活性。</li>
+<li>MySQL是开源的，所以不需要支付额外的费用。</li>
+<li>MySQL支持大型的数据库，可以出来拥有成千上万条记录的大型数据库。32位系统表文件最大支持4GB、64位系统最大表文件支持8TB。</li>
+<li>MySQL使用标准的SQL数据语言形式。</li>
+<li>MySQL可以运行于多个系统，并支持多语言。包括：C、C++、Java、Python、Perl、PHP、Ruby等等。</li>
+<li>MySQL是可以定制的，采用了GPL协议，你可以修改源码来开发自己的系统。</li>
+</ol>
+<h3 id="1-2-MySQL进阶"><a href="#1-2-MySQL进阶" class="headerlink" title="1.2 MySQL进阶"></a>1.2 MySQL进阶</h3><ol>
+<li>内核</li>
+<li>SQL优化</li>
+<li>服务器的优化</li>
+<li>查询语句优化</li>
+<li>主从复制</li>
+<li>软硬件升级</li>
+<li>容灾备份</li>
+<li>SQL编程</li>
+</ol>
+<h2 id="2-Linux下MySQL使用"><a href="#2-Linux下MySQL使用" class="headerlink" title="2. Linux下MySQL使用"></a>2. Linux下MySQL使用</h2><h3 id="2-1-MySQL5-5安装"><a href="#2-1-MySQL5-5安装" class="headerlink" title="2.1 MySQL5.5安装"></a>2.1 MySQL5.5安装</h3><ol>
+<li><p>下载地址：<a href="https://dev.mysql.com/downloads/mysql/" target="_blank" rel="noopener">https://dev.mysql.com/downloads/mysql/</a></p>
+</li>
+<li><p>检查是否安装过MySQL</p>
+</li>
+<li><p>安装MySQL客户端、服务器端</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> 安装服务器端</span><br><span class="line">rpm -ivh --nodeps MySQL-server-5.5.54-1.linux2.6.x86_64.rpm</span><br><span class="line"><span class="meta">#</span> 安装客户端</span><br><span class="line">rpm -ivh --nodeps MySQL-client-5.5.54-1.linux2.6.x86_64.rpm</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>启动MySQL服务</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">service mysql start</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>设置root密码</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sqladmin -u root password 123456</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>设置MySQL自启动</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> 设置自启动</span><br><span class="line">chkconfig mysql on</span><br><span class="line"><span class="meta">#</span> 检验是否设置成功</span><br><span class="line">ntsysv</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>修改配置文件位置</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cp /usr/share/mysql/my-huge.cnf /etc/my.cnf</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>将share下单my-huge.cnf配置文件复制到etc目录下，并且注意文件名。</p>
+<p>不同版本的配置文件名可能不一样，如5.6的为my-defalut.cnf</p>
+</blockquote>
+</li>
+<li><p>设置字符集编码</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> 查看字符集 [默认客户端和服务端动用了Latin1，使用中文会乱码]</span><br><span class="line">show variales like '%char%'</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 修改配置文件</span><br><span class="line">vim /etc/my.cnf</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 添加下面内容</span><br><span class="line"></span><br><span class="line">[client]</span><br><span class="line">default-character-set=utf8 # 设置编码</span><br><span class="line"></span><br><span class="line">[mysqld]</span><br><span class="line">lower_case_table_names=1   # 设置大小写区分情况</span><br><span class="line">character_set_server=utf8</span><br><span class="line">character_set_client=utf8</span><br><span class="line">collation-server=utf8_general_ci</span><br><span class="line">max_connections=1000       # 设置最大连接数</span><br><span class="line"></span><br><span class="line">[mysql]</span><br><span class="line">default-character-set=utf8</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>MySQL一些目录</p>
+<p>linux下查看</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ps -ef | grep mysql</span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th>路径</th>
+<th>解析</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>/var/lib/mysql</td>
+<td>mysql数据库文件的存放路径</td>
+<td>/var/lib/mysql/xxx.pid</td>
+</tr>
+<tr>
+<td>/usr/share/mysql</td>
+<td>配置文件目录</td>
+<td>mysql.server命令及配置</td>
+</tr>
+<tr>
+<td>/usr/bin</td>
+<td>相关命令目录</td>
+<td>mysqladmin mysqldump等命令</td>
+</tr>
+<tr>
+<td>/etc/init.d/mysql</td>
+<td>启停脚本目录</td>
+<td></td>
+</tr>
+</tbody></table>
+</li>
+</ol>
+<h3 id="2-2-MySQL配置文件"><a href="#2-2-MySQL配置文件" class="headerlink" title="2.2 MySQL配置文件"></a>2.2 MySQL配置文件</h3><table>
+<thead>
+<tr>
+<th>文件</th>
+<th>类型</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>log-bin</td>
+<td>二进制配置文件</td>
+<td>主从复制用到</td>
+</tr>
+<tr>
+<td>log-error</td>
+<td>错误日志文件</td>
+<td>默认关闭</td>
+</tr>
+<tr>
+<td>log</td>
+<td>查询日志</td>
+<td>默认关闭</td>
+</tr>
+<tr>
+<td>frm</td>
+<td>数据文件：表结构</td>
+<td></td>
+</tr>
+<tr>
+<td>myd</td>
+<td>数据文件：表数据</td>
+<td></td>
+</tr>
+<tr>
+<td>myi</td>
+<td>数据文件：表索引</td>
+<td></td>
+</tr>
+<tr>
+<td>my.ini或my.cnf</td>
+<td>配置文件</td>
+<td></td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>log-errror：默认关闭，记录严重的警告信息和错误信息，每次启动关闭的详细信息。</p>
+</blockquote>
+<blockquote>
+<p>log：默认关闭，记录查询的sql语句，开启会降低mysql整体性能。</p>
+</blockquote>
+<blockquote>
+<p>数据文件在windows和Linux平台下不同</p>
+<p>windows：..\MySQL\MySQL Server 5.7\data</p>
+<p>linux：/var/lib/mysql</p>
+</blockquote>
+<h2 id="3-MySQl逻辑架构介绍"><a href="#3-MySQl逻辑架构介绍" class="headerlink" title="3. MySQl逻辑架构介绍"></a>3. MySQl逻辑架构介绍</h2><h3 id="3-1-总体概述"><a href="#3-1-总体概述" class="headerlink" title="3.1 总体概述"></a>3.1 总体概述</h3><p>​    和其他数据库相比，MySQL有点与众不同，他的架构可以在多种不同场景中应用并发挥良好作用。主要体现在存储引擎的架构上<strong>。插件式的存储引擎架构将查询处理和其他的系统任务以及数据的存储提取分离</strong>。这种架构可以根据业务的需求和实际需要选择合适的引擎。</p>
+<p>​    下图展示了MySQL的框架图，包含了：<strong>连接层、服务层、引擎层、存储层</strong>。</p>
+<p><img src="/images/1596985484052.png" alt="1596985484052"></p>
+<ol>
+<li><p><strong>连接层</strong></p>
+<p>​    最上层是一些客户端和连接服务，包含本地sock通信和大多数基于客户端/服务器端工具实现的类似于TCP/IP的通信。<strong>主要完成</strong>一些类似于<strong>连接处理、授权认证、以及相关的安全方案</strong>。在该层上引入了线程池的概念，为通过认证安全接入的客户端提供了线程。同样在该层上可以实现基于SSL的安全连接。服务器也会为安全接入的每个客户端验证它所具有的操作权限。</p>
+</li>
+<li><p><strong>服务层</strong></p>
+<p>​    第二层架构主要完成大多数的核心服务功能，如SQL接口、并完成缓存的查询，SQL的分析和优化部分内置函数的执行。所有跨存储引擎的功能也在这一层实现，如过程、函数等。在该层，服务器会解析擦好像并创建相应的内部解析树，并对其完成相应的优化，如确定查询表的顺序，是否利用索引等，最后生成相应的执行操作。如果是select语句，服务器还会查询内部的缓存。如果缓存空间足够大，这样在解决大量读操作的环境能很好提升系统性能。</p>
+</li>
+<li><p><strong>引擎层</strong></p>
+<p>​    存储引擎层，存储引擎真正负责MySQL中数据的存储和提取，服务器通过API与存储引擎进行通信。不同存储引擎的功能不同，这样有利于我们根据实际生产环境进行选择。</p>
+</li>
+<li><p><strong>存储层</strong></p>
+<p>​    数据存储层，主要将数据存储在运行与裸设备的文件系统上，并完成与存储引擎的交互。</p>
+</li>
+<li><p>Connector</p>
+<p>​    指的是不同语言中与SQL的交互</p>
+</li>
+<li><p>Managemen Service &amp; Utilities</p>
+<p>​    系统管理和控制工具</p>
+</li>
+<li><p>Connection Pool</p>
+<p>​    连接池，管理缓冲用户连接，线程处理等需要缓存的需求。</p>
+<p>​    负责监听对MySQL Server的各种请求，接受连接请求，转发所有连接请求到线程管理模块。每一个连接上Server的客户端请求都会被分配一个线程来为其单独服务。而连接线程的主要工作就是负责MySQL Server与客户端的通信。</p>
+</li>
+<li><p>SQL Interface</p>
+<p>​    SQL接口，接受用户的SQL命令，并且返回用户需要的查询结果。比如select 就是调用SQL Interface。</p>
+</li>
+<li><p>Parser：解析器</p>
+<p>​    SQL命令传递到解析器会被解析器验证和解析。解析器有Lex和YACC实现，是一个很长的脚本。</p>
+<p>​    在Mysql中我们习惯将所有Client端发送给Server端的命令都成为query，在Mysql Server里面，连接线程接收到客户端的一个 Query 后，会直接将该 query 传递给专门负责将各种 Query 进行分类然后转发给各个对应的处理模块。</p>
+<p>​    主要功能：<br>​    a . 将SQL语句进行语义和语法的分析，分解成数据结构，然后按照不同的操作类型进行分类，然后做出针对性的转发到后续步骤，以后SQL语句的传递和处理就是基于这个结构的。<br>​    b.  如果在分解构成中遇到错误，那么就说明这个sql语句是不合理的</p>
+</li>
+<li><p>Optimizer：查询优化器</p>
+<p>​    SQL语句在查询之前会使用查询优化器对查询进行优化。就是优化客户端请求的 query（sql语句） ，根据客户端请求的 query 语句，和数据库中的一些统计信息，在一系列算法的基础上进行分析，得出一个最优的策略，告诉后面的程序如何取得这个 query 语句的结果<br>他使用的是“选取-投影-联接”策略进行查询。<br>​       用一个例子就可以理解： select uid,name from user where gender = 1;<br>​       这个select 查询先根据where 语句进行选取，而不是先将表全部查询出来以后再进行gender过滤<br>​       这个select查询先根据uid和name进行属性投影，而不是将属性全部取出以后再进行过滤<br>​       将这两个查询条件联接起来生成最终查询结果</p>
+</li>
+<li><p>Cache和Buffer</p>
+<p>​    他的主要功能是将客户端提交 给MySQL 的 Select 类 query 请求的返回结果集 cache 到内存中，与该 query 的一个 hash 值 做一个对应。该 Query 所取数据的基表发生任何数据的变化之后， MySQL 会自动使该 query 的Cache 失效。在读写比例非常高的应用系统中， Query Cache 对性能的提高是非常显著的。当然它对内存的消耗也是非常大的。<br>​    如果查询缓存有命中的查询结果，查询语句就可以直接去查询缓存中取数据。这个缓存机制是由一系列小缓存组成的。比如表缓存，记录缓存，key缓存，权限缓存等</p>
+</li>
+<li><p>存储引擎接口</p>
+<p>​    存储引擎接口模块可以说是 MySQL 数据库中最有特色的一点了。目前各种数据库产品中，基本上只有 MySQL 可以实现其底层数据存储引擎的插件式管理。这个模块实际上只是 一个抽象类，但正是因为它成功地将各种数据处理高度抽象化，才成就了今天 MySQL 可插拔存储引擎的特色。<br>​     从上图还可以看出，MySQL区别于其他数据库的最重要的特点就是其插件式的表存储引擎。MySQL插件式的存储引擎架构提供了一系列标准的管理和服务支持，这些标准与存储引擎本身无关，可能是每个数据库系统本身都必需的，如SQL分析器和优化器等，而存储引擎是底层物理结构的实现，每个存储引擎开发者都可以按照自己的意愿来进行开发。<br>​    注意：存储引擎是基于表的，而不是数据库。</p>
+</li>
+</ol>
+<h3 id="3-2-MySQL存储引擎"><a href="#3-2-MySQL存储引擎" class="headerlink" title="3.2 MySQL存储引擎"></a>3.2 MySQL存储引擎</h3><ol>
+<li><p>查看存储引擎</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 查看提供的引擎</span></span><br><span class="line"><span class="keyword">show</span> <span class="keyword">engines</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 查看当前默认引擎</span></span><br><span class="line"><span class="keyword">show</span> <span class="keyword">variables</span> <span class="keyword">like</span> <span class="string">"%storage_engine%"</span>;</span><br><span class="line">+<span class="comment">------------------------+--------+</span></span><br><span class="line">| Variable_name          | Value  |</span><br><span class="line">+<span class="comment">------------------------+--------+</span></span><br><span class="line">| default_storage_engine | InnoDB |</span><br><span class="line">| storage_engine         | InnoDB |</span><br><span class="line">+<span class="comment">------------------------+--------+</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>MyISAM和InnoDB</p>
+<p>​    虽然Mysql提供了很多存储引擎，但我们常用的主要是：MyISAM和InnoDB，下面是两个存储引擎的对比。</p>
+<table>
+<thead>
+<tr>
+<th>对比项</th>
+<th>MyISAM</th>
+<th>InnoDB</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>主外键</td>
+<td>不支持</td>
+<td>支持</td>
+</tr>
+<tr>
+<td>事务</td>
+<td>不支持</td>
+<td>支持</td>
+</tr>
+<tr>
+<td>行表锁</td>
+<td>表锁，即使操作一条记录也会锁住整个表，不利于高并发</td>
+<td>行锁，操作时只锁一行，不影响其他行，适合高并发。</td>
+</tr>
+<tr>
+<td>缓存</td>
+<td>只缓存索引，不缓存真实数据</td>
+<td>不仅缓存索引，还缓存数据，堆内存要求较高</td>
+</tr>
+<tr>
+<td>表空间</td>
+<td>小</td>
+<td>大</td>
+</tr>
+<tr>
+<td>关注点</td>
+<td>性能</td>
+<td>事务</td>
+</tr>
+<tr>
+<td>默认安装</td>
+<td>Y</td>
+<td>Y</td>
+</tr>
+</tbody></table>
+</li>
+<li><p>大厂使用的存储引擎</p>
+<p>Percona、阿里巴巴大部分Mysql数据库其实使用的percona的原型加以修改。</p>
+</li>
+</ol>
+<h2 id="4-总结"><a href="#4-总结" class="headerlink" title="4. 总结"></a>4. 总结</h2><p>​         这部分主要介绍了MySQL概述，MySQL的高级技术有哪些，MySQL5.5在Linux环境下的安装配置，MySQL5.5的配置文件结构，还结束了MySQL的逻辑架构。</p>
+<p>​        MySQL逻辑架构可分为4层：连接层、服务层、引擎层、存储层。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/MySQL/" rel="tag"># MySQL</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/08/08/微信小程序认证/" rel="next" title="微信小程序认证">
+                <i class="fa fa-chevron-left"></i> 微信小程序认证
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">tobing</p>
+              <p class="site-description motion-element" itemprop="description">Just so so :)</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">51</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">44</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/Tobingindex" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                友情链接
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://mirrorsquare.com/" title="Zenyet" target="_blank">Zenyet</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://changtong1819.top/" title="于无声处听惊雷" target="_blank">于无声处听惊雷</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://vvvyyt.club/" title="秃鹫网友" target="_blank">秃鹫网友</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#MySQL进阶-1-架构介绍"><span class="nav-number">1.</span> <span class="nav-text">MySQL进阶-1-架构介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-MySQL简介"><span class="nav-number">1.1.</span> <span class="nav-text">1. MySQL简介</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-概述"><span class="nav-number">1.1.1.</span> <span class="nav-text">1.1 概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-MySQL进阶"><span class="nav-number">1.1.2.</span> <span class="nav-text">1.2 MySQL进阶</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-Linux下MySQL使用"><span class="nav-number">1.2.</span> <span class="nav-text">2. Linux下MySQL使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-MySQL5-5安装"><span class="nav-number">1.2.1.</span> <span class="nav-text">2.1 MySQL5.5安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-MySQL配置文件"><span class="nav-number">1.2.2.</span> <span class="nav-text">2.2 MySQL配置文件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-MySQl逻辑架构介绍"><span class="nav-number">1.3.</span> <span class="nav-text">3. MySQl逻辑架构介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-总体概述"><span class="nav-number">1.3.1.</span> <span class="nav-text">3.1 总体概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-MySQL存储引擎"><span class="nav-number">1.3.2.</span> <span class="nav-text">3.2 MySQL存储引擎</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-总结"><span class="nav-number">1.4.</span> <span class="nav-text">4. 总结</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2019 &mdash; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">tobing</span>
+
+  
+</div>
+
+
+ 
+
+
+
+
+
+
+  
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://tobing.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'https://tobing.top/2020/08/09/MySQL进阶-1-架构介绍/';
+          this.page.identifier = '2020/08/09/MySQL进阶-1-架构介绍/';
+          this.page.title = 'MySQL进阶-1-架构介绍';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://tobing.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'Vy5O9liYY1EruxX5WAaSWiFU-gzGzoHsz',
+        appKey: 'LkbvdUheh7noXFlcQzKXf4hV',
+        placeholder: '傍晚，躺着草坪，望向湛蓝的天空',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("Vy5O9liYY1EruxX5WAaSWiFU-gzGzoHsz", "LkbvdUheh7noXFlcQzKXf4hV");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
