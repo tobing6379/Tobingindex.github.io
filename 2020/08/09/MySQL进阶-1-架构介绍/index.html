@@ -408,7 +408,7 @@
 <li><p>检查是否安装过MySQL</p>
 </li>
 <li><p>安装MySQL客户端、服务器端</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> 安装服务器端</span><br><span class="line">rpm -ivh --nodeps MySQL-server-5.5.54-1.linux2.6.x86_64.rpm</span><br><span class="line"><span class="meta">#</span> 安装客户端</span><br><span class="line">rpm -ivh --nodeps MySQL-client-5.5.54-1.linux2.6.x86_64.rpm</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 安装服务器端</span></span><br><span class="line">rpm -ivh --nodeps MySQL-server-5.5.54-1.linux2.6.x86_64.rpm</span><br><span class="line"><span class="meta">#</span><span class="bash"> 安装客户端</span></span><br><span class="line">rpm -ivh --nodeps MySQL-client-5.5.54-1.linux2.6.x86_64.rpm</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>启动MySQL服务</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">service mysql start</span><br></pre></td></tr></table></figure>
@@ -417,7 +417,7 @@
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sqladmin -u root password 123456</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>设置MySQL自启动</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> 设置自启动</span><br><span class="line">chkconfig mysql on</span><br><span class="line"><span class="meta">#</span> 检验是否设置成功</span><br><span class="line">ntsysv</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 设置自启动</span></span><br><span class="line">chkconfig mysql on</span><br><span class="line"><span class="meta">#</span><span class="bash"> 检验是否设置成功</span></span><br><span class="line">ntsysv</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>修改配置文件位置</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cp /usr/share/mysql/my-huge.cnf /etc/my.cnf</span><br></pre></td></tr></table></figure>
@@ -428,7 +428,7 @@
 </blockquote>
 </li>
 <li><p>设置字符集编码</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> 查看字符集 [默认客户端和服务端动用了Latin1，使用中文会乱码]</span><br><span class="line">show variales like '%char%'</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 修改配置文件</span><br><span class="line">vim /etc/my.cnf</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 添加下面内容</span><br><span class="line"></span><br><span class="line">[client]</span><br><span class="line">default-character-set=utf8 # 设置编码</span><br><span class="line"></span><br><span class="line">[mysqld]</span><br><span class="line">lower_case_table_names=1   # 设置大小写区分情况</span><br><span class="line">character_set_server=utf8</span><br><span class="line">character_set_client=utf8</span><br><span class="line">collation-server=utf8_general_ci</span><br><span class="line">max_connections=1000       # 设置最大连接数</span><br><span class="line"></span><br><span class="line">[mysql]</span><br><span class="line">default-character-set=utf8</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 查看字符集 [默认客户端和服务端动用了Latin1，使用中文会乱码]</span></span><br><span class="line">show variales like '%char%'</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 修改配置文件</span></span><br><span class="line">vim /etc/my.cnf</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 添加下面内容</span></span><br><span class="line"></span><br><span class="line">[client]</span><br><span class="line">default-character-set=utf8 # 设置编码</span><br><span class="line"></span><br><span class="line">[mysqld]</span><br><span class="line">lower_case_table_names=1   # 设置大小写区分情况</span><br><span class="line">character_set_server=utf8</span><br><span class="line">character_set_client=utf8</span><br><span class="line">collation-server=utf8_general_ci</span><br><span class="line">max_connections=1000       # 设置最大连接数</span><br><span class="line"></span><br><span class="line">[mysql]</span><br><span class="line">default-character-set=utf8</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>MySQL一些目录</p>
 <p>linux下查看</p>
@@ -661,6 +661,10 @@
 
           <div class="post-nav-prev post-nav-item">
             
+              <a href="/2020/08/22/MySQL进阶-2-索引优化分析/" rel="prev" title="MySQL进阶-2-索引优化分析">
+                MySQL进阶-2-索引优化分析 <i class="fa fa-chevron-right"></i>
+              </a>
+            
           </div>
         </div>
       
@@ -746,7 +750,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">51</span>
+                  <span class="site-state-item-count">52</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
