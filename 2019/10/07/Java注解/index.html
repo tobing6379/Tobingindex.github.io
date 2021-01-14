@@ -1,409 +1,432 @@
 <!DOCTYPE html>
+<html lang="zh-Hans,zh-CN,en,zh-HK,zh-TW,default">
+<head hexo-theme='https://github.com/volantis-x/hexo-theme-volantis/tree/4.2.0'>
+  <meta charset="utf-8">
+  <!-- SEO相关 -->
+  
+    
+  
+  <!-- 渲染优化 -->
+  <meta http-equiv='x-dns-prefetch-control' content='on' />
+  <link rel='dns-prefetch' href='https://cdn.jsdelivr.net'>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
+  <!-- 页面元数据 -->
+  
+  <title>Java注解 - tobing</title>
+  
+    <meta name="keywords" content="Java,注解">
+  
 
+  
+    <meta name="description" content="注解
+定义：注解（Annotation），也叫元数据。一种代码级别的说明。
+它是JDK1.5及以后版本引入的一个特性，与类、接口、枚举是在同一个层次。它可以声明在包、类、字段、方法、局部变量、方法参数等的前面，用来对这些元素进行说明，注释。
+作用分类：
+编写文档：通过代码里标识的元数据生成文档【生成文档doc文档...">
+  
+
+  <!-- feed -->
+  
+
+  <!-- import meta -->
+  
+
+  <!-- link -->
+  
+    <link rel="shortcut icon" type='image/x-icon' href="https://cdn.jsdelivr.net/gh/xaoxuu/assets@master/favicon/favicon.ico">
+  
+
+  <!-- import link -->
+  
+
+  
+    
+<link rel="stylesheet" href="/css/first.css">
 
   
 
-
-<html class="theme-next muse use-motion" lang="zh-Hans">
-<head><meta name="generator" content="Hexo 3.9.0">
-  <meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-<meta name="theme-color" content="#222">
-
-
-
-
-
-
-
-
-
-<meta http-equiv="Cache-Control" content="no-transform">
-<meta http-equiv="Cache-Control" content="no-siteapp">
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   
-  
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
-
-
-
-
-
-
-
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
-
-<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
-
-
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
-
-
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
-
-
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
-
-
-  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
-
-
-
-
-
-  <meta name="keywords" content="Java,注解,">
-
-
-
-
-
-
-
-
-
-
-<meta name="description" content="注解 定义：注解（Annotation），也叫元数据。一种代码级别的说明。 它是JDK1.5及以后版本引入的一个特性，与类、接口、枚举是在同一个层次。它可以声明在包、类、字段、方法、局部变量、方法参数等的前面，用来对这些元素进行说明，注释。 作用分类： 编写文档：通过代码里标识的元数据生成文档【生成文档doc文档】 代码分析：通过代码里标识的元数据对代码进行分析【使用反射】 编译检查：通过代码里标">
-<meta name="keywords" content="Java,注解">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Java注解">
-<meta property="og:url" content="https://tobing.top/2019/10/07/Java注解/index.html">
-<meta property="og:site_name" content="tobing">
-<meta property="og:description" content="注解 定义：注解（Annotation），也叫元数据。一种代码级别的说明。 它是JDK1.5及以后版本引入的一个特性，与类、接口、枚举是在同一个层次。它可以声明在包、类、字段、方法、局部变量、方法参数等的前面，用来对这些元素进行说明，注释。 作用分类： 编写文档：通过代码里标识的元数据生成文档【生成文档doc文档】 代码分析：通过代码里标识的元数据对代码进行分析【使用反射】 编译检查：通过代码里标">
-<meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-10-08T12:58:00.630Z">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Java注解">
-<meta name="twitter:description" content="注解 定义：注解（Annotation），也叫元数据。一种代码级别的说明。 它是JDK1.5及以后版本引入的一个特性，与类、接口、枚举是在同一个层次。它可以声明在包、类、字段、方法、局部变量、方法参数等的前面，用来对这些元素进行说明，注释。 作用分类： 编写文档：通过代码里标识的元数据生成文档【生成文档doc文档】 代码分析：通过代码里标识的元数据对代码进行分析【使用反射】 编译检查：通过代码里标">
-
-
-
-<script type="text/javascript" id="hexo.configurations">
-  var NexT = window.NexT || {};
-  var CONFIG = {
-    root: '/',
-    scheme: 'Muse',
-    version: '5.1.4',
-    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
-    fancybox: true,
-    tabs: true,
-    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
-    duoshuo: {
-      userId: '0',
-      author: '博主'
-    },
-    algolia: {
-      applicationID: '',
-      apiKey: '',
-      indexName: '',
-      hits: {"per_page":10},
-      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
-    }
-  };
-</script>
-
-
-
-  <link rel="canonical" href="https://tobing.top/2019/10/07/Java注解/">
-
-
-
-
-
-  <title>Java注解 | tobing</title>
+  <link rel="stylesheet" href="/css/style.css" media="print" onload="this.media='all';this.onload=null">
+  <noscript><link rel="stylesheet" href="/css/style.css"></noscript>
   
 
-
-
-
-
-  <script type="text/javascript">
-    var _hmt = _hmt || [];
-    (function() {
-      var hm = document.createElement("script");
-      hm.src = "https://hm.baidu.com/hm.js?79d1a38a3f2e0804e9fb5f960582fdd2";
-      var s = document.getElementsByTagName("script")[0];
-      s.parentNode.insertBefore(hm, s);
-    })();
-  </script>
-
-
-
+  <script id="loadcss"></script>
 
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
-
-  
-  
-    
+<body>
   
 
-  <div class="container sidebar-position-left page-post-detail">
-    <div class="headband"></div>
-
-    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-wrapper">
-  <div class="site-meta ">
-    
-
-    <div class="custom-logo-site-title">
-      <a href="/" class="brand" rel="start">
-        <span class="logo-line-before"><i></i></span>
-        <span class="site-title">tobing</span>
-        <span class="logo-line-after"><i></i></span>
-      </a>
+<header id="l_header" class="l_header auto shadow blur show" style='opacity: 0' >
+  <div class='container'>
+  <div id='wrapper'>
+    <div class='nav-sub'>
+      <p class="title"></p>
+      <ul class='switcher nav-list-h m-phone' id="pjax-header-nav-list">
+        <li><a id="s-comment" class="fas fa-comments fa-fw" target="_self" href='javascript:void(0)'></a></li>
+        
+          <li><a id="s-toc" class="s-toc fas fa-list fa-fw" target="_self" href='javascript:void(0)'></a></li>
+        
+      </ul>
     </div>
+		<div class="nav-main">
       
-        <p class="site-subtitle">Just so so :)</p>
+        
+        <a class="title flat-box" target="_self" href='/'>
+          
+          
+            <i class='https://portrait.gitee.com/uploads/avatars/user/1875/5627411_tobing_1599371351.png'></i>
+          
+          
+            tobing's blog
+          
+        </a>
       
-  </div>
 
-  <div class="site-nav-toggle">
-    <button>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-    </button>
+			<div class='menu navigation'>
+				<ul class='nav-list-h m-pc'>
+          
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/
+                  
+                  
+                  
+                    id="home"
+                  >
+                  <i class='fas fa-rss fa-fw'></i>博客
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/categories/
+                  
+                  
+                  
+                    id="categories"
+                  >
+                  <i class='fas fa-folder-open fa-fw'></i>分类
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/tags/
+                  
+                  
+                  
+                    id="tags"
+                  >
+                  <i class='fas fa-tags fa-fw'></i>标签
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/archives/
+                  
+                  
+                  
+                    id="archives"
+                  >
+                  <i class='fas fa-archive fa-fw'></i>归档
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/friends/
+                  
+                  
+                  
+                    id="friends"
+                  >
+                  <i class='fas fa-link fa-fw'></i>友链
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/about/
+                  
+                  
+                  
+                    id="about"
+                  >
+                  <i class='fas fa-info-circle fa-fw'></i>关于
+                </a>
+                
+              </li>
+            
+          
+          
+				</ul>
+			</div>
+
+      <div class="m_search">
+        <form name="searchform" class="form u-search-form">
+          <i class="icon fas fa-search fa-fw"></i>
+          <input type="text" class="input u-search-input" placeholder="Search..." />
+        </form>
+      </div>
+
+			<ul class='switcher nav-list-h m-phone'>
+				
+					<li><a class="s-search fas fa-search fa-fw" target="_self" href='javascript:void(0)'></a></li>
+				
+				<li>
+          <a class="s-menu fas fa-bars fa-fw" target="_self" href='javascript:void(0)'></a>
+          <ul class="menu-phone list-v navigation white-box">
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/
+                  
+                  
+                  
+                    id="home"
+                  >
+                  <i class='fas fa-rss fa-fw'></i>博客
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/categories/
+                  
+                  
+                  
+                    id="categories"
+                  >
+                  <i class='fas fa-folder-open fa-fw'></i>分类
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/tags/
+                  
+                  
+                  
+                    id="tags"
+                  >
+                  <i class='fas fa-tags fa-fw'></i>标签
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/archives/
+                  
+                  
+                  
+                    id="archives"
+                  >
+                  <i class='fas fa-archive fa-fw'></i>归档
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/friends/
+                  
+                  
+                  
+                    id="friends"
+                  >
+                  <i class='fas fa-link fa-fw'></i>友链
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/about/
+                  
+                  
+                  
+                    id="about"
+                  >
+                  <i class='fas fa-info-circle fa-fw'></i>关于
+                </a>
+                
+              </li>
+            
+          
+            
+          </ul>
+        </li>
+			</ul>
+		</div>
+	</div>
+  </div>
+</header>
+
+  <div id="l_body">
+    <div id="l_cover">
+  
+    
+        <div id="full" class='cover-wrapper post search' style="display: none;">
+          
+            <div class='cover-bg lazyload placeholder' data-bg="https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/033.jpg"></div>
+          
+          <div class='cover-body'>
+  <div class='top'>
+    
+    
+      <p class="title">Welcome !</p>
+    
+    
+  </div>
+  <div class='bottom'>
+    
+      <div class="m_search">
+        <form name="searchform" class="form u-search-form">
+          <input type="text" class="input u-search-input" placeholder="Search..." />
+          <i class="icon fas fa-search fa-fw"></i>
+        </form>
+      </div>
+    
+    <div class='menu navigation'>
+      <div class='list-h'>
+        
+      </div>
+    </div>
   </div>
 </div>
 
-<nav class="site-nav">
-  
-
-  
-    <ul id="menu" class="menu">
-      
-        
-        <li class="menu-item menu-item-home">
-          <a href="/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
-            
-            首页
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-about">
-          <a href="/about/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
-            
-            关于
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-tags">
-          <a href="/tags/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
-            
-            标签
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-categories">
-          <a href="/categories/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
-            
-            分类
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-archives">
-          <a href="/archives/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
-            
-            归档
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-sitemap">
-          <a href="/sitemap.xml" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br>
-            
-            站点地图
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-commonweal">
-          <a href="/404/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br>
-            
-            公益404
-          </a>
-        </li>
-      
-
-      
-    </ul>
-  
-
-  
-</nav>
-
-
-
- </div>
-    </header>
-
-    <main id="main" class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          <div id="content" class="content">
-            
-
-  <div id="posts" class="posts-expand">
-    
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://tobing.top/2019/10/07/Java注解/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="tobing">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="tobing">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">Java注解</h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-10-07T17:21:15+08:00">
-                2019-10-07
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index">
-                    <span itemprop="name">Java</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2019/10/07/Java注解/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/10/07/Java注解/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/2019/10/07/Java注解/" class="leancloud_visitors" data-flag-title="Java注解">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
+          <div id="scroll-down" style="display: none;"><i class="fa fa-chevron-down scroll-down-effects"></i></div>
         </div>
-      </header>
     
+  
+  </div>
 
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
+    <div id='safearea'>
+      <div class='body-wrapper' id="pjax-container">
+        
 
-      
-      
+<div class='l_main'>
+  <article class="article post white-box reveal md shadow article-type-post" id="post" itemscope itemprop="blogPost">
+  
 
+
+  
+  <div class="article-meta" id="top">
+    
+    
+    
+      <h1 class="title">
+        Java注解
+      </h1>
+      <div class='new-meta-box'>
+        
+          
+            
+<div class='new-meta-item author'>
+  <a class='author' href="/" rel="nofollow">
+    <img no-lazy src="">
+    <p>请设置文章作者</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+  <div class='new-meta-item category'>
+    <a class='notlink'>
+      <i class="fas fa-folder-open fa-fw" aria-hidden="true"></i>
+      <a class="category-link" href="/categories/Java/">Java</a>
+    </a>
+  </div>
+
+
+          
+        
+          
+            <div class="new-meta-item date">
+  <a class='notlink'>
+    <i class="fas fa-calendar-alt fa-fw" aria-hidden="true"></i>
+    <p>发布于：Oct 7, 2019</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+  <div class="new-meta-item browse leancloud">
+    <a class='notlink'>
       
-        <h1 id="注解"><a href="#注解" class="headerlink" title="注解"></a>注解</h1><ul>
+      <div id="lc-pv" data-title="Java注解" data-path="/2019/10/07/Java%E6%B3%A8%E8%A7%A3/">
+        <i class="fas fa-eye fa-fw" aria-hidden="true"></i>
+        <span id='number'><i class="fas fa-circle-notch fa-spin fa-fw" aria-hidden="true"></i></span>
+        次浏览
+      </div>
+    </a>
+  </div>
+
+
+          
+        
+      </div>
+    
+  </div>
+
+
+  
+  <h1 id="注解"><a href="#注解" class="headerlink" title="注解"></a>注解</h1><ul>
 <li>定义：注解（Annotation），也叫元数据。一种代码级别的说明。</li>
 <li>它是<code>JDK1.5</code>及以后版本引入的一个特性，与类、接口、枚举是在同一个层次。它可以声明在包、类、字段、方法、局部变量、方法参数等的前面，用来对这些元素进行说明，注释。</li>
 <li>作用分类：<ul>
@@ -433,25 +456,25 @@
 <li><p><code>@Deprecated</code>：表示该方法已经过时</p>
 </li>
 <li><p><code>@SuppressWarnings()</code>：压制警告</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> top.tobing.annotation;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Java内预定义的注解</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> Tobing</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@version</span> 1.0</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@since</span> 1.5</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Demo01Annotation01</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		Cat cat = <span class="keyword">new</span> Cat();</span><br><span class="line">		cat.run();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Animal</span></span>&#123;</span><br><span class="line">	<span class="keyword">private</span> String name;</span><br><span class="line">	<span class="function"><span class="keyword">public</span>  <span class="keyword">void</span> <span class="title">eat</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		System.out.println(<span class="string">"吃吃吃！！！"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 压制所有的警告</span></span><br><span class="line"><span class="meta">@SuppressWarnings</span>(<span class="string">"all"</span>)</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Cat</span> <span class="keyword">extends</span> <span class="title">Animal</span></span>&#123;</span><br><span class="line">	<span class="comment">// 表示该方法是继承自父类的</span></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span>  <span class="keyword">void</span> <span class="title">eat</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		System.out.println(<span class="string">"吃鱼！！！"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">// 表示该方法已经过时，不建议使用</span></span><br><span class="line">	<span class="meta">@Deprecated</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		System.out.println(<span class="string">"飞檐走壁！！！！"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> top.tobing.annotation;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Java内预定义的注解</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> Tobing</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@version</span> 1.0</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@since</span> 1.5</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Demo01Annotation01</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		Cat cat = <span class="keyword">new</span> Cat();</span><br><span class="line">		cat.run();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Animal</span></span>&#123;</span><br><span class="line">	<span class="keyword">private</span> String name;</span><br><span class="line">	<span class="function"><span class="keyword">public</span>  <span class="keyword">void</span> <span class="title">eat</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		System.out.println(<span class="string">&quot;吃吃吃！！！&quot;</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 压制所有的警告</span></span><br><span class="line"><span class="meta">@SuppressWarnings(&quot;all&quot;)</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Cat</span> <span class="keyword">extends</span> <span class="title">Animal</span></span>&#123;</span><br><span class="line">	<span class="comment">// 表示该方法是继承自父类的</span></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span>  <span class="keyword">void</span> <span class="title">eat</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		System.out.println(<span class="string">&quot;吃鱼！！！&quot;</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">// 表示该方法已经过时，不建议使用</span></span><br><span class="line">	<span class="meta">@Deprecated</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		System.out.println(<span class="string">&quot;飞檐走壁！！！！&quot;</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 </li>
 </ul>
 <h3 id="4-自定义注解"><a href="#4-自定义注解" class="headerlink" title="4. 自定义注解"></a>4. 自定义注解</h3><ul>
 <li><p>如何自定义呢？<code>照葫芦画瓢</code>    — &gt; 查看@Deprecated源码</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Documented</span></span><br><span class="line"><span class="meta">@Retention</span>(RetentionPolicy.RUNTIME)</span><br><span class="line"><span class="meta">@Target</span>(value=&#123;CONSTRUCTOR, FIELD, LOCAL_VARIABLE, METHOD, PACKAGE, MODULE, PARAMETER, TYPE&#125;)</span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> Deprecated &#123;</span><br><span class="line">    ......</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Documented</span></span><br><span class="line"><span class="meta">@Retention(RetentionPolicy.RUNTIME)</span></span><br><span class="line"><span class="meta">@Target(value=&#123;CONSTRUCTOR, FIELD, LOCAL_VARIABLE, METHOD, PACKAGE, MODULE, PARAMETER, TYPE&#125;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> Deprecated &#123;</span><br><span class="line">    ......</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>以下是自定义的注解：<code>MyAnno.java</code></p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> top.tobing.annotation;</span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> MyAnno &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>对自定义的注解反编译</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">E:\Code&gt;javac MyAnno.java   <span class="comment"># 编译获取字节码文件</span></span><br><span class="line">E:\Code&gt;javap MyAnno		<span class="comment"># 反编译字节码文件</span></span><br><span class="line">Compiled from <span class="string">"MyAnno.java"</span></span><br><span class="line"><span class="comment"># 反编译得到的代码</span></span><br><span class="line">public interface MyAnno extends java.lang.annotation.Annotation &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">E:\Code&gt;javac MyAnno.java   <span class="comment"># 编译获取字节码文件</span></span><br><span class="line">E:\Code&gt;javap MyAnno		<span class="comment"># 反编译字节码文件</span></span><br><span class="line">Compiled from <span class="string">&quot;MyAnno.java&quot;</span></span><br><span class="line"><span class="comment"># 反编译得到的代码</span></span><br><span class="line">public interface MyAnno extends java.lang.annotation.Annotation &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>从以上编译所的代码可以知道<code>注解的本质</code></p>
 <ul>
 <li><p>本质：注解本质上就是一个接口，该接口默认继承了Annotation接口</p>
 <ul>
-<li><code>public interface MyAnno extends java.lang.annotation.Annotation</code></li>
+<li><code>public interface MyAnno extends java.lang.annotation.Annotation </code></li>
 <li>Annotation：The common interface extended by all annotation types.</li>
 <li>Annotation：所有注解类型拓展的公共接口。</li>
 </ul>
@@ -477,7 +500,7 @@
 </li>
 <li>以下是代码演示</li>
 </ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> top.tobing.annotation;</span><br><span class="line"><span class="comment">// 自定义注解Anno</span></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> MyAnno &#123;</span><br><span class="line">	<span class="comment">//int show();			// int</span></span><br><span class="line">	<span class="comment">//String show2();		// String</span></span><br><span class="line">	<span class="comment">//MyAnno1 anno1();	// 注解类型</span></span><br><span class="line">	<span class="function">String <span class="title">name</span><span class="params">()</span></span>;</span><br><span class="line">	String[] cats();</span><br><span class="line">	<span class="keyword">int</span>[] ages();</span><br><span class="line">	<span class="function"><span class="keyword">int</span> <span class="title">age</span><span class="params">()</span> <span class="keyword">default</span> 10</span>;	<span class="comment">// 赋值了默认，可以不需要数值</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 自定义注解</span></span><br><span class="line"><span class="meta">@interface</span> MyAnno1&#123;</span><br><span class="line">	<span class="function">String <span class="title">value</span><span class="params">()</span></span>; 	<span class="comment">// 只有一个值，且值的名称为value</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//////////////使用注解//////////////////</span></span><br><span class="line"><span class="comment">// age由于定义了default，可以不赋值</span></span><br><span class="line"><span class="comment">// cats是数组，赋值多个的时候使用大括号包裹</span></span><br><span class="line"><span class="comment">// ages是数值，赋值一个的时候，可以省略大括号</span></span><br><span class="line"><span class="meta">@MyAnno</span>(name=<span class="string">"张三"</span>,cats= &#123;<span class="string">"小王"</span>,<span class="string">"小白"</span>&#125;,ages=<span class="number">10</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 省略了value=</span></span><br><span class="line"><span class="meta">@MyAnno</span>1(<span class="string">"Value"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Demo01Annotation2</span> </span>&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> top.tobing.annotation;</span><br><span class="line"><span class="comment">// 自定义注解Anno</span></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> MyAnno &#123;</span><br><span class="line">	<span class="comment">//int show();			// int</span></span><br><span class="line">	<span class="comment">//String show2();		// String</span></span><br><span class="line">	<span class="comment">//MyAnno1 anno1();	// 注解类型</span></span><br><span class="line">	<span class="function">String <span class="title">name</span><span class="params">()</span></span>;</span><br><span class="line">	String[] cats();</span><br><span class="line">	<span class="keyword">int</span>[] ages();</span><br><span class="line">	<span class="function"><span class="keyword">int</span> <span class="title">age</span><span class="params">()</span> <span class="keyword">default</span> 10</span>;	<span class="comment">// 赋值了默认，可以不需要数值</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 自定义注解</span></span><br><span class="line"><span class="meta">@interface</span> MyAnno1&#123;</span><br><span class="line">	<span class="function">String <span class="title">value</span><span class="params">()</span></span>; 	<span class="comment">// 只有一个值，且值的名称为value</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//////////////使用注解//////////////////</span></span><br><span class="line"><span class="comment">// age由于定义了default，可以不赋值</span></span><br><span class="line"><span class="comment">// cats是数组，赋值多个的时候使用大括号包裹</span></span><br><span class="line"><span class="comment">// ages是数值，赋值一个的时候，可以省略大括号</span></span><br><span class="line"><span class="meta">@MyAnno(name=&quot;张三&quot;,cats= &#123;&quot;小王&quot;,&quot;小白&quot;&#125;,ages=10)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 省略了value=</span></span><br><span class="line"><span class="meta">@MyAnno1(&quot;Value&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Demo01Annotation2</span> </span>&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
 </li>
@@ -503,7 +526,7 @@
 <li>@Documented：描述注解是否被抽取到api中</li>
 <li>@Inherited：描述注解是否被子类继承</li>
 </ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 以下元注解表述了：注解保留到class字节码文件中，并且被JVM读取到（这个最常用）</span></span><br><span class="line"><span class="meta">@Retention</span>(RetentionPolicy.RUNTIME)</span><br><span class="line"><span class="comment">// 以下元注解表述了：注解可以被抽取到API中</span></span><br><span class="line"><span class="meta">@Documented</span></span><br><span class="line"><span class="comment">// 以下元注解表述了：自定义注解可以被子类继承</span></span><br><span class="line"><span class="meta">@Inherited</span></span><br><span class="line"><span class="comment">// 以下元注解表述了：自定义注解可以被使用在类（TYPE）、方法（METHOD）、成员变量（FIELD）</span></span><br><span class="line"><span class="meta">@Target</span>(&#123;ElementType.TYPE,ElementType.METHOD,ElementType.FIELD&#125;)</span><br><span class="line"><span class="meta">@interface</span> MyAnno2&#123;</span><br><span class="line">	<span class="function">String <span class="title">value</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">package</span> top.tobing.annotation;</span><br><span class="line"><span class="meta">@MyAnno</span>2(<span class="string">"类"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Demo01Annotation3</span> </span>&#123;</span><br><span class="line">	<span class="meta">@MyAnno</span>2(<span class="string">"成员变量"</span>)</span><br><span class="line">	<span class="keyword">private</span> String name;</span><br><span class="line">	<span class="meta">@MyAnno</span>2(<span class="string">"方法"</span>)</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">show</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 以下元注解表述了：注解保留到class字节码文件中，并且被JVM读取到（这个最常用）</span></span><br><span class="line"><span class="meta">@Retention(RetentionPolicy.RUNTIME)</span></span><br><span class="line"><span class="comment">// 以下元注解表述了：注解可以被抽取到API中</span></span><br><span class="line"><span class="meta">@Documented</span></span><br><span class="line"><span class="comment">// 以下元注解表述了：自定义注解可以被子类继承</span></span><br><span class="line"><span class="meta">@Inherited</span></span><br><span class="line"><span class="comment">// 以下元注解表述了：自定义注解可以被使用在类（TYPE）、方法（METHOD）、成员变量（FIELD）</span></span><br><span class="line"><span class="meta">@Target(&#123;ElementType.TYPE,ElementType.METHOD,ElementType.FIELD&#125;)</span></span><br><span class="line"><span class="meta">@interface</span> MyAnno2&#123;</span><br><span class="line">	<span class="function">String <span class="title">value</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">package</span> top.tobing.annotation;</span><br><span class="line"><span class="meta">@MyAnno2(&quot;类&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Demo01Annotation3</span> </span>&#123;</span><br><span class="line">	<span class="meta">@MyAnno2(&quot;成员变量&quot;)</span></span><br><span class="line">	<span class="keyword">private</span> String name;</span><br><span class="line">	<span class="meta">@MyAnno2(&quot;方法&quot;)</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">show</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 </li>
 </ul>
@@ -514,27 +537,29 @@
 <ul>
 <li>自定义获取<code>className</code> <code>methodName</code>的注解:Load.java</li>
 </ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> top.tobing.annotation;</span><br><span class="line"><span class="keyword">import</span> java.lang.annotation.ElementType;</span><br><span class="line"><span class="keyword">import</span> java.lang.annotation.Retention;</span><br><span class="line"><span class="keyword">import</span> java.lang.annotation.RetentionPolicy;</span><br><span class="line"><span class="keyword">import</span> java.lang.annotation.Target;</span><br><span class="line"><span class="meta">@Target</span>(ElementType.TYPE)</span><br><span class="line"><span class="meta">@Retention</span>(RetentionPolicy.RUNTIME)</span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> Load &#123;</span><br><span class="line">	<span class="function">String <span class="title">className</span><span class="params">()</span></span>;</span><br><span class="line">	<span class="function">String <span class="title">methodName</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> top.tobing.annotation;</span><br><span class="line"><span class="keyword">import</span> java.lang.annotation.ElementType;</span><br><span class="line"><span class="keyword">import</span> java.lang.annotation.Retention;</span><br><span class="line"><span class="keyword">import</span> java.lang.annotation.RetentionPolicy;</span><br><span class="line"><span class="keyword">import</span> java.lang.annotation.Target;</span><br><span class="line"><span class="meta">@Target(ElementType.TYPE)</span></span><br><span class="line"><span class="meta">@Retention(RetentionPolicy.RUNTIME)</span></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> Load &#123;</span><br><span class="line">	<span class="function">String <span class="title">className</span><span class="params">()</span></span>;</span><br><span class="line">	<span class="function">String <span class="title">methodName</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 <ul>
 <li>通过自定义注解获取<code>className</code>，<code>methodName</code>，利用反射执行该方法</li>
 </ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> top.tobing.annotation;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Method;</span><br><span class="line"><span class="meta">@Load</span>(className=<span class="string">"top.tobing.annotation.Demo"</span>,methodName=<span class="string">"show"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Demo04AnnotationReflect</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">		<span class="comment">// 获取本类字节码文件对象</span></span><br><span class="line">		Class&lt;Demo04AnnotationReflect&gt; demoClass = Demo04AnnotationReflect.class;</span><br><span class="line">		<span class="comment">/**</span></span><br><span class="line"><span class="comment">		 此处本质上是获取了，内存中实现的Load接口的子类对象执行方法的返回值</span></span><br><span class="line"><span class="comment">		 public class LoadImpl&#123;</span></span><br><span class="line"><span class="comment">		 	public String className()&#123;</span></span><br><span class="line"><span class="comment">		 		return "top.tobing.annotation.Demo";</span></span><br><span class="line"><span class="comment">		 	&#125;</span></span><br><span class="line"><span class="comment">			public String methodName()&#123;</span></span><br><span class="line"><span class="comment">				return "show";</span></span><br><span class="line"><span class="comment">			&#125;</span></span><br><span class="line"><span class="comment">		 &#125;</span></span><br><span class="line"><span class="comment">		 */</span></span><br><span class="line">		<span class="comment">// 获取注解对象 </span></span><br><span class="line">		Load load = demoClass.getAnnotation(Load.class);</span><br><span class="line">		<span class="comment">// 获取注解的内容</span></span><br><span class="line">		String className = load.className();</span><br><span class="line">		String methodName = load.methodName();</span><br><span class="line">		System.out.println(className);</span><br><span class="line">		System.out.println(methodName);</span><br><span class="line">		<span class="comment">// 通过类名以及方法名称利用反射，执行方法</span></span><br><span class="line">		<span class="comment">//3.加载该类进内存</span></span><br><span class="line">        Class cls = Class.forName(className);</span><br><span class="line">        <span class="comment">//4.创建对象</span></span><br><span class="line">        Object obj = cls.newInstance();</span><br><span class="line">        <span class="comment">//5.获取方法对象</span></span><br><span class="line">        Method method = cls.getMethod(methodName);</span><br><span class="line">        <span class="comment">//6.执行方法</span></span><br><span class="line">        method.invoke(obj);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> top.tobing.annotation;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Method;</span><br><span class="line"><span class="meta">@Load(className=&quot;top.tobing.annotation.Demo&quot;,methodName=&quot;show&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Demo04AnnotationReflect</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">		<span class="comment">// 获取本类字节码文件对象</span></span><br><span class="line">		Class&lt;Demo04AnnotationReflect&gt; demoClass = Demo04AnnotationReflect.class;</span><br><span class="line">		<span class="comment">/**</span></span><br><span class="line"><span class="comment">		 此处本质上是获取了，内存中实现的Load接口的子类对象执行方法的返回值</span></span><br><span class="line"><span class="comment">		 public class LoadImpl&#123;</span></span><br><span class="line"><span class="comment">		 	public String className()&#123;</span></span><br><span class="line"><span class="comment">		 		return &quot;top.tobing.annotation.Demo&quot;;</span></span><br><span class="line"><span class="comment">		 	&#125;</span></span><br><span class="line"><span class="comment">			public String methodName()&#123;</span></span><br><span class="line"><span class="comment">				return &quot;show&quot;;</span></span><br><span class="line"><span class="comment">			&#125;</span></span><br><span class="line"><span class="comment">		 &#125;</span></span><br><span class="line"><span class="comment">		 */</span></span><br><span class="line">		<span class="comment">// 获取注解对象 </span></span><br><span class="line">		Load load = demoClass.getAnnotation(Load.class);</span><br><span class="line">		<span class="comment">// 获取注解的内容</span></span><br><span class="line">		String className = load.className();</span><br><span class="line">		String methodName = load.methodName();</span><br><span class="line">		System.out.println(className);</span><br><span class="line">		System.out.println(methodName);</span><br><span class="line">		<span class="comment">// 通过类名以及方法名称利用反射，执行方法</span></span><br><span class="line">		<span class="comment">//3.加载该类进内存</span></span><br><span class="line">        Class cls = Class.forName(className);</span><br><span class="line">        <span class="comment">//4.创建对象</span></span><br><span class="line">        Object obj = cls.newInstance();</span><br><span class="line">        <span class="comment">//5.获取方法对象</span></span><br><span class="line">        Method method = cls.getMethod(methodName);</span><br><span class="line">        <span class="comment">//6.执行方法</span></span><br><span class="line">        method.invoke(obj);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 </li>
 </ul>
 <h5 id="2-自动以测试"><a href="#2-自动以测试" class="headerlink" title="2. 自动以测试"></a>2. 自动以测试</h5><ul>
 <li><p>要测试的类</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> top.tobing.annotation.test;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Cal</span> </span>&#123;</span><br><span class="line">    <span class="comment">//加法</span></span><br><span class="line">    <span class="meta">@MyCheck</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">add</span><span class="params">()</span></span>&#123;</span><br><span class="line">        String str = <span class="keyword">null</span>;</span><br><span class="line">        str.toString();</span><br><span class="line">        System.out.println(<span class="string">"1 + 0 ="</span> + (<span class="number">1</span> + <span class="number">0</span>));</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//减法</span></span><br><span class="line">    <span class="meta">@MyCheck</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">sub</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"1 - 0 ="</span> + (<span class="number">1</span> - <span class="number">0</span>));</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//乘法</span></span><br><span class="line">    <span class="meta">@MyCheck</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">mul</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"1 * 0 ="</span> + (<span class="number">1</span> * <span class="number">0</span>));</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//除法</span></span><br><span class="line">    <span class="meta">@MyCheck</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">div</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"1 / 0 ="</span> + (<span class="number">1</span> / <span class="number">0</span>));</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">show</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"永无bug..."</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> top.tobing.annotation.test;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Cal</span> </span>&#123;</span><br><span class="line">    <span class="comment">//加法</span></span><br><span class="line">    <span class="meta">@MyCheck</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">add</span><span class="params">()</span></span>&#123;</span><br><span class="line">        String str = <span class="keyword">null</span>;</span><br><span class="line">        str.toString();</span><br><span class="line">        System.out.println(<span class="string">&quot;1 + 0 =&quot;</span> + (<span class="number">1</span> + <span class="number">0</span>));</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//减法</span></span><br><span class="line">    <span class="meta">@MyCheck</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">sub</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;1 - 0 =&quot;</span> + (<span class="number">1</span> - <span class="number">0</span>));</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//乘法</span></span><br><span class="line">    <span class="meta">@MyCheck</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">mul</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;1 * 0 =&quot;</span> + (<span class="number">1</span> * <span class="number">0</span>));</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//除法</span></span><br><span class="line">    <span class="meta">@MyCheck</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">div</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;1 / 0 =&quot;</span> + (<span class="number">1</span> / <span class="number">0</span>));</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">show</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;永无bug...&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>测试使用的注解</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> top.tobing.annotation.test;</span><br><span class="line"><span class="keyword">import</span> java.lang.annotation.ElementType;</span><br><span class="line"><span class="keyword">import</span> java.lang.annotation.Retention;</span><br><span class="line"><span class="keyword">import</span> java.lang.annotation.RetentionPolicy;</span><br><span class="line"><span class="keyword">import</span> java.lang.annotation.Target;</span><br><span class="line"><span class="meta">@Retention</span>(RetentionPolicy.RUNTIME)</span><br><span class="line"><span class="meta">@Target</span>(ElementType.METHOD)</span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> MyCheck &#123;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> top.tobing.annotation.test;</span><br><span class="line"><span class="keyword">import</span> java.lang.annotation.ElementType;</span><br><span class="line"><span class="keyword">import</span> java.lang.annotation.Retention;</span><br><span class="line"><span class="keyword">import</span> java.lang.annotation.RetentionPolicy;</span><br><span class="line"><span class="keyword">import</span> java.lang.annotation.Target;</span><br><span class="line"><span class="meta">@Retention(RetentionPolicy.RUNTIME)</span></span><br><span class="line"><span class="meta">@Target(ElementType.METHOD)</span></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> MyCheck &#123;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>测试类</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> top.tobing.annotation.test;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Method;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CalTest</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		<span class="comment">//1. 创建计算器对象</span></span><br><span class="line">		Cal c = <span class="keyword">new</span> Cal();</span><br><span class="line">		<span class="comment">//2. 获取计算器字节码文件</span></span><br><span class="line">		Class cls = c.getClass();</span><br><span class="line">		<span class="comment">//3. 通过字节码文件获取使用方法</span></span><br><span class="line">		Method[] methods = cls.getMethods();</span><br><span class="line">		<span class="keyword">int</span> num = <span class="number">0</span>;<span class="comment">//记录异常出现的次数</span></span><br><span class="line">		<span class="keyword">for</span>(Method m:methods) &#123;</span><br><span class="line">			<span class="comment">// 判断方法上是否包含注解</span></span><br><span class="line">			<span class="keyword">if</span>(m.isAnnotationPresent(MyCheck.class)) &#123;</span><br><span class="line">				<span class="comment">// 包含，捕获异常</span></span><br><span class="line">				<span class="keyword">try</span> &#123;</span><br><span class="line">					m.invoke(c);</span><br><span class="line">				&#125;<span class="keyword">catch</span>(Exception e) &#123;</span><br><span class="line">					num++;</span><br><span class="line">					System.out.println(m.getName()+<span class="string">"出现异常了"</span>);</span><br><span class="line">					System.out.println(<span class="string">"异常名称为："</span>+e.getCause().getClass().getSimpleName());</span><br><span class="line">					System.out.println(<span class="string">"异常原因是："</span>+e.getCause().getMessage());</span><br><span class="line">					System.out.println(<span class="string">"----------------------"</span>);</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		System.out.println(<span class="string">"本次测试一共出现"</span>+num+<span class="string">"次异常"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> top.tobing.annotation.test;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Method;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CalTest</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		<span class="comment">//1. 创建计算器对象</span></span><br><span class="line">		Cal c = <span class="keyword">new</span> Cal();</span><br><span class="line">		<span class="comment">//2. 获取计算器字节码文件</span></span><br><span class="line">		Class cls = c.getClass();</span><br><span class="line">		<span class="comment">//3. 通过字节码文件获取使用方法</span></span><br><span class="line">		Method[] methods = cls.getMethods();</span><br><span class="line">		<span class="keyword">int</span> num = <span class="number">0</span>;<span class="comment">//记录异常出现的次数</span></span><br><span class="line">		<span class="keyword">for</span>(Method m:methods) &#123;</span><br><span class="line">			<span class="comment">// 判断方法上是否包含注解</span></span><br><span class="line">			<span class="keyword">if</span>(m.isAnnotationPresent(MyCheck.class)) &#123;</span><br><span class="line">				<span class="comment">// 包含，捕获异常</span></span><br><span class="line">				<span class="keyword">try</span> &#123;</span><br><span class="line">					m.invoke(c);</span><br><span class="line">				&#125;<span class="keyword">catch</span>(Exception e) &#123;</span><br><span class="line">					num++;</span><br><span class="line">					System.out.println(m.getName()+<span class="string">&quot;出现异常了&quot;</span>);</span><br><span class="line">					System.out.println(<span class="string">&quot;异常名称为：&quot;</span>+e.getCause().getClass().getSimpleName());</span><br><span class="line">					System.out.println(<span class="string">&quot;异常原因是：&quot;</span>+e.getCause().getMessage());</span><br><span class="line">					System.out.println(<span class="string">&quot;----------------------&quot;</span>);</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		System.out.println(<span class="string">&quot;本次测试一共出现&quot;</span>+num+<span class="string">&quot;次异常&quot;</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 </li>
 <li><p>运行结果</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">add出现异常了</span><br><span class="line">异常名称为：NullPointerException</span><br><span class="line">异常原因是：null</span><br><span class="line">----------------------</span><br><span class="line">1 - 0 =1</span><br><span class="line">div出现异常了</span><br><span class="line">异常名称为：ArithmeticException</span><br><span class="line">异常原因是：/ by zero</span><br><span class="line">----------------------</span><br><span class="line">1 * 0 =0</span><br><span class="line">本次测试一共出现2次异常</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">add出现异常了</span><br><span class="line">异常名称为：NullPointerException</span><br><span class="line">异常原因是：null</span><br><span class="line">----------------------</span><br><span class="line">1 - 0 =1</span><br><span class="line">div出现异常了</span><br><span class="line">异常名称为：ArithmeticException</span><br><span class="line">异常原因是：/ by zero</span><br><span class="line">----------------------</span><br><span class="line">1 * 0 =0</span><br><span class="line">本次测试一共出现2次异常</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
 
 </li>
 </ul>
@@ -543,294 +568,869 @@
 <li>此处复习注解是为了更好地学习框架。</li>
 </ul>
 
+  
+  
+    
+    <div class='footer'>
+      
+      
+      
+        <div class='copyright'>
+          <blockquote>
+            
+              
+                <p>博客内容遵循 署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</p>
+
+              
+            
+              
+                <p>本文永久链接是：<a href=https://tobing.top/2019/10/07/Java%E6%B3%A8%E8%A7%A3/>https://tobing.top/2019/10/07/Java%E6%B3%A8%E8%A7%A3/</a></p>
+              
+            
+          </blockquote>
+        </div>
+      
       
     </div>
-    
-    
-    
-
+  
+  
     
 
-    
 
-    
-
-    <footer class="post-footer">
+  <div class='article-meta' id="bottom">
+    <div class='new-meta-box'>
       
-        <div class="post-tags">
+        
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2019-10-08T20:58:00+08:00">
+  <a class='notlink'>
+    <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
+    <p>更新于：Oct 8, 2019</p>
+  </a>
+</div>
+
+        
+      
+        
           
-            <a href="/tags/Java/" rel="tag"># Java</a>
+  
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/Java/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>Java</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/%E6%B3%A8%E8%A7%A3/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>注解</p></a></div>
+
+
+        
+      
+        
           
-            <a href="/tags/注解/" rel="tag"># 注解</a>
+  <div class="new-meta-item share -mob-share-list">
+  <div class="-mob-share-list share-body">
+    
+      
+        <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer noopener"
           
-        </div>
-      
+          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://tobing.top/2019/10/07/Java%E6%B3%A8%E8%A7%A3/&title=Java注解 - tobing&summary=注解
+定义：注解（Annotation），也叫元数据。一种代码级别的说明。
+它是JDK1.5及以后版本引入的一个特性，与类、接口、枚举是在同一个层次。它可以声明在包、类、字段、方法、局部变量、方法参数等的前面，用来对这些元素进行说明，注释。
+作用分类：
+编写文档：通过代码里标识的元数据生成文档【生成文档doc文档】
+代码分析：通过代码里标识的元数据对代码进行分析【使用反射】
+编译检查：通过代码里标识的元数据让编译器能够实现基本的编译检查【Override】
 
-      
-      
-      
 
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/2019/10/05/Java反射（Reflection）-二/" rel="next" title="Java反射（Reflection）(二)">
-                <i class="fa fa-chevron-left"></i> Java反射（Reflection）(二)
-              </a>
-            
-          </div>
+类比
+注释：给程序员看
+注解：给计算机看
 
-          <span class="post-nav-divider"></span>
 
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/10/12/Java-Mysql实现简略超市信息管理系统/" rel="prev" title="Java+Mysql实现简略超市信息管理系统">
-                Java+Mysql实现简略超市信息管理系统 <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
 
+1. 编译检查
+@Override：
+
+2. 编写文档
+@author ：作者
+@version：版本
+@since：
+@return：返回值
+
+3. Java中预定义的注解
+@Override：检测该被该注解标注的方法是否是继承自父类（接口）
+
+@Deprecated：表示该方法已经过时
+
+@SuppressWarnings()：压制警告
+123456789101112131415161718192021222324252627282930313233package top.tobing.annotation;/** * Java内预定义的注解 * @author Tobing * @version 1.0 * @since 1.5 */public class Demo01Annotation01 &#123;	public static void main(String[] args) &#123;		Cat cat = new Cat();		cat.run();	&#125;&#125;class Animal&#123;	private String name;	public  void eat() &#123;		System.out.println(&quot;吃吃吃！！！&quot;);	&#125;&#125;// 压制所有的警告@SuppressWarnings(&quot;all&quot;)class Cat extends Animal&#123;	// 表示该方法是继承自父类的	@Override	public  void eat() &#123;		System.out.println(&quot;吃鱼！！！&quot;);	&#125;	// 表示该方法已经过时，不建议使用	@Deprecated	public void run() &#123;		System.out.println(&quot;飞檐走壁！！！！&quot;);	&#125;&#125;
+
+
+
+4. 自定义注解
+如何自定义呢？照葫芦画瓢    — &gt; 查看@Deprecated源码
+123456@Documented@Retention(RetentionPolicy.RUNTIME)@Target(value=&#123;CONSTRUCTOR, FIELD, LOCAL_VARIABLE, METHOD, PACKAGE, MODULE, PARAMETER, TYPE&#125;)public @interface Deprecated &#123;    ......&#125;
+
+以下是自定义的注解：MyAnno.java
+123package top.tobing.annotation;public @interface MyAnno &#123;&#125;
+
+对自定义的注解反编译
+123456E:\Code&gt;javac MyAnno.java   # 编译获取字节码文件E:\Code&gt;javap MyAnno		# 反编译字节码文件Compiled from &quot;MyAnno.java&quot;# 反编译得到的代码public interface MyAnno extends java.lang.annotation.Annotation &#123;&#125;
+
+从以上编译所的代码可以知道注解的本质
+
+本质：注解本质上就是一个接口，该接口默认继承了Annotation接口
+
+public interface MyAnno extends java.lang.annotation.Annotation 
+Annotation：The common interface extended by all annotation types.
+Annotation：所有注解类型拓展的公共接口。
+
+
+注解属性：接口的抽象方法
+
+要求：
+属性返回值类型
+基本数据类型
+String
+枚举
+注解
+以上类型的数值
+
+
+定义了属性，在使用时需要给属性赋值
+定义属性时，使用default关键字给定默认值，使用注解时可以不进行赋值
+只有一个属性需要赋值，并且名称是value，可以value可以省略，直接赋值即可。
+数值赋值是，值需要用{}包裹。如果数组中只有一个值则可以省略{}
+
+
+
+
+以下是代码演示
+
+12345678910111213141516171819202122232425package top.tobing.annotation;// 自定义注解Annopublic @interface MyAnno &#123;	//int show();			// int	//String show2();		// String	//MyAnno1 anno1();	// 注解类型	String name();	String[] cats();	int[] ages();	int age() default 10;	// 赋值了默认，可以不需要数值&#125;// 自定义注解@interface MyAnno1&#123;	String value(); 	// 只有一个值，且值的名称为value&#125;//////////////使用注解//////////////////// age由于定义了default，可以不赋值// cats是数组，赋值多个的时候使用大括号包裹// ages是数值，赋值一个的时候，可以省略大括号@MyAnno(name=&quot;张三&quot;,cats= &#123;&quot;小王&quot;,&quot;小白&quot;&#125;,ages=10)// 省略了value=@MyAnno1(&quot;Value&quot;)public class Demo01Annotation2 &#123;&#125;
+
+
+
+元注解
+
+用于描述注解的注解（可以体会到元意思）
+@Target：描述注解的作用时机
+ElementType取值
+ElementType.TYPE：可以作用在类上
+ElementType.METHOD：可以作用在方法上
+ElementType.FIELD：可以作用在成员变量上
+
+
+
+
+@Retention：描述注解被保留的阶段
+@Retention(保留阶段)
+RetentionPolicy.RUNTIME：保留到class字节码文件中，并且被JVM读取到（这个最常用）
+RetentionPolicy.SOURCE：略
+RetentionPolicy.CLASS：略
+
+
+@Documented：描述注解是否被抽取到api中
+@Inherited：描述注解是否被子类继承
+
+1234567891011121314151617181920212223// 以下元注解表述了：注解保留到class字节码文件中，并且被JVM读取到（这个最常用）@Retention(RetentionPolicy.RUNTIME)// 以下元注解表述了：注解可以被抽取到API中@Documented// 以下元注解表述了：自定义注解可以被子类继承@Inherited// 以下元注解表述了：自定义注解可以被使用在类（TYPE）、方法（METHOD）、成员变量（FIELD）@Target(&#123;ElementType.TYPE,ElementType.METHOD,ElementType.FIELD&#125;)@interface MyAnno2&#123;	String value();&#125;package top.tobing.annotation;@MyAnno2(&quot;类&quot;)public class Demo01Annotation3 &#123;	@MyAnno2(&quot;成员变量&quot;)	private String name;	@MyAnno2(&quot;方法&quot;)	public void show() &#123;			&#125;&#125;
+
+
+"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qq.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qq.png" srcset="data:image/png;base64,666">
+          
+        </a>
       
+    
       
-    </footer>
+        <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://tobing.top/2019/10/07/Java%E6%B3%A8%E8%A7%A3/&title=Java注解 - tobing&summary=注解
+定义：注解（Annotation），也叫元数据。一种代码级别的说明。
+它是JDK1.5及以后版本引入的一个特性，与类、接口、枚举是在同一个层次。它可以声明在包、类、字段、方法、局部变量、方法参数等的前面，用来对这些元素进行说明，注释。
+作用分类：
+编写文档：通过代码里标识的元数据生成文档【生成文档doc文档】
+代码分析：通过代码里标识的元数据对代码进行分析【使用反射】
+编译检查：通过代码里标识的元数据让编译器能够实现基本的编译检查【Override】
+
+
+类比
+注释：给程序员看
+注解：给计算机看
+
+
+
+1. 编译检查
+@Override：
+
+2. 编写文档
+@author ：作者
+@version：版本
+@since：
+@return：返回值
+
+3. Java中预定义的注解
+@Override：检测该被该注解标注的方法是否是继承自父类（接口）
+
+@Deprecated：表示该方法已经过时
+
+@SuppressWarnings()：压制警告
+123456789101112131415161718192021222324252627282930313233package top.tobing.annotation;/** * Java内预定义的注解 * @author Tobing * @version 1.0 * @since 1.5 */public class Demo01Annotation01 &#123;	public static void main(String[] args) &#123;		Cat cat = new Cat();		cat.run();	&#125;&#125;class Animal&#123;	private String name;	public  void eat() &#123;		System.out.println(&quot;吃吃吃！！！&quot;);	&#125;&#125;// 压制所有的警告@SuppressWarnings(&quot;all&quot;)class Cat extends Animal&#123;	// 表示该方法是继承自父类的	@Override	public  void eat() &#123;		System.out.println(&quot;吃鱼！！！&quot;);	&#125;	// 表示该方法已经过时，不建议使用	@Deprecated	public void run() &#123;		System.out.println(&quot;飞檐走壁！！！！&quot;);	&#125;&#125;
+
+
+
+4. 自定义注解
+如何自定义呢？照葫芦画瓢    — &gt; 查看@Deprecated源码
+123456@Documented@Retention(RetentionPolicy.RUNTIME)@Target(value=&#123;CONSTRUCTOR, FIELD, LOCAL_VARIABLE, METHOD, PACKAGE, MODULE, PARAMETER, TYPE&#125;)public @interface Deprecated &#123;    ......&#125;
+
+以下是自定义的注解：MyAnno.java
+123package top.tobing.annotation;public @interface MyAnno &#123;&#125;
+
+对自定义的注解反编译
+123456E:\Code&gt;javac MyAnno.java   # 编译获取字节码文件E:\Code&gt;javap MyAnno		# 反编译字节码文件Compiled from &quot;MyAnno.java&quot;# 反编译得到的代码public interface MyAnno extends java.lang.annotation.Annotation &#123;&#125;
+
+从以上编译所的代码可以知道注解的本质
+
+本质：注解本质上就是一个接口，该接口默认继承了Annotation接口
+
+public interface MyAnno extends java.lang.annotation.Annotation 
+Annotation：The common interface extended by all annotation types.
+Annotation：所有注解类型拓展的公共接口。
+
+
+注解属性：接口的抽象方法
+
+要求：
+属性返回值类型
+基本数据类型
+String
+枚举
+注解
+以上类型的数值
+
+
+定义了属性，在使用时需要给属性赋值
+定义属性时，使用default关键字给定默认值，使用注解时可以不进行赋值
+只有一个属性需要赋值，并且名称是value，可以value可以省略，直接赋值即可。
+数值赋值是，值需要用{}包裹。如果数组中只有一个值则可以省略{}
+
+
+
+
+以下是代码演示
+
+12345678910111213141516171819202122232425package top.tobing.annotation;// 自定义注解Annopublic @interface MyAnno &#123;	//int show();			// int	//String show2();		// String	//MyAnno1 anno1();	// 注解类型	String name();	String[] cats();	int[] ages();	int age() default 10;	// 赋值了默认，可以不需要数值&#125;// 自定义注解@interface MyAnno1&#123;	String value(); 	// 只有一个值，且值的名称为value&#125;//////////////使用注解//////////////////// age由于定义了default，可以不赋值// cats是数组，赋值多个的时候使用大括号包裹// ages是数值，赋值一个的时候，可以省略大括号@MyAnno(name=&quot;张三&quot;,cats= &#123;&quot;小王&quot;,&quot;小白&quot;&#125;,ages=10)// 省略了value=@MyAnno1(&quot;Value&quot;)public class Demo01Annotation2 &#123;&#125;
+
+
+
+元注解
+
+用于描述注解的注解（可以体会到元意思）
+@Target：描述注解的作用时机
+ElementType取值
+ElementType.TYPE：可以作用在类上
+ElementType.METHOD：可以作用在方法上
+ElementType.FIELD：可以作用在成员变量上
+
+
+
+
+@Retention：描述注解被保留的阶段
+@Retention(保留阶段)
+RetentionPolicy.RUNTIME：保留到class字节码文件中，并且被JVM读取到（这个最常用）
+RetentionPolicy.SOURCE：略
+RetentionPolicy.CLASS：略
+
+
+@Documented：描述注解是否被抽取到api中
+@Inherited：描述注解是否被子类继承
+
+1234567891011121314151617181920212223// 以下元注解表述了：注解保留到class字节码文件中，并且被JVM读取到（这个最常用）@Retention(RetentionPolicy.RUNTIME)// 以下元注解表述了：注解可以被抽取到API中@Documented// 以下元注解表述了：自定义注解可以被子类继承@Inherited// 以下元注解表述了：自定义注解可以被使用在类（TYPE）、方法（METHOD）、成员变量（FIELD）@Target(&#123;ElementType.TYPE,ElementType.METHOD,ElementType.FIELD&#125;)@interface MyAnno2&#123;	String value();&#125;package top.tobing.annotation;@MyAnno2(&quot;类&quot;)public class Demo01Annotation3 &#123;	@MyAnno2(&quot;成员变量&quot;)	private String name;	@MyAnno2(&quot;方法&quot;)	public void show() &#123;			&#125;&#125;
+
+
+"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qzone.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qzone.png" srcset="data:image/png;base64,666">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="http://service.weibo.com/share/share.php?url=https://tobing.top/2019/10/07/Java%E6%B3%A8%E8%A7%A3/&title=Java注解 - tobing&summary=注解
+定义：注解（Annotation），也叫元数据。一种代码级别的说明。
+它是JDK1.5及以后版本引入的一个特性，与类、接口、枚举是在同一个层次。它可以声明在包、类、字段、方法、局部变量、方法参数等的前面，用来对这些元素进行说明，注释。
+作用分类：
+编写文档：通过代码里标识的元数据生成文档【生成文档doc文档】
+代码分析：通过代码里标识的元数据对代码进行分析【使用反射】
+编译检查：通过代码里标识的元数据让编译器能够实现基本的编译检查【Override】
+
+
+类比
+注释：给程序员看
+注解：给计算机看
+
+
+
+1. 编译检查
+@Override：
+
+2. 编写文档
+@author ：作者
+@version：版本
+@since：
+@return：返回值
+
+3. Java中预定义的注解
+@Override：检测该被该注解标注的方法是否是继承自父类（接口）
+
+@Deprecated：表示该方法已经过时
+
+@SuppressWarnings()：压制警告
+123456789101112131415161718192021222324252627282930313233package top.tobing.annotation;/** * Java内预定义的注解 * @author Tobing * @version 1.0 * @since 1.5 */public class Demo01Annotation01 &#123;	public static void main(String[] args) &#123;		Cat cat = new Cat();		cat.run();	&#125;&#125;class Animal&#123;	private String name;	public  void eat() &#123;		System.out.println(&quot;吃吃吃！！！&quot;);	&#125;&#125;// 压制所有的警告@SuppressWarnings(&quot;all&quot;)class Cat extends Animal&#123;	// 表示该方法是继承自父类的	@Override	public  void eat() &#123;		System.out.println(&quot;吃鱼！！！&quot;);	&#125;	// 表示该方法已经过时，不建议使用	@Deprecated	public void run() &#123;		System.out.println(&quot;飞檐走壁！！！！&quot;);	&#125;&#125;
+
+
+
+4. 自定义注解
+如何自定义呢？照葫芦画瓢    — &gt; 查看@Deprecated源码
+123456@Documented@Retention(RetentionPolicy.RUNTIME)@Target(value=&#123;CONSTRUCTOR, FIELD, LOCAL_VARIABLE, METHOD, PACKAGE, MODULE, PARAMETER, TYPE&#125;)public @interface Deprecated &#123;    ......&#125;
+
+以下是自定义的注解：MyAnno.java
+123package top.tobing.annotation;public @interface MyAnno &#123;&#125;
+
+对自定义的注解反编译
+123456E:\Code&gt;javac MyAnno.java   # 编译获取字节码文件E:\Code&gt;javap MyAnno		# 反编译字节码文件Compiled from &quot;MyAnno.java&quot;# 反编译得到的代码public interface MyAnno extends java.lang.annotation.Annotation &#123;&#125;
+
+从以上编译所的代码可以知道注解的本质
+
+本质：注解本质上就是一个接口，该接口默认继承了Annotation接口
+
+public interface MyAnno extends java.lang.annotation.Annotation 
+Annotation：The common interface extended by all annotation types.
+Annotation：所有注解类型拓展的公共接口。
+
+
+注解属性：接口的抽象方法
+
+要求：
+属性返回值类型
+基本数据类型
+String
+枚举
+注解
+以上类型的数值
+
+
+定义了属性，在使用时需要给属性赋值
+定义属性时，使用default关键字给定默认值，使用注解时可以不进行赋值
+只有一个属性需要赋值，并且名称是value，可以value可以省略，直接赋值即可。
+数值赋值是，值需要用{}包裹。如果数组中只有一个值则可以省略{}
+
+
+
+
+以下是代码演示
+
+12345678910111213141516171819202122232425package top.tobing.annotation;// 自定义注解Annopublic @interface MyAnno &#123;	//int show();			// int	//String show2();		// String	//MyAnno1 anno1();	// 注解类型	String name();	String[] cats();	int[] ages();	int age() default 10;	// 赋值了默认，可以不需要数值&#125;// 自定义注解@interface MyAnno1&#123;	String value(); 	// 只有一个值，且值的名称为value&#125;//////////////使用注解//////////////////// age由于定义了default，可以不赋值// cats是数组，赋值多个的时候使用大括号包裹// ages是数值，赋值一个的时候，可以省略大括号@MyAnno(name=&quot;张三&quot;,cats= &#123;&quot;小王&quot;,&quot;小白&quot;&#125;,ages=10)// 省略了value=@MyAnno1(&quot;Value&quot;)public class Demo01Annotation2 &#123;&#125;
+
+
+
+元注解
+
+用于描述注解的注解（可以体会到元意思）
+@Target：描述注解的作用时机
+ElementType取值
+ElementType.TYPE：可以作用在类上
+ElementType.METHOD：可以作用在方法上
+ElementType.FIELD：可以作用在成员变量上
+
+
+
+
+@Retention：描述注解被保留的阶段
+@Retention(保留阶段)
+RetentionPolicy.RUNTIME：保留到class字节码文件中，并且被JVM读取到（这个最常用）
+RetentionPolicy.SOURCE：略
+RetentionPolicy.CLASS：略
+
+
+@Documented：描述注解是否被抽取到api中
+@Inherited：描述注解是否被子类继承
+
+1234567891011121314151617181920212223// 以下元注解表述了：注解保留到class字节码文件中，并且被JVM读取到（这个最常用）@Retention(RetentionPolicy.RUNTIME)// 以下元注解表述了：注解可以被抽取到API中@Documented// 以下元注解表述了：自定义注解可以被子类继承@Inherited// 以下元注解表述了：自定义注解可以被使用在类（TYPE）、方法（METHOD）、成员变量（FIELD）@Target(&#123;ElementType.TYPE,ElementType.METHOD,ElementType.FIELD&#125;)@interface MyAnno2&#123;	String value();&#125;package top.tobing.annotation;@MyAnno2(&quot;类&quot;)public class Demo01Annotation3 &#123;	@MyAnno2(&quot;成员变量&quot;)	private String name;	@MyAnno2(&quot;方法&quot;)	public void show() &#123;			&#125;&#125;
+
+
+"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/weibo.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/weibo.png" srcset="data:image/png;base64,666">
+          
+        </a>
+      
+    
+      
+    
+      
+    
   </div>
+</div>
+
+
+
+        
+      
+    </div>
+  </div>
+
+
   
   
+
   
+    <div class="prev-next">
+      
+        <a class='prev' href='/2019/10/12/Java-Mysql%E5%AE%9E%E7%8E%B0%E7%AE%80%E7%95%A5%E8%B6%85%E5%B8%82%E4%BF%A1%E6%81%AF%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/'>
+          <p class='title'><i class="fas fa-chevron-left" aria-hidden="true"></i>Java+Mysql实现简略超市信息管理系统</p>
+          <p class='content'>JDBC+MySQL实现超市信息管理系统1. 概述
+超市商品管理系统用于管理员、销售员的登录。管理员和销售员查看数据。管理员可以进行入库。销售可以销售商品
+
+2. 需求分析
+销售员，管理员登录
+...</p>
+        </a>
+      
+      
+        <a class='next' href='/2019/10/05/Java%E5%8F%8D%E5%B0%84%EF%BC%88Reflection%EF%BC%89-%E4%BA%8C/'>
+          <p class='title'>Java反射（Reflection）(二)<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
+          <p class='content'>Java反射（Reflection）(二)
+获取了某个Object实例对应的Class，我们就可以通过反射获取他的一切信息。
+
+1. 访问字段(Filed)
+通过Class访问字段（Field）...</p>
+        </a>
+      
+    </div>
+  
+</article>
+
+
+  
+
+  <article class="post white-box reveal shadow" id="comments">
+    <p ct><i class='fas fa-comments'></i> 评论</p>
+    
+    <div id="valine_container" class="valine_thread">
+  <i class="fas fa-cog fa-spin fa-fw fa-2x"></i>
+</div>
+
   </article>
 
 
 
-    <div class="post-spread">
-      
-    </div>
-  </div>
-
-
-          </div>
-          
-
-
-          
-
-  
-    <div class="comments" id="comments">
-      <div id="disqus_thread">
-        <noscript>
-          Please enable JavaScript to view the
-          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
-        </noscript>
-      </div>
-    </div>
-
-  
 
 
 
-        </div>
-        
-          
-  
-  <div class="sidebar-toggle">
-    <div class="sidebar-toggle-line-wrap">
-      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
-    </div>
-  </div>
-
-  <aside id="sidebar" class="sidebar">
-    
-    <div class="sidebar-inner">
-
-      
-
-      
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            站点概览
-          </li>
-        </ul>
-      
-
-      <section class="site-overview-wrap sidebar-panel">
-        <div class="site-overview">
-          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-            
-              <p class="site-author-name" itemprop="name">tobing</p>
-              <p class="site-description motion-element" itemprop="description">Just so so :)</p>
-          </div>
-
-          <nav class="site-state motion-element">
-
-            
-              <div class="site-state-item site-state-posts">
-              
-                <a href="/archives/">
-              
-                  <span class="site-state-item-count">53</span>
-                  <span class="site-state-item-name">日志</span>
-                </a>
-              </div>
-            
-
-            
-              
-              
-              <div class="site-state-item site-state-categories">
-                <a href="/categories/index.html">
-                  <span class="site-state-item-count">12</span>
-                  <span class="site-state-item-name">分类</span>
-                </a>
-              </div>
-            
-
-            
-              
-              
-              <div class="site-state-item site-state-tags">
-                <a href="/tags/index.html">
-                  <span class="site-state-item-count">45</span>
-                  <span class="site-state-item-name">标签</span>
-                </a>
-              </div>
-            
-
-          </nav>
-
-          
-
-          
-            <div class="links-of-author motion-element">
-                
-                  <span class="links-of-author-item">
-                    <a href="https://github.com/Tobingindex" target="_blank" title="GitHub">
-                      
-                        <i class="fa fa-fw fa-github"></i>GitHub</a>
-                  </span>
-                
-            </div>
-          
-
-          
-          
-
-          
-          
-            <div class="links-of-blogroll motion-element links-of-blogroll-block">
-              <div class="links-of-blogroll-title">
-                <i class="fa  fa-fw fa-link"></i>
-                友情链接
-              </div>
-              <ul class="links-of-blogroll-list">
-                
-                  <li class="links-of-blogroll-item">
-                    <a href="https://mirrorsquare.com/" title="Zenyet" target="_blank">Zenyet</a>
-                  </li>
-                
-                  <li class="links-of-blogroll-item">
-                    <a href="http://changtong1819.top/" title="于无声处听惊雷" target="_blank">于无声处听惊雷</a>
-                  </li>
-                
-                  <li class="links-of-blogroll-item">
-                    <a href="http://vvvyyt.club/" title="秃鹫网友" target="_blank">秃鹫网友</a>
-                  </li>
-                
-              </ul>
-            </div>
-          
-
-          
-
-        </div>
-      </section>
-
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#注解"><span class="nav-number">1.</span> <span class="nav-text">注解</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-编译检查"><span class="nav-number">1.0.1.</span> <span class="nav-text">1. 编译检查</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-编写文档"><span class="nav-number">1.0.2.</span> <span class="nav-text">2. 编写文档</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-Java中预定义的注解"><span class="nav-number">1.0.3.</span> <span class="nav-text">3. Java中预定义的注解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-自定义注解"><span class="nav-number">1.0.4.</span> <span class="nav-text">4. 自定义注解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-注解的应用"><span class="nav-number">1.0.5.</span> <span class="nav-text">5. 注解的应用</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-代替xml配置文件"><span class="nav-number">1.0.5.0.1.</span> <span class="nav-text">1. 代替xml配置文件</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-自动以测试"><span class="nav-number">1.0.5.0.2.</span> <span class="nav-text">2. 自动以测试</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">1.0.6.</span> <span class="nav-text">总结</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
-      
-
-      
-
-    </div>
-  </aside>
-
-
-        
-      </div>
-    </main>
-
-    <footer id="footer" class="footer">
-      <div class="footer-inner">
-        <div class="copyright">&copy; 2019 &mdash; <span itemprop="copyrightYear">2020</span>
-  <span class="with-love">
-    <i class="fa fa-user"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">tobing</span>
-
-  
 </div>
+<aside class='l_side'>
+  
+  
+    
+    
 
 
- 
+
+  <section class="widget toc-wrapper shadow desktop mobile" id="toc-div" >
+    
+  <header>
+    
+      <i class="fas fa-list fa-fw" aria-hidden="true"></i><span class='name'>本文目录</span>
+    
+  </header>
 
 
-
-
+    <div class='content'>
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E7%BC%96%E8%AF%91%E6%A3%80%E6%9F%A5"><span class="toc-text">1. 编译检查</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E7%BC%96%E5%86%99%E6%96%87%E6%A1%A3"><span class="toc-text">2. 编写文档</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-Java%E4%B8%AD%E9%A2%84%E5%AE%9A%E4%B9%89%E7%9A%84%E6%B3%A8%E8%A7%A3"><span class="toc-text">3. Java中预定义的注解</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E8%87%AA%E5%AE%9A%E4%B9%89%E6%B3%A8%E8%A7%A3"><span class="toc-text">4. 自定义注解</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E6%B3%A8%E8%A7%A3%E7%9A%84%E5%BA%94%E7%94%A8"><span class="toc-text">5. 注解的应用</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-%E4%BB%A3%E6%9B%BFxml%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="toc-text">1. 代替xml配置文件</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-%E8%87%AA%E5%8A%A8%E4%BB%A5%E6%B5%8B%E8%AF%95"><span class="toc-text">2. 自动以测试</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-text">总结</span></a></li></ol>
+    </div>
+  </section>
 
 
   
 
 
+</aside>
+
 
 
         
+        
+          <!--此文件用来存放一些不方便取值的变量-->
+<!--思路大概是将值藏到重加载的区域内-->
 
+<script>
+  window.pdata={}
+  pdata.ispage=true;
+  pdata.postTitle="Java注解";
+  pdata.commentPath="";
+  pdata.commentPlaceholder="";
 
-
-
-
-
+  var l_header=document.getElementById("l_header");
+  
+  l_header.classList.add("show");
+  
+</script>
 
         
       </div>
-    </footer>
-
+      
+  
+  <footer class="footer clearfix">
+    <br><br>
     
-      <div class="back-to-top">
-        <i class="fa fa-arrow-up"></i>
+      
+        <div class="aplayer-container">
+          
+
+
+        </div>
+      
+    
+      
         
-      </div>
+          <div><p>时不待我，舍我其谁</p>
+</div>
+        
+      
     
-
+      
+        
+          <div><br></div>
+        
+      
     
+      
+        
+          <div><p><span id="lc-sv">本站总访问量为 <span id='number'><i class="fas fa-circle-notch fa-spin fa-fw" aria-hidden="true"></i></span> 次</span> <span id="lc-uv">访客数为 <span id='number'><i class="fas fa-circle-notch fa-spin fa-fw" aria-hidden="true"></i></span> 人</span></p>
+</div>
+        
+      
+    
+      
+        <div class='copyright'>
+        <p><a target="_blank" rel="noopener" href="https://gitee.com/tobing">Copyright © 2017-2020 Tobing</a></p>
 
+        </div>
+      
+    
+  </footer>
+
+
+      <a id="s-top" class="fas fa-arrow-up fa-fw" href='javascript:void(0)'></a>
+    </div>
   </div>
+  <div>
+    <script>
+window.volantis={};
+window.volantis.loadcss=document.getElementById("loadcss");
+/********************脚本懒加载函数********************************/
+function loadScript(src, cb) {
+var HEAD = document.getElementsByTagName('head')[0] || document.documentElement;
+var script = document.createElement('script');
+script.setAttribute('type','text/javascript');
+if (cb) script.onload = cb;
+script.setAttribute('src', src);
+HEAD.appendChild(script);
+}
+//https://github.com/filamentgroup/loadCSS
+var loadCSS = function( href, before, media, attributes ){
+	var doc = window.document;
+	var ss = doc.createElement( "link" );
+	var ref;
+	if( before ){
+		ref = before;
+	}
+	else {
+		var refs = ( doc.body || doc.getElementsByTagName( "head" )[ 0 ] ).childNodes;
+		ref = refs[ refs.length - 1];
+	}
+	var sheets = doc.styleSheets;
+	if( attributes ){
+		for( var attributeName in attributes ){
+			if( attributes.hasOwnProperty( attributeName ) ){
+				ss.setAttribute( attributeName, attributes[attributeName] );
+			}
+		}
+	}
+	ss.rel = "stylesheet";
+	ss.href = href;
+	ss.media = "only x";
+	function ready( cb ){
+		if( doc.body ){
+			return cb();
+		}
+		setTimeout(function(){
+			ready( cb );
+		});
+	}
+	ready( function(){
+		ref.parentNode.insertBefore( ss, ( before ? ref : ref.nextSibling ) );
+	});
+	var onloadcssdefined = function( cb ){
+		var resolvedHref = ss.href;
+		var i = sheets.length;
+		while( i-- ){
+			if( sheets[ i ].href === resolvedHref ){
+				return cb();
+			}
+		}
+		setTimeout(function() {
+			onloadcssdefined( cb );
+		});
+	};
+	function loadCB(){
+		if( ss.addEventListener ){
+			ss.removeEventListener( "load", loadCB );
+		}
+		ss.media = media || "all";
+	}
+	if( ss.addEventListener ){
+		ss.addEventListener( "load", loadCB);
+	}
+	ss.onloadcssdefined = onloadcssdefined;
+	onloadcssdefined( loadCB );
+	return ss;
+};
+</script>
+<script>
+  
+  loadCSS("https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.14/css/all.min.css", window.volantis.loadcss);
+  
+  
+  
+  
+</script>
+<!-- required -->
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5/dist/jquery.min.js"></script>
+
+<script>
+  function pjax_fancybox() {
+    $(".md .gallery").find("img").each(function () { //渲染 fancybox
+      var element = document.createElement("a"); // a 标签
+      $(element).attr("class", "fancybox");
+      $(element).attr("pjax-fancybox", "");  // 过滤 pjax
+      $(element).attr("href", $(this).attr("src"));
+      if ($(this).attr("data-original")) {
+        $(element).attr("href", $(this).attr("data-original"));
+      }
+      $(element).attr("data-fancybox", "images");
+      var caption = "";   // 描述信息
+      if ($(this).attr('alt')) {  // 判断当前页面是否存在描述信息
+        $(element).attr('data-caption', $(this).attr('alt'));
+        caption = $(this).attr('alt');
+      }
+      var div = document.createElement("div");
+      $(div).addClass("fancybox");
+      $(this).wrap(div); // 最外层套 div ，其实主要作用还是 class 样式
+      var span = document.createElement("span");
+      $(span).addClass("image-caption");
+      $(span).text(caption); // 加描述
+      $(this).after(span);  // 再套一层描述
+      $(this).wrap(element);  // 最后套 a 标签
+    })
+    $(".md .gallery").find("img").fancybox({
+      selector: '[data-fancybox="images"]',
+      hash: false,
+      loop: false,
+      closeClick: true,
+      helpers: {
+        overlay: {closeClick: true}
+      },
+      buttons: [
+        "zoom",
+        "close"
+      ]
+    });
+  };
+  function SCload_fancybox() {
+    if ($(".md .gallery").find("img").length == 0) return;
+    loadCSS("https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css", document.getElementById("loadcss"));
+    setTimeout(function() {
+      loadScript('https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js', pjax_fancybox)
+    }, 1);
+  };
+  $(function () {
+    SCload_fancybox();
+  });
+</script>
+
+
+<!-- internal -->
+
+
+
+
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.1.0/dist/lazyload.min.js"></script>
+<script>
+  // https://www.npmjs.com/package/vanilla-lazyload
+  // Set the options globally
+  // to make LazyLoad self-initialize
+  window.lazyLoadOptions = {
+    elements_selector: ".lazyload",
+    threshold: 0
+  };
+  // Listen to the initialization event
+  // and get the instance of LazyLoad
+  window.addEventListener(
+    "LazyLoad::Initialized",
+    function (event) {
+      window.lazyLoadInstance = event.detail.instance;
+    },
+    false
+  );
+  document.addEventListener('DOMContentLoaded', function () {
+    lazyLoadInstance.update();
+  });
+  document.addEventListener('pjax:complete', function () {
+    lazyLoadInstance.update();
+  });
+</script>
+
+
+
 
   
+  
+    <script>
+      window.FPConfig = {
+        delay: 0,
+        ignoreKeywords: [],
+        maxRPS: 5,
+        hoverDelay: 25
+      };
+    </script>
+    <script defer src="https://cdn.jsdelivr.net/gh/gijo-varghese/flying-pages@2.1.2/flying-pages.min.js"></script>
+  
 
-<script type="text/javascript">
-  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
-    window.Promise = null;
+
+
+
+
+
+
+
+
+
+  
+  
+<script src="/js/valine.js"></script>
+
+
+<script>
+  var GUEST_INFO = ['nick', 'mail', 'link'];
+  var meta = 'nick,mail,link'.split(',').filter(function (item) {
+    return GUEST_INFO.indexOf(item) > -1
+  });
+  var REQUIRED_FIELDS = ['nick', 'mail', 'link'];
+  var requiredFields = 'nick,mail'.split(',').filter(function (item) {
+    return REQUIRED_FIELDS.indexOf(item) > -1
+  });
+
+  function emoji(path, idx, ext) {
+    return path + "/" + path + "-" + idx + "." + ext;
   }
+
+  var emojiMaps = {};
+  for (var i = 1; i <= 54; i++) {
+    emojiMaps['tieba-' + i] = emoji('tieba', i, 'png');
+  }
+  for (var i = 1; i <= 101; i++) {
+    emojiMaps['qq-' + i] = emoji('qq', i, 'gif');
+  }
+  for (var i = 1; i <= 116; i++) {
+    emojiMaps['aru-' + i] = emoji('aru', i, 'gif');
+  }
+  for (var i = 1; i <= 125; i++) {
+    emojiMaps['twemoji-' + i] = emoji('twemoji', i, 'png');
+  }
+  for (var i = 1; i <= 4; i++) {
+    emojiMaps['weibo-' + i] = emoji('weibo', i, 'png');
+  }
+
+  function pjax_valine() {
+    if(!document.querySelectorAll("#valine_container")[0])return;
+
+    let pagePlaceholder = pdata.commentPlaceholder || "快来评论吧:)~";
+
+    let path = pdata.commentPath;
+    if (path.length == 0) {
+      let defaultPath = '';
+      path = defaultPath || decodeURI(window.location.pathname);
+    }
+
+    var valine = new Valine();
+    valine.init({
+      el: '#valine_container',
+      meta: meta,
+      placeholder: pagePlaceholder,
+      path: path,
+      appId: "Vy5O9liYY1EruxX5WAaSWiFU-gzGzoHsz",
+      appKey: "LkbvdUheh7noXFlcQzKXf4hV",
+      pageSize: '10',
+      avatar: 'robohash',
+      lang: 'zh-cn',
+      visitor: 'true',
+      highlight: 'true',
+      mathJax: 'false',
+      enableQQ: 'true',
+      recordIP: 'false',
+      requiredFields: requiredFields,
+      emojiCDN: 'https://cdn.jsdelivr.net/gh/volantis-x/cdn-emoji/valine/',
+      emojiMaps: emojiMaps
+    })
+  }
+
+  $(function () {
+    pjax_valine();
+  });
+</script>
+
+
+
+
+
+  
+<script src="/js/app.js"></script>
+
+
+
+<!-- optional -->
+
+  <script>
+const SearchServiceimagePath="https://cdn.jsdelivr.net/gh/volantis-x/cdn-volantis@master/img/";
+const ROOT =  ("/" || "/").endsWith('/') ? ("/" || "/") : ("//" || "/" );
+
+$('.input.u-search-input').one('focus',function(){
+	
+		loadScript('https://cdn.jsdelivr.net/gh/volantis-x/cdn-volantis@2.6.4/js/search.js',setSearchService);
+	
+})
+
+function listenSearch(){
+  
+    customSearch = new HexoSearch({
+      imagePath: SearchServiceimagePath
+    });
+  
+}
+function setSearchService() {
+	listenSearch();
+	
+		document.addEventListener("pjax:success", listenSearch);
+	
+}
 </script>
 
 
@@ -841,273 +1441,415 @@
 
 
 
-  
 
 
-
-
-
-
-
-
-
-
-
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
-  
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
-
-
-
-  
-  
-
-  
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
-
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
-
-
-
-  
-
-
-  
-
-    
-      <script id="dsq-count-scr" src="https://tobing.disqus.com/count.js" async></script>
-    
-
-    
-      <script type="text/javascript">
-        var disqus_config = function () {
-          this.page.url = 'https://tobing.top/2019/10/07/Java注解/';
-          this.page.identifier = '2019/10/07/Java注解/';
-          this.page.title = 'Java注解';
-        };
-        var d = document, s = d.createElement('script');
-        s.src = 'https://tobing.disqus.com/embed.js';
-        s.setAttribute('data-timestamp', '' + +new Date());
-        (d.head || d.body).appendChild(s);
-      </script>
-    
-
-  
-
-
-
-
-	
-
-
-
-
-
-  
-
-
-
-
-
-
-
-
-
-
-
-
-  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-  
-  <script type="text/javascript">
-    var GUEST = ['nick','mail','link'];
-    var guest = 'nick,mail,link';
-    guest = guest.split(',').filter(item=>{
-      return GUEST.indexOf(item)>-1;
-    });
-    new Valine({
-        el: '#comments' ,
-        verify: false,
-        notify: false,
-        appId: 'Vy5O9liYY1EruxX5WAaSWiFU-gzGzoHsz',
-        appKey: 'LkbvdUheh7noXFlcQzKXf4hV',
-        placeholder: '傍晚，躺着草坪，望向湛蓝的天空',
-        avatar:'mm',
-        guest_info:guest,
-        pageSize:'10' || 10,
-    });
-  </script>
-
-
-
-  
-
-
-
-
-
-  
-
-  
-  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
-  <script>AV.initialize("Vy5O9liYY1EruxX5WAaSWiFU-gzGzoHsz", "LkbvdUheh7noXFlcQzKXf4hV");</script>
-  <script>
-    function showTime(Counter) {
-      var query = new AV.Query(Counter);
-      var entries = [];
-      var $visitors = $(".leancloud_visitors");
-
-      $visitors.each(function () {
-        entries.push( $(this).attr("id").trim() );
-      });
-
-      query.containedIn('url', entries);
-      query.find()
-        .done(function (results) {
-          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
-
-          if (results.length === 0) {
-            $visitors.find(COUNT_CONTAINER_REF).text(0);
-            return;
-          }
-
-          for (var i = 0; i < results.length; i++) {
-            var item = results[i];
-            var url = item.get('url');
-            var time = item.get('time');
-            var element = document.getElementById(url);
-
-            $(element).find(COUNT_CONTAINER_REF).text(time);
-          }
-          for(var i = 0; i < entries.length; i++) {
-            var url = entries[i];
-            var element = document.getElementById(url);
-            var countSpan = $(element).find(COUNT_CONTAINER_REF);
-            if( countSpan.text() == '') {
-              countSpan.text(0);
+  <script defer>
+
+  const LCCounter = {
+    app_id: 'u9j57bwJod4EDmXWdxrwuqQT-MdYXbMMI',
+    app_key: 'jfHtEKVE24j0IVCGHbvuFClp',
+    custom_api_server: '',
+
+    // 查询存储的记录
+    getRecord(Counter, url, title) {
+      return new Promise(function (resolve, reject) {
+        Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({url})))
+          .then(resp => resp.json())
+          .then(({results, code, error}) => {
+            if (code === 401) {
+              throw error;
             }
-          }
-        })
-        .fail(function (object, error) {
-          console.log("Error: " + error.code + " " + error.message);
+            if (results && results.length > 0) {
+              var record = results[0];
+              resolve(record);
+            } else {
+              Counter('post', '/classes/Counter', {url, title: title, times: 0})
+                .then(resp => resp.json())
+                .then((record, error) => {
+                  if (error) {
+                    throw error;
+                  }
+                  resolve(record);
+                }).catch(error => {
+                console.error('Failed to create', error);
+                reject(error);
+              });
+            }
+          }).catch((error) => {
+          console.error('LeanCloud Counter Error:', error);
+          reject(error);
         });
-    }
+      })
+    },
 
-    function addCount(Counter) {
-      var $visitors = $(".leancloud_visitors");
-      var url = $visitors.attr('id').trim();
-      var title = $visitors.attr('data-flag-title').trim();
-      var query = new AV.Query(Counter);
-
-      query.equalTo("url", url);
-      query.find({
-        success: function(results) {
-          if (results.length > 0) {
-            var counter = results[0];
-            counter.fetchWhenSave(true);
-            counter.increment("time");
-            counter.save(null, {
-              success: function(counter) {
-                var $element = $(document.getElementById(url));
-                $element.find('.leancloud-visitors-count').text(counter.get('time'));
-              },
-              error: function(counter, error) {
-                console.log('Failed to save Visitor num, with error message: ' + error.message);
-              }
-            });
-          } else {
-            var newcounter = new Counter();
-            /* Set ACL */
-            var acl = new AV.ACL();
-            acl.setPublicReadAccess(true);
-            acl.setPublicWriteAccess(true);
-            newcounter.setACL(acl);
-            /* End Set ACL */
-            newcounter.set("title", title);
-            newcounter.set("url", url);
-            newcounter.set("time", 1);
-            newcounter.save(null, {
-              success: function(newcounter) {
-                var $element = $(document.getElementById(url));
-                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
-              },
-              error: function(newcounter, error) {
-                console.log('Failed to create');
-              }
-            });
+    // 发起自增请求
+    increment(Counter, incrArr) {
+      return new Promise(function (resolve, reject) {
+        Counter('post', '/batch', {
+          "requests": incrArr
+        }).then((res) => {
+          res = res.json();
+          if (res.error) {
+            throw res.error;
           }
-        },
-        error: function(error) {
-          console.log('Error:' + error.code + " " + error.message);
-        }
+          resolve(res);
+        }).catch((error) => {
+          console.error('Failed to save visitor count', error);
+          reject(error);
+        });
       });
+    },
+
+    // 构建自增请求体
+    buildIncrement(objectId) {
+      return {
+        "method": "PUT",
+        "path": `/1.1/classes/Counter/${ objectId }`,
+        "body": {
+          "times": {
+            '__op': 'Increment',
+            'amount': 1
+          }
+        }
+      }
+    },
+
+    // 校验是否为有效的 UV
+    validUV() {
+      var key = 'LeanCloudUVTimestamp';
+      var flag = localStorage.getItem(key);
+      if (flag) {
+        // 距离标记小于 24 小时则不计为 UV
+        if (new Date().getTime() - parseInt(flag) <= 86400000) {
+          return false;
+        }
+      }
+      localStorage.setItem(key, new Date().getTime().toString());
+      return true;
+    },
+
+    addCount(Counter) {
+      var enableIncr = '' === 'true' && window.location.hostname !== 'localhost';
+      enableIncr = true;
+      var getterArr = [];
+      var incrArr = [];
+      // 请求 PV 并自增
+      var pvCtn = document.querySelector('#lc-sv');
+      if (pvCtn || enableIncr) {
+        var pvGetter = this.getRecord(Counter, 'https://tobing.top' + '/#lc-sv', 'Visits').then((record) => {
+          incrArr.push(this.buildIncrement(record.objectId))
+          var eles = document.querySelectorAll('#lc-sv #number');
+          if (eles.length > 0) {
+            eles.forEach((el,index,array)=>{
+              el.innerText = record.times + 1;
+              if (pvCtn) {
+                pvCtn.style.display = 'inline';
+              }
+            })
+          }
+        });
+        getterArr.push(pvGetter);
+      }
+
+      // 请求 UV 并自增
+      var uvCtn = document.querySelector('#lc-uv');
+      if (uvCtn || enableIncr) {
+        var uvGetter = this.getRecord(Counter, 'https://tobing.top' + '/#lc-uv', 'Visitors').then((record) => {
+          var vuv = this.validUV();
+          vuv && incrArr.push(this.buildIncrement(record.objectId))
+          var eles = document.querySelectorAll('#lc-uv #number');
+          if (eles.length > 0) {
+            eles.forEach((el,index,array)=>{
+              el.innerText = record.times + (vuv ? 1 : 0);
+              if (uvCtn) {
+                uvCtn.style.display = 'inline';
+              }
+            })
+          }
+        });
+        getterArr.push(uvGetter);
+      }
+
+      // 请求文章的浏览数，如果是当前页面就自增
+      var allPV = document.querySelectorAll('#lc-pv');
+      if (allPV.length > 0 || enableIncr) {
+        for (i = 0; i < allPV.length; i++) {
+          let pv = allPV[i];
+          let title = pv.getAttribute('data-title');
+          var url = 'https://tobing.top' + pv.getAttribute('data-path');
+          if (url) {
+            var viewGetter = this.getRecord(Counter, url, title).then((record) => {
+              // 是当前页面就自增
+              let curPath = window.location.pathname;
+              if (curPath.includes('index.html')) {
+                curPath = curPath.substring(0, curPath.lastIndexOf('index.html'));
+              }
+              if (pv.getAttribute('data-path') == curPath) {
+                incrArr.push(this.buildIncrement(record.objectId));
+              }
+              if (pv) {
+                var ele = pv.querySelector('#lc-pv #number');
+                if (ele) {
+                  if (pv.getAttribute('data-path') == curPath) {
+                    ele.innerText = (record.times || 0) + 1;
+                  } else {
+                    ele.innerText = record.times || 0;
+                  }
+                  pv.style.display = 'inline';
+                }
+              }
+            });
+            getterArr.push(viewGetter);
+          }
+        }
+      }
+
+      // 如果启动计数自增，批量发起自增请求
+      if (enableIncr) {
+        Promise.all(getterArr).then(() => {
+          incrArr.length > 0 && this.increment(Counter, incrArr);
+        })
+      }
+
+    },
+
+
+    fetchData(api_server) {
+      var Counter = (method, url, data) => {
+        return fetch(`${ api_server }/1.1${ url }`, {
+          method,
+          headers: {
+            'X-LC-Id': this.app_id,
+            'X-LC-Key': this.app_key,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+      this.addCount(Counter);
+    },
+
+    refreshCounter() {
+      var api_server = this.app_id.slice(-9) !== '-MdYXbMMI' ? this.custom_api_server : `https://${ this.app_id.slice(0, 8).toLowerCase() }.api.lncldglobal.com`;
+      if (api_server) {
+        this.fetchData(api_server);
+      } else {
+        fetch('https://app-router.leancloud.cn/2/route?appId=' + this.app_id)
+          .then(resp => resp.json())
+          .then(({api_server}) => {
+            this.fetchData('https://' + api_server);
+          });
+      }
     }
 
-    $(function() {
-      var Counter = AV.Object.extend("Counter");
-      if ($('.leancloud_visitors').length == 1) {
-        addCount(Counter);
-      } else if ($('.post-title-link').length > 1) {
-        showTime(Counter);
-      }
+  };
+
+  LCCounter.refreshCounter();
+
+  document.addEventListener('pjax:complete', function () {
+    LCCounter.refreshCounter();
+  });
+</script>
+
+
+
+
+
+
+
+
+<script>
+function listennSidebarTOC() {
+  const navItems = document.querySelectorAll(".toc li");
+  if (!navItems.length) return;
+  const sections = [...navItems].map((element) => {
+    const link = element.querySelector(".toc-link");
+    const target = document.getElementById(
+      decodeURI(link.getAttribute("href")).replace("#", "")
+    );
+    link.addEventListener("click", (event) => {
+      event.preventDefault();
+      window.scrollTo({
+		top: target.offsetTop + 100,
+		
+		behavior: "smooth"
+		
+	  });
     });
-  </script>
+    return target;
+  });
+
+  function activateNavByIndex(target) {
+    if (target.classList.contains("active-current")) return;
+
+    document.querySelectorAll(".toc .active").forEach((element) => {
+      element.classList.remove("active", "active-current");
+    });
+    target.classList.add("active", "active-current");
+    let parent = target.parentNode;
+    while (!parent.matches(".toc")) {
+      if (parent.matches("li")) parent.classList.add("active");
+      parent = parent.parentNode;
+    }
+  }
+
+  function findIndex(entries) {
+    let index = 0;
+    let entry = entries[index];
+    if (entry.boundingClientRect.top > 0) {
+      index = sections.indexOf(entry.target);
+      return index === 0 ? 0 : index - 1;
+    }
+    for (; index < entries.length; index++) {
+      if (entries[index].boundingClientRect.top <= 0) {
+        entry = entries[index];
+      } else {
+        return sections.indexOf(entry.target);
+      }
+    }
+    return sections.indexOf(entry.target);
+  }
+
+  function createIntersectionObserver(marginTop) {
+    marginTop = Math.floor(marginTop + 10000);
+    let intersectionObserver = new IntersectionObserver(
+      (entries, observe) => {
+        let scrollHeight = document.documentElement.scrollHeight + 100;
+        if (scrollHeight > marginTop) {
+          observe.disconnect();
+          createIntersectionObserver(scrollHeight);
+          return;
+        }
+        let index = findIndex(entries);
+        activateNavByIndex(navItems[index]);
+      },
+      {
+        rootMargin: marginTop + "px 0px -100% 0px",
+        threshold: 0,
+      }
+    );
+    sections.forEach((element) => {
+      element && intersectionObserver.observe(element);
+    });
+  }
+  createIntersectionObserver(document.documentElement.scrollHeight);
+}
+
+document.addEventListener("DOMContentLoaded", listennSidebarTOC);
+document.addEventListener("pjax:success", listennSidebarTOC);
+</script>
+
+<!-- more -->
 
 
 
-  
 
-  
+    
+      
 
-  
-  
 
-  
+<script src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.min.js"></script>
 
-  
 
-  
+<script>
+    var pjax;
+    document.addEventListener('DOMContentLoaded', function () {
+      pjax = new Pjax({
+        elements: 'a[href]:not([href^="#"]):not([href="javascript:void(0)"]):not([pjax-fancybox])',
+        selectors: [
+          "title",
+          "#l_cover",
+          "#pjax-container",
+          "#pjax-header-nav-list"
+        ],
+        cacheBust: false,   // url 地址追加时间戳，用以避免浏览器缓存
+        timeout: 5000
+      });
+    });
 
+    document.addEventListener('pjax:send', function (e) {
+      //window.stop(); // 相当于点击了浏览器的停止按钮
+
+      try {
+        var currentUrl = window.location.pathname;
+        var targetUrl = e.triggerElement.href;
+        var banUrl = [""];
+        if (banUrl[0] != "") {
+          banUrl.forEach(item => {
+            if(currentUrl.indexOf(item) != -1 || targetUrl.indexOf(item) != -1) {
+              window.location.href = targetUrl;
+            }
+          });
+        }
+      } catch (error) {}
+
+      window.subData = null; // 移除标题（用于一二级导航栏切换处）
+      if (typeof $.fancybox != "undefined") {
+        $.fancybox.close();    // 关闭弹窗
+      }
+      volantis.$switcher.removeClass('active'); // 关闭移动端激活的搜索框
+      volantis.$header.removeClass('z_search-open'); // 关闭移动端激活的搜索框
+      volantis.$wrapper.removeClass('sub'); // 跳转页面时关闭二级导航
+
+      // 解绑事件 避免重复监听
+      volantis.$topBtn.unbind('click');
+      $('.menu a').unbind('click');
+      $(window).unbind('resize');
+      $(window).unbind('scroll');
+      $(document).unbind('scroll');
+      $(document).unbind('click');
+      $('body').unbind('click');
+	  
+    });
+
+    document.addEventListener('pjax:complete', function () {
+      // 关于百度统计对 SPA 页面的处理：
+      // 方案一：百度统计>管理>单页应用设置中，打开开启按钮即可对SPA进行统计。 https://tongji.baidu.com/web/help/article?id=324
+      // 方案二：取消注释下列代码。 https://tongji.baidu.com/web/help/article?id=235
+       
+
+      // 关于谷歌统计对 SPA 页面的处理：
+      // 当应用以动态方式加载内容并更新地址栏中的网址时，也应该更新通过 gtag.js 存储的网页网址。
+      // https://developers.google.cn/analytics/devguides/collection/gtagjs/single-page-applications?hl=zh-cn
+      
+	 
+
+      $('.nav-main').find('.list-v').not('.menu-phone').removeAttr("style",""); // 移除小尾巴的移除
+      $('.menu-phone.list-v').removeAttr("style",""); // 移除小尾巴的移除
+      $('script[data-pjax], .pjax-reload script').each(function () {
+        $(this).parent().append($(this).remove());
+      });
+      try{
+          if (typeof $.fancybox == "undefined") {
+            SCload_fancybox();
+          } else {
+            pjax_fancybox();
+          }
+        
+        
+        
+        
+        
+        
+          pjax_valine();
+        
+        
+        
+        
+        
+      } catch (e) {
+        console.log(e);
+      }
+	  
+    });
+
+    document.addEventListener('pjax:error', function (e) {
+	  
+      window.location.href = e.triggerElement.href;
+    });
+</script>
+
+    
+  </div>
 </body>
 </html>

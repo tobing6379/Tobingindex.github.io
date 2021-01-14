@@ -1,420 +1,445 @@
 <!DOCTYPE html>
+<html lang="zh-Hans,zh-CN,en,zh-HK,zh-TW,default">
+<head hexo-theme='https://github.com/volantis-x/hexo-theme-volantis/tree/4.2.0'>
+  <meta charset="utf-8">
+  <!-- SEO相关 -->
+  
+    
+  
+  <!-- 渲染优化 -->
+  <meta http-equiv='x-dns-prefetch-control' content='on' />
+  <link rel='dns-prefetch' href='https://cdn.jsdelivr.net'>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
+  <!-- 页面元数据 -->
+  
+  <title>Java反射（Reflection）(三) - tobing</title>
+  
+    <meta name="keywords" content="Java,反射">
+  
 
+  
+    <meta name="description" content="Java反射（Reflection）(三)1. 通过Class获取Method的几个方法
+Method getDeclaredMethod(String name, Class&lt;?&gt;… parameterTypes) 
+返回一个 Method 对象，该对象反映此 Class 对象所表示的类或接口的指定...">
+  
+
+  <!-- feed -->
+  
+
+  <!-- import meta -->
+  
+
+  <!-- link -->
+  
+    <link rel="shortcut icon" type='image/x-icon' href="https://cdn.jsdelivr.net/gh/xaoxuu/assets@master/favicon/favicon.ico">
+  
+
+  <!-- import link -->
+  
+
+  
+    
+<link rel="stylesheet" href="/css/first.css">
 
   
 
-
-<html class="theme-next muse use-motion" lang="zh-Hans">
-<head><meta name="generator" content="Hexo 3.9.0">
-  <meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-<meta name="theme-color" content="#222">
-
-
-
-
-
-
-
-
-
-<meta http-equiv="Cache-Control" content="no-transform">
-<meta http-equiv="Cache-Control" content="no-siteapp">
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   
-  
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
-
-
-
-
-
-
-
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
-
-<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
-
-
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
-
-
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
-
-
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
-
-
-  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
-
-
-
-
-
-  <meta name="keywords" content="Java,反射,">
-
-
-
-
-
-
-
-
-
-
-<meta name="description" content="Java反射（Reflection）(三)1. 通过Class获取Method的几个方法 Method getDeclaredMethod(String name, Class&amp;lt;?&amp;gt;… parameterTypes)  返回一个 Method 对象，该对象反映此 Class 对象所表示的类或接口的指定已声明方法。  Method[] getDeclaredMethods()  返回 M">
-<meta name="keywords" content="Java,反射">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Java反射（Reflection）(三)">
-<meta property="og:url" content="https://tobing.top/2019/10/19/Java反射（Reflection）-三/index.html">
-<meta property="og:site_name" content="tobing">
-<meta property="og:description" content="Java反射（Reflection）(三)1. 通过Class获取Method的几个方法 Method getDeclaredMethod(String name, Class&amp;lt;?&amp;gt;… parameterTypes)  返回一个 Method 对象，该对象反映此 Class 对象所表示的类或接口的指定已声明方法。  Method[] getDeclaredMethods()  返回 M">
-<meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-10-19T14:00:55.368Z">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Java反射（Reflection）(三)">
-<meta name="twitter:description" content="Java反射（Reflection）(三)1. 通过Class获取Method的几个方法 Method getDeclaredMethod(String name, Class&amp;lt;?&amp;gt;… parameterTypes)  返回一个 Method 对象，该对象反映此 Class 对象所表示的类或接口的指定已声明方法。  Method[] getDeclaredMethods()  返回 M">
-
-
-
-<script type="text/javascript" id="hexo.configurations">
-  var NexT = window.NexT || {};
-  var CONFIG = {
-    root: '/',
-    scheme: 'Muse',
-    version: '5.1.4',
-    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
-    fancybox: true,
-    tabs: true,
-    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
-    duoshuo: {
-      userId: '0',
-      author: '博主'
-    },
-    algolia: {
-      applicationID: '',
-      apiKey: '',
-      indexName: '',
-      hits: {"per_page":10},
-      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
-    }
-  };
-</script>
-
-
-
-  <link rel="canonical" href="https://tobing.top/2019/10/19/Java反射（Reflection）-三/">
-
-
-
-
-
-  <title>Java反射（Reflection）(三) | tobing</title>
+  <link rel="stylesheet" href="/css/style.css" media="print" onload="this.media='all';this.onload=null">
+  <noscript><link rel="stylesheet" href="/css/style.css"></noscript>
   
 
-
-
-
-
-  <script type="text/javascript">
-    var _hmt = _hmt || [];
-    (function() {
-      var hm = document.createElement("script");
-      hm.src = "https://hm.baidu.com/hm.js?79d1a38a3f2e0804e9fb5f960582fdd2";
-      var s = document.getElementsByTagName("script")[0];
-      s.parentNode.insertBefore(hm, s);
-    })();
-  </script>
-
-
-
+  <script id="loadcss"></script>
 
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
-
-  
-  
-    
+<body>
   
 
-  <div class="container sidebar-position-left page-post-detail">
-    <div class="headband"></div>
-
-    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-wrapper">
-  <div class="site-meta ">
-    
-
-    <div class="custom-logo-site-title">
-      <a href="/" class="brand" rel="start">
-        <span class="logo-line-before"><i></i></span>
-        <span class="site-title">tobing</span>
-        <span class="logo-line-after"><i></i></span>
-      </a>
+<header id="l_header" class="l_header auto shadow blur show" style='opacity: 0' >
+  <div class='container'>
+  <div id='wrapper'>
+    <div class='nav-sub'>
+      <p class="title"></p>
+      <ul class='switcher nav-list-h m-phone' id="pjax-header-nav-list">
+        <li><a id="s-comment" class="fas fa-comments fa-fw" target="_self" href='javascript:void(0)'></a></li>
+        
+          <li><a id="s-toc" class="s-toc fas fa-list fa-fw" target="_self" href='javascript:void(0)'></a></li>
+        
+      </ul>
     </div>
+		<div class="nav-main">
       
-        <p class="site-subtitle">Just so so :)</p>
+        
+        <a class="title flat-box" target="_self" href='/'>
+          
+          
+            <i class='https://portrait.gitee.com/uploads/avatars/user/1875/5627411_tobing_1599371351.png'></i>
+          
+          
+            tobing's blog
+          
+        </a>
       
-  </div>
 
-  <div class="site-nav-toggle">
-    <button>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-    </button>
+			<div class='menu navigation'>
+				<ul class='nav-list-h m-pc'>
+          
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/
+                  
+                  
+                  
+                    id="home"
+                  >
+                  <i class='fas fa-rss fa-fw'></i>博客
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/categories/
+                  
+                  
+                  
+                    id="categories"
+                  >
+                  <i class='fas fa-folder-open fa-fw'></i>分类
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/tags/
+                  
+                  
+                  
+                    id="tags"
+                  >
+                  <i class='fas fa-tags fa-fw'></i>标签
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/archives/
+                  
+                  
+                  
+                    id="archives"
+                  >
+                  <i class='fas fa-archive fa-fw'></i>归档
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/friends/
+                  
+                  
+                  
+                    id="friends"
+                  >
+                  <i class='fas fa-link fa-fw'></i>友链
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/about/
+                  
+                  
+                  
+                    id="about"
+                  >
+                  <i class='fas fa-info-circle fa-fw'></i>关于
+                </a>
+                
+              </li>
+            
+          
+          
+				</ul>
+			</div>
+
+      <div class="m_search">
+        <form name="searchform" class="form u-search-form">
+          <i class="icon fas fa-search fa-fw"></i>
+          <input type="text" class="input u-search-input" placeholder="Search..." />
+        </form>
+      </div>
+
+			<ul class='switcher nav-list-h m-phone'>
+				
+					<li><a class="s-search fas fa-search fa-fw" target="_self" href='javascript:void(0)'></a></li>
+				
+				<li>
+          <a class="s-menu fas fa-bars fa-fw" target="_self" href='javascript:void(0)'></a>
+          <ul class="menu-phone list-v navigation white-box">
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/
+                  
+                  
+                  
+                    id="home"
+                  >
+                  <i class='fas fa-rss fa-fw'></i>博客
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/categories/
+                  
+                  
+                  
+                    id="categories"
+                  >
+                  <i class='fas fa-folder-open fa-fw'></i>分类
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/tags/
+                  
+                  
+                  
+                    id="tags"
+                  >
+                  <i class='fas fa-tags fa-fw'></i>标签
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/archives/
+                  
+                  
+                  
+                    id="archives"
+                  >
+                  <i class='fas fa-archive fa-fw'></i>归档
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/friends/
+                  
+                  
+                  
+                    id="friends"
+                  >
+                  <i class='fas fa-link fa-fw'></i>友链
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/about/
+                  
+                  
+                  
+                    id="about"
+                  >
+                  <i class='fas fa-info-circle fa-fw'></i>关于
+                </a>
+                
+              </li>
+            
+          
+            
+          </ul>
+        </li>
+			</ul>
+		</div>
+	</div>
+  </div>
+</header>
+
+  <div id="l_body">
+    <div id="l_cover">
+  
+    
+        <div id="full" class='cover-wrapper post search' style="display: none;">
+          
+            <div class='cover-bg lazyload placeholder' data-bg="https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/033.jpg"></div>
+          
+          <div class='cover-body'>
+  <div class='top'>
+    
+    
+      <p class="title">Welcome !</p>
+    
+    
+  </div>
+  <div class='bottom'>
+    
+      <div class="m_search">
+        <form name="searchform" class="form u-search-form">
+          <input type="text" class="input u-search-input" placeholder="Search..." />
+          <i class="icon fas fa-search fa-fw"></i>
+        </form>
+      </div>
+    
+    <div class='menu navigation'>
+      <div class='list-h'>
+        
+      </div>
+    </div>
   </div>
 </div>
 
-<nav class="site-nav">
-  
-
-  
-    <ul id="menu" class="menu">
-      
-        
-        <li class="menu-item menu-item-home">
-          <a href="/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
-            
-            首页
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-about">
-          <a href="/about/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
-            
-            关于
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-tags">
-          <a href="/tags/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
-            
-            标签
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-categories">
-          <a href="/categories/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
-            
-            分类
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-archives">
-          <a href="/archives/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
-            
-            归档
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-sitemap">
-          <a href="/sitemap.xml" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br>
-            
-            站点地图
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-commonweal">
-          <a href="/404/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br>
-            
-            公益404
-          </a>
-        </li>
-      
-
-      
-    </ul>
-  
-
-  
-</nav>
-
-
-
- </div>
-    </header>
-
-    <main id="main" class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          <div id="content" class="content">
-            
-
-  <div id="posts" class="posts-expand">
-    
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://tobing.top/2019/10/19/Java反射（Reflection）-三/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="tobing">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="tobing">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">Java反射（Reflection）(三)</h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-10-19T21:59:40+08:00">
-                2019-10-19
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index">
-                    <span itemprop="name">Java</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2019/10/19/Java反射（Reflection）-三/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/10/19/Java反射（Reflection）-三/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/2019/10/19/Java反射（Reflection）-三/" class="leancloud_visitors" data-flag-title="Java反射（Reflection）(三)">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
+          <div id="scroll-down" style="display: none;"><i class="fa fa-chevron-down scroll-down-effects"></i></div>
         </div>
-      </header>
     
+  
+  </div>
 
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
+    <div id='safearea'>
+      <div class='body-wrapper' id="pjax-container">
+        
 
-      
-      
+<div class='l_main'>
+  <article class="article post white-box reveal md shadow article-type-post" id="post" itemscope itemprop="blogPost">
+  
 
+
+  
+  <div class="article-meta" id="top">
+    
+    
+    
+      <h1 class="title">
+        Java反射（Reflection）(三)
+      </h1>
+      <div class='new-meta-box'>
+        
+          
+            
+<div class='new-meta-item author'>
+  <a class='author' href="/" rel="nofollow">
+    <img no-lazy src="">
+    <p>请设置文章作者</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+  <div class='new-meta-item category'>
+    <a class='notlink'>
+      <i class="fas fa-folder-open fa-fw" aria-hidden="true"></i>
+      <a class="category-link" href="/categories/Java/">Java</a>
+    </a>
+  </div>
+
+
+          
+        
+          
+            <div class="new-meta-item date">
+  <a class='notlink'>
+    <i class="fas fa-calendar-alt fa-fw" aria-hidden="true"></i>
+    <p>发布于：Oct 19, 2019</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+  <div class="new-meta-item browse leancloud">
+    <a class='notlink'>
       
-        <h1 id="Java反射（Reflection）-三"><a href="#Java反射（Reflection）-三" class="headerlink" title="Java反射（Reflection）(三)"></a>Java反射（Reflection）(三)</h1><h4 id="1-通过Class获取Method的几个方法"><a href="#1-通过Class获取Method的几个方法" class="headerlink" title="1. 通过Class获取Method的几个方法"></a>1. 通过Class获取Method的几个方法</h4><ul>
+      <div id="lc-pv" data-title="Java反射（Reflection）(三)" data-path="/2019/10/19/Java%E5%8F%8D%E5%B0%84%EF%BC%88Reflection%EF%BC%89-%E4%B8%89/">
+        <i class="fas fa-eye fa-fw" aria-hidden="true"></i>
+        <span id='number'><i class="fas fa-circle-notch fa-spin fa-fw" aria-hidden="true"></i></span>
+        次浏览
+      </div>
+    </a>
+  </div>
+
+
+          
+        
+      </div>
+    
+  </div>
+
+
+  
+  <h1 id="Java反射（Reflection）-三"><a href="#Java反射（Reflection）-三" class="headerlink" title="Java反射（Reflection）(三)"></a>Java反射（Reflection）(三)</h1><h4 id="1-通过Class获取Method的几个方法"><a href="#1-通过Class获取Method的几个方法" class="headerlink" title="1. 通过Class获取Method的几个方法"></a>1. 通过Class获取Method的几个方法</h4><ul>
 <li><p>Method getDeclaredMethod(String name, Class&lt;?&gt;… parameterTypes) </p>
-<pre><code>返回一个 Method 对象，该对象反映此 Class 对象所表示的类或接口的指定已声明方法。 </code></pre></li>
+<pre><code>返回一个 Method 对象，该对象反映此 Class 对象所表示的类或接口的指定已声明方法。 </code></pre>
+</li>
 <li><p>Method[] getDeclaredMethods() </p>
-<pre><code>返回 Method 对象的一个数组，这些对象反映此 Class 对象表示的类或接口声明的所有方法，包括公共、保护、默认（包）访问和私有方法，但`不包括继承`的方法。 </code></pre></li>
+<pre><code>返回 Method 对象的一个数组，这些对象反映此 Class 对象表示的类或接口声明的所有方法，包括公共、保护、默认（包）访问和私有方法，但`不包括继承`的方法。 </code></pre>
+</li>
 <li><p>Method getMethod(String name, Class&lt;?&gt;… parameterTypes) </p>
-<pre><code>返回一个 Method 对象，它反映此 Class 对象所表示的类或接口的指定公共成员方法。 </code></pre></li>
+<pre><code>返回一个 Method 对象，它反映此 Class 对象所表示的类或接口的指定公共成员方法。 </code></pre>
+</li>
 <li><p>Method[] getMethods() </p>
-<pre><code>返回一个包含某些 Method 对象的数组，这些对象反映此 Class 对象所表示的类或接口（`包括那些由该类或接口声明的以及从超类和超接口继承的那些的类或接口`）的公共 member 方法 </code></pre><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> top.tobing.reflection;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Method;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 反射之方法</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> Tobing</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Demo05ReflectMethod1</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> NoSuchMethodException, SecurityException </span>&#123;</span><br><span class="line">		Class cls = Boy.class;</span><br><span class="line">		<span class="comment">//Method methodA = cls.getMethod("privateMethod");//  java.lang.NoSuchMethodException</span></span><br><span class="line">		<span class="comment">//Method methodD = cls.getDeclaredMethod("eat");  // java.lang.NoSuchMethodException</span></span><br><span class="line">		Method methodB = cls.getDeclaredMethod(<span class="string">"privateMethod"</span>);   <span class="comment">// 可以获取私有方法，但不可以获取父类方法</span></span><br><span class="line">		Method methodC = cls.getDeclaredMethod(<span class="string">"publicMethodA"</span>);  </span><br><span class="line">		Method methodE = cls.getMethod(<span class="string">"eat"</span>);			<span class="comment">// 可以获取父类私有方法，但不可以获取私有方法</span></span><br><span class="line">		System.out.println(methodB.getName());</span><br><span class="line">		System.out.println(methodC.getName());</span><br><span class="line">		System.out.println(methodE.getName());</span><br><span class="line">		Method methods[] = cls.getMethods(); </span><br><span class="line">		</span><br><span class="line">		System.out.println(<span class="string">"======================================"</span>);</span><br><span class="line">		System.out.println(<span class="string">"Boy的所有方法(包含父类继承的)："</span>);</span><br><span class="line">		<span class="keyword">for</span>(Method m:methods) &#123;</span><br><span class="line">			System.out.println(<span class="string">"getMethods:"</span>+m.getName());</span><br><span class="line">		&#125;</span><br><span class="line">		System.out.println(<span class="string">"======================================"</span>);</span><br><span class="line">		Method methods1[] = cls.getDeclaredMethods();</span><br><span class="line">		<span class="keyword">for</span>(Method m:methods1) &#123;</span><br><span class="line">			System.out.println(<span class="string">"getDeclaredMethods:"</span>+m.getName());</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">	Method getMethod(name, Class...)：获取某个public的Method（包括父类）</span></span><br><span class="line"><span class="comment">	Method getDeclaredMethod(name, Class...)：获取当前类的某个Method（不包括父类）</span></span><br><span class="line"><span class="comment">	Method[] getMethods()：获取所有public的Method（包括父类）</span></span><br><span class="line"><span class="comment">	Method[] getDeclaredMethods()：获取当前类的所有Method（不包括父类）</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">P</span></span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">eat</span><span class="params">()</span></span>&#123;</span><br><span class="line">		System.out.println(<span class="string">"This is p's eat!"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Boy</span> <span class="keyword">extends</span> <span class="title">P</span></span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">publicMethodA</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		System.out.println(<span class="string">"This is a public method A !"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">publicMethodB</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		System.out.println(<span class="string">"This is a public method B !"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">privateMethod</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		System.out.println(<span class="string">"This is a privateMethod!"</span>);</span><br><span class="line">	&#125;	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code>返回一个包含某些 Method 对象的数组，这些对象反映此 Class 对象所表示的类或接口（`包括那些由该类或接口声明的以及从超类和超接口继承的那些的类或接口`）的公共 member 方法 </code></pre>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> top.tobing.reflection;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Method;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 反射之方法</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> Tobing</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Demo05ReflectMethod1</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> NoSuchMethodException, SecurityException </span>&#123;</span><br><span class="line">		Class cls = Boy.class;</span><br><span class="line">		<span class="comment">//Method methodA = cls.getMethod(&quot;privateMethod&quot;);//  java.lang.NoSuchMethodException</span></span><br><span class="line">		<span class="comment">//Method methodD = cls.getDeclaredMethod(&quot;eat&quot;);  // java.lang.NoSuchMethodException</span></span><br><span class="line">		Method methodB = cls.getDeclaredMethod(<span class="string">&quot;privateMethod&quot;</span>);   <span class="comment">// 可以获取私有方法，但不可以获取父类方法</span></span><br><span class="line">		Method methodC = cls.getDeclaredMethod(<span class="string">&quot;publicMethodA&quot;</span>);  </span><br><span class="line">		Method methodE = cls.getMethod(<span class="string">&quot;eat&quot;</span>);			<span class="comment">// 可以获取父类私有方法，但不可以获取私有方法</span></span><br><span class="line">		System.out.println(methodB.getName());</span><br><span class="line">		System.out.println(methodC.getName());</span><br><span class="line">		System.out.println(methodE.getName());</span><br><span class="line">		Method methods[] = cls.getMethods(); </span><br><span class="line">		</span><br><span class="line">		System.out.println(<span class="string">&quot;======================================&quot;</span>);</span><br><span class="line">		System.out.println(<span class="string">&quot;Boy的所有方法(包含父类继承的)：&quot;</span>);</span><br><span class="line">		<span class="keyword">for</span>(Method m:methods) &#123;</span><br><span class="line">			System.out.println(<span class="string">&quot;getMethods:&quot;</span>+m.getName());</span><br><span class="line">		&#125;</span><br><span class="line">		System.out.println(<span class="string">&quot;======================================&quot;</span>);</span><br><span class="line">		Method methods1[] = cls.getDeclaredMethods();</span><br><span class="line">		<span class="keyword">for</span>(Method m:methods1) &#123;</span><br><span class="line">			System.out.println(<span class="string">&quot;getDeclaredMethods:&quot;</span>+m.getName());</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">	Method getMethod(name, Class...)：获取某个public的Method（包括父类）</span></span><br><span class="line"><span class="comment">	Method getDeclaredMethod(name, Class...)：获取当前类的某个Method（不包括父类）</span></span><br><span class="line"><span class="comment">	Method[] getMethods()：获取所有public的Method（包括父类）</span></span><br><span class="line"><span class="comment">	Method[] getDeclaredMethods()：获取当前类的所有Method（不包括父类）</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">P</span></span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">eat</span><span class="params">()</span></span>&#123;</span><br><span class="line">		System.out.println(<span class="string">&quot;This is p&#x27;s eat!&quot;</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Boy</span> <span class="keyword">extends</span> <span class="title">P</span></span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">publicMethodA</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		System.out.println(<span class="string">&quot;This is a public method A !&quot;</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">publicMethodB</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		System.out.println(<span class="string">&quot;This is a public method B !&quot;</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">privateMethod</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		System.out.println(<span class="string">&quot;This is a privateMethod!&quot;</span>);</span><br><span class="line">	&#125;	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>运行结果</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">privateMethod</span><br><span class="line">publicMethodA</span><br><span class="line">eat</span><br><span class="line">======================================</span><br><span class="line">Boy的所有方法(包含父类继承的)：</span><br><span class="line">getMethods:publicMethodB</span><br><span class="line">getMethods:publicMethodA</span><br><span class="line">getMethods:eat</span><br><span class="line">getMethods:<span class="built_in">wait</span></span><br><span class="line">getMethods:<span class="built_in">wait</span></span><br><span class="line">getMethods:<span class="built_in">wait</span></span><br><span class="line">getMethods:equals</span><br><span class="line">getMethods:toString</span><br><span class="line">getMethods:hashCode</span><br><span class="line">getMethods:getClass</span><br><span class="line">getMethods:notify</span><br><span class="line">getMethods:notifyAll</span><br><span class="line">======================================</span><br><span class="line">getDeclaredMethods:privateMethod</span><br><span class="line">getDeclaredMethods:publicMethodB</span><br><span class="line">getDeclaredMethods:publicMethodA</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">privateMethod</span><br><span class="line">publicMethodA</span><br><span class="line">eat</span><br><span class="line">======================================</span><br><span class="line">Boy的所有方法(包含父类继承的)：</span><br><span class="line">getMethods:publicMethodB</span><br><span class="line">getMethods:publicMethodA</span><br><span class="line">getMethods:eat</span><br><span class="line">getMethods:<span class="built_in">wait</span></span><br><span class="line">getMethods:<span class="built_in">wait</span></span><br><span class="line">getMethods:<span class="built_in">wait</span></span><br><span class="line">getMethods:equals</span><br><span class="line">getMethods:toString</span><br><span class="line">getMethods:hashCode</span><br><span class="line">getMethods:getClass</span><br><span class="line">getMethods:notify</span><br><span class="line">getMethods:notifyAll</span><br><span class="line">======================================</span><br><span class="line">getDeclaredMethods:privateMethod</span><br><span class="line">getDeclaredMethods:publicMethodB</span><br><span class="line">getDeclaredMethods:publicMethodA</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 
 
@@ -422,10 +447,10 @@
 </ul>
 <ul>
 <li><p>执行指定对象的方法</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> top.tobing.reflection;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.InvocationTargetException;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Method;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 反射之方法</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> Tobing</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Demo05ReflectMethod2</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException </span>&#123;</span><br><span class="line">		Class cls = Boy.class;</span><br><span class="line">		Method methodB = cls.getDeclaredMethod(<span class="string">"privateMethod"</span>);   <span class="comment">// 可以获取私有方法，但不可以获取父类方法</span></span><br><span class="line">		Method methodC = cls.getDeclaredMethod(<span class="string">"publicMethodA"</span>);  </span><br><span class="line">		Method methodE = cls.getMethod(<span class="string">"eat"</span>);	 </span><br><span class="line">		Boy b = <span class="keyword">new</span> Boy();</span><br><span class="line">		<span class="comment">//methodB.invoke(b); // cannot access a member of class top.tobing.reflection.Boy with modifiers "private"</span></span><br><span class="line">		methodE.invoke(b);</span><br><span class="line">		methodC.invoke(b); </span><br><span class="line">	</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> top.tobing.reflection;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.InvocationTargetException;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Method;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 反射之方法</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> Tobing</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Demo05ReflectMethod2</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException </span>&#123;</span><br><span class="line">		Class cls = Boy.class;</span><br><span class="line">		Method methodB = cls.getDeclaredMethod(<span class="string">&quot;privateMethod&quot;</span>);   <span class="comment">// 可以获取私有方法，但不可以获取父类方法</span></span><br><span class="line">		Method methodC = cls.getDeclaredMethod(<span class="string">&quot;publicMethodA&quot;</span>);  </span><br><span class="line">		Method methodE = cls.getMethod(<span class="string">&quot;eat&quot;</span>);	 </span><br><span class="line">		Boy b = <span class="keyword">new</span> Boy();</span><br><span class="line">		<span class="comment">//methodB.invoke(b); // cannot access a member of class top.tobing.reflection.Boy with modifiers &quot;private&quot;</span></span><br><span class="line">		methodE.invoke(b);</span><br><span class="line">		methodC.invoke(b); </span><br><span class="line">	</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 </li>
 <li><p>运行结果</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">This is p<span class="string">'s eat!</span></span><br><span class="line"><span class="string">This is a public method A !</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">This is p<span class="string">&#x27;s eat!</span></span><br><span class="line"><span class="string">This is a public method A !</span></span><br></pre></td></tr></table></figure>
 </li>
 <li><p>要想执行对象中的private方法，可以使用<code>methodObj.setAccessible(true);</code>来设置其是否可被访问</p>
 </li>
@@ -438,7 +463,7 @@
 </ul>
 <ul>
 <li><p>使用invoke调用静态方法</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 使用invoke调用静态方法</span></span><br><span class="line"><span class="keyword">int</span> temp = Integer.parseInt(<span class="string">"123"</span>);	<span class="comment">// 以下代码等同于这一句话</span></span><br><span class="line"><span class="comment">//1.获取Integer的字节码对象，通过字节码对象获取到方法 getMethod（方法名称，方法的参数列表）</span></span><br><span class="line">Method methodA = Integer.class.getMethod(<span class="string">"parseInt"</span>,String.class);	</span><br><span class="line"><span class="comment">//2.通过invoke执行方法  invoke(执行方法所在的对象，执行方法需要的参数（不限个数）)</span></span><br><span class="line">Object obj = methodA.invoke(<span class="keyword">null</span>,<span class="string">"123"</span>);</span><br><span class="line">System.out.println(obj);</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 使用invoke调用静态方法</span></span><br><span class="line"><span class="keyword">int</span> temp = Integer.parseInt(<span class="string">&quot;123&quot;</span>);	<span class="comment">// 以下代码等同于这一句话</span></span><br><span class="line"><span class="comment">//1.获取Integer的字节码对象，通过字节码对象获取到方法 getMethod（方法名称，方法的参数列表）</span></span><br><span class="line">Method methodA = Integer.class.getMethod(<span class="string">&quot;parseInt&quot;</span>,String.class);	</span><br><span class="line"><span class="comment">//2.通过invoke执行方法  invoke(执行方法所在的对象，执行方法需要的参数（不限个数）)</span></span><br><span class="line">Object obj = methodA.invoke(<span class="keyword">null</span>,<span class="string">&quot;123&quot;</span>);</span><br><span class="line">System.out.println(obj);</span><br></pre></td></tr></table></figure>
 
 </li>
 </ul>
@@ -451,10 +476,10 @@
 </ul>
 </li>
 <li><p>为了解决以上缺陷，java的reflect的API提供Constructor对象，包含了构造方法的所有信息，可用于创建实例。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> top.tobing.reflection;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Constructor;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.InvocationTargetException;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Method;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 反射之方法</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> Tobing</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Demo06ReflectMethod4</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, InstantiationException </span>&#123;</span><br><span class="line">		<span class="comment">// 方式一：使用newInstance()（不可以获取带参数）</span></span><br><span class="line">		C c = C.class.newInstance();</span><br><span class="line">		<span class="comment">// 方式二：获取Constructor类（可以获取带参数）</span></span><br><span class="line">		<span class="comment">// 不可以获取到非public</span></span><br><span class="line">		Constructor con1 = C.class.getConstructor();			</span><br><span class="line">		Constructor con2 = C.class.getConstructor(Integer.class);</span><br><span class="line">		<span class="comment">// 可以获取到非public构造方法</span></span><br><span class="line">		Constructor con3 = C.class.getDeclaredConstructor(String.class);	</span><br><span class="line">		<span class="comment">// 使用Constructor类的newInstance方法</span></span><br><span class="line">		C c1= (C)con1.newInstance();		<span class="comment">//调用空参数构造方法</span></span><br><span class="line">		C c2 = (C)con2.newInstance(<span class="number">12</span>);		<span class="comment">//低氧</span></span><br><span class="line">		C c3 = (C)con3.newInstance(<span class="string">"Tobing"</span>);</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">C</span></span>&#123;</span><br><span class="line">	<span class="keyword">private</span> String name;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">int</span> id;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">C</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		System.out.println(<span class="string">"空参数public构造方法被调用了！！！"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">C</span><span class="params">(Integer id)</span> </span>&#123;</span><br><span class="line">		System.out.println(<span class="string">"带参数public构造方法被调用了！！！"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	C (String name)&#123;</span><br><span class="line">		<span class="keyword">this</span>.name = name;</span><br><span class="line">		System.out.println(<span class="string">"带参数非public的构造方法执行了！！！"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> top.tobing.reflection;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Constructor;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.InvocationTargetException;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Method;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 反射之方法</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> Tobing</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Demo06ReflectMethod4</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, InstantiationException </span>&#123;</span><br><span class="line">		<span class="comment">// 方式一：使用newInstance()（不可以获取带参数）</span></span><br><span class="line">		C c = C.class.newInstance();</span><br><span class="line">		<span class="comment">// 方式二：获取Constructor类（可以获取带参数）</span></span><br><span class="line">		<span class="comment">// 不可以获取到非public</span></span><br><span class="line">		Constructor con1 = C.class.getConstructor();			</span><br><span class="line">		Constructor con2 = C.class.getConstructor(Integer.class);</span><br><span class="line">		<span class="comment">// 可以获取到非public构造方法</span></span><br><span class="line">		Constructor con3 = C.class.getDeclaredConstructor(String.class);	</span><br><span class="line">		<span class="comment">// 使用Constructor类的newInstance方法</span></span><br><span class="line">		C c1= (C)con1.newInstance();		<span class="comment">//调用空参数构造方法</span></span><br><span class="line">		C c2 = (C)con2.newInstance(<span class="number">12</span>);		<span class="comment">//低氧</span></span><br><span class="line">		C c3 = (C)con3.newInstance(<span class="string">&quot;Tobing&quot;</span>);</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">C</span></span>&#123;</span><br><span class="line">	<span class="keyword">private</span> String name;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">int</span> id;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">C</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		System.out.println(<span class="string">&quot;空参数public构造方法被调用了！！！&quot;</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">C</span><span class="params">(Integer id)</span> </span>&#123;</span><br><span class="line">		System.out.println(<span class="string">&quot;带参数public构造方法被调用了！！！&quot;</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	C (String name)&#123;</span><br><span class="line">		<span class="keyword">this</span>.name = name;</span><br><span class="line">		System.out.println(<span class="string">&quot;带参数非public的构造方法执行了！！！&quot;</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>运行结果</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">空参数<span class="keyword">public</span>构造方法被调用了！！！</span><br><span class="line">空参数<span class="keyword">public</span>构造方法被调用了！！！</span><br><span class="line">带参数<span class="keyword">public</span>构造方法被调用了！！！</span><br><span class="line">带参数非<span class="keyword">public</span>的构造方法执行了！！！</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">空参数<span class="keyword">public</span>构造方法被调用了！！！</span><br><span class="line">空参数<span class="keyword">public</span>构造方法被调用了！！！</span><br><span class="line">带参数<span class="keyword">public</span>构造方法被调用了！！！</span><br><span class="line">带参数非<span class="keyword">public</span>的构造方法执行了！！！</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 
 
@@ -464,12 +489,12 @@
 <li><p>获取父类Class</p>
 </li>
 <li><p>获取interface</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> top.tobing.reflection;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Constructor;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.InvocationTargetException;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Method;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 反射之方法</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> Tobing</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Demo07ReflectInherit</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, InstantiationException </span>&#123;</span><br><span class="line">		Class cls1 = Integer.class;</span><br><span class="line">		</span><br><span class="line">		<span class="comment">// 获取相关父类</span></span><br><span class="line">		Class cls2 = cls1.getSuperclass();</span><br><span class="line">		Class cls3 = cls2.getSuperclass();</span><br><span class="line">		</span><br><span class="line">		System.out.println(<span class="string">"Integer's super  class is :"</span>+cls2.getName());</span><br><span class="line">		System.out.println(<span class="string">"Number's super  class is :"</span>+cls3.getName());</span><br><span class="line">		System.out.println(<span class="string">"Object's super class is :"</span>+cls3.getSuperclass());</span><br><span class="line">		</span><br><span class="line">		<span class="comment">// 获取interface</span></span><br><span class="line">		Class[] interfaces = cls1.getInterfaces();</span><br><span class="line">		<span class="keyword">for</span>(Class c:interfaces) &#123;</span><br><span class="line">			System.out.println(c.getName());</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> top.tobing.reflection;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Constructor;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.InvocationTargetException;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Method;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 反射之方法</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> Tobing</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Demo07ReflectInherit</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, InstantiationException </span>&#123;</span><br><span class="line">		Class cls1 = Integer.class;</span><br><span class="line">		</span><br><span class="line">		<span class="comment">// 获取相关父类</span></span><br><span class="line">		Class cls2 = cls1.getSuperclass();</span><br><span class="line">		Class cls3 = cls2.getSuperclass();</span><br><span class="line">		</span><br><span class="line">		System.out.println(<span class="string">&quot;Integer&#x27;s super  class is :&quot;</span>+cls2.getName());</span><br><span class="line">		System.out.println(<span class="string">&quot;Number&#x27;s super  class is :&quot;</span>+cls3.getName());</span><br><span class="line">		System.out.println(<span class="string">&quot;Object&#x27;s super class is :&quot;</span>+cls3.getSuperclass());</span><br><span class="line">		</span><br><span class="line">		<span class="comment">// 获取interface</span></span><br><span class="line">		Class[] interfaces = cls1.getInterfaces();</span><br><span class="line">		<span class="keyword">for</span>(Class c:interfaces) &#123;</span><br><span class="line">			System.out.println(c.getName());</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
 </ol>
 <ul>
 <li><p>输出</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Integer<span class="string">'s super  class is :java.lang.Number</span></span><br><span class="line"><span class="string">Number'</span>s super  class is :java.lang.Object</span><br><span class="line">Object<span class="string">'s super class is :null</span></span><br><span class="line"><span class="string">java.lang.Comparable</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Integer<span class="string">&#x27;s super  class is :java.lang.Number</span></span><br><span class="line"><span class="string">Number&#x27;</span>s super  class is :java.lang.Object</span><br><span class="line">Object<span class="string">&#x27;s super class is :null</span></span><br><span class="line"><span class="string">java.lang.Comparable</span></span><br><span class="line"><span class="string"></span></span><br></pre></td></tr></table></figure>
 
 </li>
 </ul>
@@ -482,299 +507,786 @@
 </li>
 <li><p>由于学识尚浅，未能详尽。</p>
 <ul>
-<li>详细请访问以下文章。：<a href="https://juejin.im/post/5c1ca8df6fb9a049b347f55c" target="_blank" rel="noopener">https://juejin.im/post/5c1ca8df6fb9a049b347f55c</a></li>
+<li>详细请访问以下文章。：<a target="_blank" rel="noopener" href="https://juejin.im/post/5c1ca8df6fb9a049b347f55c">https://juejin.im/post/5c1ca8df6fb9a049b347f55c</a></li>
 </ul>
 </li>
 </ul>
 
+  
+  
+    
+    <div class='footer'>
+      
+      
+      
+        <div class='copyright'>
+          <blockquote>
+            
+              
+                <p>博客内容遵循 署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</p>
+
+              
+            
+              
+                <p>本文永久链接是：<a href=https://tobing.top/2019/10/19/Java%E5%8F%8D%E5%B0%84%EF%BC%88Reflection%EF%BC%89-%E4%B8%89/>https://tobing.top/2019/10/19/Java%E5%8F%8D%E5%B0%84%EF%BC%88Reflection%EF%BC%89-%E4%B8%89/</a></p>
+              
+            
+          </blockquote>
+        </div>
+      
       
     </div>
-    
-    
-    
-
+  
+  
     
 
-    
 
-    
-
-    <footer class="post-footer">
+  <div class='article-meta' id="bottom">
+    <div class='new-meta-box'>
       
-        <div class="post-tags">
+        
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2019-10-19T22:00:55+08:00">
+  <a class='notlink'>
+    <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
+    <p>更新于：Oct 19, 2019</p>
+  </a>
+</div>
+
+        
+      
+        
           
-            <a href="/tags/Java/" rel="tag"># Java</a>
+  
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/Java/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>Java</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/%E5%8F%8D%E5%B0%84/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>反射</p></a></div>
+
+
+        
+      
+        
           
-            <a href="/tags/反射/" rel="tag"># 反射</a>
+  <div class="new-meta-item share -mob-share-list">
+  <div class="-mob-share-list share-body">
+    
+      
+        <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer noopener"
           
-        </div>
-      
+          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://tobing.top/2019/10/19/Java%E5%8F%8D%E5%B0%84%EF%BC%88Reflection%EF%BC%89-%E4%B8%89/&title=Java反射（Reflection）(三) - tobing&summary=Java反射（Reflection）(三)1. 通过Class获取Method的几个方法
+Method getDeclaredMethod(String name, Class&lt;?&gt;… parameterTypes) 
+返回一个 Method 对象，该对象反映此 Class 对象所表示的类或接口的指定已声明方法。 
 
-      
-      
-      
+Method[] getDeclaredMethods() 
+返回 Method 对象的一个数组，这些对象反映此 Class 对象表示的类或接口声明的所有方法，包括公共、保护、默认（包）访问和私有方法，但`不包括继承`的方法。 
 
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/2019/10/19/单片机实验/" rel="next" title="单片机实验">
-                <i class="fa fa-chevron-left"></i> 单片机实验
-              </a>
-            
-          </div>
+Method getMethod(String name, Class&lt;?&gt;… parameterTypes) 
+返回一个 Method 对象，它反映此 Class 对象所表示的类或接口的指定公共成员方法。 
 
-          <span class="post-nav-divider"></span>
+Method[] getMethods() 
+返回一个包含某些 Method 对象的数组，这些对象反映此 Class 对象所表示的类或接口（`包括那些由该类或接口声明的以及从超类和超接口继承的那些的类或接口`）的公共 member 方法 
+123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960package top.tobing.reflection;import java.lang.reflect.Method;/** * 反射之方法 * @author Tobing */public class Demo05ReflectMethod1 &#123;	public static void main(String[] args) throws NoSuchMethodException, SecurityException &#123;		Class cls = Boy.class;		//Method methodA = cls.getMethod(&quot;privateMethod&quot;);//  java.lang.NoSuchMethodException		//Method methodD = cls.getDeclaredMethod(&quot;eat&quot;);  // java.lang.NoSuchMethodException		Method methodB = cls.getDeclaredMethod(&quot;privateMethod&quot;);   // 可以获取私有方法，但不可以获取父类方法		Method methodC = cls.getDeclaredMethod(&quot;publicMethodA&quot;);  		Method methodE = cls.getMethod(&quot;eat&quot;);			// 可以获取父类私有方法，但不可以获取私有方法		System.out.println(methodB.getName());		System.out.println(methodC.getName());		System.out.println(methodE.getName());		Method methods[] = cls.getMethods(); 				System.out.println(&quot;======================================&quot;);		System.out.println(&quot;Boy的所有方法(包含父类继承的)：&quot;);		for(Method m:methods) &#123;			System.out.println(&quot;getMethods:&quot;+m.getName());		&#125;		System.out.println(&quot;======================================&quot;);		Method methods1[] = cls.getDeclaredMethods();		for(Method m:methods1) &#123;			System.out.println(&quot;getDeclaredMethods:&quot;+m.getName());		&#125;			&#125;&#125;/*	Method getMethod(name, Class...)：获取某个public的Method（包括父类）	Method getDeclaredMethod(name, Class...)：获取当前类的某个Method（不包括父类）	Method[] getMethods()：获取所有public的Method（包括父类）	Method[] getDeclaredMethods()：获取当前类的所有Method（不包括父类） */class P&#123;	public void eat()&#123;		System.out.println(&quot;This is p&#x27;s eat!&quot;);	&#125;&#125;class Boy extends P&#123;	public void publicMethodA() &#123;		System.out.println(&quot;This is a public method A !&quot;);	&#125;		public void publicMethodB() &#123;		System.out.println(&quot;This is a public method B !&quot;);	&#125;		private void privateMethod() &#123;		System.out.println(&quot;This is a privateMethod!&quot;);	&#125;	&#125;
 
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/10/20/效率使用win10/" rel="prev" title="效率使用win10">
-                效率使用win10 <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
+运行结果
+12345678910111213141516171819202122privateMethodpublicMethodAeat======================================Boy的所有方法(包含父类继承的)：getMethods:publicMethodBgetMethods:publicMethodAgetMethods:eatgetMethods:waitgetMethods:waitgetMethods:waitgetMethods:equalsgetMethods:toStringgetMethods:hashCodegetMethods:getClassgetMethods:notifygetMethods:notifyAll======================================getDeclaredMethods:privateMethodgetDeclaredMethods:publicMethodBgetDeclaredMethods:publicMethodA
 
+
+
+
+
+
+执行指定对象的方法
+1234567891011121314151617181920212223package top.tobing.reflection;import java.lang.reflect.InvocationTargetException;import java.lang.reflect.Method;/** * 反射之方法 * @author Tobing */public class Demo05ReflectMethod2 &#123;	public static void main(String[] args) throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException &#123;		Class cls = Boy.class;		Method methodB = cls.getDeclaredMethod(&quot;privateMethod&quot;);   // 可以获取私有方法，但不可以获取父类方法		Method methodC = cls.getDeclaredMethod(&quot;publicMethodA&quot;);  		Method methodE = cls.getMethod(&quot;eat&quot;);	 		Boy b = new Boy();		//methodB.invoke(b); // cannot access a member of class top.tobing.reflection.Boy with modifiers &quot;private&quot;		methodE.invoke(b);		methodC.invoke(b); 		&#125;&#125;
+
+运行结果
+12This is p&#x27;s eat!This is a public method A !
+
+要想执行对象中的private方法，可以使用methodObj.setAccessible(true);来设置其是否可被访问
+
+注意：setAccessible(true)可能会失败。如果JVM运行期存在SecurityManager，那么它会根据规则进行检查，有可能阻止setAccessible(true)。例如，某个SecurityManager可能不允许对java和javax开头的package的类调用setAccessible(true)，这样可以保证JVM核心库的安全。
+12methodB.setAccessible(true);  // 设置private方法的访问属性methodB.invoke(b);			  // 执行方法
+
+
+
+
+
+
+使用invoke调用静态方法
+1234567// 使用invoke调用静态方法int temp = Integer.parseInt(&quot;123&quot;);	// 以下代码等同于这一句话//1.获取Integer的字节码对象，通过字节码对象获取到方法 getMethod（方法名称，方法的参数列表）Method methodA = Integer.class.getMethod(&quot;parseInt&quot;,String.class);	//2.通过invoke执行方法  invoke(执行方法所在的对象，执行方法需要的参数（不限个数）)Object obj = methodA.invoke(null,&quot;123&quot;);System.out.println(obj);
+
+
+
+2. 调用构造方法（创建实例）
+在Class类中提供了一个newInstance方法用来创建对象的实例
+12Person p = new Person();	// 这两件代码都可以用于新建对象实例Person p = Person.class.newInstance();
+
+
+但是newInstance方法也有弊端：只能实例化带public修饰的空参数构造方法
+
+
+为了解决以上缺陷，java的reflect的API提供Constructor对象，包含了构造方法的所有信息，可用于创建实例。
+123456789101112131415161718192021222324252627282930313233343536373839404142434445package top.tobing.reflection;import java.lang.reflect.Constructor;import java.lang.reflect.InvocationTargetException;import java.lang.reflect.Method;/** * 反射之方法 * @author Tobing */public class Demo06ReflectMethod4 &#123;	public static void main(String[] args) throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, InstantiationException &#123;		// 方式一：使用newInstance()（不可以获取带参数）		C c = C.class.newInstance();		// 方式二：获取Constructor类（可以获取带参数）		// 不可以获取到非public		Constructor con1 = C.class.getConstructor();					Constructor con2 = C.class.getConstructor(Integer.class);		// 可以获取到非public构造方法		Constructor con3 = C.class.getDeclaredConstructor(String.class);			// 使用Constructor类的newInstance方法		C c1= (C)con1.newInstance();		//调用空参数构造方法		C c2 = (C)con2.newInstance(12);		//低氧		C c3 = (C)con3.newInstance(&quot;Tobing&quot;);			&#125;&#125;class C&#123;	private String name;	private int id;	public C() &#123;		System.out.println(&quot;空参数public构造方法被调用了！！！&quot;);	&#125;		public C(Integer id) &#123;		System.out.println(&quot;带参数public构造方法被调用了！！！&quot;);	&#125;		C (String name)&#123;		this.name = name;		System.out.println(&quot;带参数非public的构造方法执行了！！！&quot;);	&#125;	&#125;
+
+运行结果
+12345空参数public构造方法被调用了！！！空参数public构造方法被调用了！！！带参数public构造方法被调用了！！！带参数非public的构造方法执行了！！！
+
+
+
+
+
+3. 获取继承关系
+获取父类Class
+
+获取interface
+1234567891011121314151617181920212223242526272829package top.tobing.reflection;import java.lang.reflect.Constructor;import java.lang.reflect.InvocationTargetException;import java.lang.reflect.Method;/** * 反射之方法 * @author Tobing */public class Demo07ReflectInherit &#123;	public static void main(String[] args) throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, InstantiationException &#123;		Class cls1 = Integer.class;				// 获取相关父类		Class cls2 = cls1.getSuperclass();		Class cls3 = cls2.getSuperclass();				System.out.println(&quot;Integer&#x27;s super  class is :&quot;+cls2.getName());		System.out.println(&quot;Number&#x27;s super  class is :&quot;+cls3.getName());		System.out.println(&quot;Object&#x27;s super class is :&quot;+cls3.getSuperclass());				// 获取interface		Class[] interfaces = cls1.getInterfaces();		for(Class c:interfaces) &#123;			System.out.println(c.getName());		&#125;	&#125;&#125;
+
+
+
+输出
+12345Integer&#x27;s super  class is :java.lang.NumberNumber&#x27;s super  class is :java.lang.ObjectObject&#x27;s super class is :nulljava.lang.Comparable
+
+
+"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qq.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qq.png" srcset="data:image/png;base64,666">
+          
+        </a>
       
+    
       
-    </footer>
+        <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://tobing.top/2019/10/19/Java%E5%8F%8D%E5%B0%84%EF%BC%88Reflection%EF%BC%89-%E4%B8%89/&title=Java反射（Reflection）(三) - tobing&summary=Java反射（Reflection）(三)1. 通过Class获取Method的几个方法
+Method getDeclaredMethod(String name, Class&lt;?&gt;… parameterTypes) 
+返回一个 Method 对象，该对象反映此 Class 对象所表示的类或接口的指定已声明方法。 
+
+Method[] getDeclaredMethods() 
+返回 Method 对象的一个数组，这些对象反映此 Class 对象表示的类或接口声明的所有方法，包括公共、保护、默认（包）访问和私有方法，但`不包括继承`的方法。 
+
+Method getMethod(String name, Class&lt;?&gt;… parameterTypes) 
+返回一个 Method 对象，它反映此 Class 对象所表示的类或接口的指定公共成员方法。 
+
+Method[] getMethods() 
+返回一个包含某些 Method 对象的数组，这些对象反映此 Class 对象所表示的类或接口（`包括那些由该类或接口声明的以及从超类和超接口继承的那些的类或接口`）的公共 member 方法 
+123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960package top.tobing.reflection;import java.lang.reflect.Method;/** * 反射之方法 * @author Tobing */public class Demo05ReflectMethod1 &#123;	public static void main(String[] args) throws NoSuchMethodException, SecurityException &#123;		Class cls = Boy.class;		//Method methodA = cls.getMethod(&quot;privateMethod&quot;);//  java.lang.NoSuchMethodException		//Method methodD = cls.getDeclaredMethod(&quot;eat&quot;);  // java.lang.NoSuchMethodException		Method methodB = cls.getDeclaredMethod(&quot;privateMethod&quot;);   // 可以获取私有方法，但不可以获取父类方法		Method methodC = cls.getDeclaredMethod(&quot;publicMethodA&quot;);  		Method methodE = cls.getMethod(&quot;eat&quot;);			// 可以获取父类私有方法，但不可以获取私有方法		System.out.println(methodB.getName());		System.out.println(methodC.getName());		System.out.println(methodE.getName());		Method methods[] = cls.getMethods(); 				System.out.println(&quot;======================================&quot;);		System.out.println(&quot;Boy的所有方法(包含父类继承的)：&quot;);		for(Method m:methods) &#123;			System.out.println(&quot;getMethods:&quot;+m.getName());		&#125;		System.out.println(&quot;======================================&quot;);		Method methods1[] = cls.getDeclaredMethods();		for(Method m:methods1) &#123;			System.out.println(&quot;getDeclaredMethods:&quot;+m.getName());		&#125;			&#125;&#125;/*	Method getMethod(name, Class...)：获取某个public的Method（包括父类）	Method getDeclaredMethod(name, Class...)：获取当前类的某个Method（不包括父类）	Method[] getMethods()：获取所有public的Method（包括父类）	Method[] getDeclaredMethods()：获取当前类的所有Method（不包括父类） */class P&#123;	public void eat()&#123;		System.out.println(&quot;This is p&#x27;s eat!&quot;);	&#125;&#125;class Boy extends P&#123;	public void publicMethodA() &#123;		System.out.println(&quot;This is a public method A !&quot;);	&#125;		public void publicMethodB() &#123;		System.out.println(&quot;This is a public method B !&quot;);	&#125;		private void privateMethod() &#123;		System.out.println(&quot;This is a privateMethod!&quot;);	&#125;	&#125;
+
+运行结果
+12345678910111213141516171819202122privateMethodpublicMethodAeat======================================Boy的所有方法(包含父类继承的)：getMethods:publicMethodBgetMethods:publicMethodAgetMethods:eatgetMethods:waitgetMethods:waitgetMethods:waitgetMethods:equalsgetMethods:toStringgetMethods:hashCodegetMethods:getClassgetMethods:notifygetMethods:notifyAll======================================getDeclaredMethods:privateMethodgetDeclaredMethods:publicMethodBgetDeclaredMethods:publicMethodA
+
+
+
+
+
+
+执行指定对象的方法
+1234567891011121314151617181920212223package top.tobing.reflection;import java.lang.reflect.InvocationTargetException;import java.lang.reflect.Method;/** * 反射之方法 * @author Tobing */public class Demo05ReflectMethod2 &#123;	public static void main(String[] args) throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException &#123;		Class cls = Boy.class;		Method methodB = cls.getDeclaredMethod(&quot;privateMethod&quot;);   // 可以获取私有方法，但不可以获取父类方法		Method methodC = cls.getDeclaredMethod(&quot;publicMethodA&quot;);  		Method methodE = cls.getMethod(&quot;eat&quot;);	 		Boy b = new Boy();		//methodB.invoke(b); // cannot access a member of class top.tobing.reflection.Boy with modifiers &quot;private&quot;		methodE.invoke(b);		methodC.invoke(b); 		&#125;&#125;
+
+运行结果
+12This is p&#x27;s eat!This is a public method A !
+
+要想执行对象中的private方法，可以使用methodObj.setAccessible(true);来设置其是否可被访问
+
+注意：setAccessible(true)可能会失败。如果JVM运行期存在SecurityManager，那么它会根据规则进行检查，有可能阻止setAccessible(true)。例如，某个SecurityManager可能不允许对java和javax开头的package的类调用setAccessible(true)，这样可以保证JVM核心库的安全。
+12methodB.setAccessible(true);  // 设置private方法的访问属性methodB.invoke(b);			  // 执行方法
+
+
+
+
+
+
+使用invoke调用静态方法
+1234567// 使用invoke调用静态方法int temp = Integer.parseInt(&quot;123&quot;);	// 以下代码等同于这一句话//1.获取Integer的字节码对象，通过字节码对象获取到方法 getMethod（方法名称，方法的参数列表）Method methodA = Integer.class.getMethod(&quot;parseInt&quot;,String.class);	//2.通过invoke执行方法  invoke(执行方法所在的对象，执行方法需要的参数（不限个数）)Object obj = methodA.invoke(null,&quot;123&quot;);System.out.println(obj);
+
+
+
+2. 调用构造方法（创建实例）
+在Class类中提供了一个newInstance方法用来创建对象的实例
+12Person p = new Person();	// 这两件代码都可以用于新建对象实例Person p = Person.class.newInstance();
+
+
+但是newInstance方法也有弊端：只能实例化带public修饰的空参数构造方法
+
+
+为了解决以上缺陷，java的reflect的API提供Constructor对象，包含了构造方法的所有信息，可用于创建实例。
+123456789101112131415161718192021222324252627282930313233343536373839404142434445package top.tobing.reflection;import java.lang.reflect.Constructor;import java.lang.reflect.InvocationTargetException;import java.lang.reflect.Method;/** * 反射之方法 * @author Tobing */public class Demo06ReflectMethod4 &#123;	public static void main(String[] args) throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, InstantiationException &#123;		// 方式一：使用newInstance()（不可以获取带参数）		C c = C.class.newInstance();		// 方式二：获取Constructor类（可以获取带参数）		// 不可以获取到非public		Constructor con1 = C.class.getConstructor();					Constructor con2 = C.class.getConstructor(Integer.class);		// 可以获取到非public构造方法		Constructor con3 = C.class.getDeclaredConstructor(String.class);			// 使用Constructor类的newInstance方法		C c1= (C)con1.newInstance();		//调用空参数构造方法		C c2 = (C)con2.newInstance(12);		//低氧		C c3 = (C)con3.newInstance(&quot;Tobing&quot;);			&#125;&#125;class C&#123;	private String name;	private int id;	public C() &#123;		System.out.println(&quot;空参数public构造方法被调用了！！！&quot;);	&#125;		public C(Integer id) &#123;		System.out.println(&quot;带参数public构造方法被调用了！！！&quot;);	&#125;		C (String name)&#123;		this.name = name;		System.out.println(&quot;带参数非public的构造方法执行了！！！&quot;);	&#125;	&#125;
+
+运行结果
+12345空参数public构造方法被调用了！！！空参数public构造方法被调用了！！！带参数public构造方法被调用了！！！带参数非public的构造方法执行了！！！
+
+
+
+
+
+3. 获取继承关系
+获取父类Class
+
+获取interface
+1234567891011121314151617181920212223242526272829package top.tobing.reflection;import java.lang.reflect.Constructor;import java.lang.reflect.InvocationTargetException;import java.lang.reflect.Method;/** * 反射之方法 * @author Tobing */public class Demo07ReflectInherit &#123;	public static void main(String[] args) throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, InstantiationException &#123;		Class cls1 = Integer.class;				// 获取相关父类		Class cls2 = cls1.getSuperclass();		Class cls3 = cls2.getSuperclass();				System.out.println(&quot;Integer&#x27;s super  class is :&quot;+cls2.getName());		System.out.println(&quot;Number&#x27;s super  class is :&quot;+cls3.getName());		System.out.println(&quot;Object&#x27;s super class is :&quot;+cls3.getSuperclass());				// 获取interface		Class[] interfaces = cls1.getInterfaces();		for(Class c:interfaces) &#123;			System.out.println(c.getName());		&#125;	&#125;&#125;
+
+
+
+输出
+12345Integer&#x27;s super  class is :java.lang.NumberNumber&#x27;s super  class is :java.lang.ObjectObject&#x27;s super class is :nulljava.lang.Comparable
+
+
+"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qzone.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qzone.png" srcset="data:image/png;base64,666">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="http://service.weibo.com/share/share.php?url=https://tobing.top/2019/10/19/Java%E5%8F%8D%E5%B0%84%EF%BC%88Reflection%EF%BC%89-%E4%B8%89/&title=Java反射（Reflection）(三) - tobing&summary=Java反射（Reflection）(三)1. 通过Class获取Method的几个方法
+Method getDeclaredMethod(String name, Class&lt;?&gt;… parameterTypes) 
+返回一个 Method 对象，该对象反映此 Class 对象所表示的类或接口的指定已声明方法。 
+
+Method[] getDeclaredMethods() 
+返回 Method 对象的一个数组，这些对象反映此 Class 对象表示的类或接口声明的所有方法，包括公共、保护、默认（包）访问和私有方法，但`不包括继承`的方法。 
+
+Method getMethod(String name, Class&lt;?&gt;… parameterTypes) 
+返回一个 Method 对象，它反映此 Class 对象所表示的类或接口的指定公共成员方法。 
+
+Method[] getMethods() 
+返回一个包含某些 Method 对象的数组，这些对象反映此 Class 对象所表示的类或接口（`包括那些由该类或接口声明的以及从超类和超接口继承的那些的类或接口`）的公共 member 方法 
+123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960package top.tobing.reflection;import java.lang.reflect.Method;/** * 反射之方法 * @author Tobing */public class Demo05ReflectMethod1 &#123;	public static void main(String[] args) throws NoSuchMethodException, SecurityException &#123;		Class cls = Boy.class;		//Method methodA = cls.getMethod(&quot;privateMethod&quot;);//  java.lang.NoSuchMethodException		//Method methodD = cls.getDeclaredMethod(&quot;eat&quot;);  // java.lang.NoSuchMethodException		Method methodB = cls.getDeclaredMethod(&quot;privateMethod&quot;);   // 可以获取私有方法，但不可以获取父类方法		Method methodC = cls.getDeclaredMethod(&quot;publicMethodA&quot;);  		Method methodE = cls.getMethod(&quot;eat&quot;);			// 可以获取父类私有方法，但不可以获取私有方法		System.out.println(methodB.getName());		System.out.println(methodC.getName());		System.out.println(methodE.getName());		Method methods[] = cls.getMethods(); 				System.out.println(&quot;======================================&quot;);		System.out.println(&quot;Boy的所有方法(包含父类继承的)：&quot;);		for(Method m:methods) &#123;			System.out.println(&quot;getMethods:&quot;+m.getName());		&#125;		System.out.println(&quot;======================================&quot;);		Method methods1[] = cls.getDeclaredMethods();		for(Method m:methods1) &#123;			System.out.println(&quot;getDeclaredMethods:&quot;+m.getName());		&#125;			&#125;&#125;/*	Method getMethod(name, Class...)：获取某个public的Method（包括父类）	Method getDeclaredMethod(name, Class...)：获取当前类的某个Method（不包括父类）	Method[] getMethods()：获取所有public的Method（包括父类）	Method[] getDeclaredMethods()：获取当前类的所有Method（不包括父类） */class P&#123;	public void eat()&#123;		System.out.println(&quot;This is p&#x27;s eat!&quot;);	&#125;&#125;class Boy extends P&#123;	public void publicMethodA() &#123;		System.out.println(&quot;This is a public method A !&quot;);	&#125;		public void publicMethodB() &#123;		System.out.println(&quot;This is a public method B !&quot;);	&#125;		private void privateMethod() &#123;		System.out.println(&quot;This is a privateMethod!&quot;);	&#125;	&#125;
+
+运行结果
+12345678910111213141516171819202122privateMethodpublicMethodAeat======================================Boy的所有方法(包含父类继承的)：getMethods:publicMethodBgetMethods:publicMethodAgetMethods:eatgetMethods:waitgetMethods:waitgetMethods:waitgetMethods:equalsgetMethods:toStringgetMethods:hashCodegetMethods:getClassgetMethods:notifygetMethods:notifyAll======================================getDeclaredMethods:privateMethodgetDeclaredMethods:publicMethodBgetDeclaredMethods:publicMethodA
+
+
+
+
+
+
+执行指定对象的方法
+1234567891011121314151617181920212223package top.tobing.reflection;import java.lang.reflect.InvocationTargetException;import java.lang.reflect.Method;/** * 反射之方法 * @author Tobing */public class Demo05ReflectMethod2 &#123;	public static void main(String[] args) throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException &#123;		Class cls = Boy.class;		Method methodB = cls.getDeclaredMethod(&quot;privateMethod&quot;);   // 可以获取私有方法，但不可以获取父类方法		Method methodC = cls.getDeclaredMethod(&quot;publicMethodA&quot;);  		Method methodE = cls.getMethod(&quot;eat&quot;);	 		Boy b = new Boy();		//methodB.invoke(b); // cannot access a member of class top.tobing.reflection.Boy with modifiers &quot;private&quot;		methodE.invoke(b);		methodC.invoke(b); 		&#125;&#125;
+
+运行结果
+12This is p&#x27;s eat!This is a public method A !
+
+要想执行对象中的private方法，可以使用methodObj.setAccessible(true);来设置其是否可被访问
+
+注意：setAccessible(true)可能会失败。如果JVM运行期存在SecurityManager，那么它会根据规则进行检查，有可能阻止setAccessible(true)。例如，某个SecurityManager可能不允许对java和javax开头的package的类调用setAccessible(true)，这样可以保证JVM核心库的安全。
+12methodB.setAccessible(true);  // 设置private方法的访问属性methodB.invoke(b);			  // 执行方法
+
+
+
+
+
+
+使用invoke调用静态方法
+1234567// 使用invoke调用静态方法int temp = Integer.parseInt(&quot;123&quot;);	// 以下代码等同于这一句话//1.获取Integer的字节码对象，通过字节码对象获取到方法 getMethod（方法名称，方法的参数列表）Method methodA = Integer.class.getMethod(&quot;parseInt&quot;,String.class);	//2.通过invoke执行方法  invoke(执行方法所在的对象，执行方法需要的参数（不限个数）)Object obj = methodA.invoke(null,&quot;123&quot;);System.out.println(obj);
+
+
+
+2. 调用构造方法（创建实例）
+在Class类中提供了一个newInstance方法用来创建对象的实例
+12Person p = new Person();	// 这两件代码都可以用于新建对象实例Person p = Person.class.newInstance();
+
+
+但是newInstance方法也有弊端：只能实例化带public修饰的空参数构造方法
+
+
+为了解决以上缺陷，java的reflect的API提供Constructor对象，包含了构造方法的所有信息，可用于创建实例。
+123456789101112131415161718192021222324252627282930313233343536373839404142434445package top.tobing.reflection;import java.lang.reflect.Constructor;import java.lang.reflect.InvocationTargetException;import java.lang.reflect.Method;/** * 反射之方法 * @author Tobing */public class Demo06ReflectMethod4 &#123;	public static void main(String[] args) throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, InstantiationException &#123;		// 方式一：使用newInstance()（不可以获取带参数）		C c = C.class.newInstance();		// 方式二：获取Constructor类（可以获取带参数）		// 不可以获取到非public		Constructor con1 = C.class.getConstructor();					Constructor con2 = C.class.getConstructor(Integer.class);		// 可以获取到非public构造方法		Constructor con3 = C.class.getDeclaredConstructor(String.class);			// 使用Constructor类的newInstance方法		C c1= (C)con1.newInstance();		//调用空参数构造方法		C c2 = (C)con2.newInstance(12);		//低氧		C c3 = (C)con3.newInstance(&quot;Tobing&quot;);			&#125;&#125;class C&#123;	private String name;	private int id;	public C() &#123;		System.out.println(&quot;空参数public构造方法被调用了！！！&quot;);	&#125;		public C(Integer id) &#123;		System.out.println(&quot;带参数public构造方法被调用了！！！&quot;);	&#125;		C (String name)&#123;		this.name = name;		System.out.println(&quot;带参数非public的构造方法执行了！！！&quot;);	&#125;	&#125;
+
+运行结果
+12345空参数public构造方法被调用了！！！空参数public构造方法被调用了！！！带参数public构造方法被调用了！！！带参数非public的构造方法执行了！！！
+
+
+
+
+
+3. 获取继承关系
+获取父类Class
+
+获取interface
+1234567891011121314151617181920212223242526272829package top.tobing.reflection;import java.lang.reflect.Constructor;import java.lang.reflect.InvocationTargetException;import java.lang.reflect.Method;/** * 反射之方法 * @author Tobing */public class Demo07ReflectInherit &#123;	public static void main(String[] args) throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, InstantiationException &#123;		Class cls1 = Integer.class;				// 获取相关父类		Class cls2 = cls1.getSuperclass();		Class cls3 = cls2.getSuperclass();				System.out.println(&quot;Integer&#x27;s super  class is :&quot;+cls2.getName());		System.out.println(&quot;Number&#x27;s super  class is :&quot;+cls3.getName());		System.out.println(&quot;Object&#x27;s super class is :&quot;+cls3.getSuperclass());				// 获取interface		Class[] interfaces = cls1.getInterfaces();		for(Class c:interfaces) &#123;			System.out.println(c.getName());		&#125;	&#125;&#125;
+
+
+
+输出
+12345Integer&#x27;s super  class is :java.lang.NumberNumber&#x27;s super  class is :java.lang.ObjectObject&#x27;s super class is :nulljava.lang.Comparable
+
+
+"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/weibo.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/weibo.png" srcset="data:image/png;base64,666">
+          
+        </a>
+      
+    
+      
+    
+      
+    
   </div>
+</div>
+
+
+
+        
+      
+    </div>
+  </div>
+
+
   
   
+
   
+    <div class="prev-next">
+      
+        <a class='prev' href='/2019/10/20/%E6%95%88%E7%8E%87%E4%BD%BF%E7%94%A8win10/'>
+          <p class='title'><i class="fas fa-chevron-left" aria-hidden="true"></i>效率使用win10</p>
+          <p class='content'>效率使用win10
+电脑作为我们最常用的生产力工具，如何高效地使用它对提高工作和学习的效率非常重要。
+
+1. 桌面
+桌面是我们在使用电脑的时候最常接触的界面，我们各种软件的访问都通过桌面的快捷方...</p>
+        </a>
+      
+      
+        <a class='next' href='/2019/10/19/%E5%8D%95%E7%89%87%E6%9C%BA%E5%AE%9E%E9%AA%8C/'>
+          <p class='title'>单片机实验<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
+          <p class='content'>单片机实验运行环境
+单片机：STC89C52开发板，某宝有售
+KEIL：用于编写程序
+STC-ISP：程序写入
+
+1. LED灯循环点亮
+实现LED灯循环点亮
+12345678910111213...</p>
+        </a>
+      
+    </div>
+  
+</article>
+
+
+  
+
+  <article class="post white-box reveal shadow" id="comments">
+    <p ct><i class='fas fa-comments'></i> 评论</p>
+    
+    <div id="valine_container" class="valine_thread">
+  <i class="fas fa-cog fa-spin fa-fw fa-2x"></i>
+</div>
+
   </article>
 
 
 
-    <div class="post-spread">
-      
-    </div>
-  </div>
-
-
-          </div>
-          
-
-
-          
-
-  
-    <div class="comments" id="comments">
-      <div id="disqus_thread">
-        <noscript>
-          Please enable JavaScript to view the
-          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
-        </noscript>
-      </div>
-    </div>
-
-  
 
 
 
-        </div>
-        
-          
-  
-  <div class="sidebar-toggle">
-    <div class="sidebar-toggle-line-wrap">
-      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
-    </div>
-  </div>
-
-  <aside id="sidebar" class="sidebar">
-    
-    <div class="sidebar-inner">
-
-      
-
-      
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            站点概览
-          </li>
-        </ul>
-      
-
-      <section class="site-overview-wrap sidebar-panel">
-        <div class="site-overview">
-          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-            
-              <p class="site-author-name" itemprop="name">tobing</p>
-              <p class="site-description motion-element" itemprop="description">Just so so :)</p>
-          </div>
-
-          <nav class="site-state motion-element">
-
-            
-              <div class="site-state-item site-state-posts">
-              
-                <a href="/archives/">
-              
-                  <span class="site-state-item-count">53</span>
-                  <span class="site-state-item-name">日志</span>
-                </a>
-              </div>
-            
-
-            
-              
-              
-              <div class="site-state-item site-state-categories">
-                <a href="/categories/index.html">
-                  <span class="site-state-item-count">12</span>
-                  <span class="site-state-item-name">分类</span>
-                </a>
-              </div>
-            
-
-            
-              
-              
-              <div class="site-state-item site-state-tags">
-                <a href="/tags/index.html">
-                  <span class="site-state-item-count">45</span>
-                  <span class="site-state-item-name">标签</span>
-                </a>
-              </div>
-            
-
-          </nav>
-
-          
-
-          
-            <div class="links-of-author motion-element">
-                
-                  <span class="links-of-author-item">
-                    <a href="https://github.com/Tobingindex" target="_blank" title="GitHub">
-                      
-                        <i class="fa fa-fw fa-github"></i>GitHub</a>
-                  </span>
-                
-            </div>
-          
-
-          
-          
-
-          
-          
-            <div class="links-of-blogroll motion-element links-of-blogroll-block">
-              <div class="links-of-blogroll-title">
-                <i class="fa  fa-fw fa-link"></i>
-                友情链接
-              </div>
-              <ul class="links-of-blogroll-list">
-                
-                  <li class="links-of-blogroll-item">
-                    <a href="https://mirrorsquare.com/" title="Zenyet" target="_blank">Zenyet</a>
-                  </li>
-                
-                  <li class="links-of-blogroll-item">
-                    <a href="http://changtong1819.top/" title="于无声处听惊雷" target="_blank">于无声处听惊雷</a>
-                  </li>
-                
-                  <li class="links-of-blogroll-item">
-                    <a href="http://vvvyyt.club/" title="秃鹫网友" target="_blank">秃鹫网友</a>
-                  </li>
-                
-              </ul>
-            </div>
-          
-
-          
-
-        </div>
-      </section>
-
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Java反射（Reflection）-三"><span class="nav-number">1.</span> <span class="nav-text">Java反射（Reflection）(三)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-通过Class获取Method的几个方法"><span class="nav-number">1.0.0.1.</span> <span class="nav-text">1. 通过Class获取Method的几个方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-调用构造方法（创建实例）"><span class="nav-number">1.0.0.2.</span> <span class="nav-text">2. 调用构造方法（创建实例）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-获取继承关系"><span class="nav-number">1.0.0.3.</span> <span class="nav-text">3. 获取继承关系</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-动态代理"><span class="nav-number">1.0.0.4.</span> <span class="nav-text">4. 动态代理</span></a></li></ol></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
-      
-
-      
-
-    </div>
-  </aside>
-
-
-        
-      </div>
-    </main>
-
-    <footer id="footer" class="footer">
-      <div class="footer-inner">
-        <div class="copyright">&copy; 2019 &mdash; <span itemprop="copyrightYear">2020</span>
-  <span class="with-love">
-    <i class="fa fa-user"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">tobing</span>
-
-  
 </div>
+<aside class='l_side'>
+  
+  
+    
+    
 
 
- 
+
+  <section class="widget toc-wrapper shadow desktop mobile" id="toc-div" >
+    
+  <header>
+    
+      <i class="fas fa-list fa-fw" aria-hidden="true"></i><span class='name'>本文目录</span>
+    
+  </header>
 
 
-
-
+    <div class='content'>
+        <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E9%80%9A%E8%BF%87Class%E8%8E%B7%E5%8F%96Method%E7%9A%84%E5%87%A0%E4%B8%AA%E6%96%B9%E6%B3%95"><span class="toc-text">1. 通过Class获取Method的几个方法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E8%B0%83%E7%94%A8%E6%9E%84%E9%80%A0%E6%96%B9%E6%B3%95%EF%BC%88%E5%88%9B%E5%BB%BA%E5%AE%9E%E4%BE%8B%EF%BC%89"><span class="toc-text">2. 调用构造方法（创建实例）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-%E8%8E%B7%E5%8F%96%E7%BB%A7%E6%89%BF%E5%85%B3%E7%B3%BB"><span class="toc-text">3. 获取继承关系</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86"><span class="toc-text">4. 动态代理</span></a></li></ol>
+    </div>
+  </section>
 
 
   
 
 
+</aside>
+
 
 
         
+        
+          <!--此文件用来存放一些不方便取值的变量-->
+<!--思路大概是将值藏到重加载的区域内-->
 
+<script>
+  window.pdata={}
+  pdata.ispage=true;
+  pdata.postTitle="Java反射（Reflection）(三)";
+  pdata.commentPath="";
+  pdata.commentPlaceholder="";
 
-
-
-
-
+  var l_header=document.getElementById("l_header");
+  
+  l_header.classList.add("show");
+  
+</script>
 
         
       </div>
-    </footer>
-
+      
+  
+  <footer class="footer clearfix">
+    <br><br>
     
-      <div class="back-to-top">
-        <i class="fa fa-arrow-up"></i>
+      
+        <div class="aplayer-container">
+          
+
+
+        </div>
+      
+    
+      
         
-      </div>
+          <div><p>时不待我，舍我其谁</p>
+</div>
+        
+      
     
-
+      
+        
+          <div><br></div>
+        
+      
     
+      
+        
+          <div><p><span id="lc-sv">本站总访问量为 <span id='number'><i class="fas fa-circle-notch fa-spin fa-fw" aria-hidden="true"></i></span> 次</span> <span id="lc-uv">访客数为 <span id='number'><i class="fas fa-circle-notch fa-spin fa-fw" aria-hidden="true"></i></span> 人</span></p>
+</div>
+        
+      
+    
+      
+        <div class='copyright'>
+        <p><a target="_blank" rel="noopener" href="https://gitee.com/tobing">Copyright © 2017-2020 Tobing</a></p>
 
+        </div>
+      
+    
+  </footer>
+
+
+      <a id="s-top" class="fas fa-arrow-up fa-fw" href='javascript:void(0)'></a>
+    </div>
   </div>
+  <div>
+    <script>
+window.volantis={};
+window.volantis.loadcss=document.getElementById("loadcss");
+/********************脚本懒加载函数********************************/
+function loadScript(src, cb) {
+var HEAD = document.getElementsByTagName('head')[0] || document.documentElement;
+var script = document.createElement('script');
+script.setAttribute('type','text/javascript');
+if (cb) script.onload = cb;
+script.setAttribute('src', src);
+HEAD.appendChild(script);
+}
+//https://github.com/filamentgroup/loadCSS
+var loadCSS = function( href, before, media, attributes ){
+	var doc = window.document;
+	var ss = doc.createElement( "link" );
+	var ref;
+	if( before ){
+		ref = before;
+	}
+	else {
+		var refs = ( doc.body || doc.getElementsByTagName( "head" )[ 0 ] ).childNodes;
+		ref = refs[ refs.length - 1];
+	}
+	var sheets = doc.styleSheets;
+	if( attributes ){
+		for( var attributeName in attributes ){
+			if( attributes.hasOwnProperty( attributeName ) ){
+				ss.setAttribute( attributeName, attributes[attributeName] );
+			}
+		}
+	}
+	ss.rel = "stylesheet";
+	ss.href = href;
+	ss.media = "only x";
+	function ready( cb ){
+		if( doc.body ){
+			return cb();
+		}
+		setTimeout(function(){
+			ready( cb );
+		});
+	}
+	ready( function(){
+		ref.parentNode.insertBefore( ss, ( before ? ref : ref.nextSibling ) );
+	});
+	var onloadcssdefined = function( cb ){
+		var resolvedHref = ss.href;
+		var i = sheets.length;
+		while( i-- ){
+			if( sheets[ i ].href === resolvedHref ){
+				return cb();
+			}
+		}
+		setTimeout(function() {
+			onloadcssdefined( cb );
+		});
+	};
+	function loadCB(){
+		if( ss.addEventListener ){
+			ss.removeEventListener( "load", loadCB );
+		}
+		ss.media = media || "all";
+	}
+	if( ss.addEventListener ){
+		ss.addEventListener( "load", loadCB);
+	}
+	ss.onloadcssdefined = onloadcssdefined;
+	onloadcssdefined( loadCB );
+	return ss;
+};
+</script>
+<script>
+  
+  loadCSS("https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.14/css/all.min.css", window.volantis.loadcss);
+  
+  
+  
+  
+</script>
+<!-- required -->
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5/dist/jquery.min.js"></script>
+
+<script>
+  function pjax_fancybox() {
+    $(".md .gallery").find("img").each(function () { //渲染 fancybox
+      var element = document.createElement("a"); // a 标签
+      $(element).attr("class", "fancybox");
+      $(element).attr("pjax-fancybox", "");  // 过滤 pjax
+      $(element).attr("href", $(this).attr("src"));
+      if ($(this).attr("data-original")) {
+        $(element).attr("href", $(this).attr("data-original"));
+      }
+      $(element).attr("data-fancybox", "images");
+      var caption = "";   // 描述信息
+      if ($(this).attr('alt')) {  // 判断当前页面是否存在描述信息
+        $(element).attr('data-caption', $(this).attr('alt'));
+        caption = $(this).attr('alt');
+      }
+      var div = document.createElement("div");
+      $(div).addClass("fancybox");
+      $(this).wrap(div); // 最外层套 div ，其实主要作用还是 class 样式
+      var span = document.createElement("span");
+      $(span).addClass("image-caption");
+      $(span).text(caption); // 加描述
+      $(this).after(span);  // 再套一层描述
+      $(this).wrap(element);  // 最后套 a 标签
+    })
+    $(".md .gallery").find("img").fancybox({
+      selector: '[data-fancybox="images"]',
+      hash: false,
+      loop: false,
+      closeClick: true,
+      helpers: {
+        overlay: {closeClick: true}
+      },
+      buttons: [
+        "zoom",
+        "close"
+      ]
+    });
+  };
+  function SCload_fancybox() {
+    if ($(".md .gallery").find("img").length == 0) return;
+    loadCSS("https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css", document.getElementById("loadcss"));
+    setTimeout(function() {
+      loadScript('https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js', pjax_fancybox)
+    }, 1);
+  };
+  $(function () {
+    SCload_fancybox();
+  });
+</script>
+
+
+<!-- internal -->
+
+
+
+
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.1.0/dist/lazyload.min.js"></script>
+<script>
+  // https://www.npmjs.com/package/vanilla-lazyload
+  // Set the options globally
+  // to make LazyLoad self-initialize
+  window.lazyLoadOptions = {
+    elements_selector: ".lazyload",
+    threshold: 0
+  };
+  // Listen to the initialization event
+  // and get the instance of LazyLoad
+  window.addEventListener(
+    "LazyLoad::Initialized",
+    function (event) {
+      window.lazyLoadInstance = event.detail.instance;
+    },
+    false
+  );
+  document.addEventListener('DOMContentLoaded', function () {
+    lazyLoadInstance.update();
+  });
+  document.addEventListener('pjax:complete', function () {
+    lazyLoadInstance.update();
+  });
+</script>
+
+
+
 
   
+  
+    <script>
+      window.FPConfig = {
+        delay: 0,
+        ignoreKeywords: [],
+        maxRPS: 5,
+        hoverDelay: 25
+      };
+    </script>
+    <script defer src="https://cdn.jsdelivr.net/gh/gijo-varghese/flying-pages@2.1.2/flying-pages.min.js"></script>
+  
 
-<script type="text/javascript">
-  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
-    window.Promise = null;
+
+
+
+
+
+
+
+
+
+  
+  
+<script src="/js/valine.js"></script>
+
+
+<script>
+  var GUEST_INFO = ['nick', 'mail', 'link'];
+  var meta = 'nick,mail,link'.split(',').filter(function (item) {
+    return GUEST_INFO.indexOf(item) > -1
+  });
+  var REQUIRED_FIELDS = ['nick', 'mail', 'link'];
+  var requiredFields = 'nick,mail'.split(',').filter(function (item) {
+    return REQUIRED_FIELDS.indexOf(item) > -1
+  });
+
+  function emoji(path, idx, ext) {
+    return path + "/" + path + "-" + idx + "." + ext;
   }
+
+  var emojiMaps = {};
+  for (var i = 1; i <= 54; i++) {
+    emojiMaps['tieba-' + i] = emoji('tieba', i, 'png');
+  }
+  for (var i = 1; i <= 101; i++) {
+    emojiMaps['qq-' + i] = emoji('qq', i, 'gif');
+  }
+  for (var i = 1; i <= 116; i++) {
+    emojiMaps['aru-' + i] = emoji('aru', i, 'gif');
+  }
+  for (var i = 1; i <= 125; i++) {
+    emojiMaps['twemoji-' + i] = emoji('twemoji', i, 'png');
+  }
+  for (var i = 1; i <= 4; i++) {
+    emojiMaps['weibo-' + i] = emoji('weibo', i, 'png');
+  }
+
+  function pjax_valine() {
+    if(!document.querySelectorAll("#valine_container")[0])return;
+
+    let pagePlaceholder = pdata.commentPlaceholder || "快来评论吧:)~";
+
+    let path = pdata.commentPath;
+    if (path.length == 0) {
+      let defaultPath = '';
+      path = defaultPath || decodeURI(window.location.pathname);
+    }
+
+    var valine = new Valine();
+    valine.init({
+      el: '#valine_container',
+      meta: meta,
+      placeholder: pagePlaceholder,
+      path: path,
+      appId: "Vy5O9liYY1EruxX5WAaSWiFU-gzGzoHsz",
+      appKey: "LkbvdUheh7noXFlcQzKXf4hV",
+      pageSize: '10',
+      avatar: 'robohash',
+      lang: 'zh-cn',
+      visitor: 'true',
+      highlight: 'true',
+      mathJax: 'false',
+      enableQQ: 'true',
+      recordIP: 'false',
+      requiredFields: requiredFields,
+      emojiCDN: 'https://cdn.jsdelivr.net/gh/volantis-x/cdn-emoji/valine/',
+      emojiMaps: emojiMaps
+    })
+  }
+
+  $(function () {
+    pjax_valine();
+  });
+</script>
+
+
+
+
+
+  
+<script src="/js/app.js"></script>
+
+
+
+<!-- optional -->
+
+  <script>
+const SearchServiceimagePath="https://cdn.jsdelivr.net/gh/volantis-x/cdn-volantis@master/img/";
+const ROOT =  ("/" || "/").endsWith('/') ? ("/" || "/") : ("//" || "/" );
+
+$('.input.u-search-input').one('focus',function(){
+	
+		loadScript('https://cdn.jsdelivr.net/gh/volantis-x/cdn-volantis@2.6.4/js/search.js',setSearchService);
+	
+})
+
+function listenSearch(){
+  
+    customSearch = new HexoSearch({
+      imagePath: SearchServiceimagePath
+    });
+  
+}
+function setSearchService() {
+	listenSearch();
+	
+		document.addEventListener("pjax:success", listenSearch);
+	
+}
 </script>
 
 
@@ -785,273 +1297,415 @@
 
 
 
-  
 
 
-
-
-
-
-
-
-
-
-
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
-  
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
-
-
-
-  
-  
-
-  
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
-
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
-
-
-
-  
-
-
-  
-
-    
-      <script id="dsq-count-scr" src="https://tobing.disqus.com/count.js" async></script>
-    
-
-    
-      <script type="text/javascript">
-        var disqus_config = function () {
-          this.page.url = 'https://tobing.top/2019/10/19/Java反射（Reflection）-三/';
-          this.page.identifier = '2019/10/19/Java反射（Reflection）-三/';
-          this.page.title = 'Java反射（Reflection）(三)';
-        };
-        var d = document, s = d.createElement('script');
-        s.src = 'https://tobing.disqus.com/embed.js';
-        s.setAttribute('data-timestamp', '' + +new Date());
-        (d.head || d.body).appendChild(s);
-      </script>
-    
-
-  
-
-
-
-
-	
-
-
-
-
-
-  
-
-
-
-
-
-
-
-
-
-
-
-
-  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-  
-  <script type="text/javascript">
-    var GUEST = ['nick','mail','link'];
-    var guest = 'nick,mail,link';
-    guest = guest.split(',').filter(item=>{
-      return GUEST.indexOf(item)>-1;
-    });
-    new Valine({
-        el: '#comments' ,
-        verify: false,
-        notify: false,
-        appId: 'Vy5O9liYY1EruxX5WAaSWiFU-gzGzoHsz',
-        appKey: 'LkbvdUheh7noXFlcQzKXf4hV',
-        placeholder: '傍晚，躺着草坪，望向湛蓝的天空',
-        avatar:'mm',
-        guest_info:guest,
-        pageSize:'10' || 10,
-    });
-  </script>
-
-
-
-  
-
-
-
-
-
-  
-
-  
-  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
-  <script>AV.initialize("Vy5O9liYY1EruxX5WAaSWiFU-gzGzoHsz", "LkbvdUheh7noXFlcQzKXf4hV");</script>
-  <script>
-    function showTime(Counter) {
-      var query = new AV.Query(Counter);
-      var entries = [];
-      var $visitors = $(".leancloud_visitors");
-
-      $visitors.each(function () {
-        entries.push( $(this).attr("id").trim() );
-      });
-
-      query.containedIn('url', entries);
-      query.find()
-        .done(function (results) {
-          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
-
-          if (results.length === 0) {
-            $visitors.find(COUNT_CONTAINER_REF).text(0);
-            return;
-          }
-
-          for (var i = 0; i < results.length; i++) {
-            var item = results[i];
-            var url = item.get('url');
-            var time = item.get('time');
-            var element = document.getElementById(url);
-
-            $(element).find(COUNT_CONTAINER_REF).text(time);
-          }
-          for(var i = 0; i < entries.length; i++) {
-            var url = entries[i];
-            var element = document.getElementById(url);
-            var countSpan = $(element).find(COUNT_CONTAINER_REF);
-            if( countSpan.text() == '') {
-              countSpan.text(0);
+  <script defer>
+
+  const LCCounter = {
+    app_id: 'u9j57bwJod4EDmXWdxrwuqQT-MdYXbMMI',
+    app_key: 'jfHtEKVE24j0IVCGHbvuFClp',
+    custom_api_server: '',
+
+    // 查询存储的记录
+    getRecord(Counter, url, title) {
+      return new Promise(function (resolve, reject) {
+        Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({url})))
+          .then(resp => resp.json())
+          .then(({results, code, error}) => {
+            if (code === 401) {
+              throw error;
             }
-          }
-        })
-        .fail(function (object, error) {
-          console.log("Error: " + error.code + " " + error.message);
+            if (results && results.length > 0) {
+              var record = results[0];
+              resolve(record);
+            } else {
+              Counter('post', '/classes/Counter', {url, title: title, times: 0})
+                .then(resp => resp.json())
+                .then((record, error) => {
+                  if (error) {
+                    throw error;
+                  }
+                  resolve(record);
+                }).catch(error => {
+                console.error('Failed to create', error);
+                reject(error);
+              });
+            }
+          }).catch((error) => {
+          console.error('LeanCloud Counter Error:', error);
+          reject(error);
         });
-    }
+      })
+    },
 
-    function addCount(Counter) {
-      var $visitors = $(".leancloud_visitors");
-      var url = $visitors.attr('id').trim();
-      var title = $visitors.attr('data-flag-title').trim();
-      var query = new AV.Query(Counter);
-
-      query.equalTo("url", url);
-      query.find({
-        success: function(results) {
-          if (results.length > 0) {
-            var counter = results[0];
-            counter.fetchWhenSave(true);
-            counter.increment("time");
-            counter.save(null, {
-              success: function(counter) {
-                var $element = $(document.getElementById(url));
-                $element.find('.leancloud-visitors-count').text(counter.get('time'));
-              },
-              error: function(counter, error) {
-                console.log('Failed to save Visitor num, with error message: ' + error.message);
-              }
-            });
-          } else {
-            var newcounter = new Counter();
-            /* Set ACL */
-            var acl = new AV.ACL();
-            acl.setPublicReadAccess(true);
-            acl.setPublicWriteAccess(true);
-            newcounter.setACL(acl);
-            /* End Set ACL */
-            newcounter.set("title", title);
-            newcounter.set("url", url);
-            newcounter.set("time", 1);
-            newcounter.save(null, {
-              success: function(newcounter) {
-                var $element = $(document.getElementById(url));
-                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
-              },
-              error: function(newcounter, error) {
-                console.log('Failed to create');
-              }
-            });
+    // 发起自增请求
+    increment(Counter, incrArr) {
+      return new Promise(function (resolve, reject) {
+        Counter('post', '/batch', {
+          "requests": incrArr
+        }).then((res) => {
+          res = res.json();
+          if (res.error) {
+            throw res.error;
           }
-        },
-        error: function(error) {
-          console.log('Error:' + error.code + " " + error.message);
-        }
+          resolve(res);
+        }).catch((error) => {
+          console.error('Failed to save visitor count', error);
+          reject(error);
+        });
       });
+    },
+
+    // 构建自增请求体
+    buildIncrement(objectId) {
+      return {
+        "method": "PUT",
+        "path": `/1.1/classes/Counter/${ objectId }`,
+        "body": {
+          "times": {
+            '__op': 'Increment',
+            'amount': 1
+          }
+        }
+      }
+    },
+
+    // 校验是否为有效的 UV
+    validUV() {
+      var key = 'LeanCloudUVTimestamp';
+      var flag = localStorage.getItem(key);
+      if (flag) {
+        // 距离标记小于 24 小时则不计为 UV
+        if (new Date().getTime() - parseInt(flag) <= 86400000) {
+          return false;
+        }
+      }
+      localStorage.setItem(key, new Date().getTime().toString());
+      return true;
+    },
+
+    addCount(Counter) {
+      var enableIncr = '' === 'true' && window.location.hostname !== 'localhost';
+      enableIncr = true;
+      var getterArr = [];
+      var incrArr = [];
+      // 请求 PV 并自增
+      var pvCtn = document.querySelector('#lc-sv');
+      if (pvCtn || enableIncr) {
+        var pvGetter = this.getRecord(Counter, 'https://tobing.top' + '/#lc-sv', 'Visits').then((record) => {
+          incrArr.push(this.buildIncrement(record.objectId))
+          var eles = document.querySelectorAll('#lc-sv #number');
+          if (eles.length > 0) {
+            eles.forEach((el,index,array)=>{
+              el.innerText = record.times + 1;
+              if (pvCtn) {
+                pvCtn.style.display = 'inline';
+              }
+            })
+          }
+        });
+        getterArr.push(pvGetter);
+      }
+
+      // 请求 UV 并自增
+      var uvCtn = document.querySelector('#lc-uv');
+      if (uvCtn || enableIncr) {
+        var uvGetter = this.getRecord(Counter, 'https://tobing.top' + '/#lc-uv', 'Visitors').then((record) => {
+          var vuv = this.validUV();
+          vuv && incrArr.push(this.buildIncrement(record.objectId))
+          var eles = document.querySelectorAll('#lc-uv #number');
+          if (eles.length > 0) {
+            eles.forEach((el,index,array)=>{
+              el.innerText = record.times + (vuv ? 1 : 0);
+              if (uvCtn) {
+                uvCtn.style.display = 'inline';
+              }
+            })
+          }
+        });
+        getterArr.push(uvGetter);
+      }
+
+      // 请求文章的浏览数，如果是当前页面就自增
+      var allPV = document.querySelectorAll('#lc-pv');
+      if (allPV.length > 0 || enableIncr) {
+        for (i = 0; i < allPV.length; i++) {
+          let pv = allPV[i];
+          let title = pv.getAttribute('data-title');
+          var url = 'https://tobing.top' + pv.getAttribute('data-path');
+          if (url) {
+            var viewGetter = this.getRecord(Counter, url, title).then((record) => {
+              // 是当前页面就自增
+              let curPath = window.location.pathname;
+              if (curPath.includes('index.html')) {
+                curPath = curPath.substring(0, curPath.lastIndexOf('index.html'));
+              }
+              if (pv.getAttribute('data-path') == curPath) {
+                incrArr.push(this.buildIncrement(record.objectId));
+              }
+              if (pv) {
+                var ele = pv.querySelector('#lc-pv #number');
+                if (ele) {
+                  if (pv.getAttribute('data-path') == curPath) {
+                    ele.innerText = (record.times || 0) + 1;
+                  } else {
+                    ele.innerText = record.times || 0;
+                  }
+                  pv.style.display = 'inline';
+                }
+              }
+            });
+            getterArr.push(viewGetter);
+          }
+        }
+      }
+
+      // 如果启动计数自增，批量发起自增请求
+      if (enableIncr) {
+        Promise.all(getterArr).then(() => {
+          incrArr.length > 0 && this.increment(Counter, incrArr);
+        })
+      }
+
+    },
+
+
+    fetchData(api_server) {
+      var Counter = (method, url, data) => {
+        return fetch(`${ api_server }/1.1${ url }`, {
+          method,
+          headers: {
+            'X-LC-Id': this.app_id,
+            'X-LC-Key': this.app_key,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+      this.addCount(Counter);
+    },
+
+    refreshCounter() {
+      var api_server = this.app_id.slice(-9) !== '-MdYXbMMI' ? this.custom_api_server : `https://${ this.app_id.slice(0, 8).toLowerCase() }.api.lncldglobal.com`;
+      if (api_server) {
+        this.fetchData(api_server);
+      } else {
+        fetch('https://app-router.leancloud.cn/2/route?appId=' + this.app_id)
+          .then(resp => resp.json())
+          .then(({api_server}) => {
+            this.fetchData('https://' + api_server);
+          });
+      }
     }
 
-    $(function() {
-      var Counter = AV.Object.extend("Counter");
-      if ($('.leancloud_visitors').length == 1) {
-        addCount(Counter);
-      } else if ($('.post-title-link').length > 1) {
-        showTime(Counter);
-      }
+  };
+
+  LCCounter.refreshCounter();
+
+  document.addEventListener('pjax:complete', function () {
+    LCCounter.refreshCounter();
+  });
+</script>
+
+
+
+
+
+
+
+
+<script>
+function listennSidebarTOC() {
+  const navItems = document.querySelectorAll(".toc li");
+  if (!navItems.length) return;
+  const sections = [...navItems].map((element) => {
+    const link = element.querySelector(".toc-link");
+    const target = document.getElementById(
+      decodeURI(link.getAttribute("href")).replace("#", "")
+    );
+    link.addEventListener("click", (event) => {
+      event.preventDefault();
+      window.scrollTo({
+		top: target.offsetTop + 100,
+		
+		behavior: "smooth"
+		
+	  });
     });
-  </script>
+    return target;
+  });
+
+  function activateNavByIndex(target) {
+    if (target.classList.contains("active-current")) return;
+
+    document.querySelectorAll(".toc .active").forEach((element) => {
+      element.classList.remove("active", "active-current");
+    });
+    target.classList.add("active", "active-current");
+    let parent = target.parentNode;
+    while (!parent.matches(".toc")) {
+      if (parent.matches("li")) parent.classList.add("active");
+      parent = parent.parentNode;
+    }
+  }
+
+  function findIndex(entries) {
+    let index = 0;
+    let entry = entries[index];
+    if (entry.boundingClientRect.top > 0) {
+      index = sections.indexOf(entry.target);
+      return index === 0 ? 0 : index - 1;
+    }
+    for (; index < entries.length; index++) {
+      if (entries[index].boundingClientRect.top <= 0) {
+        entry = entries[index];
+      } else {
+        return sections.indexOf(entry.target);
+      }
+    }
+    return sections.indexOf(entry.target);
+  }
+
+  function createIntersectionObserver(marginTop) {
+    marginTop = Math.floor(marginTop + 10000);
+    let intersectionObserver = new IntersectionObserver(
+      (entries, observe) => {
+        let scrollHeight = document.documentElement.scrollHeight + 100;
+        if (scrollHeight > marginTop) {
+          observe.disconnect();
+          createIntersectionObserver(scrollHeight);
+          return;
+        }
+        let index = findIndex(entries);
+        activateNavByIndex(navItems[index]);
+      },
+      {
+        rootMargin: marginTop + "px 0px -100% 0px",
+        threshold: 0,
+      }
+    );
+    sections.forEach((element) => {
+      element && intersectionObserver.observe(element);
+    });
+  }
+  createIntersectionObserver(document.documentElement.scrollHeight);
+}
+
+document.addEventListener("DOMContentLoaded", listennSidebarTOC);
+document.addEventListener("pjax:success", listennSidebarTOC);
+</script>
+
+<!-- more -->
 
 
 
-  
 
-  
+    
+      
 
-  
-  
 
-  
+<script src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.min.js"></script>
 
-  
 
-  
+<script>
+    var pjax;
+    document.addEventListener('DOMContentLoaded', function () {
+      pjax = new Pjax({
+        elements: 'a[href]:not([href^="#"]):not([href="javascript:void(0)"]):not([pjax-fancybox])',
+        selectors: [
+          "title",
+          "#l_cover",
+          "#pjax-container",
+          "#pjax-header-nav-list"
+        ],
+        cacheBust: false,   // url 地址追加时间戳，用以避免浏览器缓存
+        timeout: 5000
+      });
+    });
 
+    document.addEventListener('pjax:send', function (e) {
+      //window.stop(); // 相当于点击了浏览器的停止按钮
+
+      try {
+        var currentUrl = window.location.pathname;
+        var targetUrl = e.triggerElement.href;
+        var banUrl = [""];
+        if (banUrl[0] != "") {
+          banUrl.forEach(item => {
+            if(currentUrl.indexOf(item) != -1 || targetUrl.indexOf(item) != -1) {
+              window.location.href = targetUrl;
+            }
+          });
+        }
+      } catch (error) {}
+
+      window.subData = null; // 移除标题（用于一二级导航栏切换处）
+      if (typeof $.fancybox != "undefined") {
+        $.fancybox.close();    // 关闭弹窗
+      }
+      volantis.$switcher.removeClass('active'); // 关闭移动端激活的搜索框
+      volantis.$header.removeClass('z_search-open'); // 关闭移动端激活的搜索框
+      volantis.$wrapper.removeClass('sub'); // 跳转页面时关闭二级导航
+
+      // 解绑事件 避免重复监听
+      volantis.$topBtn.unbind('click');
+      $('.menu a').unbind('click');
+      $(window).unbind('resize');
+      $(window).unbind('scroll');
+      $(document).unbind('scroll');
+      $(document).unbind('click');
+      $('body').unbind('click');
+	  
+    });
+
+    document.addEventListener('pjax:complete', function () {
+      // 关于百度统计对 SPA 页面的处理：
+      // 方案一：百度统计>管理>单页应用设置中，打开开启按钮即可对SPA进行统计。 https://tongji.baidu.com/web/help/article?id=324
+      // 方案二：取消注释下列代码。 https://tongji.baidu.com/web/help/article?id=235
+       
+
+      // 关于谷歌统计对 SPA 页面的处理：
+      // 当应用以动态方式加载内容并更新地址栏中的网址时，也应该更新通过 gtag.js 存储的网页网址。
+      // https://developers.google.cn/analytics/devguides/collection/gtagjs/single-page-applications?hl=zh-cn
+      
+	 
+
+      $('.nav-main').find('.list-v').not('.menu-phone').removeAttr("style",""); // 移除小尾巴的移除
+      $('.menu-phone.list-v').removeAttr("style",""); // 移除小尾巴的移除
+      $('script[data-pjax], .pjax-reload script').each(function () {
+        $(this).parent().append($(this).remove());
+      });
+      try{
+          if (typeof $.fancybox == "undefined") {
+            SCload_fancybox();
+          } else {
+            pjax_fancybox();
+          }
+        
+        
+        
+        
+        
+        
+          pjax_valine();
+        
+        
+        
+        
+        
+      } catch (e) {
+        console.log(e);
+      }
+	  
+    });
+
+    document.addEventListener('pjax:error', function (e) {
+	  
+      window.location.href = e.triggerElement.href;
+    });
+</script>
+
+    
+  </div>
 </body>
 </html>

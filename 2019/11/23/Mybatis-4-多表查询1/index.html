@@ -1,413 +1,446 @@
 <!DOCTYPE html>
+<html lang="zh-Hans,zh-CN,en,zh-HK,zh-TW,default">
+<head hexo-theme='https://github.com/volantis-x/hexo-theme-volantis/tree/4.2.0'>
+  <meta charset="utf-8">
+  <!-- SEO相关 -->
+  
+    
+  
+  <!-- 渲染优化 -->
+  <meta http-equiv='x-dns-prefetch-control' content='on' />
+  <link rel='dns-prefetch' href='https://cdn.jsdelivr.net'>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <!-- 页面元数据 -->
+  
+  <title>Mybatis-4-多表查询1 - tobing</title>
+  
+    <meta name="keywords" content="Mybatis">
+  
+
+  
+    <meta name="description" content="Mybatis-4-多表查询1
+ 表之间的关系：多对一、一对多、多对多。
+
+Mybatis中多表查询的步骤
+建表
+
+构建对应的实体类
+
+建立对应的配置文件
+
+实现配置：查询A表时可以得到A中包含B表的信息，反之亦然。
 
 
+1. 一对一方式一
+需求：查询使用账户信息，关联查询下单的用户信息。    
+
+
+建表
+12...">
+  
+
+  <!-- feed -->
+  
+
+  <!-- import meta -->
+  
+
+  <!-- link -->
+  
+    <link rel="shortcut icon" type='image/x-icon' href="https://cdn.jsdelivr.net/gh/xaoxuu/assets@master/favicon/favicon.ico">
+  
+
+  <!-- import link -->
+  
+
+  
+    
+<link rel="stylesheet" href="/css/first.css">
 
   
 
-
-<html class="theme-next muse use-motion" lang="zh-Hans">
-<head><meta name="generator" content="Hexo 3.9.0">
-  <meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-<meta name="theme-color" content="#222">
-
-
-
-
-
-
-
-
-
-<meta http-equiv="Cache-Control" content="no-transform">
-<meta http-equiv="Cache-Control" content="no-siteapp">
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   
-  
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
-
-
-
-
-
-
-
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
-
-<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
-
-
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
-
-
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
-
-
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
-
-
-  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
-
-
-
-
-
-  <meta name="keywords" content="Mybatis,">
-
-
-
-
-
-
-
-
-
-
-<meta name="description" content="Mybatis-4-多表查询1  表之间的关系：多对一、一对多、多对多。  Mybatis中多表查询的步骤 建表  构建对应的实体类  建立对应的配置文件  实现配置：查询A表时可以得到A中包含B表的信息，反之亦然。   1. 一对一方式一 需求：查询使用账户信息，关联查询下单的用户信息。       建表 123456789101112131415161718192021222324252627">
-<meta name="keywords" content="Mybatis">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Mybatis-4-多表查询1">
-<meta property="og:url" content="https://tobing.top/2019/11/23/Mybatis-4-多表查询1/index.html">
-<meta property="og:site_name" content="tobing">
-<meta property="og:description" content="Mybatis-4-多表查询1  表之间的关系：多对一、一对多、多对多。  Mybatis中多表查询的步骤 建表  构建对应的实体类  建立对应的配置文件  实现配置：查询A表时可以得到A中包含B表的信息，反之亦然。   1. 一对一方式一 需求：查询使用账户信息，关联查询下单的用户信息。       建表 123456789101112131415161718192021222324252627">
-<meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://tobing.top/images/Mybatis/my-4-table.png">
-<meta property="og:image" content="https://tobing.top/images/Mybatis/my-4-resultMap.png">
-<meta property="og:image" content="https://tobing.top/images/Mybatis/my-4-oneToNresultMap.png">
-<meta property="og:updated_time" content="2019-11-23T02:37:24.123Z">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Mybatis-4-多表查询1">
-<meta name="twitter:description" content="Mybatis-4-多表查询1  表之间的关系：多对一、一对多、多对多。  Mybatis中多表查询的步骤 建表  构建对应的实体类  建立对应的配置文件  实现配置：查询A表时可以得到A中包含B表的信息，反之亦然。   1. 一对一方式一 需求：查询使用账户信息，关联查询下单的用户信息。       建表 123456789101112131415161718192021222324252627">
-<meta name="twitter:image" content="https://tobing.top/images/Mybatis/my-4-table.png">
-
-
-
-<script type="text/javascript" id="hexo.configurations">
-  var NexT = window.NexT || {};
-  var CONFIG = {
-    root: '/',
-    scheme: 'Muse',
-    version: '5.1.4',
-    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
-    fancybox: true,
-    tabs: true,
-    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
-    duoshuo: {
-      userId: '0',
-      author: '博主'
-    },
-    algolia: {
-      applicationID: '',
-      apiKey: '',
-      indexName: '',
-      hits: {"per_page":10},
-      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
-    }
-  };
-</script>
-
-
-
-  <link rel="canonical" href="https://tobing.top/2019/11/23/Mybatis-4-多表查询1/">
-
-
-
-
-
-  <title>Mybatis-4-多表查询1 | tobing</title>
+  <link rel="stylesheet" href="/css/style.css" media="print" onload="this.media='all';this.onload=null">
+  <noscript><link rel="stylesheet" href="/css/style.css"></noscript>
   
 
-
-
-
-
-  <script type="text/javascript">
-    var _hmt = _hmt || [];
-    (function() {
-      var hm = document.createElement("script");
-      hm.src = "https://hm.baidu.com/hm.js?79d1a38a3f2e0804e9fb5f960582fdd2";
-      var s = document.getElementsByTagName("script")[0];
-      s.parentNode.insertBefore(hm, s);
-    })();
-  </script>
-
-
-
+  <script id="loadcss"></script>
 
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
-
-  
-  
-    
+<body>
   
 
-  <div class="container sidebar-position-left page-post-detail">
-    <div class="headband"></div>
-
-    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-wrapper">
-  <div class="site-meta ">
-    
-
-    <div class="custom-logo-site-title">
-      <a href="/" class="brand" rel="start">
-        <span class="logo-line-before"><i></i></span>
-        <span class="site-title">tobing</span>
-        <span class="logo-line-after"><i></i></span>
-      </a>
+<header id="l_header" class="l_header auto shadow blur show" style='opacity: 0' >
+  <div class='container'>
+  <div id='wrapper'>
+    <div class='nav-sub'>
+      <p class="title"></p>
+      <ul class='switcher nav-list-h m-phone' id="pjax-header-nav-list">
+        <li><a id="s-comment" class="fas fa-comments fa-fw" target="_self" href='javascript:void(0)'></a></li>
+        
+          <li><a id="s-toc" class="s-toc fas fa-list fa-fw" target="_self" href='javascript:void(0)'></a></li>
+        
+      </ul>
     </div>
+		<div class="nav-main">
       
-        <p class="site-subtitle">Just so so :)</p>
+        
+        <a class="title flat-box" target="_self" href='/'>
+          
+          
+            <i class='https://portrait.gitee.com/uploads/avatars/user/1875/5627411_tobing_1599371351.png'></i>
+          
+          
+            tobing's blog
+          
+        </a>
       
-  </div>
 
-  <div class="site-nav-toggle">
-    <button>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-    </button>
+			<div class='menu navigation'>
+				<ul class='nav-list-h m-pc'>
+          
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/
+                  
+                  
+                  
+                    id="home"
+                  >
+                  <i class='fas fa-rss fa-fw'></i>博客
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/categories/
+                  
+                  
+                  
+                    id="categories"
+                  >
+                  <i class='fas fa-folder-open fa-fw'></i>分类
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/tags/
+                  
+                  
+                  
+                    id="tags"
+                  >
+                  <i class='fas fa-tags fa-fw'></i>标签
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/archives/
+                  
+                  
+                  
+                    id="archives"
+                  >
+                  <i class='fas fa-archive fa-fw'></i>归档
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/friends/
+                  
+                  
+                  
+                    id="friends"
+                  >
+                  <i class='fas fa-link fa-fw'></i>友链
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/about/
+                  
+                  
+                  
+                    id="about"
+                  >
+                  <i class='fas fa-info-circle fa-fw'></i>关于
+                </a>
+                
+              </li>
+            
+          
+          
+				</ul>
+			</div>
+
+      <div class="m_search">
+        <form name="searchform" class="form u-search-form">
+          <i class="icon fas fa-search fa-fw"></i>
+          <input type="text" class="input u-search-input" placeholder="Search..." />
+        </form>
+      </div>
+
+			<ul class='switcher nav-list-h m-phone'>
+				
+					<li><a class="s-search fas fa-search fa-fw" target="_self" href='javascript:void(0)'></a></li>
+				
+				<li>
+          <a class="s-menu fas fa-bars fa-fw" target="_self" href='javascript:void(0)'></a>
+          <ul class="menu-phone list-v navigation white-box">
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/
+                  
+                  
+                  
+                    id="home"
+                  >
+                  <i class='fas fa-rss fa-fw'></i>博客
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/categories/
+                  
+                  
+                  
+                    id="categories"
+                  >
+                  <i class='fas fa-folder-open fa-fw'></i>分类
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/tags/
+                  
+                  
+                  
+                    id="tags"
+                  >
+                  <i class='fas fa-tags fa-fw'></i>标签
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/archives/
+                  
+                  
+                  
+                    id="archives"
+                  >
+                  <i class='fas fa-archive fa-fw'></i>归档
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/friends/
+                  
+                  
+                  
+                    id="friends"
+                  >
+                  <i class='fas fa-link fa-fw'></i>友链
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/about/
+                  
+                  
+                  
+                    id="about"
+                  >
+                  <i class='fas fa-info-circle fa-fw'></i>关于
+                </a>
+                
+              </li>
+            
+          
+            
+          </ul>
+        </li>
+			</ul>
+		</div>
+	</div>
+  </div>
+</header>
+
+  <div id="l_body">
+    <div id="l_cover">
+  
+    
+        <div id="full" class='cover-wrapper post search' style="display: none;">
+          
+            <div class='cover-bg lazyload placeholder' data-bg="https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/033.jpg"></div>
+          
+          <div class='cover-body'>
+  <div class='top'>
+    
+    
+      <p class="title">Welcome !</p>
+    
+    
+  </div>
+  <div class='bottom'>
+    
+      <div class="m_search">
+        <form name="searchform" class="form u-search-form">
+          <input type="text" class="input u-search-input" placeholder="Search..." />
+          <i class="icon fas fa-search fa-fw"></i>
+        </form>
+      </div>
+    
+    <div class='menu navigation'>
+      <div class='list-h'>
+        
+      </div>
+    </div>
   </div>
 </div>
 
-<nav class="site-nav">
-  
-
-  
-    <ul id="menu" class="menu">
-      
-        
-        <li class="menu-item menu-item-home">
-          <a href="/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
-            
-            首页
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-about">
-          <a href="/about/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
-            
-            关于
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-tags">
-          <a href="/tags/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
-            
-            标签
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-categories">
-          <a href="/categories/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
-            
-            分类
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-archives">
-          <a href="/archives/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
-            
-            归档
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-sitemap">
-          <a href="/sitemap.xml" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br>
-            
-            站点地图
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-commonweal">
-          <a href="/404/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br>
-            
-            公益404
-          </a>
-        </li>
-      
-
-      
-    </ul>
-  
-
-  
-</nav>
-
-
-
- </div>
-    </header>
-
-    <main id="main" class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          <div id="content" class="content">
-            
-
-  <div id="posts" class="posts-expand">
-    
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://tobing.top/2019/11/23/Mybatis-4-多表查询1/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="tobing">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="tobing">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">Mybatis-4-多表查询1</h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-11-23T10:13:02+08:00">
-                2019-11-23
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index">
-                    <span itemprop="name">Java</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2019/11/23/Mybatis-4-多表查询1/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/11/23/Mybatis-4-多表查询1/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/2019/11/23/Mybatis-4-多表查询1/" class="leancloud_visitors" data-flag-title="Mybatis-4-多表查询1">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
+          <div id="scroll-down" style="display: none;"><i class="fa fa-chevron-down scroll-down-effects"></i></div>
         </div>
-      </header>
     
+  
+  </div>
 
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
+    <div id='safearea'>
+      <div class='body-wrapper' id="pjax-container">
+        
 
-      
-      
+<div class='l_main'>
+  <article class="article post white-box reveal md shadow article-type-post" id="post" itemscope itemprop="blogPost">
+  
 
+
+  
+  <div class="article-meta" id="top">
+    
+    
+    
+      <h1 class="title">
+        Mybatis-4-多表查询1
+      </h1>
+      <div class='new-meta-box'>
+        
+          
+            
+<div class='new-meta-item author'>
+  <a class='author' href="/" rel="nofollow">
+    <img no-lazy src="">
+    <p>请设置文章作者</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+  <div class='new-meta-item category'>
+    <a class='notlink'>
+      <i class="fas fa-folder-open fa-fw" aria-hidden="true"></i>
+      <a class="category-link" href="/categories/Java/">Java</a>
+    </a>
+  </div>
+
+
+          
+        
+          
+            <div class="new-meta-item date">
+  <a class='notlink'>
+    <i class="fas fa-calendar-alt fa-fw" aria-hidden="true"></i>
+    <p>发布于：Nov 23, 2019</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+  <div class="new-meta-item browse leancloud">
+    <a class='notlink'>
       
-        <h1 id="Mybatis-4-多表查询1"><a href="#Mybatis-4-多表查询1" class="headerlink" title="Mybatis-4-多表查询1"></a>Mybatis-4-多表查询1</h1><blockquote>
+      <div id="lc-pv" data-title="Mybatis-4-多表查询1" data-path="/2019/11/23/Mybatis-4-%E5%A4%9A%E8%A1%A8%E6%9F%A5%E8%AF%A21/">
+        <i class="fas fa-eye fa-fw" aria-hidden="true"></i>
+        <span id='number'><i class="fas fa-circle-notch fa-spin fa-fw" aria-hidden="true"></i></span>
+        次浏览
+      </div>
+    </a>
+  </div>
+
+
+          
+        
+      </div>
+    
+  </div>
+
+
+  
+  <h1 id="Mybatis-4-多表查询1"><a href="#Mybatis-4-多表查询1" class="headerlink" title="Mybatis-4-多表查询1"></a>Mybatis-4-多表查询1</h1><blockquote>
 <p> 表之间的关系：多对一、一对多、多对多。</p>
 </blockquote>
 <h2 id="Mybatis中多表查询的步骤"><a href="#Mybatis中多表查询的步骤" class="headerlink" title="Mybatis中多表查询的步骤"></a>Mybatis中多表查询的步骤</h2><ol>
@@ -425,9 +458,9 @@
 </blockquote>
 <ol>
 <li><p>建表</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 创建user表</span></span><br><span class="line"><span class="keyword">DROP</span> <span class="keyword">TABLE</span> <span class="keyword">IF</span> <span class="keyword">EXISTS</span> <span class="keyword">USER</span> ;<span class="comment">-- 如果存在则删除该表</span></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> <span class="keyword">USER</span>(</span><br><span class="line">	<span class="keyword">id</span> <span class="built_in">INT</span> PRIMARY <span class="keyword">KEY</span> AUTO_INCREMENT,</span><br><span class="line">	username <span class="built_in">VARCHAR</span>(<span class="number">32</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span> ,</span><br><span class="line">	birthday <span class="built_in">DATE</span>,</span><br><span class="line">	sex <span class="built_in">CHAR</span>(<span class="number">1</span>) ,</span><br><span class="line">	address <span class="built_in">VARCHAR</span>(<span class="number">256</span>)</span><br><span class="line">);</span><br><span class="line"><span class="comment">-- 创建account表</span></span><br><span class="line"><span class="keyword">DROP</span> <span class="keyword">TABLE</span> <span class="keyword">IF</span> <span class="keyword">EXISTS</span> <span class="keyword">account</span>;</span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> <span class="keyword">account</span>(</span><br><span class="line">	<span class="keyword">id</span> <span class="built_in">INT</span> <span class="keyword">NOT</span> <span class="literal">NULL</span> PRIMARY <span class="keyword">KEY</span> AUTO_INCREMENT,</span><br><span class="line">	uid <span class="built_in">INT</span> ,</span><br><span class="line">	money <span class="keyword">DOUBLE</span>,</span><br><span class="line">	<span class="keyword">FOREIGN</span> <span class="keyword">KEY</span>(uid) <span class="keyword">REFERENCES</span> <span class="keyword">USER</span>(<span class="keyword">id</span>)</span><br><span class="line">);</span><br><span class="line"><span class="comment">-- 给user添加数据</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> <span class="keyword">USER</span> <span class="keyword">VALUES</span></span><br><span class="line">	(<span class="number">41</span>,<span class="string">'Tobing'</span>,<span class="literal">NULL</span>,<span class="string">'男'</span>,<span class="string">'四川'</span>),</span><br><span class="line">	(<span class="literal">NULL</span>,<span class="string">'Rongon'</span>,<span class="literal">NULL</span>,<span class="string">'男'</span>,<span class="string">'江苏'</span>),</span><br><span class="line">	(<span class="literal">NULL</span>,<span class="string">'Zenyet'</span>,<span class="literal">NULL</span>,<span class="string">'男'</span>,<span class="string">'广东'</span>),</span><br><span class="line">	(<span class="literal">NULL</span>,<span class="string">'尼古拉斯'</span>,<span class="literal">NULL</span>,<span class="string">'男'</span>,<span class="string">'英国'</span>);</span><br><span class="line"><span class="comment">-- 给account添加数据</span></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> <span class="keyword">account</span> <span class="keyword">VALUES</span></span><br><span class="line">	(<span class="number">1</span>,<span class="number">41</span>,<span class="number">20000</span>),(<span class="number">2</span>,<span class="number">42</span>,<span class="number">40000</span>),</span><br><span class="line">	(<span class="number">3</span>,<span class="number">43</span>,<span class="number">30000</span>),(<span class="number">4</span>,<span class="number">44</span>,<span class="number">21000</span>);</span><br></pre></td></tr></table></figure>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 创建user表</span></span><br><span class="line"><span class="keyword">DROP</span> <span class="keyword">TABLE</span> <span class="keyword">IF</span> <span class="keyword">EXISTS</span> <span class="keyword">USER</span> ;<span class="comment">-- 如果存在则删除该表</span></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> <span class="keyword">USER</span>(</span><br><span class="line">	<span class="keyword">id</span> <span class="built_in">INT</span> PRIMARY <span class="keyword">KEY</span> AUTO_INCREMENT,</span><br><span class="line">	username <span class="built_in">VARCHAR</span>(<span class="number">32</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span> ,</span><br><span class="line">	birthday <span class="built_in">DATE</span>,</span><br><span class="line">	sex <span class="built_in">CHAR</span>(<span class="number">1</span>) ,</span><br><span class="line">	address <span class="built_in">VARCHAR</span>(<span class="number">256</span>)</span><br><span class="line">);</span><br><span class="line"><span class="comment">-- 创建account表</span></span><br><span class="line"><span class="keyword">DROP</span> <span class="keyword">TABLE</span> <span class="keyword">IF</span> <span class="keyword">EXISTS</span> <span class="keyword">account</span>;</span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> <span class="keyword">account</span>(</span><br><span class="line">	<span class="keyword">id</span> <span class="built_in">INT</span> <span class="keyword">NOT</span> <span class="literal">NULL</span> PRIMARY <span class="keyword">KEY</span> AUTO_INCREMENT,</span><br><span class="line">	uid <span class="built_in">INT</span> ,</span><br><span class="line">	money <span class="keyword">DOUBLE</span>,</span><br><span class="line">	<span class="keyword">FOREIGN</span> <span class="keyword">KEY</span>(uid) <span class="keyword">REFERENCES</span> <span class="keyword">USER</span>(<span class="keyword">id</span>)</span><br><span class="line">);</span><br><span class="line"><span class="comment">-- 给user添加数据</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> <span class="keyword">USER</span> <span class="keyword">VALUES</span></span><br><span class="line">	(<span class="number">41</span>,<span class="string">&#x27;Tobing&#x27;</span>,<span class="literal">NULL</span>,<span class="string">&#x27;男&#x27;</span>,<span class="string">&#x27;四川&#x27;</span>),</span><br><span class="line">	(<span class="literal">NULL</span>,<span class="string">&#x27;Rongon&#x27;</span>,<span class="literal">NULL</span>,<span class="string">&#x27;男&#x27;</span>,<span class="string">&#x27;江苏&#x27;</span>),</span><br><span class="line">	(<span class="literal">NULL</span>,<span class="string">&#x27;Zenyet&#x27;</span>,<span class="literal">NULL</span>,<span class="string">&#x27;男&#x27;</span>,<span class="string">&#x27;广东&#x27;</span>),</span><br><span class="line">	(<span class="literal">NULL</span>,<span class="string">&#x27;尼古拉斯&#x27;</span>,<span class="literal">NULL</span>,<span class="string">&#x27;男&#x27;</span>,<span class="string">&#x27;英国&#x27;</span>);</span><br><span class="line"><span class="comment">-- 给account添加数据</span></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> <span class="keyword">account</span> <span class="keyword">VALUES</span></span><br><span class="line">	(<span class="number">1</span>,<span class="number">41</span>,<span class="number">20000</span>),(<span class="number">2</span>,<span class="number">42</span>,<span class="number">40000</span>),</span><br><span class="line">	(<span class="number">3</span>,<span class="number">43</span>,<span class="number">30000</span>),(<span class="number">4</span>,<span class="number">44</span>,<span class="number">21000</span>);</span><br><span class="line">	</span><br><span class="line">	</span><br></pre></td></tr></table></figure>
 
-<p><img src="/images/Mybatis/my-4-table.png" alt="my-4-table"></p>
+<p><img src="/images/Mybatis/my-4-table.png" class="lazyload" data-srcset="/images/Mybatis/my-4-table.png" srcset="data:image/png;base64,666" alt="my-4-table"></p>
 </li>
 <li><p>构建实体类</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// account表实体类</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Account</span> <span class="keyword">implements</span> <span class="title">Serializable</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> id;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> uid;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">double</span> money;</span><br><span class="line"> 	<span class="comment">//setter and getter .....    </span></span><br><span class="line">    <span class="comment">//toString</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// User表实体类</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">User</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> id;</span><br><span class="line">    <span class="keyword">private</span> String username;</span><br><span class="line">    <span class="keyword">private</span> Date birthday;</span><br><span class="line">    <span class="keyword">private</span> String sex;</span><br><span class="line">    <span class="keyword">private</span> String address;</span><br><span class="line">	<span class="comment">//setter and getter .....    </span></span><br><span class="line">    <span class="comment">//toString</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 一对一多表查询结果的实体类</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AccountUser</span> <span class="keyword">extends</span> <span class="title">Account</span> <span class="keyword">implements</span> <span class="title">Serializable</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> id;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> uid;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">double</span> money;</span><br><span class="line">    <span class="keyword">private</span> String username;</span><br><span class="line">    <span class="keyword">private</span> String address;</span><br><span class="line">    <span class="comment">//setter and getter .....    </span></span><br><span class="line">    <span class="comment">//toString</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -435,11 +468,11 @@
 <li><p>建立配置文件</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">UserDao</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> List&lt;User&gt; <span class="title">findAll</span><span class="params">()</span></span>;	<span class="comment">// 查询所有的用户</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> User <span class="title">findById</span><span class="params">(<span class="keyword">int</span> id)</span></span>;	<span class="comment">// 通过id查询用户</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">mapper</span> <span class="attr">namespace</span>=<span class="string">"top.tobing.dao.UserDao"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"findAll"</span> <span class="attr">resultType</span>=<span class="string">"top.tobing.domain.User"</span>&gt;</span></span><br><span class="line">        SELECT * from user ;</span><br><span class="line">    <span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"findById"</span> <span class="attr">resultType</span>=<span class="string">"top.tobing.domain.User"</span> <span class="attr">parameterType</span>=<span class="string">"java.lang.Integer"</span>&gt;</span></span><br><span class="line">        select * from user where id = #&#123;id&#125;</span><br><span class="line">    <span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">mapper</span> <span class="attr">namespace</span>=<span class="string">&quot;top.tobing.dao.UserDao&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">&quot;findAll&quot;</span> <span class="attr">resultType</span>=<span class="string">&quot;top.tobing.domain.User&quot;</span>&gt;</span></span><br><span class="line">        SELECT * from user ;</span><br><span class="line">    <span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">&quot;findById&quot;</span> <span class="attr">resultType</span>=<span class="string">&quot;top.tobing.domain.User&quot;</span> <span class="attr">parameterType</span>=<span class="string">&quot;java.lang.Integer&quot;</span>&gt;</span></span><br><span class="line">        select * from user where id = #&#123;id&#125;</span><br><span class="line">    <span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">AccountDao</span> </span>&#123;	</span><br><span class="line">    <span class="function"><span class="keyword">public</span> List&lt;AccountUser&gt; <span class="title">findAll</span><span class="params">()</span></span>;<span class="comment">// 多表查询用户以及账户信息</span></span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">mapper</span> <span class="attr">namespace</span>=<span class="string">"top.tobing.dao.AccountDao"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"findAll"</span> <span class="attr">resultType</span>=<span class="string">"top.tobing.domain.AccountUser"</span>&gt;</span></span><br><span class="line">         SELECT account.*,user.username,user.address FROM account,USER WHERE account.uid = user.id;</span><br><span class="line">    <span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">mapper</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">mapper</span> <span class="attr">namespace</span>=<span class="string">&quot;top.tobing.dao.AccountDao&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">&quot;findAll&quot;</span> <span class="attr">resultType</span>=<span class="string">&quot;top.tobing.domain.AccountUser&quot;</span>&gt;</span></span><br><span class="line">         SELECT account.*,user.username,user.address FROM account,USER WHERE account.uid = user.id;</span><br><span class="line">    <span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">mapper</span>&gt;</span></span><br></pre></td></tr></table></figure>
 </li>
 <li><p>执行操作</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"> 	<span class="comment">// 申请资源</span></span><br><span class="line"><span class="comment">// 释放资源</span></span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">findAllTest</span><span class="params">()</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">       <span class="comment">//5.执行查询语句</span></span><br><span class="line">       List&lt;AccountUser&gt; accountUsers = accountDao.findAll();</span><br><span class="line">       <span class="comment">//6.遍历输出</span></span><br><span class="line">       <span class="keyword">for</span>(AccountUser au:accountUsers)&#123;</span><br><span class="line">           System.out.println(au);</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
@@ -460,13 +493,13 @@
 </blockquote>
 <ol start="2">
 <li><p>构建实体类</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">User</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> id;</span><br><span class="line">    <span class="keyword">private</span> String username;</span><br><span class="line">    <span class="keyword">private</span> Date birthday;</span><br><span class="line">    <span class="keyword">private</span> String sex;</span><br><span class="line">    <span class="keyword">private</span> String address;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Account</span> <span class="keyword">implements</span> <span class="title">Serializable</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> id;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> uid;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">double</span> money;</span><br><span class="line">    <span class="keyword">private</span> User user;	<span class="comment">// 使用内置User对象的方式存放User数据</span></span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">User</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> id;</span><br><span class="line">    <span class="keyword">private</span> String username;</span><br><span class="line">    <span class="keyword">private</span> Date birthday;</span><br><span class="line">    <span class="keyword">private</span> String sex;</span><br><span class="line">    <span class="keyword">private</span> String address;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Account</span> <span class="keyword">implements</span> <span class="title">Serializable</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> id;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> uid;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">double</span> money;</span><br><span class="line">    <span class="keyword">private</span> User user;	<span class="comment">// 使用内置User对象的方式存放User数据</span></span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 </li>
 <li><p>编写AccountDao接口</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 将多表查询到的数据直接封装到Account中</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> List&lt;Account&gt; <span class="title">findAllAccount</span><span class="params">()</span></span>;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 将多表查询到的数据直接封装到Account中</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> List&lt;Account&gt; <span class="title">findAllAccount</span><span class="params">()</span></span>;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 </li>
 <li><p>编写接口对应的配置文件:AccountDao.xml</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">mapper</span> <span class="attr">namespace</span>=<span class="string">"top.tobing.dao.AccountDao"</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--Account内建User存储数据--&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--建立对应关系--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">resultMap</span> <span class="attr">id</span>=<span class="string">"account"</span> <span class="attr">type</span>=<span class="string">"top.tobing.domain.Account"</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!--对应着Account表中的id，uid，money基本类型属性--&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">id</span> <span class="attr">column</span>=<span class="string">"aid"</span> <span class="attr">property</span>=<span class="string">"id"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">result</span> <span class="attr">column</span>=<span class="string">"uid"</span> <span class="attr">property</span>=<span class="string">"uid"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">result</span> <span class="attr">column</span>=<span class="string">"money"</span> <span class="attr">property</span>=<span class="string">"money"</span>/&gt;</span></span><br><span class="line">        <span class="comment">&lt;!--联系着表的实体类属性--&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">association</span> <span class="attr">property</span>=<span class="string">"user"</span> <span class="attr">javaType</span>=<span class="string">"top.tobing.domain.User"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">id</span> <span class="attr">column</span>=<span class="string">"id"</span> <span class="attr">property</span>=<span class="string">"id"</span>/&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">result</span> <span class="attr">column</span>=<span class="string">"username"</span> <span class="attr">property</span>=<span class="string">"username"</span>/&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">result</span> <span class="attr">column</span>=<span class="string">"sex"</span> <span class="attr">property</span>=<span class="string">"sex"</span>/&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">result</span> <span class="attr">column</span>=<span class="string">"birthday"</span> <span class="attr">property</span>=<span class="string">"birthday"</span>/&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">result</span> <span class="attr">column</span>=<span class="string">"address"</span> <span class="attr">property</span>=<span class="string">"address"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">association</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">resultMap</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"findAllAccount"</span> <span class="attr">resultMap</span>=<span class="string">"account"</span>&gt;</span></span><br><span class="line">        select</span><br><span class="line">            u.*,a.id as aid,a.uid,a.money</span><br><span class="line">        from</span><br><span class="line">            account a,user u</span><br><span class="line">        where</span><br><span class="line">            a.uid = u.id;</span><br><span class="line">    <span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">mapper</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">mapper</span> <span class="attr">namespace</span>=<span class="string">&quot;top.tobing.dao.AccountDao&quot;</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--Account内建User存储数据--&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--建立对应关系--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">resultMap</span> <span class="attr">id</span>=<span class="string">&quot;account&quot;</span> <span class="attr">type</span>=<span class="string">&quot;top.tobing.domain.Account&quot;</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!--对应着Account表中的id，uid，money基本类型属性--&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">id</span> <span class="attr">column</span>=<span class="string">&quot;aid&quot;</span> <span class="attr">property</span>=<span class="string">&quot;id&quot;</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">result</span> <span class="attr">column</span>=<span class="string">&quot;uid&quot;</span> <span class="attr">property</span>=<span class="string">&quot;uid&quot;</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">result</span> <span class="attr">column</span>=<span class="string">&quot;money&quot;</span> <span class="attr">property</span>=<span class="string">&quot;money&quot;</span>/&gt;</span></span><br><span class="line">        <span class="comment">&lt;!--联系着表的实体类属性--&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">association</span> <span class="attr">property</span>=<span class="string">&quot;user&quot;</span> <span class="attr">javaType</span>=<span class="string">&quot;top.tobing.domain.User&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">id</span> <span class="attr">column</span>=<span class="string">&quot;id&quot;</span> <span class="attr">property</span>=<span class="string">&quot;id&quot;</span>/&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">result</span> <span class="attr">column</span>=<span class="string">&quot;username&quot;</span> <span class="attr">property</span>=<span class="string">&quot;username&quot;</span>/&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">result</span> <span class="attr">column</span>=<span class="string">&quot;sex&quot;</span> <span class="attr">property</span>=<span class="string">&quot;sex&quot;</span>/&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">result</span> <span class="attr">column</span>=<span class="string">&quot;birthday&quot;</span> <span class="attr">property</span>=<span class="string">&quot;birthday&quot;</span>/&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">result</span> <span class="attr">column</span>=<span class="string">&quot;address&quot;</span> <span class="attr">property</span>=<span class="string">&quot;address&quot;</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">association</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">resultMap</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">&quot;findAllAccount&quot;</span> <span class="attr">resultMap</span>=<span class="string">&quot;account&quot;</span>&gt;</span></span><br><span class="line">        select</span><br><span class="line">            u.*,a.id as aid,a.uid,a.money</span><br><span class="line">        from</span><br><span class="line">            account a,user u</span><br><span class="line">        where</span><br><span class="line">            a.uid = u.id;</span><br><span class="line">    <span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">mapper</span>&gt;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 <blockquote>
 <p>resultMap 标签可以建立查询的列名和实体类的属性名称不一致时建立对应关系。从而实现封装。</p>
@@ -474,13 +507,13 @@
 <blockquote>
 <p>说明</p>
 </blockquote>
-<p><img src="/images/Mybatis/my-4-resultMap.png" alt="resultMap"></p>
+<p><img src="/images/Mybatis/my-4-resultMap.png" class="lazyload" data-srcset="/images/Mybatis/my-4-resultMap.png" srcset="data:image/png;base64,666" alt="resultMap"></p>
 </li>
 <li><p>使用Test查询测试</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">findAllAccountTest</span><span class="params">()</span></span>&#123;</span><br><span class="line">    List&lt;Account&gt; list = accountDao.findAllAccount();</span><br><span class="line">    <span class="keyword">for</span> (Account account : list) &#123;</span><br><span class="line">        System.out.println(<span class="string">"------------------------------"</span>);</span><br><span class="line">        System.out.println(account.getUser());</span><br><span class="line">        System.out.println(account);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">findAllAccountTest</span><span class="params">()</span></span>&#123;</span><br><span class="line">    List&lt;Account&gt; list = accountDao.findAllAccount();</span><br><span class="line">    <span class="keyword">for</span> (Account account : list) &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;------------------------------&quot;</span>);</span><br><span class="line">        System.out.println(account.getUser());</span><br><span class="line">        System.out.println(account);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">   </span><br></pre></td></tr></table></figure>
 </li>
 <li><p>运行结果</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">------------------------------</span><br><span class="line">User&#123;id=41, username=<span class="string">'Tobing'</span>, birthday=null, sex=<span class="string">'男'</span>, address=<span class="string">'四川'</span>&#125;</span><br><span class="line">Account&#123;id=1, uid=41, money=20000.0&#125;</span><br><span class="line">------------------------------</span><br><span class="line">User&#123;id=42, username=<span class="string">'Rongon'</span>, birthday=null, sex=<span class="string">'男'</span>, address=<span class="string">'江苏'</span>&#125;</span><br><span class="line">Account&#123;id=2, uid=42, money=40000.0&#125;</span><br><span class="line">------------------------------</span><br><span class="line">User&#123;id=43, username=<span class="string">'Zenyet'</span>, birthday=null, sex=<span class="string">'男'</span>, address=<span class="string">'广东'</span>&#125;</span><br><span class="line">Account&#123;id=3, uid=43, money=30000.0&#125;</span><br><span class="line">------------------------------</span><br><span class="line">User&#123;id=44, username=<span class="string">'尼古拉斯'</span>, birthday=null, sex=<span class="string">'男'</span>, address=<span class="string">'英国'</span>&#125;</span><br><span class="line">Account&#123;id=4, uid=44, money=21000.0&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">------------------------------</span><br><span class="line">User&#123;id=41, username=<span class="string">&#x27;Tobing&#x27;</span>, birthday=null, sex=<span class="string">&#x27;男&#x27;</span>, address=<span class="string">&#x27;四川&#x27;</span>&#125;</span><br><span class="line">Account&#123;id=1, uid=41, money=20000.0&#125;</span><br><span class="line">------------------------------</span><br><span class="line">User&#123;id=42, username=<span class="string">&#x27;Rongon&#x27;</span>, birthday=null, sex=<span class="string">&#x27;男&#x27;</span>, address=<span class="string">&#x27;江苏&#x27;</span>&#125;</span><br><span class="line">Account&#123;id=2, uid=42, money=40000.0&#125;</span><br><span class="line">------------------------------</span><br><span class="line">User&#123;id=43, username=<span class="string">&#x27;Zenyet&#x27;</span>, birthday=null, sex=<span class="string">&#x27;男&#x27;</span>, address=<span class="string">&#x27;广东&#x27;</span>&#125;</span><br><span class="line">Account&#123;id=3, uid=43, money=30000.0&#125;</span><br><span class="line">------------------------------</span><br><span class="line">User&#123;id=44, username=<span class="string">&#x27;尼古拉斯&#x27;</span>, birthday=null, sex=<span class="string">&#x27;男&#x27;</span>, address=<span class="string">&#x27;英国&#x27;</span>&#125;</span><br><span class="line">Account&#123;id=4, uid=44, money=21000.0&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 </li>
 </ol>
@@ -498,7 +531,7 @@
 </blockquote>
 <ol>
 <li><p>修改User类：给User类添加多个account的属性</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">User</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> id;</span><br><span class="line">    <span class="keyword">private</span> String username;</span><br><span class="line">    <span class="keyword">private</span> Date birthday;</span><br><span class="line">    <span class="keyword">private</span> String sex;</span><br><span class="line">    <span class="keyword">private</span> String address;</span><br><span class="line">    <span class="keyword">private</span> List&lt;Account&gt; accounts; <span class="comment">// 新添加的accounts属性，用于存储一个用户的多个账号</span></span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">User</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> id;</span><br><span class="line">    <span class="keyword">private</span> String username;</span><br><span class="line">    <span class="keyword">private</span> Date birthday;</span><br><span class="line">    <span class="keyword">private</span> String sex;</span><br><span class="line">    <span class="keyword">private</span> String address;</span><br><span class="line">    <span class="keyword">private</span> List&lt;Account&gt; accounts; <span class="comment">// 新添加的accounts属性，用于存储一个用户的多个账号</span></span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 
 
@@ -506,7 +539,7 @@
 </ol>
 <ol start="2">
 <li><p>修改UserDao接口：新添加查询User类，包含accounts。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 新添加用于查询的方法</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> List&lt;User&gt; <span class="title">findAllAccounts</span><span class="params">()</span></span>;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 新添加用于查询的方法</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> List&lt;User&gt; <span class="title">findAllAccounts</span><span class="params">()</span></span>;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 
 
@@ -514,7 +547,7 @@
 </ol>
 <ol start="3">
 <li><p>修改UserDao配置文件：添加封装accounts的配置文件【重点】</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">mapper</span> <span class="attr">namespace</span>=<span class="string">"top.tobing.dao.UserDao"</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--定义User结果集--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">resultMap</span> <span class="attr">id</span>=<span class="string">"userAccountsMap"</span> <span class="attr">type</span>=<span class="string">"top.tobing.domain.User"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">id</span> <span class="attr">column</span>=<span class="string">"id"</span> <span class="attr">property</span>=<span class="string">"id"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">result</span> <span class="attr">column</span>=<span class="string">"username"</span> <span class="attr">property</span>=<span class="string">"username"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">result</span> <span class="attr">column</span>=<span class="string">"birthday"</span> <span class="attr">property</span>=<span class="string">"birthday"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">result</span> <span class="attr">column</span>=<span class="string">"sex"</span> <span class="attr">property</span>=<span class="string">"sex"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">result</span> <span class="attr">column</span>=<span class="string">"address"</span> <span class="attr">property</span>=<span class="string">"address"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">collection</span> <span class="attr">property</span>=<span class="string">"accounts"</span> <span class="attr">ofType</span>=<span class="string">"top.tobing.domain.Account"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">id</span> <span class="attr">column</span>=<span class="string">"aid"</span> <span class="attr">property</span>=<span class="string">"id"</span>/&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">result</span> <span class="attr">column</span>=<span class="string">"uid"</span> <span class="attr">property</span>=<span class="string">"uid"</span>/&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">result</span> <span class="attr">column</span>=<span class="string">"money"</span> <span class="attr">property</span>=<span class="string">"money"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">collection</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">resultMap</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"findAllAccounts"</span> <span class="attr">resultMap</span>=<span class="string">"userAccountsMap"</span>&gt;</span></span><br><span class="line">        select</span><br><span class="line">            u.id,</span><br><span class="line">            u.username,</span><br><span class="line">            u.birthday,</span><br><span class="line">            u.sex,</span><br><span class="line">            u.address,</span><br><span class="line">            account.id,</span><br><span class="line">            account.uid,</span><br><span class="line">            account.money</span><br><span class="line">        from</span><br><span class="line">            user u</span><br><span class="line">        left join account on u.id = account.uid</span><br><span class="line">    <span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">mapper</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">mapper</span> <span class="attr">namespace</span>=<span class="string">&quot;top.tobing.dao.UserDao&quot;</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--定义User结果集--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">resultMap</span> <span class="attr">id</span>=<span class="string">&quot;userAccountsMap&quot;</span> <span class="attr">type</span>=<span class="string">&quot;top.tobing.domain.User&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">id</span> <span class="attr">column</span>=<span class="string">&quot;id&quot;</span> <span class="attr">property</span>=<span class="string">&quot;id&quot;</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">result</span> <span class="attr">column</span>=<span class="string">&quot;username&quot;</span> <span class="attr">property</span>=<span class="string">&quot;username&quot;</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">result</span> <span class="attr">column</span>=<span class="string">&quot;birthday&quot;</span> <span class="attr">property</span>=<span class="string">&quot;birthday&quot;</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">result</span> <span class="attr">column</span>=<span class="string">&quot;sex&quot;</span> <span class="attr">property</span>=<span class="string">&quot;sex&quot;</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">result</span> <span class="attr">column</span>=<span class="string">&quot;address&quot;</span> <span class="attr">property</span>=<span class="string">&quot;address&quot;</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">collection</span> <span class="attr">property</span>=<span class="string">&quot;accounts&quot;</span> <span class="attr">ofType</span>=<span class="string">&quot;top.tobing.domain.Account&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">id</span> <span class="attr">column</span>=<span class="string">&quot;aid&quot;</span> <span class="attr">property</span>=<span class="string">&quot;id&quot;</span>/&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">result</span> <span class="attr">column</span>=<span class="string">&quot;uid&quot;</span> <span class="attr">property</span>=<span class="string">&quot;uid&quot;</span>/&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">result</span> <span class="attr">column</span>=<span class="string">&quot;money&quot;</span> <span class="attr">property</span>=<span class="string">&quot;money&quot;</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">collection</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">resultMap</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">&quot;findAllAccounts&quot;</span> <span class="attr">resultMap</span>=<span class="string">&quot;userAccountsMap&quot;</span>&gt;</span></span><br><span class="line">        select</span><br><span class="line">            u.id,</span><br><span class="line">            u.username,</span><br><span class="line">            u.birthday,</span><br><span class="line">            u.sex,</span><br><span class="line">            u.address,</span><br><span class="line">            account.id,</span><br><span class="line">            account.uid,</span><br><span class="line">            account.money</span><br><span class="line">        from</span><br><span class="line">            user u</span><br><span class="line">        left join account on u.id = account.uid</span><br><span class="line">    <span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">mapper</span>&gt;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 <blockquote>
 <ul>
@@ -529,15 +562,15 @@
 <blockquote>
 <p>分析</p>
 </blockquote>
-<p><img src="/images/Mybatis/my-4-oneToNresultMap.png" alt="oneToNresultMap"></p>
+<p><img src="/images/Mybatis/my-4-oneToNresultMap.png" class="lazyload" data-srcset="/images/Mybatis/my-4-oneToNresultMap.png" srcset="data:image/png;base64,666" alt="oneToNresultMap"></p>
 </li>
 <li><p>测试</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">findAllAccountsTest</span><span class="params">()</span></span>&#123;</span><br><span class="line">       List&lt;User&gt; allAccounts = userDao.findAllAccounts();</span><br><span class="line">       <span class="keyword">for</span> (User allAccount : allAccounts) &#123;</span><br><span class="line">           System.out.println(<span class="string">"------------------------"</span>);</span><br><span class="line">           System.out.println(allAccount);</span><br><span class="line">           System.out.println(allAccount.getAccounts());</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">findAllAccountsTest</span><span class="params">()</span></span>&#123;</span><br><span class="line">       List&lt;User&gt; allAccounts = userDao.findAllAccounts();</span><br><span class="line">       <span class="keyword">for</span> (User allAccount : allAccounts) &#123;</span><br><span class="line">           System.out.println(<span class="string">&quot;------------------------&quot;</span>);</span><br><span class="line">           System.out.println(allAccount);</span><br><span class="line">           System.out.println(allAccount.getAccounts());</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br><span class="line">   </span><br></pre></td></tr></table></figure>
 
 <blockquote>
 <p>运行结果</p>
 </blockquote>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">------------------------</span><br><span class="line">User&#123;id=41, username=<span class="string">'Tobing'</span>, birthday=null, sex=<span class="string">'男'</span>, address=<span class="string">'四川'</span>&#125;</span><br><span class="line">[Account&#123;id=0, uid=41, money=20000.0&#125;]</span><br><span class="line">------------------------</span><br><span class="line">User&#123;id=42, username=<span class="string">'Rongon'</span>, birthday=null, sex=<span class="string">'男'</span>, address=<span class="string">'江苏'</span>&#125;</span><br><span class="line">[Account&#123;id=0, uid=42, money=40000.0&#125;, Account&#123;id=0, uid=42, money=50000.0&#125;]</span><br><span class="line">------------------------</span><br><span class="line">User&#123;id=43, username=<span class="string">'Zenyet'</span>, birthday=null, sex=<span class="string">'男'</span>, address=<span class="string">'广东'</span>&#125;</span><br><span class="line">[Account&#123;id=0, uid=43, money=30000.0&#125;]</span><br><span class="line">------------------------</span><br><span class="line">User&#123;id=44, username=<span class="string">'尼古拉斯'</span>, birthday=null, sex=<span class="string">'男'</span>, address=<span class="string">'英国'</span>&#125;</span><br><span class="line">[Account&#123;id=0, uid=44, money=21000.0&#125;, Account&#123;id=0, uid=44, money=40000.0&#125;]</span><br><span class="line">------------------------</span><br><span class="line">User&#123;id=46, username=<span class="string">'张三丰'</span>, birthday=null, sex=<span class="string">'男'</span>, address=<span class="string">'蜀山'</span>&#125;</span><br><span class="line">[]</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">------------------------</span><br><span class="line">User&#123;id=41, username=<span class="string">&#x27;Tobing&#x27;</span>, birthday=null, sex=<span class="string">&#x27;男&#x27;</span>, address=<span class="string">&#x27;四川&#x27;</span>&#125;</span><br><span class="line">[Account&#123;id=0, uid=41, money=20000.0&#125;]</span><br><span class="line">------------------------</span><br><span class="line">User&#123;id=42, username=<span class="string">&#x27;Rongon&#x27;</span>, birthday=null, sex=<span class="string">&#x27;男&#x27;</span>, address=<span class="string">&#x27;江苏&#x27;</span>&#125;</span><br><span class="line">[Account&#123;id=0, uid=42, money=40000.0&#125;, Account&#123;id=0, uid=42, money=50000.0&#125;]</span><br><span class="line">------------------------</span><br><span class="line">User&#123;id=43, username=<span class="string">&#x27;Zenyet&#x27;</span>, birthday=null, sex=<span class="string">&#x27;男&#x27;</span>, address=<span class="string">&#x27;广东&#x27;</span>&#125;</span><br><span class="line">[Account&#123;id=0, uid=43, money=30000.0&#125;]</span><br><span class="line">------------------------</span><br><span class="line">User&#123;id=44, username=<span class="string">&#x27;尼古拉斯&#x27;</span>, birthday=null, sex=<span class="string">&#x27;男&#x27;</span>, address=<span class="string">&#x27;英国&#x27;</span>&#125;</span><br><span class="line">[Account&#123;id=0, uid=44, money=21000.0&#125;, Account&#123;id=0, uid=44, money=40000.0&#125;]</span><br><span class="line">------------------------</span><br><span class="line">User&#123;id=46, username=<span class="string">&#x27;张三丰&#x27;</span>, birthday=null, sex=<span class="string">&#x27;男&#x27;</span>, address=<span class="string">&#x27;蜀山&#x27;</span>&#125;</span><br><span class="line">[]</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 </li>
 <li><p>总结</p>
 <blockquote>
@@ -546,292 +579,790 @@
 </li>
 </ol>
 
+  
+  
+    
+    <div class='footer'>
+      
+      
+      
+        <div class='copyright'>
+          <blockquote>
+            
+              
+                <p>博客内容遵循 署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</p>
+
+              
+            
+              
+                <p>本文永久链接是：<a href=https://tobing.top/2019/11/23/Mybatis-4-%E5%A4%9A%E8%A1%A8%E6%9F%A5%E8%AF%A21/>https://tobing.top/2019/11/23/Mybatis-4-%E5%A4%9A%E8%A1%A8%E6%9F%A5%E8%AF%A21/</a></p>
+              
+            
+          </blockquote>
+        </div>
+      
       
     </div>
-    
-    
-    
-
+  
+  
     
 
-    
 
-    
-
-    <footer class="post-footer">
+  <div class='article-meta' id="bottom">
+    <div class='new-meta-box'>
       
-        <div class="post-tags">
+        
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2019-11-23T10:37:24+08:00">
+  <a class='notlink'>
+    <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
+    <p>更新于：Nov 23, 2019</p>
+  </a>
+</div>
+
+        
+      
+        
           
-            <a href="/tags/Mybatis/" rel="tag"># Mybatis</a>
+  
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/Mybatis/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>Mybatis</p></a></div>
+
+
+        
+      
+        
           
-        </div>
+  <div class="new-meta-item share -mob-share-list">
+  <div class="-mob-share-list share-body">
+    
       
+        <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://tobing.top/2019/11/23/Mybatis-4-%E5%A4%9A%E8%A1%A8%E6%9F%A5%E8%AF%A21/&title=Mybatis-4-多表查询1 - tobing&summary=Mybatis-4-多表查询1
+ 表之间的关系：多对一、一对多、多对多。
 
-      
-      
-      
+Mybatis中多表查询的步骤
+建表
 
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/2019/11/23/Mybatis-3-动态SQL/" rel="next" title="Mybatis-3-动态SQL">
-                <i class="fa fa-chevron-left"></i> Mybatis-3-动态SQL
-              </a>
-            
-          </div>
+构建对应的实体类
 
-          <span class="post-nav-divider"></span>
+建立对应的配置文件
 
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/11/23/Mybatis-5-多表查询2/" rel="prev" title="Mybatis-5-多表查询2">
-                Mybatis-5-多表查询2 <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
+实现配置：查询A表时可以得到A中包含B表的信息，反之亦然。
 
+
+1. 一对一方式一
+需求：查询使用账户信息，关联查询下单的用户信息。    
+
+
+建表
+123456789101112131415161718192021222324252627282930-- 创建user表DROP TABLE IF EXISTS USER ;-- 如果存在则删除该表CREATE TABLE USER(	id INT PRIMARY KEY AUTO_INCREMENT,	username VARCHAR(32) NOT NULL ,	birthday DATE,	sex CHAR(1) ,	address VARCHAR(256));-- 创建account表DROP TABLE IF EXISTS account;CREATE TABLE account(	id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,	uid INT ,	money DOUBLE,	FOREIGN KEY(uid) REFERENCES USER(id));-- 给user添加数据INSERT INTO USER VALUES	(41,&#x27;Tobing&#x27;,NULL,&#x27;男&#x27;,&#x27;四川&#x27;),	(NULL,&#x27;Rongon&#x27;,NULL,&#x27;男&#x27;,&#x27;江苏&#x27;),	(NULL,&#x27;Zenyet&#x27;,NULL,&#x27;男&#x27;,&#x27;广东&#x27;),	(NULL,&#x27;尼古拉斯&#x27;,NULL,&#x27;男&#x27;,&#x27;英国&#x27;);-- 给account添加数据INSERT INTO account VALUES	(1,41,20000),(2,42,40000),	(3,43,30000),(4,44,21000);		
+
+
+
+构建实体类
+12345678910111213141516171819202122232425262728// account表实体类public class Account implements Serializable &#123;    private int id;    private int uid;    private double money; 	//setter and getter .....        //toString&#125;// User表实体类public class User &#123;    private int id;    private String username;    private Date birthday;    private String sex;    private String address;	//setter and getter .....        //toString&#125;// 一对一多表查询结果的实体类public class AccountUser extends Account implements Serializable &#123;    private int id;    private int uid;    private double money;    private String username;    private String address;    //setter and getter .....        //toString&#125;
+
+建立配置文件
+1234public interface UserDao &#123;    public List&lt;User&gt; findAll();	// 查询所有的用户    public User findById(int id);	// 通过id查询用户&#125;
+
+123456789&lt;mapper namespace=&quot;top.tobing.dao.UserDao&quot;&gt;    &lt;select id=&quot;findAll&quot; resultType=&quot;top.tobing.domain.User&quot;&gt;        SELECT * from user ;    &lt;/select&gt;    &lt;select id=&quot;findById&quot; resultType=&quot;top.tobing.domain.User&quot; parameterType=&quot;java.lang.Integer&quot;&gt;        select * from user where id = #&#123;id&#125;    &lt;/select&gt;
+
+1234public interface AccountDao &#123;	    public List&lt;AccountUser&gt; findAll();// 多表查询用户以及账户信息    &#125;
+
+12345&lt;mapper namespace=&quot;top.tobing.dao.AccountDao&quot;&gt;    &lt;select id=&quot;findAll&quot; resultType=&quot;top.tobing.domain.AccountUser&quot;&gt;         SELECT account.*,user.username,user.address FROM account,USER WHERE account.uid = user.id;    &lt;/select&gt;&lt;/mapper&gt;
+
+执行操作
+1234567891011 	// 申请资源// 释放资源@Test   public void findAllTest() throws IOException &#123;       //5.执行查询语句       List&lt;AccountUser&gt; accountUsers = accountDao.findAll();       //6.遍历输出       for(AccountUser au:accountUsers)&#123;           System.out.println(au);       &#125;   &#125;
+
+
+关键：写出多表查询的SQL语句，根据sql语句编写配置文件。
+
+
+
+2. 方式二一对一
+
+建表
+构建实体类
+编写Dao接口
+编写接口对应的配置文件
+使用Test查询
+
+
+
+构建实体类
+12345678910111213141516public class User &#123;    private int id;    private String username;    private Date birthday;    private String sex;    private String address;    ...&#125;public class Account implements Serializable &#123;    private int id;    private int uid;    private double money;    private User user;	// 使用内置User对象的方式存放User数据    ...&#125;
+
+编写AccountDao接口
+123// 将多表查询到的数据直接封装到Account中public List&lt;Account&gt; findAllAccount();
+
+编写接口对应的配置文件:AccountDao.xml
+123456789101112131415161718192021222324252627&lt;mapper namespace=&quot;top.tobing.dao.AccountDao&quot;&gt;    &lt;!--Account内建User存储数据--&gt;    &lt;!--建立对应关系--&gt;    &lt;resultMap id=&quot;account&quot; type=&quot;top.tobing.domain.Account&quot;&gt;        &lt;!--对应着Account表中的id，uid，money基本类型属性--&gt;        &lt;id column=&quot;aid&quot; property=&quot;id&quot;/&gt;        &lt;result column=&quot;uid&quot; property=&quot;uid&quot;/&gt;        &lt;result column=&quot;money&quot; property=&quot;money&quot;/&gt;        &lt;!--联系着表的实体类属性--&gt;        &lt;association property=&quot;user&quot; javaType=&quot;top.tobing.domain.User&quot;&gt;            &lt;id column=&quot;id&quot; property=&quot;id&quot;/&gt;            &lt;result column=&quot;username&quot; property=&quot;username&quot;/&gt;            &lt;result column=&quot;sex&quot; property=&quot;sex&quot;/&gt;            &lt;result column=&quot;birthday&quot; property=&quot;birthday&quot;/&gt;            &lt;result column=&quot;address&quot; property=&quot;address&quot;/&gt;        &lt;/association&gt;    &lt;/resultMap&gt;    &lt;select id=&quot;findAllAccount&quot; resultMap=&quot;account&quot;&gt;        select            u.*,a.id as aid,a.uid,a.money        from            account a,user u        where            a.uid = u.id;    &lt;/select&gt;&lt;/mapper&gt;
+
+
+resultMap 标签可以建立查询的列名和实体类的属性名称不一致时建立对应关系。从而实现封装。
+
+
+说明
+
+
+
+使用Test查询测试
+12345678910@Testpublic void findAllAccountTest()&#123;    List&lt;Account&gt; list = accountDao.findAllAccount();    for (Account account : list) &#123;        System.out.println(&quot;------------------------------&quot;);        System.out.println(account.getUser());        System.out.println(account);    &#125;&#125;   
+
+运行结果
+12345678910111213------------------------------User&#123;id=41, username=&#x27;Tobing&#x27;, birthday=null, sex=&#x27;男&#x27;, address=&#x27;四川&#x27;&#125;Account&#123;id=1, uid=41, money=20000.0&#125;------------------------------User&#123;id=42, username=&#x27;Rongon&#x27;, birthday=null, sex=&#x27;男&#x27;, address=&#x27;江苏&#x27;&#125;Account&#123;id=2, uid=42, money=40000.0&#125;------------------------------User&#123;id=43, username=&#x27;Zenyet&#x27;, birthday=null, sex=&#x27;男&#x27;, address=&#x27;广东&#x27;&#125;Account&#123;id=3, uid=43, money=30000.0&#125;------------------------------User&#123;id=44, username=&#x27;尼古拉斯&#x27;, birthday=null, sex=&#x27;男&#x27;, address=&#x27;英国&#x27;&#125;Account&#123;id=4, uid=44, money=21000.0&#125;
+
+
+"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qq.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qq.png" srcset="data:image/png;base64,666">
+          
+        </a>
       
+    
       
-    </footer>
+        <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://tobing.top/2019/11/23/Mybatis-4-%E5%A4%9A%E8%A1%A8%E6%9F%A5%E8%AF%A21/&title=Mybatis-4-多表查询1 - tobing&summary=Mybatis-4-多表查询1
+ 表之间的关系：多对一、一对多、多对多。
+
+Mybatis中多表查询的步骤
+建表
+
+构建对应的实体类
+
+建立对应的配置文件
+
+实现配置：查询A表时可以得到A中包含B表的信息，反之亦然。
+
+
+1. 一对一方式一
+需求：查询使用账户信息，关联查询下单的用户信息。    
+
+
+建表
+123456789101112131415161718192021222324252627282930-- 创建user表DROP TABLE IF EXISTS USER ;-- 如果存在则删除该表CREATE TABLE USER(	id INT PRIMARY KEY AUTO_INCREMENT,	username VARCHAR(32) NOT NULL ,	birthday DATE,	sex CHAR(1) ,	address VARCHAR(256));-- 创建account表DROP TABLE IF EXISTS account;CREATE TABLE account(	id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,	uid INT ,	money DOUBLE,	FOREIGN KEY(uid) REFERENCES USER(id));-- 给user添加数据INSERT INTO USER VALUES	(41,&#x27;Tobing&#x27;,NULL,&#x27;男&#x27;,&#x27;四川&#x27;),	(NULL,&#x27;Rongon&#x27;,NULL,&#x27;男&#x27;,&#x27;江苏&#x27;),	(NULL,&#x27;Zenyet&#x27;,NULL,&#x27;男&#x27;,&#x27;广东&#x27;),	(NULL,&#x27;尼古拉斯&#x27;,NULL,&#x27;男&#x27;,&#x27;英国&#x27;);-- 给account添加数据INSERT INTO account VALUES	(1,41,20000),(2,42,40000),	(3,43,30000),(4,44,21000);		
+
+
+
+构建实体类
+12345678910111213141516171819202122232425262728// account表实体类public class Account implements Serializable &#123;    private int id;    private int uid;    private double money; 	//setter and getter .....        //toString&#125;// User表实体类public class User &#123;    private int id;    private String username;    private Date birthday;    private String sex;    private String address;	//setter and getter .....        //toString&#125;// 一对一多表查询结果的实体类public class AccountUser extends Account implements Serializable &#123;    private int id;    private int uid;    private double money;    private String username;    private String address;    //setter and getter .....        //toString&#125;
+
+建立配置文件
+1234public interface UserDao &#123;    public List&lt;User&gt; findAll();	// 查询所有的用户    public User findById(int id);	// 通过id查询用户&#125;
+
+123456789&lt;mapper namespace=&quot;top.tobing.dao.UserDao&quot;&gt;    &lt;select id=&quot;findAll&quot; resultType=&quot;top.tobing.domain.User&quot;&gt;        SELECT * from user ;    &lt;/select&gt;    &lt;select id=&quot;findById&quot; resultType=&quot;top.tobing.domain.User&quot; parameterType=&quot;java.lang.Integer&quot;&gt;        select * from user where id = #&#123;id&#125;    &lt;/select&gt;
+
+1234public interface AccountDao &#123;	    public List&lt;AccountUser&gt; findAll();// 多表查询用户以及账户信息    &#125;
+
+12345&lt;mapper namespace=&quot;top.tobing.dao.AccountDao&quot;&gt;    &lt;select id=&quot;findAll&quot; resultType=&quot;top.tobing.domain.AccountUser&quot;&gt;         SELECT account.*,user.username,user.address FROM account,USER WHERE account.uid = user.id;    &lt;/select&gt;&lt;/mapper&gt;
+
+执行操作
+1234567891011 	// 申请资源// 释放资源@Test   public void findAllTest() throws IOException &#123;       //5.执行查询语句       List&lt;AccountUser&gt; accountUsers = accountDao.findAll();       //6.遍历输出       for(AccountUser au:accountUsers)&#123;           System.out.println(au);       &#125;   &#125;
+
+
+关键：写出多表查询的SQL语句，根据sql语句编写配置文件。
+
+
+
+2. 方式二一对一
+
+建表
+构建实体类
+编写Dao接口
+编写接口对应的配置文件
+使用Test查询
+
+
+
+构建实体类
+12345678910111213141516public class User &#123;    private int id;    private String username;    private Date birthday;    private String sex;    private String address;    ...&#125;public class Account implements Serializable &#123;    private int id;    private int uid;    private double money;    private User user;	// 使用内置User对象的方式存放User数据    ...&#125;
+
+编写AccountDao接口
+123// 将多表查询到的数据直接封装到Account中public List&lt;Account&gt; findAllAccount();
+
+编写接口对应的配置文件:AccountDao.xml
+123456789101112131415161718192021222324252627&lt;mapper namespace=&quot;top.tobing.dao.AccountDao&quot;&gt;    &lt;!--Account内建User存储数据--&gt;    &lt;!--建立对应关系--&gt;    &lt;resultMap id=&quot;account&quot; type=&quot;top.tobing.domain.Account&quot;&gt;        &lt;!--对应着Account表中的id，uid，money基本类型属性--&gt;        &lt;id column=&quot;aid&quot; property=&quot;id&quot;/&gt;        &lt;result column=&quot;uid&quot; property=&quot;uid&quot;/&gt;        &lt;result column=&quot;money&quot; property=&quot;money&quot;/&gt;        &lt;!--联系着表的实体类属性--&gt;        &lt;association property=&quot;user&quot; javaType=&quot;top.tobing.domain.User&quot;&gt;            &lt;id column=&quot;id&quot; property=&quot;id&quot;/&gt;            &lt;result column=&quot;username&quot; property=&quot;username&quot;/&gt;            &lt;result column=&quot;sex&quot; property=&quot;sex&quot;/&gt;            &lt;result column=&quot;birthday&quot; property=&quot;birthday&quot;/&gt;            &lt;result column=&quot;address&quot; property=&quot;address&quot;/&gt;        &lt;/association&gt;    &lt;/resultMap&gt;    &lt;select id=&quot;findAllAccount&quot; resultMap=&quot;account&quot;&gt;        select            u.*,a.id as aid,a.uid,a.money        from            account a,user u        where            a.uid = u.id;    &lt;/select&gt;&lt;/mapper&gt;
+
+
+resultMap 标签可以建立查询的列名和实体类的属性名称不一致时建立对应关系。从而实现封装。
+
+
+说明
+
+
+
+使用Test查询测试
+12345678910@Testpublic void findAllAccountTest()&#123;    List&lt;Account&gt; list = accountDao.findAllAccount();    for (Account account : list) &#123;        System.out.println(&quot;------------------------------&quot;);        System.out.println(account.getUser());        System.out.println(account);    &#125;&#125;   
+
+运行结果
+12345678910111213------------------------------User&#123;id=41, username=&#x27;Tobing&#x27;, birthday=null, sex=&#x27;男&#x27;, address=&#x27;四川&#x27;&#125;Account&#123;id=1, uid=41, money=20000.0&#125;------------------------------User&#123;id=42, username=&#x27;Rongon&#x27;, birthday=null, sex=&#x27;男&#x27;, address=&#x27;江苏&#x27;&#125;Account&#123;id=2, uid=42, money=40000.0&#125;------------------------------User&#123;id=43, username=&#x27;Zenyet&#x27;, birthday=null, sex=&#x27;男&#x27;, address=&#x27;广东&#x27;&#125;Account&#123;id=3, uid=43, money=30000.0&#125;------------------------------User&#123;id=44, username=&#x27;尼古拉斯&#x27;, birthday=null, sex=&#x27;男&#x27;, address=&#x27;英国&#x27;&#125;Account&#123;id=4, uid=44, money=21000.0&#125;
+
+
+"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qzone.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qzone.png" srcset="data:image/png;base64,666">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="http://service.weibo.com/share/share.php?url=https://tobing.top/2019/11/23/Mybatis-4-%E5%A4%9A%E8%A1%A8%E6%9F%A5%E8%AF%A21/&title=Mybatis-4-多表查询1 - tobing&summary=Mybatis-4-多表查询1
+ 表之间的关系：多对一、一对多、多对多。
+
+Mybatis中多表查询的步骤
+建表
+
+构建对应的实体类
+
+建立对应的配置文件
+
+实现配置：查询A表时可以得到A中包含B表的信息，反之亦然。
+
+
+1. 一对一方式一
+需求：查询使用账户信息，关联查询下单的用户信息。    
+
+
+建表
+123456789101112131415161718192021222324252627282930-- 创建user表DROP TABLE IF EXISTS USER ;-- 如果存在则删除该表CREATE TABLE USER(	id INT PRIMARY KEY AUTO_INCREMENT,	username VARCHAR(32) NOT NULL ,	birthday DATE,	sex CHAR(1) ,	address VARCHAR(256));-- 创建account表DROP TABLE IF EXISTS account;CREATE TABLE account(	id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,	uid INT ,	money DOUBLE,	FOREIGN KEY(uid) REFERENCES USER(id));-- 给user添加数据INSERT INTO USER VALUES	(41,&#x27;Tobing&#x27;,NULL,&#x27;男&#x27;,&#x27;四川&#x27;),	(NULL,&#x27;Rongon&#x27;,NULL,&#x27;男&#x27;,&#x27;江苏&#x27;),	(NULL,&#x27;Zenyet&#x27;,NULL,&#x27;男&#x27;,&#x27;广东&#x27;),	(NULL,&#x27;尼古拉斯&#x27;,NULL,&#x27;男&#x27;,&#x27;英国&#x27;);-- 给account添加数据INSERT INTO account VALUES	(1,41,20000),(2,42,40000),	(3,43,30000),(4,44,21000);		
+
+
+
+构建实体类
+12345678910111213141516171819202122232425262728// account表实体类public class Account implements Serializable &#123;    private int id;    private int uid;    private double money; 	//setter and getter .....        //toString&#125;// User表实体类public class User &#123;    private int id;    private String username;    private Date birthday;    private String sex;    private String address;	//setter and getter .....        //toString&#125;// 一对一多表查询结果的实体类public class AccountUser extends Account implements Serializable &#123;    private int id;    private int uid;    private double money;    private String username;    private String address;    //setter and getter .....        //toString&#125;
+
+建立配置文件
+1234public interface UserDao &#123;    public List&lt;User&gt; findAll();	// 查询所有的用户    public User findById(int id);	// 通过id查询用户&#125;
+
+123456789&lt;mapper namespace=&quot;top.tobing.dao.UserDao&quot;&gt;    &lt;select id=&quot;findAll&quot; resultType=&quot;top.tobing.domain.User&quot;&gt;        SELECT * from user ;    &lt;/select&gt;    &lt;select id=&quot;findById&quot; resultType=&quot;top.tobing.domain.User&quot; parameterType=&quot;java.lang.Integer&quot;&gt;        select * from user where id = #&#123;id&#125;    &lt;/select&gt;
+
+1234public interface AccountDao &#123;	    public List&lt;AccountUser&gt; findAll();// 多表查询用户以及账户信息    &#125;
+
+12345&lt;mapper namespace=&quot;top.tobing.dao.AccountDao&quot;&gt;    &lt;select id=&quot;findAll&quot; resultType=&quot;top.tobing.domain.AccountUser&quot;&gt;         SELECT account.*,user.username,user.address FROM account,USER WHERE account.uid = user.id;    &lt;/select&gt;&lt;/mapper&gt;
+
+执行操作
+1234567891011 	// 申请资源// 释放资源@Test   public void findAllTest() throws IOException &#123;       //5.执行查询语句       List&lt;AccountUser&gt; accountUsers = accountDao.findAll();       //6.遍历输出       for(AccountUser au:accountUsers)&#123;           System.out.println(au);       &#125;   &#125;
+
+
+关键：写出多表查询的SQL语句，根据sql语句编写配置文件。
+
+
+
+2. 方式二一对一
+
+建表
+构建实体类
+编写Dao接口
+编写接口对应的配置文件
+使用Test查询
+
+
+
+构建实体类
+12345678910111213141516public class User &#123;    private int id;    private String username;    private Date birthday;    private String sex;    private String address;    ...&#125;public class Account implements Serializable &#123;    private int id;    private int uid;    private double money;    private User user;	// 使用内置User对象的方式存放User数据    ...&#125;
+
+编写AccountDao接口
+123// 将多表查询到的数据直接封装到Account中public List&lt;Account&gt; findAllAccount();
+
+编写接口对应的配置文件:AccountDao.xml
+123456789101112131415161718192021222324252627&lt;mapper namespace=&quot;top.tobing.dao.AccountDao&quot;&gt;    &lt;!--Account内建User存储数据--&gt;    &lt;!--建立对应关系--&gt;    &lt;resultMap id=&quot;account&quot; type=&quot;top.tobing.domain.Account&quot;&gt;        &lt;!--对应着Account表中的id，uid，money基本类型属性--&gt;        &lt;id column=&quot;aid&quot; property=&quot;id&quot;/&gt;        &lt;result column=&quot;uid&quot; property=&quot;uid&quot;/&gt;        &lt;result column=&quot;money&quot; property=&quot;money&quot;/&gt;        &lt;!--联系着表的实体类属性--&gt;        &lt;association property=&quot;user&quot; javaType=&quot;top.tobing.domain.User&quot;&gt;            &lt;id column=&quot;id&quot; property=&quot;id&quot;/&gt;            &lt;result column=&quot;username&quot; property=&quot;username&quot;/&gt;            &lt;result column=&quot;sex&quot; property=&quot;sex&quot;/&gt;            &lt;result column=&quot;birthday&quot; property=&quot;birthday&quot;/&gt;            &lt;result column=&quot;address&quot; property=&quot;address&quot;/&gt;        &lt;/association&gt;    &lt;/resultMap&gt;    &lt;select id=&quot;findAllAccount&quot; resultMap=&quot;account&quot;&gt;        select            u.*,a.id as aid,a.uid,a.money        from            account a,user u        where            a.uid = u.id;    &lt;/select&gt;&lt;/mapper&gt;
+
+
+resultMap 标签可以建立查询的列名和实体类的属性名称不一致时建立对应关系。从而实现封装。
+
+
+说明
+
+
+
+使用Test查询测试
+12345678910@Testpublic void findAllAccountTest()&#123;    List&lt;Account&gt; list = accountDao.findAllAccount();    for (Account account : list) &#123;        System.out.println(&quot;------------------------------&quot;);        System.out.println(account.getUser());        System.out.println(account);    &#125;&#125;   
+
+运行结果
+12345678910111213------------------------------User&#123;id=41, username=&#x27;Tobing&#x27;, birthday=null, sex=&#x27;男&#x27;, address=&#x27;四川&#x27;&#125;Account&#123;id=1, uid=41, money=20000.0&#125;------------------------------User&#123;id=42, username=&#x27;Rongon&#x27;, birthday=null, sex=&#x27;男&#x27;, address=&#x27;江苏&#x27;&#125;Account&#123;id=2, uid=42, money=40000.0&#125;------------------------------User&#123;id=43, username=&#x27;Zenyet&#x27;, birthday=null, sex=&#x27;男&#x27;, address=&#x27;广东&#x27;&#125;Account&#123;id=3, uid=43, money=30000.0&#125;------------------------------User&#123;id=44, username=&#x27;尼古拉斯&#x27;, birthday=null, sex=&#x27;男&#x27;, address=&#x27;英国&#x27;&#125;Account&#123;id=4, uid=44, money=21000.0&#125;
+
+
+"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/weibo.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/weibo.png" srcset="data:image/png;base64,666">
+          
+        </a>
+      
+    
+      
+    
+      
+    
   </div>
+</div>
+
+
+
+        
+      
+    </div>
+  </div>
+
+
   
   
+
   
+    <div class="prev-next">
+      
+        <a class='prev' href='/2019/11/23/Mybatis-5-%E5%A4%9A%E8%A1%A8%E6%9F%A5%E8%AF%A22/'>
+          <p class='title'><i class="fas fa-chevron-left" aria-hidden="true"></i>Mybatis-5-多表查询2</p>
+          <p class='content'>Mybatis-5-多表查询21. 多对多1. 开发步骤
+
+建表
+创建Maven工程
+添加坐标文件
+编写SqlMapConfig文件
+创建实体类
+创建实体类对应的Dao
+创建Dao对应的配置文件...</p>
+        </a>
+      
+      
+        <a class='next' href='/2019/11/23/Mybatis-3-%E5%8A%A8%E6%80%81SQL/'>
+          <p class='title'>Mybatis-3-动态SQL<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
+          <p class='content'>Mybatis-3-动态SQLif标签
+当我们传入的条件是多个，且不同条件查询语句不同的时候常常使用if
+
+12345678910&lt;select id=&quot;findByUser&q...</p>
+        </a>
+      
+    </div>
+  
+</article>
+
+
+  
+
+  <article class="post white-box reveal shadow" id="comments">
+    <p ct><i class='fas fa-comments'></i> 评论</p>
+    
+    <div id="valine_container" class="valine_thread">
+  <i class="fas fa-cog fa-spin fa-fw fa-2x"></i>
+</div>
+
   </article>
 
 
 
-    <div class="post-spread">
-      
-    </div>
-  </div>
-
-
-          </div>
-          
-
-
-          
-
-  
-    <div class="comments" id="comments">
-      <div id="disqus_thread">
-        <noscript>
-          Please enable JavaScript to view the
-          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
-        </noscript>
-      </div>
-    </div>
-
-  
 
 
 
-        </div>
-        
-          
-  
-  <div class="sidebar-toggle">
-    <div class="sidebar-toggle-line-wrap">
-      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
-    </div>
-  </div>
-
-  <aside id="sidebar" class="sidebar">
-    
-    <div class="sidebar-inner">
-
-      
-
-      
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            站点概览
-          </li>
-        </ul>
-      
-
-      <section class="site-overview-wrap sidebar-panel">
-        <div class="site-overview">
-          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-            
-              <p class="site-author-name" itemprop="name">tobing</p>
-              <p class="site-description motion-element" itemprop="description">Just so so :)</p>
-          </div>
-
-          <nav class="site-state motion-element">
-
-            
-              <div class="site-state-item site-state-posts">
-              
-                <a href="/archives/">
-              
-                  <span class="site-state-item-count">53</span>
-                  <span class="site-state-item-name">日志</span>
-                </a>
-              </div>
-            
-
-            
-              
-              
-              <div class="site-state-item site-state-categories">
-                <a href="/categories/index.html">
-                  <span class="site-state-item-count">12</span>
-                  <span class="site-state-item-name">分类</span>
-                </a>
-              </div>
-            
-
-            
-              
-              
-              <div class="site-state-item site-state-tags">
-                <a href="/tags/index.html">
-                  <span class="site-state-item-count">45</span>
-                  <span class="site-state-item-name">标签</span>
-                </a>
-              </div>
-            
-
-          </nav>
-
-          
-
-          
-            <div class="links-of-author motion-element">
-                
-                  <span class="links-of-author-item">
-                    <a href="https://github.com/Tobingindex" target="_blank" title="GitHub">
-                      
-                        <i class="fa fa-fw fa-github"></i>GitHub</a>
-                  </span>
-                
-            </div>
-          
-
-          
-          
-
-          
-          
-            <div class="links-of-blogroll motion-element links-of-blogroll-block">
-              <div class="links-of-blogroll-title">
-                <i class="fa  fa-fw fa-link"></i>
-                友情链接
-              </div>
-              <ul class="links-of-blogroll-list">
-                
-                  <li class="links-of-blogroll-item">
-                    <a href="https://mirrorsquare.com/" title="Zenyet" target="_blank">Zenyet</a>
-                  </li>
-                
-                  <li class="links-of-blogroll-item">
-                    <a href="http://changtong1819.top/" title="于无声处听惊雷" target="_blank">于无声处听惊雷</a>
-                  </li>
-                
-                  <li class="links-of-blogroll-item">
-                    <a href="http://vvvyyt.club/" title="秃鹫网友" target="_blank">秃鹫网友</a>
-                  </li>
-                
-              </ul>
-            </div>
-          
-
-          
-
-        </div>
-      </section>
-
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Mybatis-4-多表查询1"><span class="nav-number">1.</span> <span class="nav-text">Mybatis-4-多表查询1</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Mybatis中多表查询的步骤"><span class="nav-number">1.1.</span> <span class="nav-text">Mybatis中多表查询的步骤</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-一对一方式一"><span class="nav-number">1.2.</span> <span class="nav-text">1. 一对一方式一</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-方式二一对一"><span class="nav-number">1.3.</span> <span class="nav-text">2. 方式二一对一</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-一对多"><span class="nav-number">1.4.</span> <span class="nav-text">3. 一对多</span></a></li></ol></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
-      
-
-      
-
-    </div>
-  </aside>
-
-
-        
-      </div>
-    </main>
-
-    <footer id="footer" class="footer">
-      <div class="footer-inner">
-        <div class="copyright">&copy; 2019 &mdash; <span itemprop="copyrightYear">2020</span>
-  <span class="with-love">
-    <i class="fa fa-user"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">tobing</span>
-
-  
 </div>
+<aside class='l_side'>
+  
+  
+    
+    
 
 
- 
+
+  <section class="widget toc-wrapper shadow desktop mobile" id="toc-div" >
+    
+  <header>
+    
+      <i class="fas fa-list fa-fw" aria-hidden="true"></i><span class='name'>本文目录</span>
+    
+  </header>
 
 
-
-
+    <div class='content'>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Mybatis%E4%B8%AD%E5%A4%9A%E8%A1%A8%E6%9F%A5%E8%AF%A2%E7%9A%84%E6%AD%A5%E9%AA%A4"><span class="toc-text">Mybatis中多表查询的步骤</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E4%B8%80%E5%AF%B9%E4%B8%80%E6%96%B9%E5%BC%8F%E4%B8%80"><span class="toc-text">1. 一对一方式一</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E6%96%B9%E5%BC%8F%E4%BA%8C%E4%B8%80%E5%AF%B9%E4%B8%80"><span class="toc-text">2. 方式二一对一</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E4%B8%80%E5%AF%B9%E5%A4%9A"><span class="toc-text">3. 一对多</span></a></li></ol>
+    </div>
+  </section>
 
 
   
 
 
+</aside>
+
 
 
         
+        
+          <!--此文件用来存放一些不方便取值的变量-->
+<!--思路大概是将值藏到重加载的区域内-->
 
+<script>
+  window.pdata={}
+  pdata.ispage=true;
+  pdata.postTitle="Mybatis-4-多表查询1";
+  pdata.commentPath="";
+  pdata.commentPlaceholder="";
 
-
-
-
-
+  var l_header=document.getElementById("l_header");
+  
+  l_header.classList.add("show");
+  
+</script>
 
         
       </div>
-    </footer>
-
+      
+  
+  <footer class="footer clearfix">
+    <br><br>
     
-      <div class="back-to-top">
-        <i class="fa fa-arrow-up"></i>
+      
+        <div class="aplayer-container">
+          
+
+
+        </div>
+      
+    
+      
         
-      </div>
+          <div><p>时不待我，舍我其谁</p>
+</div>
+        
+      
     
-
+      
+        
+          <div><br></div>
+        
+      
     
+      
+        
+          <div><p><span id="lc-sv">本站总访问量为 <span id='number'><i class="fas fa-circle-notch fa-spin fa-fw" aria-hidden="true"></i></span> 次</span> <span id="lc-uv">访客数为 <span id='number'><i class="fas fa-circle-notch fa-spin fa-fw" aria-hidden="true"></i></span> 人</span></p>
+</div>
+        
+      
+    
+      
+        <div class='copyright'>
+        <p><a target="_blank" rel="noopener" href="https://gitee.com/tobing">Copyright © 2017-2020 Tobing</a></p>
 
+        </div>
+      
+    
+  </footer>
+
+
+      <a id="s-top" class="fas fa-arrow-up fa-fw" href='javascript:void(0)'></a>
+    </div>
   </div>
+  <div>
+    <script>
+window.volantis={};
+window.volantis.loadcss=document.getElementById("loadcss");
+/********************脚本懒加载函数********************************/
+function loadScript(src, cb) {
+var HEAD = document.getElementsByTagName('head')[0] || document.documentElement;
+var script = document.createElement('script');
+script.setAttribute('type','text/javascript');
+if (cb) script.onload = cb;
+script.setAttribute('src', src);
+HEAD.appendChild(script);
+}
+//https://github.com/filamentgroup/loadCSS
+var loadCSS = function( href, before, media, attributes ){
+	var doc = window.document;
+	var ss = doc.createElement( "link" );
+	var ref;
+	if( before ){
+		ref = before;
+	}
+	else {
+		var refs = ( doc.body || doc.getElementsByTagName( "head" )[ 0 ] ).childNodes;
+		ref = refs[ refs.length - 1];
+	}
+	var sheets = doc.styleSheets;
+	if( attributes ){
+		for( var attributeName in attributes ){
+			if( attributes.hasOwnProperty( attributeName ) ){
+				ss.setAttribute( attributeName, attributes[attributeName] );
+			}
+		}
+	}
+	ss.rel = "stylesheet";
+	ss.href = href;
+	ss.media = "only x";
+	function ready( cb ){
+		if( doc.body ){
+			return cb();
+		}
+		setTimeout(function(){
+			ready( cb );
+		});
+	}
+	ready( function(){
+		ref.parentNode.insertBefore( ss, ( before ? ref : ref.nextSibling ) );
+	});
+	var onloadcssdefined = function( cb ){
+		var resolvedHref = ss.href;
+		var i = sheets.length;
+		while( i-- ){
+			if( sheets[ i ].href === resolvedHref ){
+				return cb();
+			}
+		}
+		setTimeout(function() {
+			onloadcssdefined( cb );
+		});
+	};
+	function loadCB(){
+		if( ss.addEventListener ){
+			ss.removeEventListener( "load", loadCB );
+		}
+		ss.media = media || "all";
+	}
+	if( ss.addEventListener ){
+		ss.addEventListener( "load", loadCB);
+	}
+	ss.onloadcssdefined = onloadcssdefined;
+	onloadcssdefined( loadCB );
+	return ss;
+};
+</script>
+<script>
+  
+  loadCSS("https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.14/css/all.min.css", window.volantis.loadcss);
+  
+  
+  
+  
+</script>
+<!-- required -->
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5/dist/jquery.min.js"></script>
+
+<script>
+  function pjax_fancybox() {
+    $(".md .gallery").find("img").each(function () { //渲染 fancybox
+      var element = document.createElement("a"); // a 标签
+      $(element).attr("class", "fancybox");
+      $(element).attr("pjax-fancybox", "");  // 过滤 pjax
+      $(element).attr("href", $(this).attr("src"));
+      if ($(this).attr("data-original")) {
+        $(element).attr("href", $(this).attr("data-original"));
+      }
+      $(element).attr("data-fancybox", "images");
+      var caption = "";   // 描述信息
+      if ($(this).attr('alt')) {  // 判断当前页面是否存在描述信息
+        $(element).attr('data-caption', $(this).attr('alt'));
+        caption = $(this).attr('alt');
+      }
+      var div = document.createElement("div");
+      $(div).addClass("fancybox");
+      $(this).wrap(div); // 最外层套 div ，其实主要作用还是 class 样式
+      var span = document.createElement("span");
+      $(span).addClass("image-caption");
+      $(span).text(caption); // 加描述
+      $(this).after(span);  // 再套一层描述
+      $(this).wrap(element);  // 最后套 a 标签
+    })
+    $(".md .gallery").find("img").fancybox({
+      selector: '[data-fancybox="images"]',
+      hash: false,
+      loop: false,
+      closeClick: true,
+      helpers: {
+        overlay: {closeClick: true}
+      },
+      buttons: [
+        "zoom",
+        "close"
+      ]
+    });
+  };
+  function SCload_fancybox() {
+    if ($(".md .gallery").find("img").length == 0) return;
+    loadCSS("https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css", document.getElementById("loadcss"));
+    setTimeout(function() {
+      loadScript('https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js', pjax_fancybox)
+    }, 1);
+  };
+  $(function () {
+    SCload_fancybox();
+  });
+</script>
+
+
+<!-- internal -->
+
+
+
+
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.1.0/dist/lazyload.min.js"></script>
+<script>
+  // https://www.npmjs.com/package/vanilla-lazyload
+  // Set the options globally
+  // to make LazyLoad self-initialize
+  window.lazyLoadOptions = {
+    elements_selector: ".lazyload",
+    threshold: 0
+  };
+  // Listen to the initialization event
+  // and get the instance of LazyLoad
+  window.addEventListener(
+    "LazyLoad::Initialized",
+    function (event) {
+      window.lazyLoadInstance = event.detail.instance;
+    },
+    false
+  );
+  document.addEventListener('DOMContentLoaded', function () {
+    lazyLoadInstance.update();
+  });
+  document.addEventListener('pjax:complete', function () {
+    lazyLoadInstance.update();
+  });
+</script>
+
+
+
 
   
+  
+    <script>
+      window.FPConfig = {
+        delay: 0,
+        ignoreKeywords: [],
+        maxRPS: 5,
+        hoverDelay: 25
+      };
+    </script>
+    <script defer src="https://cdn.jsdelivr.net/gh/gijo-varghese/flying-pages@2.1.2/flying-pages.min.js"></script>
+  
 
-<script type="text/javascript">
-  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
-    window.Promise = null;
+
+
+
+
+
+
+
+
+
+  
+  
+<script src="/js/valine.js"></script>
+
+
+<script>
+  var GUEST_INFO = ['nick', 'mail', 'link'];
+  var meta = 'nick,mail,link'.split(',').filter(function (item) {
+    return GUEST_INFO.indexOf(item) > -1
+  });
+  var REQUIRED_FIELDS = ['nick', 'mail', 'link'];
+  var requiredFields = 'nick,mail'.split(',').filter(function (item) {
+    return REQUIRED_FIELDS.indexOf(item) > -1
+  });
+
+  function emoji(path, idx, ext) {
+    return path + "/" + path + "-" + idx + "." + ext;
   }
+
+  var emojiMaps = {};
+  for (var i = 1; i <= 54; i++) {
+    emojiMaps['tieba-' + i] = emoji('tieba', i, 'png');
+  }
+  for (var i = 1; i <= 101; i++) {
+    emojiMaps['qq-' + i] = emoji('qq', i, 'gif');
+  }
+  for (var i = 1; i <= 116; i++) {
+    emojiMaps['aru-' + i] = emoji('aru', i, 'gif');
+  }
+  for (var i = 1; i <= 125; i++) {
+    emojiMaps['twemoji-' + i] = emoji('twemoji', i, 'png');
+  }
+  for (var i = 1; i <= 4; i++) {
+    emojiMaps['weibo-' + i] = emoji('weibo', i, 'png');
+  }
+
+  function pjax_valine() {
+    if(!document.querySelectorAll("#valine_container")[0])return;
+
+    let pagePlaceholder = pdata.commentPlaceholder || "快来评论吧:)~";
+
+    let path = pdata.commentPath;
+    if (path.length == 0) {
+      let defaultPath = '';
+      path = defaultPath || decodeURI(window.location.pathname);
+    }
+
+    var valine = new Valine();
+    valine.init({
+      el: '#valine_container',
+      meta: meta,
+      placeholder: pagePlaceholder,
+      path: path,
+      appId: "Vy5O9liYY1EruxX5WAaSWiFU-gzGzoHsz",
+      appKey: "LkbvdUheh7noXFlcQzKXf4hV",
+      pageSize: '10',
+      avatar: 'robohash',
+      lang: 'zh-cn',
+      visitor: 'true',
+      highlight: 'true',
+      mathJax: 'false',
+      enableQQ: 'true',
+      recordIP: 'false',
+      requiredFields: requiredFields,
+      emojiCDN: 'https://cdn.jsdelivr.net/gh/volantis-x/cdn-emoji/valine/',
+      emojiMaps: emojiMaps
+    })
+  }
+
+  $(function () {
+    pjax_valine();
+  });
+</script>
+
+
+
+
+
+  
+<script src="/js/app.js"></script>
+
+
+
+<!-- optional -->
+
+  <script>
+const SearchServiceimagePath="https://cdn.jsdelivr.net/gh/volantis-x/cdn-volantis@master/img/";
+const ROOT =  ("/" || "/").endsWith('/') ? ("/" || "/") : ("//" || "/" );
+
+$('.input.u-search-input').one('focus',function(){
+	
+		loadScript('https://cdn.jsdelivr.net/gh/volantis-x/cdn-volantis@2.6.4/js/search.js',setSearchService);
+	
+})
+
+function listenSearch(){
+  
+    customSearch = new HexoSearch({
+      imagePath: SearchServiceimagePath
+    });
+  
+}
+function setSearchService() {
+	listenSearch();
+	
+		document.addEventListener("pjax:success", listenSearch);
+	
+}
 </script>
 
 
@@ -842,273 +1373,415 @@
 
 
 
-  
 
 
-
-
-
-
-
-
-
-
-
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
-  
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
-
-
-
-  
-  
-
-  
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
-
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
-
-
-
-  
-
-
-  
-
-    
-      <script id="dsq-count-scr" src="https://tobing.disqus.com/count.js" async></script>
-    
-
-    
-      <script type="text/javascript">
-        var disqus_config = function () {
-          this.page.url = 'https://tobing.top/2019/11/23/Mybatis-4-多表查询1/';
-          this.page.identifier = '2019/11/23/Mybatis-4-多表查询1/';
-          this.page.title = 'Mybatis-4-多表查询1';
-        };
-        var d = document, s = d.createElement('script');
-        s.src = 'https://tobing.disqus.com/embed.js';
-        s.setAttribute('data-timestamp', '' + +new Date());
-        (d.head || d.body).appendChild(s);
-      </script>
-    
-
-  
-
-
-
-
-	
-
-
-
-
-
-  
-
-
-
-
-
-
-
-
-
-
-
-
-  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-  
-  <script type="text/javascript">
-    var GUEST = ['nick','mail','link'];
-    var guest = 'nick,mail,link';
-    guest = guest.split(',').filter(item=>{
-      return GUEST.indexOf(item)>-1;
-    });
-    new Valine({
-        el: '#comments' ,
-        verify: false,
-        notify: false,
-        appId: 'Vy5O9liYY1EruxX5WAaSWiFU-gzGzoHsz',
-        appKey: 'LkbvdUheh7noXFlcQzKXf4hV',
-        placeholder: '傍晚，躺着草坪，望向湛蓝的天空',
-        avatar:'mm',
-        guest_info:guest,
-        pageSize:'10' || 10,
-    });
-  </script>
-
-
-
-  
-
-
-
-
-
-  
-
-  
-  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
-  <script>AV.initialize("Vy5O9liYY1EruxX5WAaSWiFU-gzGzoHsz", "LkbvdUheh7noXFlcQzKXf4hV");</script>
-  <script>
-    function showTime(Counter) {
-      var query = new AV.Query(Counter);
-      var entries = [];
-      var $visitors = $(".leancloud_visitors");
-
-      $visitors.each(function () {
-        entries.push( $(this).attr("id").trim() );
-      });
-
-      query.containedIn('url', entries);
-      query.find()
-        .done(function (results) {
-          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
-
-          if (results.length === 0) {
-            $visitors.find(COUNT_CONTAINER_REF).text(0);
-            return;
-          }
-
-          for (var i = 0; i < results.length; i++) {
-            var item = results[i];
-            var url = item.get('url');
-            var time = item.get('time');
-            var element = document.getElementById(url);
-
-            $(element).find(COUNT_CONTAINER_REF).text(time);
-          }
-          for(var i = 0; i < entries.length; i++) {
-            var url = entries[i];
-            var element = document.getElementById(url);
-            var countSpan = $(element).find(COUNT_CONTAINER_REF);
-            if( countSpan.text() == '') {
-              countSpan.text(0);
+  <script defer>
+
+  const LCCounter = {
+    app_id: 'u9j57bwJod4EDmXWdxrwuqQT-MdYXbMMI',
+    app_key: 'jfHtEKVE24j0IVCGHbvuFClp',
+    custom_api_server: '',
+
+    // 查询存储的记录
+    getRecord(Counter, url, title) {
+      return new Promise(function (resolve, reject) {
+        Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({url})))
+          .then(resp => resp.json())
+          .then(({results, code, error}) => {
+            if (code === 401) {
+              throw error;
             }
-          }
-        })
-        .fail(function (object, error) {
-          console.log("Error: " + error.code + " " + error.message);
+            if (results && results.length > 0) {
+              var record = results[0];
+              resolve(record);
+            } else {
+              Counter('post', '/classes/Counter', {url, title: title, times: 0})
+                .then(resp => resp.json())
+                .then((record, error) => {
+                  if (error) {
+                    throw error;
+                  }
+                  resolve(record);
+                }).catch(error => {
+                console.error('Failed to create', error);
+                reject(error);
+              });
+            }
+          }).catch((error) => {
+          console.error('LeanCloud Counter Error:', error);
+          reject(error);
         });
-    }
+      })
+    },
 
-    function addCount(Counter) {
-      var $visitors = $(".leancloud_visitors");
-      var url = $visitors.attr('id').trim();
-      var title = $visitors.attr('data-flag-title').trim();
-      var query = new AV.Query(Counter);
-
-      query.equalTo("url", url);
-      query.find({
-        success: function(results) {
-          if (results.length > 0) {
-            var counter = results[0];
-            counter.fetchWhenSave(true);
-            counter.increment("time");
-            counter.save(null, {
-              success: function(counter) {
-                var $element = $(document.getElementById(url));
-                $element.find('.leancloud-visitors-count').text(counter.get('time'));
-              },
-              error: function(counter, error) {
-                console.log('Failed to save Visitor num, with error message: ' + error.message);
-              }
-            });
-          } else {
-            var newcounter = new Counter();
-            /* Set ACL */
-            var acl = new AV.ACL();
-            acl.setPublicReadAccess(true);
-            acl.setPublicWriteAccess(true);
-            newcounter.setACL(acl);
-            /* End Set ACL */
-            newcounter.set("title", title);
-            newcounter.set("url", url);
-            newcounter.set("time", 1);
-            newcounter.save(null, {
-              success: function(newcounter) {
-                var $element = $(document.getElementById(url));
-                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
-              },
-              error: function(newcounter, error) {
-                console.log('Failed to create');
-              }
-            });
+    // 发起自增请求
+    increment(Counter, incrArr) {
+      return new Promise(function (resolve, reject) {
+        Counter('post', '/batch', {
+          "requests": incrArr
+        }).then((res) => {
+          res = res.json();
+          if (res.error) {
+            throw res.error;
           }
-        },
-        error: function(error) {
-          console.log('Error:' + error.code + " " + error.message);
-        }
+          resolve(res);
+        }).catch((error) => {
+          console.error('Failed to save visitor count', error);
+          reject(error);
+        });
       });
+    },
+
+    // 构建自增请求体
+    buildIncrement(objectId) {
+      return {
+        "method": "PUT",
+        "path": `/1.1/classes/Counter/${ objectId }`,
+        "body": {
+          "times": {
+            '__op': 'Increment',
+            'amount': 1
+          }
+        }
+      }
+    },
+
+    // 校验是否为有效的 UV
+    validUV() {
+      var key = 'LeanCloudUVTimestamp';
+      var flag = localStorage.getItem(key);
+      if (flag) {
+        // 距离标记小于 24 小时则不计为 UV
+        if (new Date().getTime() - parseInt(flag) <= 86400000) {
+          return false;
+        }
+      }
+      localStorage.setItem(key, new Date().getTime().toString());
+      return true;
+    },
+
+    addCount(Counter) {
+      var enableIncr = '' === 'true' && window.location.hostname !== 'localhost';
+      enableIncr = true;
+      var getterArr = [];
+      var incrArr = [];
+      // 请求 PV 并自增
+      var pvCtn = document.querySelector('#lc-sv');
+      if (pvCtn || enableIncr) {
+        var pvGetter = this.getRecord(Counter, 'https://tobing.top' + '/#lc-sv', 'Visits').then((record) => {
+          incrArr.push(this.buildIncrement(record.objectId))
+          var eles = document.querySelectorAll('#lc-sv #number');
+          if (eles.length > 0) {
+            eles.forEach((el,index,array)=>{
+              el.innerText = record.times + 1;
+              if (pvCtn) {
+                pvCtn.style.display = 'inline';
+              }
+            })
+          }
+        });
+        getterArr.push(pvGetter);
+      }
+
+      // 请求 UV 并自增
+      var uvCtn = document.querySelector('#lc-uv');
+      if (uvCtn || enableIncr) {
+        var uvGetter = this.getRecord(Counter, 'https://tobing.top' + '/#lc-uv', 'Visitors').then((record) => {
+          var vuv = this.validUV();
+          vuv && incrArr.push(this.buildIncrement(record.objectId))
+          var eles = document.querySelectorAll('#lc-uv #number');
+          if (eles.length > 0) {
+            eles.forEach((el,index,array)=>{
+              el.innerText = record.times + (vuv ? 1 : 0);
+              if (uvCtn) {
+                uvCtn.style.display = 'inline';
+              }
+            })
+          }
+        });
+        getterArr.push(uvGetter);
+      }
+
+      // 请求文章的浏览数，如果是当前页面就自增
+      var allPV = document.querySelectorAll('#lc-pv');
+      if (allPV.length > 0 || enableIncr) {
+        for (i = 0; i < allPV.length; i++) {
+          let pv = allPV[i];
+          let title = pv.getAttribute('data-title');
+          var url = 'https://tobing.top' + pv.getAttribute('data-path');
+          if (url) {
+            var viewGetter = this.getRecord(Counter, url, title).then((record) => {
+              // 是当前页面就自增
+              let curPath = window.location.pathname;
+              if (curPath.includes('index.html')) {
+                curPath = curPath.substring(0, curPath.lastIndexOf('index.html'));
+              }
+              if (pv.getAttribute('data-path') == curPath) {
+                incrArr.push(this.buildIncrement(record.objectId));
+              }
+              if (pv) {
+                var ele = pv.querySelector('#lc-pv #number');
+                if (ele) {
+                  if (pv.getAttribute('data-path') == curPath) {
+                    ele.innerText = (record.times || 0) + 1;
+                  } else {
+                    ele.innerText = record.times || 0;
+                  }
+                  pv.style.display = 'inline';
+                }
+              }
+            });
+            getterArr.push(viewGetter);
+          }
+        }
+      }
+
+      // 如果启动计数自增，批量发起自增请求
+      if (enableIncr) {
+        Promise.all(getterArr).then(() => {
+          incrArr.length > 0 && this.increment(Counter, incrArr);
+        })
+      }
+
+    },
+
+
+    fetchData(api_server) {
+      var Counter = (method, url, data) => {
+        return fetch(`${ api_server }/1.1${ url }`, {
+          method,
+          headers: {
+            'X-LC-Id': this.app_id,
+            'X-LC-Key': this.app_key,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+      this.addCount(Counter);
+    },
+
+    refreshCounter() {
+      var api_server = this.app_id.slice(-9) !== '-MdYXbMMI' ? this.custom_api_server : `https://${ this.app_id.slice(0, 8).toLowerCase() }.api.lncldglobal.com`;
+      if (api_server) {
+        this.fetchData(api_server);
+      } else {
+        fetch('https://app-router.leancloud.cn/2/route?appId=' + this.app_id)
+          .then(resp => resp.json())
+          .then(({api_server}) => {
+            this.fetchData('https://' + api_server);
+          });
+      }
     }
 
-    $(function() {
-      var Counter = AV.Object.extend("Counter");
-      if ($('.leancloud_visitors').length == 1) {
-        addCount(Counter);
-      } else if ($('.post-title-link').length > 1) {
-        showTime(Counter);
-      }
+  };
+
+  LCCounter.refreshCounter();
+
+  document.addEventListener('pjax:complete', function () {
+    LCCounter.refreshCounter();
+  });
+</script>
+
+
+
+
+
+
+
+
+<script>
+function listennSidebarTOC() {
+  const navItems = document.querySelectorAll(".toc li");
+  if (!navItems.length) return;
+  const sections = [...navItems].map((element) => {
+    const link = element.querySelector(".toc-link");
+    const target = document.getElementById(
+      decodeURI(link.getAttribute("href")).replace("#", "")
+    );
+    link.addEventListener("click", (event) => {
+      event.preventDefault();
+      window.scrollTo({
+		top: target.offsetTop + 100,
+		
+		behavior: "smooth"
+		
+	  });
     });
-  </script>
+    return target;
+  });
+
+  function activateNavByIndex(target) {
+    if (target.classList.contains("active-current")) return;
+
+    document.querySelectorAll(".toc .active").forEach((element) => {
+      element.classList.remove("active", "active-current");
+    });
+    target.classList.add("active", "active-current");
+    let parent = target.parentNode;
+    while (!parent.matches(".toc")) {
+      if (parent.matches("li")) parent.classList.add("active");
+      parent = parent.parentNode;
+    }
+  }
+
+  function findIndex(entries) {
+    let index = 0;
+    let entry = entries[index];
+    if (entry.boundingClientRect.top > 0) {
+      index = sections.indexOf(entry.target);
+      return index === 0 ? 0 : index - 1;
+    }
+    for (; index < entries.length; index++) {
+      if (entries[index].boundingClientRect.top <= 0) {
+        entry = entries[index];
+      } else {
+        return sections.indexOf(entry.target);
+      }
+    }
+    return sections.indexOf(entry.target);
+  }
+
+  function createIntersectionObserver(marginTop) {
+    marginTop = Math.floor(marginTop + 10000);
+    let intersectionObserver = new IntersectionObserver(
+      (entries, observe) => {
+        let scrollHeight = document.documentElement.scrollHeight + 100;
+        if (scrollHeight > marginTop) {
+          observe.disconnect();
+          createIntersectionObserver(scrollHeight);
+          return;
+        }
+        let index = findIndex(entries);
+        activateNavByIndex(navItems[index]);
+      },
+      {
+        rootMargin: marginTop + "px 0px -100% 0px",
+        threshold: 0,
+      }
+    );
+    sections.forEach((element) => {
+      element && intersectionObserver.observe(element);
+    });
+  }
+  createIntersectionObserver(document.documentElement.scrollHeight);
+}
+
+document.addEventListener("DOMContentLoaded", listennSidebarTOC);
+document.addEventListener("pjax:success", listennSidebarTOC);
+</script>
+
+<!-- more -->
 
 
 
-  
 
-  
+    
+      
 
-  
-  
 
-  
+<script src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.min.js"></script>
 
-  
 
-  
+<script>
+    var pjax;
+    document.addEventListener('DOMContentLoaded', function () {
+      pjax = new Pjax({
+        elements: 'a[href]:not([href^="#"]):not([href="javascript:void(0)"]):not([pjax-fancybox])',
+        selectors: [
+          "title",
+          "#l_cover",
+          "#pjax-container",
+          "#pjax-header-nav-list"
+        ],
+        cacheBust: false,   // url 地址追加时间戳，用以避免浏览器缓存
+        timeout: 5000
+      });
+    });
 
+    document.addEventListener('pjax:send', function (e) {
+      //window.stop(); // 相当于点击了浏览器的停止按钮
+
+      try {
+        var currentUrl = window.location.pathname;
+        var targetUrl = e.triggerElement.href;
+        var banUrl = [""];
+        if (banUrl[0] != "") {
+          banUrl.forEach(item => {
+            if(currentUrl.indexOf(item) != -1 || targetUrl.indexOf(item) != -1) {
+              window.location.href = targetUrl;
+            }
+          });
+        }
+      } catch (error) {}
+
+      window.subData = null; // 移除标题（用于一二级导航栏切换处）
+      if (typeof $.fancybox != "undefined") {
+        $.fancybox.close();    // 关闭弹窗
+      }
+      volantis.$switcher.removeClass('active'); // 关闭移动端激活的搜索框
+      volantis.$header.removeClass('z_search-open'); // 关闭移动端激活的搜索框
+      volantis.$wrapper.removeClass('sub'); // 跳转页面时关闭二级导航
+
+      // 解绑事件 避免重复监听
+      volantis.$topBtn.unbind('click');
+      $('.menu a').unbind('click');
+      $(window).unbind('resize');
+      $(window).unbind('scroll');
+      $(document).unbind('scroll');
+      $(document).unbind('click');
+      $('body').unbind('click');
+	  
+    });
+
+    document.addEventListener('pjax:complete', function () {
+      // 关于百度统计对 SPA 页面的处理：
+      // 方案一：百度统计>管理>单页应用设置中，打开开启按钮即可对SPA进行统计。 https://tongji.baidu.com/web/help/article?id=324
+      // 方案二：取消注释下列代码。 https://tongji.baidu.com/web/help/article?id=235
+       
+
+      // 关于谷歌统计对 SPA 页面的处理：
+      // 当应用以动态方式加载内容并更新地址栏中的网址时，也应该更新通过 gtag.js 存储的网页网址。
+      // https://developers.google.cn/analytics/devguides/collection/gtagjs/single-page-applications?hl=zh-cn
+      
+	 
+
+      $('.nav-main').find('.list-v').not('.menu-phone').removeAttr("style",""); // 移除小尾巴的移除
+      $('.menu-phone.list-v').removeAttr("style",""); // 移除小尾巴的移除
+      $('script[data-pjax], .pjax-reload script').each(function () {
+        $(this).parent().append($(this).remove());
+      });
+      try{
+          if (typeof $.fancybox == "undefined") {
+            SCload_fancybox();
+          } else {
+            pjax_fancybox();
+          }
+        
+        
+        
+        
+        
+        
+          pjax_valine();
+        
+        
+        
+        
+        
+      } catch (e) {
+        console.log(e);
+      }
+	  
+    });
+
+    document.addEventListener('pjax:error', function (e) {
+	  
+      window.location.href = e.triggerElement.href;
+    });
+</script>
+
+    
+  </div>
 </body>
 </html>
