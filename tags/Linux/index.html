@@ -381,81 +381,7 @@
   
   <div class='md'>
     
-      <h1 id="CentOS学习"><a href="#CentOS学习" class="headerlink" title="CentOS学习"></a>CentOS学习</h1><hr>
-<h3 id="1-背景历史"><a href="#1-背景历史" class="headerlink" title="1. 背景历史"></a>1. 背景历史</h3><p>​    Linux最初是由芬兰赫尔辛基大学学生Linus Torvalds由于自己不满意教学中使用的MINIX操作系统， 所以在1990年底由于个人爱好设计出了LINUX系统核心。后来发布于芬兰最大的ftp服务器上，用户可以免费下载，所以它的周边的程序越来越多，Linux本身也逐渐发展壮大起来，之后Linux在不到三年的时间里成为了一个功能完善，稳定可靠的操作系统.</p>
-<h3 id="2-应用"><a href="#2-应用" class="headerlink" title="2. 应用"></a>2. 应用</h3><ul>
-<li>服务器系统Web应用服务器、数据库服务器、接口服务器、DNS、FTP等等； </li>
-<li>嵌入式系统路由器、防火墙、手机、PDA、IP 分享器、交换器、家电用品的微电脑控制器等等，</li>
-<li>高性能运算、计算密集型应用Linux有强大的运算能力。</li>
-<li>桌面应用系统</li>
-<li>移动手持系统</li>
-</ul>
-<h3 id="3-版本"><a href="#3-版本" class="headerlink" title="3. 版本"></a>3. 版本</h3><ul>
-<li>内核版本：Linus领导下的内核小组开发维护的系统内核的版本号</li>
-<li>发行版本：</li>
-</ul>
-<h3 id="4-目录结构"><a href="#4-目录结构" class="headerlink" title="4.目录结构"></a>4.目录结构</h3><ul>
-<li><p>/ ：根目录</p>
-<table>
-<thead>
-<tr>
-<th align="center">目录名称</th>
-<th align="center">全名</th>
-<th align="center">描述</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">bin</td>
-<td align="center">binaries</td>
-<td align="center">二进制可执行文件</td>
-</tr>
-<tr>
-<td align="center">boot</td>
-<td align="center"></td>
-<td align="center">系统引导时使用的各种文件</td>
-</tr>
-<tr>
-<td align="center">dev</td>
-<td align="center">devices</td>
-<td align="center">设备文件</td>
-</tr>
-<tr>
-<td align="center">etc</td>
-<td align="center">ectetera</td>
-<td align="center">系统配置文件</td>
-</tr>
-<tr>
-<td align="center">home</td>
-<td align="center"></td>
-<td align="center">用户文件根目录</td>
-</tr>
-<tr>
-<td align="center">lib</td>
-<td align="center">library</td>
-<td align="center">跟文件系统中的程序运行需要的共享库以及内核模块</td>
-</tr>
-<tr>
-<td align="center">sbin</td>
-<td align="center">super user binaries</td>
-<td align="center">root才能访问的二进制可执行文件</td>
-</tr>
-<tr>
-<td align="center">usr</td>
-<td align="center">Unix shared resources</td>
-<td align="center">存放共享的系统资源</td>
-</tr>
-<tr>
-<td align="center">var</td>
-<td align="center">variable</td>
-<td align="center">用于存放运行时需要改变数据的文件</td>
-</tr>
-</tbody></table>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">lrwxrwxrwx.  1 root root     7 Aug 18  2017 bin -&gt; usr/bin             <span class="comment"># bin目录</span></span><br><span class="line">dr-xr-xr-x.  4 root root  4096 Sep 12  2017 boot                       <span class="comment"># boot目录</span></span><br><span class="line">drwxr-xr-x  19 root root  2960 Sep 27 22:01 dev                        <span class="comment"># dev目录</span></span><br><span class="line">drwxr-xr-x. 82 root root  4096 Sep 28 06:01 etc                        <span class="comment"># etc目录</span></span><br><span class="line">drwxr-xr-x.  3 root root  4096 Sep 27 16:12 home                       <span class="comment"># home目录</span></span><br><span class="line">lrwxrwxrwx.  1 root root     7 Aug 18  2017 lib -&gt; usr/lib             <span class="comment"># lib目录</span></span><br><span class="line">lrwxrwxrwx.  1 root root     9 Aug 18  2017 lib64 -&gt; usr/lib64         <span class="comment"># lib64</span></span><br><span class="line">drwx------.  2 root root 16384 Aug 18  2017 lost+found           </span><br><span class="line">drwxr-xr-x.  2 root root  4096 Nov  5  2016 media </span><br><span class="line">drwxr-xr-x.  2 root root  4096 Nov  5  2016 mnt</span><br><span class="line">drwxr-xr-x.  2 root root  4096 Nov  5  2016 opt</span><br><span class="line">dr-xr-xr-x  74 root root     0 Sep 27 22:01 proc</span><br><span class="line">dr-xr-x---.  6 root root  4096 Sep  5  2017 root</span><br><span class="line">drwxr-xr-x  21 root root   580 Sep 27 22:01 run</span><br><span class="line">lrwxrwxrwx.  1 root root     8 Aug 18  2017 sbin -&gt; usr/sbin           <span class="comment"># root的bin目录</span></span><br><span class="line">drwxr-xr-x.  2 root root  4096 Nov  5  2016 srv </span><br><span class="line">dr-xr-xr-x  13 root root     0 Sep 28 06:01 sys</span><br><span class="line">drwxrwxrwt. 11 root root  4096 Sep 29 03:40 tmp                        <span class="comment"># 临时文件</span></span><br><span class="line">drwxr-xr-x. 13 root root  4096 Aug 18  2017 usr                        <span class="comment"># 存放共享的系统资源</span></span><br><span class="line">drwxr-xr-x. 19 root root  4096 Sep 28 06:01 var               <span class="comment"># 用于存放运行时需要改变数据的文件</span></span><br></pre></td></tr></table></figure>
-
-
-
-</li>
-</ul>
+      <p>Linux最初是由芬兰赫尔辛基大学学生Linus Torvalds由于自己不满意教学中使用的MINIX操作系统， 所以在1990年底由于个人爱好设计出了LINUX系统核心。后来发布于芬兰最大的ftp服务器上，用户可以免费下载，所以它的周边的程序越来越多，Linux本身也逐渐发展壮大起来，之后Linux在不到三年的时间里成为了一个功能完善，稳定可靠的操作系统.</p>
     
   </div>
   
@@ -465,7 +391,7 @@
         <time>2019-10-02</time>
         
           <span class="dot"></span>
-          <a class="category-link" href="/categories/Linux/">Linux</a>
+          <a class="category-link" href="/categories/%E7%90%86%E8%AE%BA%E5%AD%A6%E4%B9%A0/">理论学习</a>
         
       </div>
       
@@ -582,64 +508,24 @@
       <ul class="entry navigation">
         
           <li><a class="flat-box"
-            title="/categories/Hexo/" href="/categories/Hexo/"
-            id="categoriesHexo"
-            ><div class='name'>Hexo</div><div class='badge'>(2)</div></a></li>
+            title="/categories/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/" href="/categories/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/"
+            id="categoriesE5B7A5E585B7E4BDBFE794A8"
+            ><div class='name'>工具使用</div><div class='badge'>(5)</div></a></li>
         
           <li><a class="flat-box"
-            title="/categories/Intellij-Idea/" href="/categories/Intellij-Idea/"
-            id="categoriesIntellij-Idea"
-            ><div class='name'>Intellij Idea</div><div class='badge'>(1)</div></a></li>
+            title="/categories/%E6%8A%80%E6%9C%AF%E5%BA%94%E7%94%A8/" href="/categories/%E6%8A%80%E6%9C%AF%E5%BA%94%E7%94%A8/"
+            id="categoriesE68A80E69CAFE5BA94E794A8"
+            ><div class='name'>技术应用</div><div class='badge'>(3)</div></a></li>
         
           <li><a class="flat-box"
-            title="/categories/Java/" href="/categories/Java/"
-            id="categoriesJava"
-            ><div class='name'>Java</div><div class='badge'>(24)</div></a></li>
+            title="/categories/%E6%9D%82%E4%B8%83%E6%9D%82%E5%85%AB/" href="/categories/%E6%9D%82%E4%B8%83%E6%9D%82%E5%85%AB/"
+            id="categoriesE69D82E4B883E69D82E585AB"
+            ><div class='name'>杂七杂八</div><div class='badge'>(4)</div></a></li>
         
           <li><a class="flat-box"
-            title="/categories/Linux/" href="/categories/Linux/"
-            id="categoriesLinux"
-            ><div class='name'>Linux</div><div class='badge'>(1)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/git/" href="/categories/git/"
-            id="categoriesgit"
-            ><div class='name'>git</div><div class='badge'>(1)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/windows%E4%BD%BF%E7%94%A8/" href="/categories/windows%E4%BD%BF%E7%94%A8/"
-            id="categorieswindowsE4BDBFE794A8"
-            ><div class='name'>windows使用</div><div class='badge'>(1)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/%E6%89%8B%E6%9C%BA/" href="/categories/%E6%89%8B%E6%9C%BA/"
-            id="categoriesE6898BE69CBA"
-            ><div class='name'>手机</div><div class='badge'>(1)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/%E6%8A%80%E5%B7%A7/" href="/categories/%E6%8A%80%E5%B7%A7/"
-            id="categoriesE68A80E5B7A7"
-            ><div class='name'>技巧</div><div class='badge'>(1)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/"
-            id="categoriesE695B0E68DAEE5BA93"
-            ><div class='name'>数据库</div><div class='badge'>(7)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/%E7%89%A9%E8%81%94%E7%BD%91/" href="/categories/%E7%89%A9%E8%81%94%E7%BD%91/"
-            id="categoriesE789A9E88194E7BD91"
-            ><div class='name'>物联网</div><div class='badge'>(2)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/%E7%9E%8E%E6%89%AF/" href="/categories/%E7%9E%8E%E6%89%AF/"
-            id="categoriesE79E8EE689AF"
-            ><div class='name'>瞎扯</div><div class='badge'>(1)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/%E8%B7%AF%E7%94%B1%E5%99%A8/" href="/categories/%E8%B7%AF%E7%94%B1%E5%99%A8/"
-            id="categoriesE8B7AFE794B1E599A8"
-            ><div class='name'>路由器</div><div class='badge'>(1)</div></a></li>
+            title="/categories/%E7%90%86%E8%AE%BA%E5%AD%A6%E4%B9%A0/" href="/categories/%E7%90%86%E8%AE%BA%E5%AD%A6%E4%B9%A0/"
+            id="categoriesE79086E8AEBAE5ADA6E4B9A0"
+            ><div class='name'>理论学习</div><div class='badge'>(36)</div></a></li>
         
       </ul>
     </div>
@@ -663,7 +549,7 @@
 
 
     <div class='content'>
-      <a href="/tags/2019/" style="font-size: 14px; color: #999">2019</a> <a href="/tags/DHT11/" style="font-size: 14px; color: #999">DHT11</a> <a href="/tags/ElasticSearch/" style="font-size: 14px; color: #999">ElasticSearch</a> <a href="/tags/JDBC/" style="font-size: 14px; color: #999">JDBC</a> <a href="/tags/Java/" style="font-size: 22.33px; color: #606060">Java</a> <a href="/tags/Linux/" style="font-size: 14px; color: #999">Linux</a> <a href="/tags/MongoDB/" style="font-size: 14px; color: #999">MongoDB</a> <a href="/tags/MySQL/" style="font-size: 20.67px; color: #6c6c6c">MySQL</a> <a href="/tags/Mybatis/" style="font-size: 24px; color: #555">Mybatis</a> <a href="/tags/Oracle/" style="font-size: 15.67px; color: #8e8e8e">Oracle</a> <a href="/tags/Spring/" style="font-size: 17.33px; color: #828282">Spring</a> <a href="/tags/Spring-Security/" style="font-size: 14px; color: #999">Spring-Security</a> <a href="/tags/SpringMVC/" style="font-size: 17.33px; color: #828282">SpringMVC</a> <a href="/tags/Spring%E5%85%A8%E5%AE%B6%E6%A1%B6/" style="font-size: 14px; color: #999">Spring全家桶</a> <a href="/tags/docker/" style="font-size: 14px; color: #999">docker</a> <a href="/tags/git/" style="font-size: 14px; color: #999">git</a> <a href="/tags/gitHub/" style="font-size: 14px; color: #999">gitHub</a> <a href="/tags/githubpage/" style="font-size: 14px; color: #999">githubpage</a> <a href="/tags/hexo/" style="font-size: 15.67px; color: #8e8e8e">hexo</a> <a href="/tags/idea/" style="font-size: 14px; color: #999">idea</a> <a href="/tags/java/" style="font-size: 14px; color: #999">java</a> <a href="/tags/jdbc/" style="font-size: 15.67px; color: #8e8e8e">jdbc</a> <a href="/tags/mysql/" style="font-size: 14px; color: #999">mysql</a> <a href="/tags/root/" style="font-size: 14px; color: #999">root</a> <a href="/tags/token/" style="font-size: 14px; color: #999">token</a> <a href="/tags/win10/" style="font-size: 14px; color: #999">win10</a> <a href="/tags/%E5%85%A5%E9%97%A8/" style="font-size: 14px; color: #999">入门</a> <a href="/tags/%E5%88%86%E9%A1%B5%E6%8F%92%E4%BB%B6/" style="font-size: 14px; color: #999">分页插件</a> <a href="/tags/%E5%8D%95%E7%89%87%E6%9C%BA/" style="font-size: 14px; color: #999">单片机</a> <a href="/tags/%E5%8F%8D%E5%B0%84/" style="font-size: 17.33px; color: #828282">反射</a> <a href="/tags/%E5%9F%9F%E5%90%8D%E7%BB%91%E5%AE%9A/" style="font-size: 14px; color: #999">域名绑定</a> <a href="/tags/%E5%A4%8D%E4%B9%A0/" style="font-size: 19px; color: #777">复习</a> <a href="/tags/%E5%AE%B9%E5%99%A8%E6%8A%80%E6%9C%AF/" style="font-size: 14px; color: #999">容器技术</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" style="font-size: 14px; color: #999">数据库</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" style="font-size: 15.67px; color: #8e8e8e">数据结构</a> <a href="/tags/%E6%95%B0%E7%BB%84/" style="font-size: 14px; color: #999">数组</a> <a href="/tags/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/" style="font-size: 14px; color: #999">文件上传</a> <a href="/tags/%E6%A0%88/" style="font-size: 14px; color: #999">栈</a> <a href="/tags/%E6%A0%91%E8%8E%93%E6%B4%BE/" style="font-size: 14px; color: #999">树莓派</a> <a href="/tags/%E6%A0%A1%E5%9B%AD%E5%AE%BD%E5%B8%A6/" style="font-size: 14px; color: #999">校园宽带</a> <a href="/tags/%E6%B3%A8%E8%A7%A3/" style="font-size: 14px; color: #999">注解</a> <a href="/tags/%E8%BF%9E%E6%8E%A5%E6%B1%A0/" style="font-size: 14px; color: #999">连接池</a> <a href="/tags/%E9%98%9F%E5%88%97/" style="font-size: 14px; color: #999">队列</a> <a href="/tags/%E9%9B%86%E5%90%88/" style="font-size: 14px; color: #999">集合</a> <a href="/tags/%E9%AD%85%E8%93%9DNote5/" style="font-size: 14px; color: #999">魅蓝Note5</a>
+      <a href="/tags/CentOS/" style="font-size: 14px; color: #999">CentOS</a> <a href="/tags/DHT11/" style="font-size: 14px; color: #999">DHT11</a> <a href="/tags/ElasticSearch/" style="font-size: 14px; color: #999">ElasticSearch</a> <a href="/tags/GitHub/" style="font-size: 14px; color: #999">GitHub</a> <a href="/tags/GithubPage/" style="font-size: 14px; color: #999">GithubPage</a> <a href="/tags/Hexo/" style="font-size: 15.67px; color: #8e8e8e">Hexo</a> <a href="/tags/Intellij-idea/" style="font-size: 14px; color: #999">Intellij idea</a> <a href="/tags/JDBC/" style="font-size: 17.33px; color: #828282">JDBC</a> <a href="/tags/Java/" style="font-size: 24px; color: #555">Java</a> <a href="/tags/Linux/" style="font-size: 14px; color: #999">Linux</a> <a href="/tags/MongoDB/" style="font-size: 14px; color: #999">MongoDB</a> <a href="/tags/MySQL/" style="font-size: 20.67px; color: #6c6c6c">MySQL</a> <a href="/tags/Mybatis/" style="font-size: 22.33px; color: #606060">Mybatis</a> <a href="/tags/Oracle/" style="font-size: 15.67px; color: #8e8e8e">Oracle</a> <a href="/tags/PageHelper/" style="font-size: 14px; color: #999">PageHelper</a> <a href="/tags/Spring/" style="font-size: 19px; color: #777">Spring</a> <a href="/tags/Spring-Security/" style="font-size: 14px; color: #999">Spring-Security</a> <a href="/tags/SpringBoot/" style="font-size: 14px; color: #999">SpringBoot</a> <a href="/tags/SpringMVC/" style="font-size: 17.33px; color: #828282">SpringMVC</a> <a href="/tags/Windows/" style="font-size: 14px; color: #999">Windows</a> <a href="/tags/docker/" style="font-size: 14px; color: #999">docker</a> <a href="/tags/git/" style="font-size: 14px; color: #999">git</a> <a href="/tags/jwt/" style="font-size: 14px; color: #999">jwt</a> <a href="/tags/root/" style="font-size: 14px; color: #999">root</a> <a href="/tags/%E5%85%A8%E6%96%87%E6%A3%80%E7%B4%A2/" style="font-size: 14px; color: #999">全文检索</a> <a href="/tags/%E5%88%86%E4%BA%AB/" style="font-size: 14px; color: #999">分享</a> <a href="/tags/%E5%8D%95%E7%89%87%E6%9C%BA/" style="font-size: 14px; color: #999">单片机</a> <a href="/tags/%E5%8F%8D%E5%B0%84/" style="font-size: 17.33px; color: #828282">反射</a> <a href="/tags/%E5%9F%9F%E5%90%8D%E7%BB%91%E5%AE%9A/" style="font-size: 14px; color: #999">域名绑定</a> <a href="/tags/%E5%AE%9E%E9%AA%8C/" style="font-size: 15.67px; color: #8e8e8e">实验</a> <a href="/tags/%E5%AE%B9%E5%99%A8%E6%8A%80%E6%9C%AF/" style="font-size: 14px; color: #999">容器技术</a> <a href="/tags/%E5%B0%8F%E7%A8%8B%E5%BA%8F/" style="font-size: 14px; color: #999">小程序</a> <a href="/tags/%E6%80%BB%E7%BB%93/" style="font-size: 14px; color: #999">总结</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93%E8%BF%9E%E6%8E%A5%E6%B1%A0/" style="font-size: 14px; color: #999">数据库连接池</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" style="font-size: 17.33px; color: #828282">数据结构</a> <a href="/tags/%E6%95%B0%E7%BB%84-Java/" style="font-size: 14px; color: #999">数组 - Java</a> <a href="/tags/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/" style="font-size: 14px; color: #999">文件上传</a> <a href="/tags/%E6%A0%88/" style="font-size: 14px; color: #999">栈</a> <a href="/tags/%E6%A0%91%E8%8E%93%E6%B4%BE/" style="font-size: 14px; color: #999">树莓派</a> <a href="/tags/%E6%A0%A1%E5%9B%AD%E5%AE%BD%E5%B8%A6/" style="font-size: 14px; color: #999">校园宽带</a> <a href="/tags/%E6%B3%A8%E8%A7%A3/" style="font-size: 14px; color: #999">注解</a> <a href="/tags/%E7%89%A9%E8%81%94%E7%BD%91/" style="font-size: 15.67px; color: #8e8e8e">物联网</a> <a href="/tags/%E8%AE%A4%E8%AF%81%E6%9C%BA%E5%88%B6/" style="font-size: 14px; color: #999">认证机制</a> <a href="/tags/%E8%B7%AF%E7%94%B1%E5%99%A8/" style="font-size: 14px; color: #999">路由器</a> <a href="/tags/%E9%98%9F%E5%88%97/" style="font-size: 14px; color: #999">队列</a> <a href="/tags/%E9%9B%86%E5%90%88/" style="font-size: 14px; color: #999">集合</a> <a href="/tags/%E9%AD%85%E8%93%9DNote5/" style="font-size: 14px; color: #999">魅蓝Note5</a>
     </div>
   </section>
 

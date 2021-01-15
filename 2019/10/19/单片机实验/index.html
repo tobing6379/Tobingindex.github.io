@@ -21,18 +21,11 @@
   
   <title>单片机实验 - tobing</title>
   
-    <meta name="keywords" content="单片机">
+    <meta name="keywords" content="物联网,实验,单片机">
   
 
   
-    <meta name="description" content="单片机实验运行环境
-单片机：STC89C52开发板，某宝有售
-KEIL：用于编写程序
-STC-ISP：程序写入
-
-1. LED灯循环点亮
-实现LED灯循环点亮
-123456789101112131415161718192021222324252627282930#include &quot;reg52.h&quo...">
+    <meta name="description" content="单片机时的实验。">
   
 
   <!-- feed -->
@@ -390,7 +383,7 @@ STC-ISP：程序写入
   <div class='new-meta-item category'>
     <a class='notlink'>
       <i class="fas fa-folder-open fa-fw" aria-hidden="true"></i>
-      <a class="category-link" href="/categories/%E7%89%A9%E8%81%94%E7%BD%91/">物联网</a>
+      <a class="category-link" href="/categories/%E7%90%86%E8%AE%BA%E5%AD%A6%E4%B9%A0/">理论学习</a>
     </a>
   </div>
 
@@ -429,7 +422,10 @@ STC-ISP：程序写入
 
 
   
-  <h1 id="单片机实验"><a href="#单片机实验" class="headerlink" title="单片机实验"></a>单片机实验</h1><h4 id="运行环境"><a href="#运行环境" class="headerlink" title="运行环境"></a>运行环境</h4><ul>
+  <p>单片机时的实验。</p>
+<a id="more"></a>
+
+<h1 id="单片机实验"><a href="#单片机实验" class="headerlink" title="单片机实验"></a>单片机实验</h1><h4 id="运行环境"><a href="#运行环境" class="headerlink" title="运行环境"></a>运行环境</h4><ul>
 <li>单片机：STC89C52开发板，某宝有售</li>
 <li>KEIL：用于编写程序</li>
 <li>STC-ISP：程序写入</li>
@@ -482,7 +478,7 @@ STC-ISP：程序写入
 </ol>
 </li>
 </ul>
-<p><img src="/images/20191025%E7%9F%A9%E9%98%B5%E9%94%AE%E7%9B%98%E6%89%AB%E6%8F%8F.png" class="lazyload" data-srcset="/images/20191025%E7%9F%A9%E9%98%B5%E9%94%AE%E7%9B%98%E6%89%AB%E6%8F%8F.png" srcset="data:image/png;base64,666" alt="矩阵键盘扫描"></p>
+<p><img src="https://i.loli.net/2021/01/15/zYoPdJlfBIXvL6F.png" class="lazyload" data-srcset="https://i.loli.net/2021/01/15/zYoPdJlfBIXvL6F.png" srcset="data:image/png;base64,666" alt="20191025矩阵键盘扫描"></p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;reg52.h&quot;</span></span></span><br><span class="line">sbit WEI = P2^<span class="number">7</span>;</span><br><span class="line">sbit DUAN = P2^<span class="number">6</span>;</span><br><span class="line"><span class="keyword">unsigned</span> <span class="keyword">char</span> segment_code[] =&#123;<span class="number">0x3f</span>,<span class="number">0x06</span>,<span class="number">0x5b</span>,<span class="number">0x4f</span>,<span class="number">0x66</span>,<span class="number">0x6d</span>,<span class="number">0x7d</span>,<span class="number">0x07</span>,<span class="number">0x7f</span>,<span class="number">0x6f</span>&#125;;</span><br><span class="line"><span class="keyword">unsigned</span> <span class="keyword">char</span> last_key = <span class="number">0</span>; <span class="comment">// 用于保存上一次按下的按键</span></span><br><span class="line"><span class="comment">// 延时</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">delay</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">long</span> i = <span class="number">0x10</span>;</span><br><span class="line">    <span class="keyword">while</span>(i--);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 延时10ms</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">delay10s</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">int</span> i = <span class="number">1</span>*<span class="number">110</span>;</span><br><span class="line">    <span class="keyword">while</span>(i--);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 显示传入参数函数</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">segDisplay</span><span class="params">(<span class="keyword">long</span> number)</span></span>&#123;</span><br><span class="line">    <span class="keyword">long</span> i;</span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">long</span> temp;</span><br><span class="line">    <span class="keyword">for</span>(i=<span class="number">7</span>;i&gt;=<span class="number">0</span>;i--)&#123;</span><br><span class="line">        P0=~(<span class="number">0x01</span>&lt;&lt;i);</span><br><span class="line">        WEI=<span class="number">1</span>; WEI=<span class="number">0</span>;</span><br><span class="line">        temp=number%<span class="number">10</span>;</span><br><span class="line">        number/=<span class="number">10</span>;</span><br><span class="line">        P0 = segment_code[temp];</span><br><span class="line">        DUAN=<span class="number">1</span>;DUAN=<span class="number">0</span>;</span><br><span class="line">        delay();</span><br><span class="line">        P0 = <span class="number">0x0</span>;</span><br><span class="line">        DUAN = <span class="number">1</span>;</span><br><span class="line">        DUAN=<span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 扫描矩阵键盘，并返回指定的值。</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">getKey</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">char</span> temp;</span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">char</span> key=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">char</span> l;</span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">char</span> i;</span><br><span class="line">    <span class="keyword">for</span>(i=<span class="number">0</span>;i&lt;<span class="number">4</span>;i++)&#123;  </span><br><span class="line">        P3 = ~(<span class="number">0x01</span>&lt;&lt;i);  <span class="comment">// 循环设置P3口低4位为低电平，同时给P3口高4位通电</span></span><br><span class="line">        temp = P3;		<span class="comment">// 读取P3口</span></span><br><span class="line">        temp &amp;= <span class="number">0xf0</span>;	<span class="comment">// 去除读取到的低4位</span></span><br><span class="line">        <span class="keyword">if</span>(temp!=<span class="number">0xf0</span>)&#123; <span class="comment">// 消除抖动判断是否有键被按下</span></span><br><span class="line">            delay10s();</span><br><span class="line">            <span class="keyword">if</span>(temp!=<span class="number">0xf0</span>)&#123;</span><br><span class="line">                <span class="keyword">switch</span>(temp)&#123;<span class="comment">// 依次判断按下的是&quot;那一列?&quot;</span></span><br><span class="line">                    <span class="keyword">case</span> <span class="number">0xe0</span>:</span><br><span class="line">                        key = <span class="number">4</span>*i+<span class="number">1</span>;</span><br><span class="line">                        <span class="keyword">break</span>;</span><br><span class="line">                    <span class="keyword">case</span> <span class="number">0xd0</span>:</span><br><span class="line">                        key = <span class="number">4</span>*i+<span class="number">2</span>;</span><br><span class="line">                        <span class="keyword">break</span>;</span><br><span class="line">                    <span class="keyword">case</span> <span class="number">0xb0</span>:</span><br><span class="line">                        key = <span class="number">4</span>*i+<span class="number">3</span>;</span><br><span class="line">                        <span class="keyword">break</span>;</span><br><span class="line">                    <span class="keyword">case</span> <span class="number">0x70</span>:</span><br><span class="line">                        key = <span class="number">4</span>*i+<span class="number">4</span>;</span><br><span class="line">                        <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(key!=<span class="number">0</span>)&#123;  <span class="comment">// 如果有键按下，更新矩阵按下的值last_key</span></span><br><span class="line">        last_key = key;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> last_key;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 主函数</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">char</span> key;</span><br><span class="line">    <span class="keyword">while</span>(<span class="number">1</span>)&#123;</span><br><span class="line">        key = getKey();</span><br><span class="line">        segDisplay(key);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 </li>
@@ -499,7 +495,7 @@ STC-ISP：程序写入
 </ul>
 <h4 id="8-蜂鸣器输出不同音调"><a href="#8-蜂鸣器输出不同音调" class="headerlink" title="8. 蜂鸣器输出不同音调"></a>8. 蜂鸣器输出不同音调</h4><ul>
 <li><p>编写定时器程序，实现输出特定精确频率的方波给蜂鸣器，实现不同的音调</p>
-<p>​         <img src="/images/clip_image001.jpg" class="lazyload" data-srcset="/images/clip_image001.jpg" srcset="data:image/png;base64,666" alt="bubuko.com,布布扣">  </p>
+<p><img src="https://i.loli.net/2021/01/15/Xm6EoafAZcUQyS2.jpg" class="lazyload" data-srcset="https://i.loli.net/2021/01/15/Xm6EoafAZcUQyS2.jpg" srcset="data:image/png;base64,666" alt="clip_image001"></p>
 </li>
 <li><p>步骤</p>
 <ol>
@@ -720,7 +716,7 @@ STC-ISP：程序写入
 </blockquote>
 </li>
 <li><p>串口助手</p>
-<p><img src="/images/%E5%8D%95%E7%89%87%E6%9C%BA-%E4%B8%B2%E5%8F%A3%E5%8A%A9%E6%89%8B.png" class="lazyload" data-srcset="/images/%E5%8D%95%E7%89%87%E6%9C%BA-%E4%B8%B2%E5%8F%A3%E5%8A%A9%E6%89%8B.png" srcset="data:image/png;base64,666" alt="单片机-串口助手"></p>
+<p><img src="https://i.loli.net/2021/01/15/f4m6djZ7lKPqDTt.png" class="lazyload" data-srcset="https://i.loli.net/2021/01/15/f4m6djZ7lKPqDTt.png" srcset="data:image/png;base64,666" alt="单片机-串口助手"></p>
 <blockquote>
 <p>注意：</p>
 <ul>
@@ -768,10 +764,10 @@ STC-ISP：程序写入
     <div class='new-meta-box'>
       
         
-          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2020-06-21T23:45:25+08:00">
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-01-15T11:53:43+08:00">
   <a class='notlink'>
     <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
-    <p>更新于：Jun 21, 2020</p>
+    <p>更新于：Jan 15, 2021</p>
   </a>
 </div>
 
@@ -780,7 +776,7 @@ STC-ISP：程序写入
         
           
   
-  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/%E5%8D%95%E7%89%87%E6%9C%BA/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>单片机</p></a></div>
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/%E7%89%A9%E8%81%94%E7%BD%91/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>物联网</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/%E5%AE%9E%E9%AA%8C/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>实验</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/%E5%8D%95%E7%89%87%E6%9C%BA/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>单片机</p></a></div>
 
 
         
@@ -793,32 +789,7 @@ STC-ISP：程序写入
       
         <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer noopener"
           
-          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://tobing.top/2019/10/19/%E5%8D%95%E7%89%87%E6%9C%BA%E5%AE%9E%E9%AA%8C/&title=单片机实验 - tobing&summary=单片机实验运行环境
-单片机：STC89C52开发板，某宝有售
-KEIL：用于编写程序
-STC-ISP：程序写入
-
-1. LED灯循环点亮
-实现LED灯循环点亮
-123456789101112131415161718192021222324252627282930#include &quot;reg52.h&quot;   // 导入C52库#define uchar unsigned char// 延时函数void delay()&#123;	uchar i,j;	for(i=0;i&lt;255;i++)	for(j=0;j&lt;255;j++);&#125;// 主函数int main()&#123;	// 初始化	uchar i,temp;	// 循环运行	while(1)&#123;		// 循环前进移动		temp = 0x01;		for(i=0;i&lt;8;i++)&#123;			P1 = ~temp;			delay();			temp = temp &lt;&lt;1;		&#125;		// 循环返回移动		temp = 0x80;		for(i=0;i&lt;8;i++)&#123;			P1= ~temp;			delay();			temp =temp &gt;&gt;1;		&#125;	&#125;&#125;
-
-
-
-
-
-2. 航标灯
-模拟航标灯工作：在白天熄灭，在夜晚断续点亮，时间间隔2秒，即亮2秒，灭2秒，周期循环进行。（8个LED灯一起闪烁，用按键开关1模拟光线传感器，按下表示白天，松开表示夜晚）
-123456789101112131415161718192021#include &quot;reg52.h&quot;#define uchar unsigned charsbit FLAG = P3^0; // 设置P3_0void delay()&#123;	// 延时函数	unsigned int i,j; // 此处由于超出255，不能再使用uchar	for(i=0;i&lt;2000;i++)	for(j=0;j&lt;110;j++);&#125;int main()&#123;		// 主函数	uchar temp;	temp = 0x00;	while(1)&#123;		if(FLAG==0)&#123;	// 白天			P1 = 0xff;	// 无闪烁		&#125;else&#123;			// 晚上			P1= ~temp;	// 不断闪烁			temp = ~temp;			delay();		&#125;    &#125;&#125;
-
-
-
-3. LED灯前进
-上电时初始状态为LED灯D1亮其他熄灭，之后每按下一次S4按键，LED灯移动一位，每按下一次S5键，LED灯恢复到初始状态（注意在按键编程中加入去抖动延时及按键释放检测）
-1234567891011121314151617181920212223242526272829303132333435363738394041#include &quot;reg52.h&quot;#define uchar unsigned charsbit S4 = P3^2;	sbit S5 = P3^3; void delay()&#123;		// 延时	uchar i,j;	for(i=0;i&lt;255;i++)	for(j=0;j&lt;255;j++);&#125;void delay10ms()&#123;	// 延时	uchar i,j;	for(i=0;i&lt;30;i++)	for(j=0;j&lt;110;j++);&#125;int main()&#123;	uchar i,temp;	i=1;	temp = 0x01;	P1 = ~temp;	while(1)&#123;		if(S4==0)&#123;  // 按下一次LED灯前进一位			delay10ms(); // 延时			if(S4==0)&#123;					while(S4==0); // 按键释放检测				temp = 0x01;				temp = temp &lt;&lt;(i%8);				P1 = ~temp;				delay();				i++;			&#125;			&#125;		if(S5==0)&#123; // 复位			delay10ms();						if(S5==0)&#123;				while(S5==0);				i=1;				P1 = ~(0x01);			&#125;		&#125;	&#125;&#125;
-
-
-
-4. 动态刷新-显示学号"
+          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://tobing.top/2019/10/19/%E5%8D%95%E7%89%87%E6%9C%BA%E5%AE%9E%E9%AA%8C/&title=单片机实验 - tobing&summary=单片机时的实验。"
           
           >
           
@@ -830,32 +801,7 @@ STC-ISP：程序写入
       
         <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer noopener"
           
-          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://tobing.top/2019/10/19/%E5%8D%95%E7%89%87%E6%9C%BA%E5%AE%9E%E9%AA%8C/&title=单片机实验 - tobing&summary=单片机实验运行环境
-单片机：STC89C52开发板，某宝有售
-KEIL：用于编写程序
-STC-ISP：程序写入
-
-1. LED灯循环点亮
-实现LED灯循环点亮
-123456789101112131415161718192021222324252627282930#include &quot;reg52.h&quot;   // 导入C52库#define uchar unsigned char// 延时函数void delay()&#123;	uchar i,j;	for(i=0;i&lt;255;i++)	for(j=0;j&lt;255;j++);&#125;// 主函数int main()&#123;	// 初始化	uchar i,temp;	// 循环运行	while(1)&#123;		// 循环前进移动		temp = 0x01;		for(i=0;i&lt;8;i++)&#123;			P1 = ~temp;			delay();			temp = temp &lt;&lt;1;		&#125;		// 循环返回移动		temp = 0x80;		for(i=0;i&lt;8;i++)&#123;			P1= ~temp;			delay();			temp =temp &gt;&gt;1;		&#125;	&#125;&#125;
-
-
-
-
-
-2. 航标灯
-模拟航标灯工作：在白天熄灭，在夜晚断续点亮，时间间隔2秒，即亮2秒，灭2秒，周期循环进行。（8个LED灯一起闪烁，用按键开关1模拟光线传感器，按下表示白天，松开表示夜晚）
-123456789101112131415161718192021#include &quot;reg52.h&quot;#define uchar unsigned charsbit FLAG = P3^0; // 设置P3_0void delay()&#123;	// 延时函数	unsigned int i,j; // 此处由于超出255，不能再使用uchar	for(i=0;i&lt;2000;i++)	for(j=0;j&lt;110;j++);&#125;int main()&#123;		// 主函数	uchar temp;	temp = 0x00;	while(1)&#123;		if(FLAG==0)&#123;	// 白天			P1 = 0xff;	// 无闪烁		&#125;else&#123;			// 晚上			P1= ~temp;	// 不断闪烁			temp = ~temp;			delay();		&#125;    &#125;&#125;
-
-
-
-3. LED灯前进
-上电时初始状态为LED灯D1亮其他熄灭，之后每按下一次S4按键，LED灯移动一位，每按下一次S5键，LED灯恢复到初始状态（注意在按键编程中加入去抖动延时及按键释放检测）
-1234567891011121314151617181920212223242526272829303132333435363738394041#include &quot;reg52.h&quot;#define uchar unsigned charsbit S4 = P3^2;	sbit S5 = P3^3; void delay()&#123;		// 延时	uchar i,j;	for(i=0;i&lt;255;i++)	for(j=0;j&lt;255;j++);&#125;void delay10ms()&#123;	// 延时	uchar i,j;	for(i=0;i&lt;30;i++)	for(j=0;j&lt;110;j++);&#125;int main()&#123;	uchar i,temp;	i=1;	temp = 0x01;	P1 = ~temp;	while(1)&#123;		if(S4==0)&#123;  // 按下一次LED灯前进一位			delay10ms(); // 延时			if(S4==0)&#123;					while(S4==0); // 按键释放检测				temp = 0x01;				temp = temp &lt;&lt;(i%8);				P1 = ~temp;				delay();				i++;			&#125;			&#125;		if(S5==0)&#123; // 复位			delay10ms();						if(S5==0)&#123;				while(S5==0);				i=1;				P1 = ~(0x01);			&#125;		&#125;	&#125;&#125;
-
-
-
-4. 动态刷新-显示学号"
+          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://tobing.top/2019/10/19/%E5%8D%95%E7%89%87%E6%9C%BA%E5%AE%9E%E9%AA%8C/&title=单片机实验 - tobing&summary=单片机时的实验。"
           
           >
           
@@ -867,32 +813,7 @@ STC-ISP：程序写入
       
         <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer noopener"
           
-          target="_blank" href="http://service.weibo.com/share/share.php?url=https://tobing.top/2019/10/19/%E5%8D%95%E7%89%87%E6%9C%BA%E5%AE%9E%E9%AA%8C/&title=单片机实验 - tobing&summary=单片机实验运行环境
-单片机：STC89C52开发板，某宝有售
-KEIL：用于编写程序
-STC-ISP：程序写入
-
-1. LED灯循环点亮
-实现LED灯循环点亮
-123456789101112131415161718192021222324252627282930#include &quot;reg52.h&quot;   // 导入C52库#define uchar unsigned char// 延时函数void delay()&#123;	uchar i,j;	for(i=0;i&lt;255;i++)	for(j=0;j&lt;255;j++);&#125;// 主函数int main()&#123;	// 初始化	uchar i,temp;	// 循环运行	while(1)&#123;		// 循环前进移动		temp = 0x01;		for(i=0;i&lt;8;i++)&#123;			P1 = ~temp;			delay();			temp = temp &lt;&lt;1;		&#125;		// 循环返回移动		temp = 0x80;		for(i=0;i&lt;8;i++)&#123;			P1= ~temp;			delay();			temp =temp &gt;&gt;1;		&#125;	&#125;&#125;
-
-
-
-
-
-2. 航标灯
-模拟航标灯工作：在白天熄灭，在夜晚断续点亮，时间间隔2秒，即亮2秒，灭2秒，周期循环进行。（8个LED灯一起闪烁，用按键开关1模拟光线传感器，按下表示白天，松开表示夜晚）
-123456789101112131415161718192021#include &quot;reg52.h&quot;#define uchar unsigned charsbit FLAG = P3^0; // 设置P3_0void delay()&#123;	// 延时函数	unsigned int i,j; // 此处由于超出255，不能再使用uchar	for(i=0;i&lt;2000;i++)	for(j=0;j&lt;110;j++);&#125;int main()&#123;		// 主函数	uchar temp;	temp = 0x00;	while(1)&#123;		if(FLAG==0)&#123;	// 白天			P1 = 0xff;	// 无闪烁		&#125;else&#123;			// 晚上			P1= ~temp;	// 不断闪烁			temp = ~temp;			delay();		&#125;    &#125;&#125;
-
-
-
-3. LED灯前进
-上电时初始状态为LED灯D1亮其他熄灭，之后每按下一次S4按键，LED灯移动一位，每按下一次S5键，LED灯恢复到初始状态（注意在按键编程中加入去抖动延时及按键释放检测）
-1234567891011121314151617181920212223242526272829303132333435363738394041#include &quot;reg52.h&quot;#define uchar unsigned charsbit S4 = P3^2;	sbit S5 = P3^3; void delay()&#123;		// 延时	uchar i,j;	for(i=0;i&lt;255;i++)	for(j=0;j&lt;255;j++);&#125;void delay10ms()&#123;	// 延时	uchar i,j;	for(i=0;i&lt;30;i++)	for(j=0;j&lt;110;j++);&#125;int main()&#123;	uchar i,temp;	i=1;	temp = 0x01;	P1 = ~temp;	while(1)&#123;		if(S4==0)&#123;  // 按下一次LED灯前进一位			delay10ms(); // 延时			if(S4==0)&#123;					while(S4==0); // 按键释放检测				temp = 0x01;				temp = temp &lt;&lt;(i%8);				P1 = ~temp;				delay();				i++;			&#125;			&#125;		if(S5==0)&#123; // 复位			delay10ms();						if(S5==0)&#123;				while(S5==0);				i=1;				P1 = ~(0x01);			&#125;		&#125;	&#125;&#125;
-
-
-
-4. 动态刷新-显示学号"
+          target="_blank" href="http://service.weibo.com/share/share.php?url=https://tobing.top/2019/10/19/%E5%8D%95%E7%89%87%E6%9C%BA%E5%AE%9E%E9%AA%8C/&title=单片机实验 - tobing&summary=单片机时的实验。"
           
           >
           
@@ -924,19 +845,21 @@ STC-ISP：程序写入
       
         <a class='prev' href='/2019/10/19/Java%E5%8F%8D%E5%B0%84%EF%BC%88Reflection%EF%BC%89-%E4%B8%89/'>
           <p class='title'><i class="fas fa-chevron-left" aria-hidden="true"></i>Java反射（Reflection）(三)</p>
-          <p class='content'>Java反射（Reflection）(三)1. 通过Class获取Method的几个方法
-Method getDeclaredMethod(String name, Class&lt;?&gt;...</p>
+          <p class='content'>反射第三弹。
+
+
+Java反射（Reflection）(三)1. 通过Class获取Method的几个方法
+Method getDeclaredMethod(String name, Class...</p>
         </a>
       
       
         <a class='next' href='/2019/10/12/Java-Mysql%E5%AE%9E%E7%8E%B0%E7%AE%80%E7%95%A5%E8%B6%85%E5%B8%82%E4%BF%A1%E6%81%AF%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/'>
           <p class='title'>Java+Mysql实现简略超市信息管理系统<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
-          <p class='content'>JDBC+MySQL实现超市信息管理系统1. 概述
-超市商品管理系统用于管理员、销售员的登录。管理员和销售员查看数据。管理员可以进行入库。销售可以销售商品
+          <p class='content'>这以大一下程序设计题目为原型的系统，使用Java+JDBC+MySQL对C进行重写。
 
-2. 需求分析
-销售员，管理员登录
-...</p>
+
+JDBC+MySQL实现超市信息管理系统1. 概述
+超市商品管理系统用于管理员、销售员的登录。管理员和销...</p>
         </a>
       
     </div>

@@ -25,19 +25,7 @@
   
 
   
-    <meta name="description" content="Spring-2-入门补充
-基于XML的IOC的细节
-
-1. Spring中工厂的类结构图
-1. BeanFactory和ApplicationContext的区别
-
-BeanFactory才是Spring容器中的顶层接口。
-
-ApplicationContext是它的子接口
-
-创建对象的时间点不一样（区别）
-
-...">
+    <meta name="description" content="Spring学习第二弹。">
   
 
   <!-- feed -->
@@ -427,10 +415,13 @@ ApplicationContext是它的子接口
 
 
   
-  <h1 id="Spring-2-入门补充"><a href="#Spring-2-入门补充" class="headerlink" title="Spring-2-入门补充"></a>Spring-2-入门补充</h1><blockquote>
+  <p>Spring学习第二弹。</p>
+<a id="more"></a>
+
+<h1 id="Spring-2-入门补充"><a href="#Spring-2-入门补充" class="headerlink" title="Spring-2-入门补充"></a>Spring-2-入门补充</h1><blockquote>
 <p>基于XML的IOC的细节</p>
 </blockquote>
-<h2 id="1-Spring中工厂的类结构图"><a href="#1-Spring中工厂的类结构图" class="headerlink" title="1. Spring中工厂的类结构图"></a>1. Spring中工厂的类结构图</h2><p><img src="/images/Spring/spring02-framework.png" class="lazyload" data-srcset="/images/Spring/spring02-framework.png" srcset="data:image/png;base64,666" alt="framework"></p>
+<h2 id="1-Spring中工厂的类结构图"><a href="#1-Spring中工厂的类结构图" class="headerlink" title="1. Spring中工厂的类结构图"></a>1. Spring中工厂的类结构图</h2><p><img src="https://gitee.com/tobing/imagebed/raw/master/spring02-framework.png" class="lazyload" data-srcset="https://gitee.com/tobing/imagebed/raw/master/spring02-framework.png" srcset="data:image/png;base64,666" alt="spring02-framework"></p>
 <h3 id="1-BeanFactory和ApplicationContext的区别"><a href="#1-BeanFactory和ApplicationContext的区别" class="headerlink" title="1. BeanFactory和ApplicationContext的区别"></a>1. BeanFactory和ApplicationContext的区别</h3><blockquote>
 <ul>
 <li><p>BeanFactory才是Spring容器中的顶层接口。</p>
@@ -580,7 +571,7 @@ ApplicationContext是它的子接口
 </blockquote>
 </li>
 <li><p>依赖注入对应关系</p>
-<p><img src="/images/Spring/spring2-%E4%BE%9D%E8%B5%96%E6%B3%A8%E5%85%A5.png" class="lazyload" data-srcset="/images/Spring/spring2-%E4%BE%9D%E8%B5%96%E6%B3%A8%E5%85%A5.png" srcset="data:image/png;base64,666" alt="spring-依赖注入"></p>
+<p><img src="https://gitee.com/tobing/imagebed/raw/master/spring2-%E4%BE%9D%E8%B5%96%E6%B3%A8%E5%85%A5.png" class="lazyload" data-srcset="https://gitee.com/tobing/imagebed/raw/master/spring2-%E4%BE%9D%E8%B5%96%E6%B3%A8%E5%85%A5.png" srcset="data:image/png;base64,666" alt="spring2-依赖注入"></p>
 </li>
 <li><p>构造函数依赖注入涉及标签</p>
 <blockquote>
@@ -703,10 +694,10 @@ ApplicationContext是它的子接口
     <div class='new-meta-box'>
       
         
-          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2019-12-11T20:30:31+08:00">
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-01-15T12:09:32+08:00">
   <a class='notlink'>
     <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
-    <p>更新于：Dec 11, 2019</p>
+    <p>更新于：Jan 15, 2021</p>
   </a>
 </div>
 
@@ -728,47 +719,7 @@ ApplicationContext是它的子接口
       
         <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer noopener"
           
-          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://tobing.top/2019/12/11/spring-2-%E5%85%A5%E9%97%A8%E8%A1%A5%E5%85%85/&title=spring-2-入门补充 - tobing&summary=Spring-2-入门补充
-基于XML的IOC的细节
-
-1. Spring中工厂的类结构图
-1. BeanFactory和ApplicationContext的区别
-
-BeanFactory才是Spring容器中的顶层接口。
-
-ApplicationContext是它的子接口
-
-创建对象的时间点不一样（区别）
-
-ApplicationContext：一读取配置文件，默认就会创建对象。有点像立即加载（使用应用在单列设计模式）。
-BeanFactory：什么时候使用，什么时候加载。有点像延迟加载（适合多例场景）。
-
-
-
-
-2. ApplicationContext接口的3个实现类
-spring中ApplicationContext接口有三个实现类用于3种方式加载配置。
-
-
-类根目录
-
-ClassPathXmlApplicationContext
-资源文件存放在res下。
-
-
-磁盘任意目录
-
-FileSystemXMLApplicationContext
-资源配置文件存放在磁盘的其他地方。
-
-
-注解
-
-AnnotationConfigApplicationContext
-
-
-
-12345// 方式1ApplicationContext ac = new ClassPathXmlApplicationContext(&quot;bean.xml&quot;);// 方式2ApplicationContext ac = new FileSystemXmlApplicationContext(&quot;E:\\IdeaProjects\\spring02_introduction\\src\\main\\resources\\bean.xml&quot;);"
+          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://tobing.top/2019/12/11/spring-2-%E5%85%A5%E9%97%A8%E8%A1%A5%E5%85%85/&title=spring-2-入门补充 - tobing&summary=Spring学习第二弹。"
           
           >
           
@@ -780,47 +731,7 @@ AnnotationConfigApplicationContext
       
         <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer noopener"
           
-          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://tobing.top/2019/12/11/spring-2-%E5%85%A5%E9%97%A8%E8%A1%A5%E5%85%85/&title=spring-2-入门补充 - tobing&summary=Spring-2-入门补充
-基于XML的IOC的细节
-
-1. Spring中工厂的类结构图
-1. BeanFactory和ApplicationContext的区别
-
-BeanFactory才是Spring容器中的顶层接口。
-
-ApplicationContext是它的子接口
-
-创建对象的时间点不一样（区别）
-
-ApplicationContext：一读取配置文件，默认就会创建对象。有点像立即加载（使用应用在单列设计模式）。
-BeanFactory：什么时候使用，什么时候加载。有点像延迟加载（适合多例场景）。
-
-
-
-
-2. ApplicationContext接口的3个实现类
-spring中ApplicationContext接口有三个实现类用于3种方式加载配置。
-
-
-类根目录
-
-ClassPathXmlApplicationContext
-资源文件存放在res下。
-
-
-磁盘任意目录
-
-FileSystemXMLApplicationContext
-资源配置文件存放在磁盘的其他地方。
-
-
-注解
-
-AnnotationConfigApplicationContext
-
-
-
-12345// 方式1ApplicationContext ac = new ClassPathXmlApplicationContext(&quot;bean.xml&quot;);// 方式2ApplicationContext ac = new FileSystemXmlApplicationContext(&quot;E:\\IdeaProjects\\spring02_introduction\\src\\main\\resources\\bean.xml&quot;);"
+          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://tobing.top/2019/12/11/spring-2-%E5%85%A5%E9%97%A8%E8%A1%A5%E5%85%85/&title=spring-2-入门补充 - tobing&summary=Spring学习第二弹。"
           
           >
           
@@ -832,47 +743,7 @@ AnnotationConfigApplicationContext
       
         <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer noopener"
           
-          target="_blank" href="http://service.weibo.com/share/share.php?url=https://tobing.top/2019/12/11/spring-2-%E5%85%A5%E9%97%A8%E8%A1%A5%E5%85%85/&title=spring-2-入门补充 - tobing&summary=Spring-2-入门补充
-基于XML的IOC的细节
-
-1. Spring中工厂的类结构图
-1. BeanFactory和ApplicationContext的区别
-
-BeanFactory才是Spring容器中的顶层接口。
-
-ApplicationContext是它的子接口
-
-创建对象的时间点不一样（区别）
-
-ApplicationContext：一读取配置文件，默认就会创建对象。有点像立即加载（使用应用在单列设计模式）。
-BeanFactory：什么时候使用，什么时候加载。有点像延迟加载（适合多例场景）。
-
-
-
-
-2. ApplicationContext接口的3个实现类
-spring中ApplicationContext接口有三个实现类用于3种方式加载配置。
-
-
-类根目录
-
-ClassPathXmlApplicationContext
-资源文件存放在res下。
-
-
-磁盘任意目录
-
-FileSystemXMLApplicationContext
-资源配置文件存放在磁盘的其他地方。
-
-
-注解
-
-AnnotationConfigApplicationContext
-
-
-
-12345// 方式1ApplicationContext ac = new ClassPathXmlApplicationContext(&quot;bean.xml&quot;);// 方式2ApplicationContext ac = new FileSystemXmlApplicationContext(&quot;E:\\IdeaProjects\\spring02_introduction\\src\\main\\resources\\bean.xml&quot;);"
+          target="_blank" href="http://service.weibo.com/share/share.php?url=https://tobing.top/2019/12/11/spring-2-%E5%85%A5%E9%97%A8%E8%A1%A5%E5%85%85/&title=spring-2-入门补充 - tobing&summary=Spring学习第二弹。"
           
           >
           
@@ -904,29 +775,26 @@ AnnotationConfigApplicationContext
       
         <a class='prev' href='/2019/12/23/spring-3-%E5%9F%BA%E4%BA%8E%E6%B3%A8%E8%A7%A3ioc/'>
           <p class='title'><i class="fas fa-chevron-left" aria-hidden="true"></i>spring-3-基于注解ioc</p>
-          <p class='content'>spring-3-基于注解Ioc配置1. 基于注解的Ioc配置
+          <p class='content'>Spring学习第三弹。
+
+
+spring-3-基于注解Ioc配置1. 基于注解的Ioc配置
 
 基于注解和xml的配置实现的功能都是一样的，都是要降低程序间耦合。
 
-xml和注解的配置方式都很常用
-
-
-
-1. 环境搭建
-在p...</p>
+xml和注解的配置方式都很常...</p>
         </a>
       
       
         <a class='next' href='/2019/12/11/spring-1-%E5%85%A5%E9%97%A8/'>
           <p class='title'>spring-1-入门<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
-          <p class='content'>Spring-1-入门1. Spring的优势（先了解、使用中感悟）
+          <p class='content'>Spring是核心是AOP和IOC，是框架中必不可少的一部分，本文记录了学习笔记。
+
+
+Spring-1-入门1. Spring的优势（先了解、使用中感悟）
 
 方便解耦，简化开发
-AOP编程的支持
-声明式事务的支持
-方便程序的测试
-方便集成各种优秀框架
-降低了JavaEE API的...</p>
+AOP编程的支...</p>
         </a>
       
     </div>

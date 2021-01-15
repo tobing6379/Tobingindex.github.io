@@ -25,15 +25,7 @@
   
 
   
-    <meta name="description" content="MySQL进阶-2-索引优化分析1. 导致SQL慢的原因
-查询语句写的烂
-（单值、复合）索引实现
-关联查询太多join
-服务器调优以及各参数的设置
-
-2. 常见通用的join查询2.1 SQL执行顺序
-SQL通用编写语法
-123456789101112131415161718192021select distin...">
+    <meta name="description" content="MySQL进阶第二弹。">
   
 
   <!-- feed -->
@@ -388,6 +380,13 @@ SQL通用编写语法
         
           
             
+  <div class='new-meta-item category'>
+    <a class='notlink'>
+      <i class="fas fa-folder-open fa-fw" aria-hidden="true"></i>
+      <a class="category-link" href="/categories/%E7%90%86%E8%AE%BA%E5%AD%A6%E4%B9%A0/">理论学习</a>
+    </a>
+  </div>
+
 
           
         
@@ -423,7 +422,10 @@ SQL通用编写语法
 
 
   
-  <h1 id="MySQL进阶-2-索引优化分析"><a href="#MySQL进阶-2-索引优化分析" class="headerlink" title="MySQL进阶-2-索引优化分析"></a>MySQL进阶-2-索引优化分析</h1><h2 id="1-导致SQL慢的原因"><a href="#1-导致SQL慢的原因" class="headerlink" title="1. 导致SQL慢的原因"></a>1. 导致SQL慢的原因</h2><ol>
+  <p>MySQL进阶第二弹。</p>
+<a id="more"></a>
+
+<h1 id="MySQL进阶-2-索引优化分析"><a href="#MySQL进阶-2-索引优化分析" class="headerlink" title="MySQL进阶-2-索引优化分析"></a>MySQL进阶-2-索引优化分析</h1><h2 id="1-导致SQL慢的原因"><a href="#1-导致SQL慢的原因" class="headerlink" title="1. 导致SQL慢的原因"></a>1. 导致SQL慢的原因</h2><ol>
 <li>查询语句写的烂</li>
 <li>（单值、复合）索引实现</li>
 <li>关联查询太多join</li>
@@ -436,10 +438,10 @@ SQL通用编写语法
 <li><p>机器读取顺序</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">from  &lt;left_table&gt;</span><br><span class="line">on  &lt;join_condition&gt;</span><br><span class="line">where  &lt;where_condition&gt;</span><br><span class="line">group by &lt;group_by_list&gt;</span><br><span class="line">having &lt;having_condition&gt;</span><br><span class="line"><span class="keyword">select</span></span><br><span class="line"><span class="keyword">distinct</span>  &lt;select_list&gt;</span><br><span class="line"><span class="keyword">order</span> <span class="keyword">by</span> &lt;order_by_condition&gt;</span><br><span class="line">limint &lt;limint_number&gt;</span><br></pre></td></tr></table></figure>
 
-<p><img src="/images/1597149848138.png" class="lazyload" data-srcset="/images/1597149848138.png" srcset="data:image/png;base64,666" alt="底层读取顺序"></p>
+<p><img src="https://gitee.com/tobing/imagebed/raw/master/1597149848138.png" class="lazyload" data-srcset="https://gitee.com/tobing/imagebed/raw/master/1597149848138.png" srcset="data:image/png;base64,666" alt="底层读取顺序"></p>
 </li>
 </ol>
-<h3 id="2-2-7种Join"><a href="#2-2-7种Join" class="headerlink" title="2.2 7种Join"></a>2.2 7种Join</h3><h4 id="2-2-1-示意图"><a href="#2-2-1-示意图" class="headerlink" title="2.2.1 示意图"></a>2.2.1 示意图</h4><p><img src="/images/1597151133049.png" class="lazyload" data-srcset="/images/1597151133049.png" srcset="data:image/png;base64,666" alt="1597151133049"></p>
+<h3 id="2-2-7种Join"><a href="#2-2-7种Join" class="headerlink" title="2.2 7种Join"></a>2.2 7种Join</h3><h4 id="2-2-1-示意图"><a href="#2-2-1-示意图" class="headerlink" title="2.2.1 示意图"></a>2.2.1 示意图</h4><p><img src="https://gitee.com/tobing/imagebed/raw/master/1597151133049.png" class="lazyload" data-srcset="https://gitee.com/tobing/imagebed/raw/master/1597151133049.png" srcset="data:image/png;base64,666" alt="1597151133049"></p>
 <h4 id="2-2-2-示例"><a href="#2-2-2-示例" class="headerlink" title="2.2.2 示例"></a>2.2.2 示例</h4><ol>
 <li><p>建表</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 创建数据库</span></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">DATABASE</span> mysq;</span><br><span class="line"><span class="keyword">USE</span> mysq;</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 创建部门表</span></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> <span class="string">`t_dept`</span>( </span><br><span class="line">    <span class="string">`id`</span><span class="built_in">INT</span>(<span class="number">11</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span> AUTO_INCREMENT, </span><br><span class="line">    <span class="string">`deptName`</span><span class="built_in">VARCHAR</span>(<span class="number">30</span>)<span class="keyword">DEFAULT</span> <span class="literal">NULL</span>, </span><br><span class="line">    <span class="string">`address`</span><span class="built_in">VARCHAR</span>(<span class="number">40</span>)<span class="keyword">DEFAULT</span> <span class="literal">NULL</span>, </span><br><span class="line">    PRIMARY <span class="keyword">KEY</span>(<span class="string">`id`</span>)</span><br><span class="line">)<span class="keyword">ENGINE</span>=<span class="keyword">INNODB</span> AUTO_INCREMENT=<span class="number">1</span> <span class="keyword">DEFAULT</span> <span class="keyword">CHARSET</span>=utf8; </span><br><span class="line"></span><br><span class="line"><span class="comment">-- 创建员工表</span></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> <span class="string">`t_emp`</span>( </span><br><span class="line">    <span class="string">`id`</span><span class="built_in">INT</span>(<span class="number">11</span>)<span class="keyword">NOT</span> <span class="literal">NULL</span> AUTO_INCREMENT, </span><br><span class="line">    <span class="string">`name`</span><span class="built_in">VARCHAR</span>(<span class="number">20</span>)<span class="keyword">DEFAULT</span> <span class="literal">NULL</span>, </span><br><span class="line">    <span class="string">`age`</span><span class="built_in">INT</span>(<span class="number">3</span>)<span class="keyword">DEFAULT</span> <span class="literal">NULL</span>, </span><br><span class="line">    <span class="string">`deptId`</span><span class="built_in">INT</span>(<span class="number">11</span>)<span class="keyword">DEFAULT</span> <span class="literal">NULL</span>, </span><br><span class="line">    empno <span class="built_in">INT</span> <span class="keyword">NOT</span> <span class="literal">NULL</span>, PRIMARY <span class="keyword">KEY</span>(<span class="string">`id`</span>), </span><br><span class="line">	<span class="keyword">KEY</span><span class="string">`idx_dept_id`</span>(<span class="string">`deptId`</span>) </span><br><span class="line">	<span class="comment">#CONSTRAINT`fk_dept_id`FOREIGNKEY(`deptId`)REFERENCES`t_dept`(`id`) </span></span><br><span class="line">)<span class="keyword">ENGINE</span>=<span class="keyword">INNODB</span> AUTO_INCREMENT=<span class="number">1</span> <span class="keyword">DEFAULT</span> <span class="keyword">CHARSET</span>=utf8; </span><br><span class="line"></span><br><span class="line"><span class="comment">-- 插入数据</span></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> t_dept(deptName,address)<span class="keyword">VALUES</span>(<span class="string">&#x27;华山&#x27;</span>,<span class="string">&#x27;华山&#x27;</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> t_dept(deptName,address)<span class="keyword">VALUES</span>(<span class="string">&#x27;丐帮&#x27;</span>,<span class="string">&#x27;洛阳&#x27;</span>); </span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> t_dept(deptName,address)<span class="keyword">VALUES</span>(<span class="string">&#x27;峨眉&#x27;</span>,<span class="string">&#x27;峨眉山&#x27;</span>); </span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> t_dept(deptName,address)<span class="keyword">VALUES</span>(<span class="string">&#x27;武当&#x27;</span>,<span class="string">&#x27;武当山&#x27;</span>); </span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> t_dept(deptName,address)<span class="keyword">VALUES</span>(<span class="string">&#x27;明教&#x27;</span>,<span class="string">&#x27;光明顶&#x27;</span>); </span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> t_dept(deptName,address)<span class="keyword">VALUES</span>(<span class="string">&#x27;少林&#x27;</span>,<span class="string">&#x27;少林寺&#x27;</span>); </span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> t_emp(<span class="keyword">NAME</span>,age,deptId,empno)<span class="keyword">VALUES</span>(<span class="string">&#x27;风清扬&#x27;</span>,<span class="number">90</span>,<span class="number">1</span>,<span class="number">100001</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> t_emp(<span class="keyword">NAME</span>,age,deptId,empno)<span class="keyword">VALUES</span>(<span class="string">&#x27;岳不群&#x27;</span>,<span class="number">50</span>,<span class="number">1</span>,<span class="number">100002</span>); </span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> t_emp(<span class="keyword">NAME</span>,age,deptId,empno)<span class="keyword">VALUES</span>(<span class="string">&#x27;令狐冲&#x27;</span>,<span class="number">24</span>,<span class="number">1</span>,<span class="number">100003</span>); </span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> t_emp(<span class="keyword">NAME</span>,age,deptId,empno)<span class="keyword">VALUES</span>(<span class="string">&#x27;洪七公&#x27;</span>,<span class="number">70</span>,<span class="number">2</span>,<span class="number">100004</span>); </span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> t_emp(<span class="keyword">NAME</span>,age,deptId,empno)<span class="keyword">VALUES</span>(<span class="string">&#x27;乔峰&#x27;</span>,<span class="number">35</span>,<span class="number">2</span>,<span class="number">100005</span>); </span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> t_emp(<span class="keyword">NAME</span>,age,deptId,empno)<span class="keyword">VALUES</span>(<span class="string">&#x27;灭绝师太&#x27;</span>,<span class="number">70</span>,<span class="number">3</span>,<span class="number">100006</span>); </span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> t_emp(<span class="keyword">NAME</span>,age,deptId,empno)<span class="keyword">VALUES</span>(<span class="string">&#x27;周芷若&#x27;</span>,<span class="number">20</span>,<span class="number">3</span>,<span class="number">100007</span>); </span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> t_emp(<span class="keyword">NAME</span>,age,deptId,empno)<span class="keyword">VALUES</span>(<span class="string">&#x27;张三丰&#x27;</span>,<span class="number">100</span>,<span class="number">4</span>,<span class="number">100008</span>); </span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> t_emp(<span class="keyword">NAME</span>,age,deptId,empno)<span class="keyword">VALUES</span>(<span class="string">&#x27;张无忌&#x27;</span>,<span class="number">25</span>,<span class="number">5</span>,<span class="number">100009</span>); </span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> t_emp(<span class="keyword">NAME</span>,age,deptId,empno)<span class="keyword">VALUES</span>(<span class="string">&#x27;韦小宝&#x27;</span>,<span class="number">18</span>,<span class="literal">NULL</span>,<span class="number">100010</span>);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
@@ -453,7 +455,7 @@ SQL通用编写语法
 </ol>
 <h2 id="3-索引简介"><a href="#3-索引简介" class="headerlink" title="3. 索引简介"></a>3. 索引简介</h2><h3 id="3-1-是什么"><a href="#3-1-是什么" class="headerlink" title="3.1 是什么"></a>3.1 是什么</h3><p>​    <strong>索引（index）是帮助MySQL实现高效获取数据的数据结构。</strong></p>
 <p>​    我们可以简单理解为：<strong>排好序的快速查找数据结构</strong>。数据库系统维护着满足特定查找算法的数据结构，这些数据结构一某种方式引用数据，这样就可以在这些数据结构上实现高级查找算法。这便是索引。</p>
-<p><img src="/images/%E6%97%A0%E6%A0%87%E9%A2%98.png" class="lazyload" data-srcset="/images/%E6%97%A0%E6%A0%87%E9%A2%98.png" srcset="data:image/png;base64,666" alt="无标题"></p>
+<p><img src="https://gitee.com/tobing/imagebed/raw/master/%E6%97%A0%E6%A0%87%E9%A2%98.png" class="lazyload" data-srcset="https://gitee.com/tobing/imagebed/raw/master/%E6%97%A0%E6%A0%87%E9%A2%98.png" srcset="data:image/png;base64,666" alt="无标题"></p>
 <p>​    上图中，为了加快Col2的查找，可以维护右边所示的二叉查找树，每个节点分别包含索引键值和一个指向对应数据记录物理地址的指针，这样既可以运用二叉查找树在一定复杂度内获取相应数据，从而快速索引出符合条件的记录。</p>
 <p>​    一般来说，索引本身很大，不可能全部存储到内存中，因此索引往往以文件的形式保存在硬盘中。平时我们提到的索引，如果没有特别说明都是指的是B树（多路搜索树，并不一定是二叉树）结构组织的索引。其中聚集索引、次要索引、覆盖索引、符合索引、前缀索引、唯一索引都是使用B+树索引，统称索引。处理B+树索引还有哈希索引等。</p>
 <h3 id="3-2-索引优势"><a href="#3-2-索引优势" class="headerlink" title="3.2 索引优势"></a>3.2 索引优势</h3><p>​    类似大学图书馆建立书目索引，索引可以提高数据检索效率，降低数据库IO成本。通过建立索引还会对数据进行排序，降低数据排序成本，减少CPU的消耗。</p>
@@ -486,7 +488,7 @@ SQL通用编写语法
 <h3 id="3-6-索引结构"><a href="#3-6-索引结构" class="headerlink" title="3.6 索引结构"></a>3.6 索引结构</h3><ol>
 <li><p>BTree索引</p>
 <p>​    BTree索引（Balanced Tree），是一种很普遍的数据库索引结构，是oracle默认的索引结构类型。其特点是定位高效、利用率高、自我平衡，特别适用于高基数字段，定位单条或小范围数据非常高效。理论上，适用BTree在亿条数据与100条数据中定位记录花销相同。BTree索引的数据结构如下图：</p>
-<p><img src="/images/1597285909182.png" class="lazyload" data-srcset="/images/1597285909182.png" srcset="data:image/png;base64,666" alt="1597285909182"></p>
+<p><img src="https://gitee.com/tobing/imagebed/raw/master/1597285909182.png" class="lazyload" data-srcset="https://gitee.com/tobing/imagebed/raw/master/1597285909182.png" srcset="data:image/png;base64,666" alt="1597285909182"></p>
 <p>​    BTree索引的主要特点：</p>
 <ul>
 <li><p>树形结构：有根节点（root）、分支（branches）、叶（leaves）三级节点组成，其中分支节点可以有多层。</p>
@@ -557,7 +559,7 @@ SQL通用编写语法
 <p>【3】id相同和不同并存</p>
 </li>
 </ol>
-<img src="/images/1597322445848.png" class="lazyload" data-srcset="/images/1597322445848.png" srcset="data:image/png;base64,666" alt="1597322445848" style="zoom:150%;" />
+<img src="https://gitee.com/tobing/imagebed/raw/master/1597322445848.png" class="lazyload" data-srcset="https://gitee.com/tobing/imagebed/raw/master/1597322445848.png" srcset="data:image/png;base64,666" alt="1597322445848" style="zoom:150%;" />
 
 
 
@@ -658,7 +660,7 @@ SQL通用编写语法
 </ol>
 <h3 id="4-5-Explain测试"><a href="#4-5-Explain测试" class="headerlink" title="4.5 Explain测试"></a>4.5 Explain测试</h3><ol>
 <li><p>阐述下图的执行顺序</p>
-<img src="/images/1597482346266.png" class="lazyload" data-srcset="/images/1597482346266.png" srcset="data:image/png;base64,666" alt="1597482346266" style="zoom:150%;" />
+<img src="https://gitee.com/tobing/imagebed/raw/master/1597482346266.png" class="lazyload" data-srcset="https://gitee.com/tobing/imagebed/raw/master/1597482346266.png" srcset="data:image/png;base64,666" alt="1597482346266" style="zoom:150%;" />
 </li>
 <li><p>执行顺序</p>
 <p>​    【1】第四行（selec name，id from t2），select_type为union、说明第三个select是union里面的第二个select。</p>
@@ -857,10 +859,10 @@ SQL通用编写语法
     <div class='new-meta-box'>
       
         
-          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2020-08-22T12:33:10+08:00">
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-01-15T12:12:11+08:00">
   <a class='notlink'>
     <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
-    <p>更新于：Aug 22, 2020</p>
+    <p>更新于：Jan 15, 2021</p>
   </a>
 </div>
 
@@ -882,24 +884,7 @@ SQL通用编写语法
       
         <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer noopener"
           
-          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://tobing.top/2020/08/22/MySQL%E8%BF%9B%E9%98%B6-2-%E7%B4%A2%E5%BC%95%E4%BC%98%E5%8C%96%E5%88%86%E6%9E%90/&title=MySQL进阶-2-索引优化分析 - tobing&summary=MySQL进阶-2-索引优化分析1. 导致SQL慢的原因
-查询语句写的烂
-（单值、复合）索引实现
-关联查询太多join
-服务器调优以及各参数的设置
-
-2. 常见通用的join查询2.1 SQL执行顺序
-SQL通用编写语法
-123456789101112131415161718192021select distinct	&lt;select_list&gt;from	&lt;left_table&gt; &lt;join type&gt;join &lt;right_table&gt; on &lt;join_condition&gt;where 	&lt;where_condition&gt;group by 	&lt;group_by_list&gt;having 	&lt;having_condition&gt;order by	&lt;order_by_condition&gt;limint &lt;limint_number&gt;
-
-机器读取顺序
-123456789from  &lt;left_table&gt;on  &lt;join_condition&gt;where  &lt;where_condition&gt;group by &lt;group_by_list&gt;having &lt;having_condition&gt;selectdistinct  &lt;select_list&gt;order by &lt;order_by_condition&gt;limint &lt;limint_number&gt;
-
-
-
-
-2.2 7种Join2.2.1 示意图
-2.2.2 示例"
+          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://tobing.top/2020/08/22/MySQL%E8%BF%9B%E9%98%B6-2-%E7%B4%A2%E5%BC%95%E4%BC%98%E5%8C%96%E5%88%86%E6%9E%90/&title=MySQL进阶-2-索引优化分析 - tobing&summary=MySQL进阶第二弹。"
           
           >
           
@@ -911,24 +896,7 @@ SQL通用编写语法
       
         <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer noopener"
           
-          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://tobing.top/2020/08/22/MySQL%E8%BF%9B%E9%98%B6-2-%E7%B4%A2%E5%BC%95%E4%BC%98%E5%8C%96%E5%88%86%E6%9E%90/&title=MySQL进阶-2-索引优化分析 - tobing&summary=MySQL进阶-2-索引优化分析1. 导致SQL慢的原因
-查询语句写的烂
-（单值、复合）索引实现
-关联查询太多join
-服务器调优以及各参数的设置
-
-2. 常见通用的join查询2.1 SQL执行顺序
-SQL通用编写语法
-123456789101112131415161718192021select distinct	&lt;select_list&gt;from	&lt;left_table&gt; &lt;join type&gt;join &lt;right_table&gt; on &lt;join_condition&gt;where 	&lt;where_condition&gt;group by 	&lt;group_by_list&gt;having 	&lt;having_condition&gt;order by	&lt;order_by_condition&gt;limint &lt;limint_number&gt;
-
-机器读取顺序
-123456789from  &lt;left_table&gt;on  &lt;join_condition&gt;where  &lt;where_condition&gt;group by &lt;group_by_list&gt;having &lt;having_condition&gt;selectdistinct  &lt;select_list&gt;order by &lt;order_by_condition&gt;limint &lt;limint_number&gt;
-
-
-
-
-2.2 7种Join2.2.1 示意图
-2.2.2 示例"
+          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://tobing.top/2020/08/22/MySQL%E8%BF%9B%E9%98%B6-2-%E7%B4%A2%E5%BC%95%E4%BC%98%E5%8C%96%E5%88%86%E6%9E%90/&title=MySQL进阶-2-索引优化分析 - tobing&summary=MySQL进阶第二弹。"
           
           >
           
@@ -940,24 +908,7 @@ SQL通用编写语法
       
         <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer noopener"
           
-          target="_blank" href="http://service.weibo.com/share/share.php?url=https://tobing.top/2020/08/22/MySQL%E8%BF%9B%E9%98%B6-2-%E7%B4%A2%E5%BC%95%E4%BC%98%E5%8C%96%E5%88%86%E6%9E%90/&title=MySQL进阶-2-索引优化分析 - tobing&summary=MySQL进阶-2-索引优化分析1. 导致SQL慢的原因
-查询语句写的烂
-（单值、复合）索引实现
-关联查询太多join
-服务器调优以及各参数的设置
-
-2. 常见通用的join查询2.1 SQL执行顺序
-SQL通用编写语法
-123456789101112131415161718192021select distinct	&lt;select_list&gt;from	&lt;left_table&gt; &lt;join type&gt;join &lt;right_table&gt; on &lt;join_condition&gt;where 	&lt;where_condition&gt;group by 	&lt;group_by_list&gt;having 	&lt;having_condition&gt;order by	&lt;order_by_condition&gt;limint &lt;limint_number&gt;
-
-机器读取顺序
-123456789from  &lt;left_table&gt;on  &lt;join_condition&gt;where  &lt;where_condition&gt;group by &lt;group_by_list&gt;having &lt;having_condition&gt;selectdistinct  &lt;select_list&gt;order by &lt;order_by_condition&gt;limint &lt;limint_number&gt;
-
-
-
-
-2.2 7种Join2.2.1 示意图
-2.2.2 示例"
+          target="_blank" href="http://service.weibo.com/share/share.php?url=https://tobing.top/2020/08/22/MySQL%E8%BF%9B%E9%98%B6-2-%E7%B4%A2%E5%BC%95%E4%BC%98%E5%8C%96%E5%88%86%E6%9E%90/&title=MySQL进阶-2-索引优化分析 - tobing&summary=MySQL进阶第二弹。"
           
           >
           
@@ -989,15 +940,20 @@ SQL通用编写语法
       
         <a class='prev' href='/2020/11/16/Github%E9%AA%9A%E6%93%8D%E4%BD%9C/'>
           <p class='title'><i class="fas fa-chevron-left" aria-hidden="true"></i>Github骚操作</p>
-          <p class='content'>Github骚操作1. 搜索范围搜索1234keyword in:name				# 根据项目名搜索keyword in:description		# 根据描述搜索keyword in:read...</p>
+          <p class='content'>GitHub作为一个基于git的代码托管平台，具有全球海量的用户，其中也包含了很多价值极高的开源项目，接下来接受一下GitHub骚操作。
+
+
+Github骚操作1. 搜索范围搜索1234keyw...</p>
         </a>
       
       
         <a class='next' href='/2020/08/09/MySQL%E8%BF%9B%E9%98%B6-1-%E6%9E%B6%E6%9E%84%E4%BB%8B%E7%BB%8D/'>
           <p class='title'>MySQL进阶-1-架构介绍<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
-          <p class='content'>MySQL进阶-1-架构介绍1. MySQL简介1.1 概述
-MySQL是一个关系型数据库管理系统（RDBMS），由瑞典MySQL AB 公司开放，目前属于ORACLE公司。
-MySQL是一种关...</p>
+          <p class='content'>MySQL进阶学习笔记。
+
+
+MySQL进阶-1-架构介绍1. MySQL简介1.1 概述
+MySQL是一个关系型数据库管理系统（RDBMS），由瑞典MySQL AB 公司开放，目前属于ORAC...</p>
         </a>
       
     </div>

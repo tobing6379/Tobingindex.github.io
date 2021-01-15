@@ -21,16 +21,11 @@
   
   <title>MySQL-4-多表查询与事务 - tobing</title>
   
-    <meta name="keywords" content="MySQL,复习">
+    <meta name="keywords" content="MySQL">
   
 
   
-    <meta name="description" content="MySQL-4-多表查询与事务1. 多表查询
-语法
-123456select	[列名列表]from	[表名列表]where	.....
-
-案例准备：两张表，部门表、员工表
-123456789101112131415161718192021222324-- 创建部门表create table dept(	id in...">
+    <meta name="description" content="MySQL学习第四弹。">
   
 
   <!-- feed -->
@@ -388,7 +383,7 @@
   <div class='new-meta-item category'>
     <a class='notlink'>
       <i class="fas fa-folder-open fa-fw" aria-hidden="true"></i>
-      <a class="category-link" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a>
+      <a class="category-link" href="/categories/%E7%90%86%E8%AE%BA%E5%AD%A6%E4%B9%A0/">理论学习</a>
     </a>
   </div>
 
@@ -427,7 +422,10 @@
 
 
   
-  <h1 id="MySQL-4-多表查询与事务"><a href="#MySQL-4-多表查询与事务" class="headerlink" title="MySQL-4-多表查询与事务"></a>MySQL-4-多表查询与事务</h1><h2 id="1-多表查询"><a href="#1-多表查询" class="headerlink" title="1. 多表查询"></a>1. 多表查询</h2><ul>
+  <p>MySQL学习第四弹。</p>
+<a id="more"></a>
+
+<h1 id="MySQL-4-多表查询与事务"><a href="#MySQL-4-多表查询与事务" class="headerlink" title="MySQL-4-多表查询与事务"></a>MySQL-4-多表查询与事务</h1><h2 id="1-多表查询"><a href="#1-多表查询" class="headerlink" title="1. 多表查询"></a>1. 多表查询</h2><ul>
 <li><p>语法</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span></span><br><span class="line">	[列名列表]</span><br><span class="line"><span class="keyword">from</span></span><br><span class="line">	[表名列表]</span><br><span class="line"><span class="keyword">where</span></span><br><span class="line">	.....</span><br></pre></td></tr></table></figure>
 </li>
@@ -755,10 +753,10 @@
     <div class='new-meta-box'>
       
         
-          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2019-11-23T10:20:11+08:00">
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-01-15T11:13:57+08:00">
   <a class='notlink'>
     <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
-    <p>更新于：Nov 23, 2019</p>
+    <p>更新于：Jan 15, 2021</p>
   </a>
 </div>
 
@@ -767,7 +765,7 @@
         
           
   
-  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/MySQL/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>MySQL</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/%E5%A4%8D%E4%B9%A0/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>复习</p></a></div>
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/MySQL/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>MySQL</p></a></div>
 
 
         
@@ -780,300 +778,7 @@
       
         <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer noopener"
           
-          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://tobing.top/2019/11/23/MySQL-4-%E5%A4%9A%E8%A1%A8%E6%9F%A5%E8%AF%A2%E4%B8%8E%E4%BA%8B%E5%8A%A1/&title=MySQL-4-多表查询与事务 - tobing&summary=MySQL-4-多表查询与事务1. 多表查询
-语法
-123456select	[列名列表]from	[表名列表]where	.....
-
-案例准备：两张表，部门表、员工表
-123456789101112131415161718192021222324-- 创建部门表create table dept(	id int primary key auto_increment, -- id 主键 自增长    name varchar(20));-- 创建员工表create table emp(	id int primary key auto_increment, -- id 主键 自增长	name varchar(20),	-- 姓名	gender char(1),		-- 性别	salary double,		-- 薪资	join_date date,		-- 入职时间	dept_id int,			foreign key(dept_id) references dept(id) -- 外键，关联dept表中的id);-- 给部门表添加信息insert into dept(name) values(&#x27;开发部&#x27;),(&#x27;市场部&#x27;),(&#x27;财务部&#x27;);-- 给员工表插入数据insert into emp(name,gender,salary,join_date,dept_id) values	(&#x27;Tobing&#x27;,&#x27;男&#x27;,10000,&#x27;2018-10-01&#x27;,1),	(&#x27;Rongon&#x27;,&#x27;男&#x27;,12000,&#x27;2018-10-01&#x27;,2),	(&#x27;Zenyet&#x27;,&#x27;男&#x27;,13000,&#x27;2018-11-01&#x27;,1),	(&#x27;Actogo&#x27;,&#x27;男&#x27;,10000,&#x27;2018-10-02&#x27;,2),	(&#x27;尼古拉斯&#x27;,&#x27;男&#x27;,10000,&#x27;2018-10-01&#x27;,3);
-
-笛卡尔积
-
-
-每张表中元素的排列组合。
-例如，集合A（n条数据）和集合B（m条数据），其笛卡尔积为m * n条
-
-
-1234-- emp有3条数据-- dept有5条数据-- 以下语句查询为两表的笛卡尔积，一共15条数据SELECT * FROM emp,dept; 
-
-
-笛卡尔积得出的数据很多都是无用的，实际中常常根据需求消除数据。
-
-1234567-- 查询emp表中每个员工的姓名，id，薪资以及部门。SELECT  	-- 查询emp表中的id、nam、salary以及dept表中的name	emp.id,emp.name,emp.`salary`,dept.`name` FROM	emp,dept  -- 此处通常可以起别名WHERE emp.`dept_id`= dept.id;
-
-多表查询的分类
-
-
-内连接查询：显示、隐式
-外连接查询：左外连接、右外连接
-
-
-
-隐式内连接：使用where消除无用数据
-1234567-- 以上笛卡尔积实例代码就是隐式外连接select	[列名列表]from	表1，表2...where	.....
-
-显示内连接
-
-语法
-
-1select 字段列表 from 表1 [inner] join 表2 on 条件
-
-
-示例
-
-12345678910SELECT  * FROM emp JOIN dept ON emp.`dept_id`=dept.`id`;SELECT * FROM dept JOIN emp ON emp.`dept_id` = dept.id;SELECT 	dept.`name` ,emp.`name`, emp.`salary` FROM 	dept JOIN 	emp ON 	emp.`dept_id` = dept.id;
-
-内连接查询
-
-
-需要那些表的数据
-条件是什么
-查询什么字段
-
-
-
-
-​        
-
-左外连接：查询【左表】中的所有数据，以及右表中与左表【交集部分】
-
-语法
-
-1select 字段列表 from 表1 left [outer] join 表2 on 条件;
-
-
-示例：查emp表中的所有员工【存在部门为null】，以及每个员工对应的部门。
-
-123-- 此处是可以查出dept_id 为null的员工select * from emp left join dept on emp.dept_id = dept.id;
-
-右外连接：查询【右表】中的所有数据，以及左表中与右表【交集部分】
-
-
-
-子查询
-
-查询中嵌套查询，嵌套查询就称为子查询
-
-子查询结果为单行单列
-子查询结果为多行单列
-子查询结果为多行多列
-
-
-
-子查询结果为单行单列【用于条件】
-
-需求：查询所有大于平均薪资的员工
-结果用于条件。
-
-12345678select 	name,salary from 	emp where 	salary &gt; (select avg(salary) from emp); -- 以上语句==&gt; avg.. 得到平均，在使用where查询
-
-子查询结果为多行单列【使用in，用于条件】
-
-需求：查询财务表和市场部所有员工
-
-123456789select	* from 	emp where	dept_id in	(select id from dept where name in(&#x27;财务部&#x27;,&#x27;市场部&#x27;)); -- 得到财务部和市场部的id
-
-子查询结果为多行多列【用于虚拟表参与查询】
-
-需求：查询入职时间为2019-10-01之后的员工信息和部门信息
-
-12345678select	* from 	dept t1,    (select * from emp where emp.join_date &gt; &#x27;2018-10-01&#x27;) t2 -- 起别名where 	t1.id = t2.dept_id
-
-
-从员工入职时间大于2018-10-01的【表t2】中，以及【dept表】中。查询两个id对应的信息。
-t2是子查询得到的多行多列的，可以理解为一张新表
-
-
-以上代码也可以通过内连接来实现相同功能。
-12select * from dept,emp where emp.join_date &gt; &#x27;2018-10-01&#x27; and emp.dept_id = dept.id;
-
-
-
-
-
-
-
-2. 多表查询案例
-
-创建三张表
-添加数据
-根据需求查询
-
-
-
-创建4张表：部门表dept、职务表job、工作等级表和员工表
-1234567891011121314151617181920212223242526272829303132-- 创建部门表create table dept(	id int primary key auto_increment,	    dname varchar(50),	-- 部门名称    loc varchar(50)		-- 工作地点);-- 创建职务表create table job(	id int primary key,    jname varchar(20), 	-- 职务名称    description varchar(50) -- 职务描述);-- 创建员工表create table emp(	id int primary key auto_increment,    ename varchar(50), 	-- 员工姓名    job_id int,			-- 职务id    mgr int, 			-- 上级领导    joindate date, 		-- 入职日期    salary double,		-- 薪资    bonus double,		-- 奖金    dept_id int,		-- 部门编号    constraint emp_jobid_ref_job_id_fk foreign key (job_id) references job(id),    foreign key(job_id) references job(id) -- 简写外键);-- 创建工资等级表create table salarygrade(	grade int primary key, -- 等级    losalary int,	-- 最高工资    hisalary int	-- 最低工资);
-
-
-
-
-
-
-分别给4张表添加数据
-1234567891011121314151617181920212223242526272829303132333435363738-- 添加4个部门			INSERT INTO dept(id,dname,loc) VALUES 			(10,&#x27;教研部&#x27;,&#x27;北京&#x27;),			(20,&#x27;学工部&#x27;,&#x27;上海&#x27;),			(30,&#x27;销售部&#x27;,&#x27;广州&#x27;),			(40,&#x27;财务部&#x27;,&#x27;深圳&#x27;);			-- 添加4个职务			INSERT INTO job (id, jname, description) VALUES			(1, &#x27;董事长&#x27;, &#x27;管理整个公司，接单&#x27;),			(2, &#x27;经理&#x27;, &#x27;管理部门员工&#x27;),			(3, &#x27;销售员&#x27;, &#x27;向客人推销产品&#x27;),			(4, &#x27;文员&#x27;, &#x27;使用办公软件&#x27;);	            -- 添加员工			INSERT INTO emp(id,ename,job_id,mgr,joindate,salary,bonus,dept_id) VALUES 			(1001,&#x27;孙悟空&#x27;,4,1004,&#x27;2000-12-17&#x27;,&#x27;8000.00&#x27;,NULL,20),			(1002,&#x27;卢俊义&#x27;,3,1006,&#x27;2001-02-20&#x27;,&#x27;16000.00&#x27;,&#x27;3000.00&#x27;,30),			(1003,&#x27;林冲&#x27;,3,1006,&#x27;2001-02-22&#x27;,&#x27;12500.00&#x27;,&#x27;5000.00&#x27;,30),			(1004,&#x27;唐僧&#x27;,2,1009,&#x27;2001-04-02&#x27;,&#x27;29750.00&#x27;,NULL,20),			(1005,&#x27;李逵&#x27;,4,1006,&#x27;2001-09-28&#x27;,&#x27;12500.00&#x27;,&#x27;14000.00&#x27;,30),			(1006,&#x27;宋江&#x27;,2,1009,&#x27;2001-05-01&#x27;,&#x27;28500.00&#x27;,NULL,30),			(1007,&#x27;刘备&#x27;,2,1009,&#x27;2001-09-01&#x27;,&#x27;24500.00&#x27;,NULL,10),			(1008,&#x27;猪八戒&#x27;,4,1004,&#x27;2007-04-19&#x27;,&#x27;30000.00&#x27;,NULL,20),			(1009,&#x27;罗贯中&#x27;,1,NULL,&#x27;2001-11-17&#x27;,&#x27;50000.00&#x27;,NULL,10),			(1010,&#x27;吴用&#x27;,3,1006,&#x27;2001-09-08&#x27;,&#x27;15000.00&#x27;,&#x27;0.00&#x27;,30),			(1011,&#x27;沙僧&#x27;,4,1004,&#x27;2007-05-23&#x27;,&#x27;11000.00&#x27;,NULL,20),			(1012,&#x27;李逵&#x27;,4,1006,&#x27;2001-12-03&#x27;,&#x27;9500.00&#x27;,NULL,30),			(1013,&#x27;小白龙&#x27;,4,1004,&#x27;2001-12-03&#x27;,&#x27;30000.00&#x27;,NULL,20),			(1014,&#x27;关羽&#x27;,4,1007,&#x27;2002-01-23&#x27;,&#x27;13000.00&#x27;,NULL,10);-- 添加工资等级INSERT INTO salarygrade(grade,losalary,hisalary) VALUES 			(1,7000,12000),			(2,12010,14000),			(3,14010,20000),			(4,20010,30000),			(5,30010,99990);
-
-按照需求查询从三张表中查询相应数据
-
-
-查询所有员工信息。查询员工编号，员工姓名，工资，职务名称，职务描述
-
-
-123456789101112select  -- 2. 分析需要查询的数据	emp.id,	emp.ename,	emp.salary,	job.jname,	job.descriptionfrom	-- 1. 分析需要使用的表	emp,	jobwhere	-- 3. 分析查询数据的条件	emp.job_id = job.id;
-
-
-
-查询员工编号，员工姓名，工资，职务名称，职务描述，部门名称，部门位置
-
-
-1234567891011121314select 		-- 2. 分析查询的数据	emp.ename,	emp.salary,	job.jname,	job.description,	dept.dname,	dept.locfrom 		-- 1. 分析需要的表	emp,	job,	deptwhere 		-- 3. 分析查询条件	emp.job_id = job.id and emp.dept_id = dept.id;
-
-
-
-查询员工姓名，工资，工资等级
-
-
-1234567891011select 		-- 2. 分析显示的数据	emp.ename,	emp.salary,	salarygrade.gradefrom  		-- 1.分析需要表	emp,	salarygradewhere 		-- 3. 分析条件【重点，难点】	emp.salary &gt;= salarygrade.losalary and emp.salary &lt;= salarygrade.hisalary	-- emp.salary BETWEEN salarygrade.losalary and salarygrade.hisalary
-
-
-
-查询员工姓名，工资，职务名称，职务描述，部门名称，部门位置，工资等级
-
-
-12345678910111213141516select 		-- 2. 分析显示的数据	emp.ename,	emp.salary,	job.description,	job.jname,	dept.loc,	salarygrade.gradefrom  		-- 1.分析需要表	emp,	job,	salarygrade,	deptwhere 		-- 3. 分析条件【重点，难点】	emp.salary &gt;= salarygrade.losalary and emp.salary &lt;= salarygrade.hisalary and emp.job_id = job.id and emp.dept_id = dept.id;	-- emp.salary BETWEEN salarygrade.losalary and salarygrade.hisalary
-
-
-
-查询出部门编号、部门名称、部门位置、部门人数
-
-条件分析：
-      1. 先统计出emp表中的每个部门的人数。
-          2. 根据统计部门人数的表，以及部门表查询出结果
-
-1234567891011select 			dept.id,	dept.dname,	dept.loc,	t2.totalfrom  			dept t1,	(select dept_id,count(id) total from emp group by dept_id) t2  -- 辅助表where 			t1.id = t2.dept_id;
-
-
-
-查询所有员工的姓名及其直接上级的姓名,没有领导的员工也需要查询
-
-
-12345678910111213141516171819202122-- 不可以查出空select 	t1.ename,	t1.mgr,	t2.id,	t2.enamefrom	emp t1,	emp t2where t1.mgr = t2.id;-- 可以查出空select 	t1.ename,	t1.mgr,	t2.id,	t2.enamefrom	emp t1left join emp t2on t1.mgr = t2.id;
-
-
-
-
-
-3. 事务
-引入
-
-在实际开发中，一个业务操作通常包含了多次数据库的操作。例如：转账。
-
-创建表、添加数据
-123456789-- 创建账号表create table account(	id int primary key auto_increment,    name varchar(10),    balance double);-- 添加数据insert into account values(1,&quot;Tobing&quot;,1000),(null,&quot;Zenyet&quot;,1000);
-
-模拟转账【正常情况】
-12345-- 1.Tobing - 500update account set balance = balance - 500 where name = &#x27;Tobing&#x27;;-- 2.Zenyet + 500update account set balance = balance + 500 where name = &#x27;Zenyet&#x27;;
-
-模拟转账【出现异常】
-123456-- 1.Tobing - 500update account set balance = balance - 500 where name = &#x27;Tobing&#x27;;出现异常-- 2.Zenyet + 500update account set balance = balance + 500 where name = &#x27;Zenyet&#x27;;
-
-
-此时会出现Tobing已经减掉500，而Zenyet却没有加上500。500凭空消失了
-
-
-有以上案例我们可以看出
-
-
-在实际开发中，一个事务往往包含了多次的数据库操作（本例中转账就包含了两个步骤），如果其中一个步骤出现了异常，往往会导致结果出现异常。
-而数据库通过使用事务这一操作。将若干的数据库操作，定义在一个事务中，如果事务中任意语句执行出现异常，可以选择进行rollback，是数据库回滚到事务开始状态。如果执行没有问题，则可以commit，提交事务。
-
-
-
-
-
-
-
-
-事务提交的分类
-
-
-手动提交：MySQL默认自动提交，一条DML自动提交一次事务。
-自动提交：Oracle默认手动提交，先开启事务，然后再提交
-
-
-
-MySQL中修改事务默认的提交方式。
-12345-- 查看事务提交的方式select @@autocommit;-- 修改默认提交方式 1代表自动提价 | 0代表手动提交set @@autocommit = 0;
-
-事务的四大特征【重点】
-
-
-原子性：是不可分割的最小单位，事务中的所有操作要么同时成功，要么同时失败。
-持久性：事务commit或者rollback，数据库都会持久化保存数据
-隔离性：多个事务之间相互独立
-一致性：事务操作前后，数据总量不变。
-
-
-
-事务的隔离级别
-
-引入：多个事务之间隔离，相互独立。但是如果多个事务操作同一数据，会引发一些问题，设置隔离级别可以解决这些问题。
-
-引发的问题
-
-脏读：一个事务读取到另外一个事务没有提交（commit）的数据。
-虚读（不可重复读）：同一事务中，两次读到的数据不一样。
-幻读：一个事务操作数据表中的所有记录，另一个事务添加了一条数据，则第一个事务查询不到自己的修改。
-
-
-隔离级别
-
-read uncommitted（读未提交）
-
-产生：脏读、不可重复读、幻读。
-
-
-read committed（读已提交）：
-
-产生：不可重复读、幻读。
-
-
-repeatable read（可重复读）：
-
-产生：幻读。
-
-
-serializable（串行化）：
-
-解决所有
-
-
-注意
-
-隔离级别从小到大安全性越来越高，但是效率越来越低
-通常在特殊场景才会修改 隔离级别。一般使用默认隔离级别
-Oracle默认read committed
-MySQL默认repeatable read
-
-
-隔离级别操作
-12345-- 查询隔离级别select @@tx_isolation;-- 修改隔离级别set global transaction isolation level [隔离级别字符串]
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-"
+          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://tobing.top/2019/11/23/MySQL-4-%E5%A4%9A%E8%A1%A8%E6%9F%A5%E8%AF%A2%E4%B8%8E%E4%BA%8B%E5%8A%A1/&title=MySQL-4-多表查询与事务 - tobing&summary=MySQL学习第四弹。"
           
           >
           
@@ -1085,300 +790,7 @@ MySQL默认repeatable read
       
         <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer noopener"
           
-          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://tobing.top/2019/11/23/MySQL-4-%E5%A4%9A%E8%A1%A8%E6%9F%A5%E8%AF%A2%E4%B8%8E%E4%BA%8B%E5%8A%A1/&title=MySQL-4-多表查询与事务 - tobing&summary=MySQL-4-多表查询与事务1. 多表查询
-语法
-123456select	[列名列表]from	[表名列表]where	.....
-
-案例准备：两张表，部门表、员工表
-123456789101112131415161718192021222324-- 创建部门表create table dept(	id int primary key auto_increment, -- id 主键 自增长    name varchar(20));-- 创建员工表create table emp(	id int primary key auto_increment, -- id 主键 自增长	name varchar(20),	-- 姓名	gender char(1),		-- 性别	salary double,		-- 薪资	join_date date,		-- 入职时间	dept_id int,			foreign key(dept_id) references dept(id) -- 外键，关联dept表中的id);-- 给部门表添加信息insert into dept(name) values(&#x27;开发部&#x27;),(&#x27;市场部&#x27;),(&#x27;财务部&#x27;);-- 给员工表插入数据insert into emp(name,gender,salary,join_date,dept_id) values	(&#x27;Tobing&#x27;,&#x27;男&#x27;,10000,&#x27;2018-10-01&#x27;,1),	(&#x27;Rongon&#x27;,&#x27;男&#x27;,12000,&#x27;2018-10-01&#x27;,2),	(&#x27;Zenyet&#x27;,&#x27;男&#x27;,13000,&#x27;2018-11-01&#x27;,1),	(&#x27;Actogo&#x27;,&#x27;男&#x27;,10000,&#x27;2018-10-02&#x27;,2),	(&#x27;尼古拉斯&#x27;,&#x27;男&#x27;,10000,&#x27;2018-10-01&#x27;,3);
-
-笛卡尔积
-
-
-每张表中元素的排列组合。
-例如，集合A（n条数据）和集合B（m条数据），其笛卡尔积为m * n条
-
-
-1234-- emp有3条数据-- dept有5条数据-- 以下语句查询为两表的笛卡尔积，一共15条数据SELECT * FROM emp,dept; 
-
-
-笛卡尔积得出的数据很多都是无用的，实际中常常根据需求消除数据。
-
-1234567-- 查询emp表中每个员工的姓名，id，薪资以及部门。SELECT  	-- 查询emp表中的id、nam、salary以及dept表中的name	emp.id,emp.name,emp.`salary`,dept.`name` FROM	emp,dept  -- 此处通常可以起别名WHERE emp.`dept_id`= dept.id;
-
-多表查询的分类
-
-
-内连接查询：显示、隐式
-外连接查询：左外连接、右外连接
-
-
-
-隐式内连接：使用where消除无用数据
-1234567-- 以上笛卡尔积实例代码就是隐式外连接select	[列名列表]from	表1，表2...where	.....
-
-显示内连接
-
-语法
-
-1select 字段列表 from 表1 [inner] join 表2 on 条件
-
-
-示例
-
-12345678910SELECT  * FROM emp JOIN dept ON emp.`dept_id`=dept.`id`;SELECT * FROM dept JOIN emp ON emp.`dept_id` = dept.id;SELECT 	dept.`name` ,emp.`name`, emp.`salary` FROM 	dept JOIN 	emp ON 	emp.`dept_id` = dept.id;
-
-内连接查询
-
-
-需要那些表的数据
-条件是什么
-查询什么字段
-
-
-
-
-​        
-
-左外连接：查询【左表】中的所有数据，以及右表中与左表【交集部分】
-
-语法
-
-1select 字段列表 from 表1 left [outer] join 表2 on 条件;
-
-
-示例：查emp表中的所有员工【存在部门为null】，以及每个员工对应的部门。
-
-123-- 此处是可以查出dept_id 为null的员工select * from emp left join dept on emp.dept_id = dept.id;
-
-右外连接：查询【右表】中的所有数据，以及左表中与右表【交集部分】
-
-
-
-子查询
-
-查询中嵌套查询，嵌套查询就称为子查询
-
-子查询结果为单行单列
-子查询结果为多行单列
-子查询结果为多行多列
-
-
-
-子查询结果为单行单列【用于条件】
-
-需求：查询所有大于平均薪资的员工
-结果用于条件。
-
-12345678select 	name,salary from 	emp where 	salary &gt; (select avg(salary) from emp); -- 以上语句==&gt; avg.. 得到平均，在使用where查询
-
-子查询结果为多行单列【使用in，用于条件】
-
-需求：查询财务表和市场部所有员工
-
-123456789select	* from 	emp where	dept_id in	(select id from dept where name in(&#x27;财务部&#x27;,&#x27;市场部&#x27;)); -- 得到财务部和市场部的id
-
-子查询结果为多行多列【用于虚拟表参与查询】
-
-需求：查询入职时间为2019-10-01之后的员工信息和部门信息
-
-12345678select	* from 	dept t1,    (select * from emp where emp.join_date &gt; &#x27;2018-10-01&#x27;) t2 -- 起别名where 	t1.id = t2.dept_id
-
-
-从员工入职时间大于2018-10-01的【表t2】中，以及【dept表】中。查询两个id对应的信息。
-t2是子查询得到的多行多列的，可以理解为一张新表
-
-
-以上代码也可以通过内连接来实现相同功能。
-12select * from dept,emp where emp.join_date &gt; &#x27;2018-10-01&#x27; and emp.dept_id = dept.id;
-
-
-
-
-
-
-
-2. 多表查询案例
-
-创建三张表
-添加数据
-根据需求查询
-
-
-
-创建4张表：部门表dept、职务表job、工作等级表和员工表
-1234567891011121314151617181920212223242526272829303132-- 创建部门表create table dept(	id int primary key auto_increment,	    dname varchar(50),	-- 部门名称    loc varchar(50)		-- 工作地点);-- 创建职务表create table job(	id int primary key,    jname varchar(20), 	-- 职务名称    description varchar(50) -- 职务描述);-- 创建员工表create table emp(	id int primary key auto_increment,    ename varchar(50), 	-- 员工姓名    job_id int,			-- 职务id    mgr int, 			-- 上级领导    joindate date, 		-- 入职日期    salary double,		-- 薪资    bonus double,		-- 奖金    dept_id int,		-- 部门编号    constraint emp_jobid_ref_job_id_fk foreign key (job_id) references job(id),    foreign key(job_id) references job(id) -- 简写外键);-- 创建工资等级表create table salarygrade(	grade int primary key, -- 等级    losalary int,	-- 最高工资    hisalary int	-- 最低工资);
-
-
-
-
-
-
-分别给4张表添加数据
-1234567891011121314151617181920212223242526272829303132333435363738-- 添加4个部门			INSERT INTO dept(id,dname,loc) VALUES 			(10,&#x27;教研部&#x27;,&#x27;北京&#x27;),			(20,&#x27;学工部&#x27;,&#x27;上海&#x27;),			(30,&#x27;销售部&#x27;,&#x27;广州&#x27;),			(40,&#x27;财务部&#x27;,&#x27;深圳&#x27;);			-- 添加4个职务			INSERT INTO job (id, jname, description) VALUES			(1, &#x27;董事长&#x27;, &#x27;管理整个公司，接单&#x27;),			(2, &#x27;经理&#x27;, &#x27;管理部门员工&#x27;),			(3, &#x27;销售员&#x27;, &#x27;向客人推销产品&#x27;),			(4, &#x27;文员&#x27;, &#x27;使用办公软件&#x27;);	            -- 添加员工			INSERT INTO emp(id,ename,job_id,mgr,joindate,salary,bonus,dept_id) VALUES 			(1001,&#x27;孙悟空&#x27;,4,1004,&#x27;2000-12-17&#x27;,&#x27;8000.00&#x27;,NULL,20),			(1002,&#x27;卢俊义&#x27;,3,1006,&#x27;2001-02-20&#x27;,&#x27;16000.00&#x27;,&#x27;3000.00&#x27;,30),			(1003,&#x27;林冲&#x27;,3,1006,&#x27;2001-02-22&#x27;,&#x27;12500.00&#x27;,&#x27;5000.00&#x27;,30),			(1004,&#x27;唐僧&#x27;,2,1009,&#x27;2001-04-02&#x27;,&#x27;29750.00&#x27;,NULL,20),			(1005,&#x27;李逵&#x27;,4,1006,&#x27;2001-09-28&#x27;,&#x27;12500.00&#x27;,&#x27;14000.00&#x27;,30),			(1006,&#x27;宋江&#x27;,2,1009,&#x27;2001-05-01&#x27;,&#x27;28500.00&#x27;,NULL,30),			(1007,&#x27;刘备&#x27;,2,1009,&#x27;2001-09-01&#x27;,&#x27;24500.00&#x27;,NULL,10),			(1008,&#x27;猪八戒&#x27;,4,1004,&#x27;2007-04-19&#x27;,&#x27;30000.00&#x27;,NULL,20),			(1009,&#x27;罗贯中&#x27;,1,NULL,&#x27;2001-11-17&#x27;,&#x27;50000.00&#x27;,NULL,10),			(1010,&#x27;吴用&#x27;,3,1006,&#x27;2001-09-08&#x27;,&#x27;15000.00&#x27;,&#x27;0.00&#x27;,30),			(1011,&#x27;沙僧&#x27;,4,1004,&#x27;2007-05-23&#x27;,&#x27;11000.00&#x27;,NULL,20),			(1012,&#x27;李逵&#x27;,4,1006,&#x27;2001-12-03&#x27;,&#x27;9500.00&#x27;,NULL,30),			(1013,&#x27;小白龙&#x27;,4,1004,&#x27;2001-12-03&#x27;,&#x27;30000.00&#x27;,NULL,20),			(1014,&#x27;关羽&#x27;,4,1007,&#x27;2002-01-23&#x27;,&#x27;13000.00&#x27;,NULL,10);-- 添加工资等级INSERT INTO salarygrade(grade,losalary,hisalary) VALUES 			(1,7000,12000),			(2,12010,14000),			(3,14010,20000),			(4,20010,30000),			(5,30010,99990);
-
-按照需求查询从三张表中查询相应数据
-
-
-查询所有员工信息。查询员工编号，员工姓名，工资，职务名称，职务描述
-
-
-123456789101112select  -- 2. 分析需要查询的数据	emp.id,	emp.ename,	emp.salary,	job.jname,	job.descriptionfrom	-- 1. 分析需要使用的表	emp,	jobwhere	-- 3. 分析查询数据的条件	emp.job_id = job.id;
-
-
-
-查询员工编号，员工姓名，工资，职务名称，职务描述，部门名称，部门位置
-
-
-1234567891011121314select 		-- 2. 分析查询的数据	emp.ename,	emp.salary,	job.jname,	job.description,	dept.dname,	dept.locfrom 		-- 1. 分析需要的表	emp,	job,	deptwhere 		-- 3. 分析查询条件	emp.job_id = job.id and emp.dept_id = dept.id;
-
-
-
-查询员工姓名，工资，工资等级
-
-
-1234567891011select 		-- 2. 分析显示的数据	emp.ename,	emp.salary,	salarygrade.gradefrom  		-- 1.分析需要表	emp,	salarygradewhere 		-- 3. 分析条件【重点，难点】	emp.salary &gt;= salarygrade.losalary and emp.salary &lt;= salarygrade.hisalary	-- emp.salary BETWEEN salarygrade.losalary and salarygrade.hisalary
-
-
-
-查询员工姓名，工资，职务名称，职务描述，部门名称，部门位置，工资等级
-
-
-12345678910111213141516select 		-- 2. 分析显示的数据	emp.ename,	emp.salary,	job.description,	job.jname,	dept.loc,	salarygrade.gradefrom  		-- 1.分析需要表	emp,	job,	salarygrade,	deptwhere 		-- 3. 分析条件【重点，难点】	emp.salary &gt;= salarygrade.losalary and emp.salary &lt;= salarygrade.hisalary and emp.job_id = job.id and emp.dept_id = dept.id;	-- emp.salary BETWEEN salarygrade.losalary and salarygrade.hisalary
-
-
-
-查询出部门编号、部门名称、部门位置、部门人数
-
-条件分析：
-      1. 先统计出emp表中的每个部门的人数。
-          2. 根据统计部门人数的表，以及部门表查询出结果
-
-1234567891011select 			dept.id,	dept.dname,	dept.loc,	t2.totalfrom  			dept t1,	(select dept_id,count(id) total from emp group by dept_id) t2  -- 辅助表where 			t1.id = t2.dept_id;
-
-
-
-查询所有员工的姓名及其直接上级的姓名,没有领导的员工也需要查询
-
-
-12345678910111213141516171819202122-- 不可以查出空select 	t1.ename,	t1.mgr,	t2.id,	t2.enamefrom	emp t1,	emp t2where t1.mgr = t2.id;-- 可以查出空select 	t1.ename,	t1.mgr,	t2.id,	t2.enamefrom	emp t1left join emp t2on t1.mgr = t2.id;
-
-
-
-
-
-3. 事务
-引入
-
-在实际开发中，一个业务操作通常包含了多次数据库的操作。例如：转账。
-
-创建表、添加数据
-123456789-- 创建账号表create table account(	id int primary key auto_increment,    name varchar(10),    balance double);-- 添加数据insert into account values(1,&quot;Tobing&quot;,1000),(null,&quot;Zenyet&quot;,1000);
-
-模拟转账【正常情况】
-12345-- 1.Tobing - 500update account set balance = balance - 500 where name = &#x27;Tobing&#x27;;-- 2.Zenyet + 500update account set balance = balance + 500 where name = &#x27;Zenyet&#x27;;
-
-模拟转账【出现异常】
-123456-- 1.Tobing - 500update account set balance = balance - 500 where name = &#x27;Tobing&#x27;;出现异常-- 2.Zenyet + 500update account set balance = balance + 500 where name = &#x27;Zenyet&#x27;;
-
-
-此时会出现Tobing已经减掉500，而Zenyet却没有加上500。500凭空消失了
-
-
-有以上案例我们可以看出
-
-
-在实际开发中，一个事务往往包含了多次的数据库操作（本例中转账就包含了两个步骤），如果其中一个步骤出现了异常，往往会导致结果出现异常。
-而数据库通过使用事务这一操作。将若干的数据库操作，定义在一个事务中，如果事务中任意语句执行出现异常，可以选择进行rollback，是数据库回滚到事务开始状态。如果执行没有问题，则可以commit，提交事务。
-
-
-
-
-
-
-
-
-事务提交的分类
-
-
-手动提交：MySQL默认自动提交，一条DML自动提交一次事务。
-自动提交：Oracle默认手动提交，先开启事务，然后再提交
-
-
-
-MySQL中修改事务默认的提交方式。
-12345-- 查看事务提交的方式select @@autocommit;-- 修改默认提交方式 1代表自动提价 | 0代表手动提交set @@autocommit = 0;
-
-事务的四大特征【重点】
-
-
-原子性：是不可分割的最小单位，事务中的所有操作要么同时成功，要么同时失败。
-持久性：事务commit或者rollback，数据库都会持久化保存数据
-隔离性：多个事务之间相互独立
-一致性：事务操作前后，数据总量不变。
-
-
-
-事务的隔离级别
-
-引入：多个事务之间隔离，相互独立。但是如果多个事务操作同一数据，会引发一些问题，设置隔离级别可以解决这些问题。
-
-引发的问题
-
-脏读：一个事务读取到另外一个事务没有提交（commit）的数据。
-虚读（不可重复读）：同一事务中，两次读到的数据不一样。
-幻读：一个事务操作数据表中的所有记录，另一个事务添加了一条数据，则第一个事务查询不到自己的修改。
-
-
-隔离级别
-
-read uncommitted（读未提交）
-
-产生：脏读、不可重复读、幻读。
-
-
-read committed（读已提交）：
-
-产生：不可重复读、幻读。
-
-
-repeatable read（可重复读）：
-
-产生：幻读。
-
-
-serializable（串行化）：
-
-解决所有
-
-
-注意
-
-隔离级别从小到大安全性越来越高，但是效率越来越低
-通常在特殊场景才会修改 隔离级别。一般使用默认隔离级别
-Oracle默认read committed
-MySQL默认repeatable read
-
-
-隔离级别操作
-12345-- 查询隔离级别select @@tx_isolation;-- 修改隔离级别set global transaction isolation level [隔离级别字符串]
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-"
+          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://tobing.top/2019/11/23/MySQL-4-%E5%A4%9A%E8%A1%A8%E6%9F%A5%E8%AF%A2%E4%B8%8E%E4%BA%8B%E5%8A%A1/&title=MySQL-4-多表查询与事务 - tobing&summary=MySQL学习第四弹。"
           
           >
           
@@ -1390,300 +802,7 @@ MySQL默认repeatable read
       
         <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer noopener"
           
-          target="_blank" href="http://service.weibo.com/share/share.php?url=https://tobing.top/2019/11/23/MySQL-4-%E5%A4%9A%E8%A1%A8%E6%9F%A5%E8%AF%A2%E4%B8%8E%E4%BA%8B%E5%8A%A1/&title=MySQL-4-多表查询与事务 - tobing&summary=MySQL-4-多表查询与事务1. 多表查询
-语法
-123456select	[列名列表]from	[表名列表]where	.....
-
-案例准备：两张表，部门表、员工表
-123456789101112131415161718192021222324-- 创建部门表create table dept(	id int primary key auto_increment, -- id 主键 自增长    name varchar(20));-- 创建员工表create table emp(	id int primary key auto_increment, -- id 主键 自增长	name varchar(20),	-- 姓名	gender char(1),		-- 性别	salary double,		-- 薪资	join_date date,		-- 入职时间	dept_id int,			foreign key(dept_id) references dept(id) -- 外键，关联dept表中的id);-- 给部门表添加信息insert into dept(name) values(&#x27;开发部&#x27;),(&#x27;市场部&#x27;),(&#x27;财务部&#x27;);-- 给员工表插入数据insert into emp(name,gender,salary,join_date,dept_id) values	(&#x27;Tobing&#x27;,&#x27;男&#x27;,10000,&#x27;2018-10-01&#x27;,1),	(&#x27;Rongon&#x27;,&#x27;男&#x27;,12000,&#x27;2018-10-01&#x27;,2),	(&#x27;Zenyet&#x27;,&#x27;男&#x27;,13000,&#x27;2018-11-01&#x27;,1),	(&#x27;Actogo&#x27;,&#x27;男&#x27;,10000,&#x27;2018-10-02&#x27;,2),	(&#x27;尼古拉斯&#x27;,&#x27;男&#x27;,10000,&#x27;2018-10-01&#x27;,3);
-
-笛卡尔积
-
-
-每张表中元素的排列组合。
-例如，集合A（n条数据）和集合B（m条数据），其笛卡尔积为m * n条
-
-
-1234-- emp有3条数据-- dept有5条数据-- 以下语句查询为两表的笛卡尔积，一共15条数据SELECT * FROM emp,dept; 
-
-
-笛卡尔积得出的数据很多都是无用的，实际中常常根据需求消除数据。
-
-1234567-- 查询emp表中每个员工的姓名，id，薪资以及部门。SELECT  	-- 查询emp表中的id、nam、salary以及dept表中的name	emp.id,emp.name,emp.`salary`,dept.`name` FROM	emp,dept  -- 此处通常可以起别名WHERE emp.`dept_id`= dept.id;
-
-多表查询的分类
-
-
-内连接查询：显示、隐式
-外连接查询：左外连接、右外连接
-
-
-
-隐式内连接：使用where消除无用数据
-1234567-- 以上笛卡尔积实例代码就是隐式外连接select	[列名列表]from	表1，表2...where	.....
-
-显示内连接
-
-语法
-
-1select 字段列表 from 表1 [inner] join 表2 on 条件
-
-
-示例
-
-12345678910SELECT  * FROM emp JOIN dept ON emp.`dept_id`=dept.`id`;SELECT * FROM dept JOIN emp ON emp.`dept_id` = dept.id;SELECT 	dept.`name` ,emp.`name`, emp.`salary` FROM 	dept JOIN 	emp ON 	emp.`dept_id` = dept.id;
-
-内连接查询
-
-
-需要那些表的数据
-条件是什么
-查询什么字段
-
-
-
-
-​        
-
-左外连接：查询【左表】中的所有数据，以及右表中与左表【交集部分】
-
-语法
-
-1select 字段列表 from 表1 left [outer] join 表2 on 条件;
-
-
-示例：查emp表中的所有员工【存在部门为null】，以及每个员工对应的部门。
-
-123-- 此处是可以查出dept_id 为null的员工select * from emp left join dept on emp.dept_id = dept.id;
-
-右外连接：查询【右表】中的所有数据，以及左表中与右表【交集部分】
-
-
-
-子查询
-
-查询中嵌套查询，嵌套查询就称为子查询
-
-子查询结果为单行单列
-子查询结果为多行单列
-子查询结果为多行多列
-
-
-
-子查询结果为单行单列【用于条件】
-
-需求：查询所有大于平均薪资的员工
-结果用于条件。
-
-12345678select 	name,salary from 	emp where 	salary &gt; (select avg(salary) from emp); -- 以上语句==&gt; avg.. 得到平均，在使用where查询
-
-子查询结果为多行单列【使用in，用于条件】
-
-需求：查询财务表和市场部所有员工
-
-123456789select	* from 	emp where	dept_id in	(select id from dept where name in(&#x27;财务部&#x27;,&#x27;市场部&#x27;)); -- 得到财务部和市场部的id
-
-子查询结果为多行多列【用于虚拟表参与查询】
-
-需求：查询入职时间为2019-10-01之后的员工信息和部门信息
-
-12345678select	* from 	dept t1,    (select * from emp where emp.join_date &gt; &#x27;2018-10-01&#x27;) t2 -- 起别名where 	t1.id = t2.dept_id
-
-
-从员工入职时间大于2018-10-01的【表t2】中，以及【dept表】中。查询两个id对应的信息。
-t2是子查询得到的多行多列的，可以理解为一张新表
-
-
-以上代码也可以通过内连接来实现相同功能。
-12select * from dept,emp where emp.join_date &gt; &#x27;2018-10-01&#x27; and emp.dept_id = dept.id;
-
-
-
-
-
-
-
-2. 多表查询案例
-
-创建三张表
-添加数据
-根据需求查询
-
-
-
-创建4张表：部门表dept、职务表job、工作等级表和员工表
-1234567891011121314151617181920212223242526272829303132-- 创建部门表create table dept(	id int primary key auto_increment,	    dname varchar(50),	-- 部门名称    loc varchar(50)		-- 工作地点);-- 创建职务表create table job(	id int primary key,    jname varchar(20), 	-- 职务名称    description varchar(50) -- 职务描述);-- 创建员工表create table emp(	id int primary key auto_increment,    ename varchar(50), 	-- 员工姓名    job_id int,			-- 职务id    mgr int, 			-- 上级领导    joindate date, 		-- 入职日期    salary double,		-- 薪资    bonus double,		-- 奖金    dept_id int,		-- 部门编号    constraint emp_jobid_ref_job_id_fk foreign key (job_id) references job(id),    foreign key(job_id) references job(id) -- 简写外键);-- 创建工资等级表create table salarygrade(	grade int primary key, -- 等级    losalary int,	-- 最高工资    hisalary int	-- 最低工资);
-
-
-
-
-
-
-分别给4张表添加数据
-1234567891011121314151617181920212223242526272829303132333435363738-- 添加4个部门			INSERT INTO dept(id,dname,loc) VALUES 			(10,&#x27;教研部&#x27;,&#x27;北京&#x27;),			(20,&#x27;学工部&#x27;,&#x27;上海&#x27;),			(30,&#x27;销售部&#x27;,&#x27;广州&#x27;),			(40,&#x27;财务部&#x27;,&#x27;深圳&#x27;);			-- 添加4个职务			INSERT INTO job (id, jname, description) VALUES			(1, &#x27;董事长&#x27;, &#x27;管理整个公司，接单&#x27;),			(2, &#x27;经理&#x27;, &#x27;管理部门员工&#x27;),			(3, &#x27;销售员&#x27;, &#x27;向客人推销产品&#x27;),			(4, &#x27;文员&#x27;, &#x27;使用办公软件&#x27;);	            -- 添加员工			INSERT INTO emp(id,ename,job_id,mgr,joindate,salary,bonus,dept_id) VALUES 			(1001,&#x27;孙悟空&#x27;,4,1004,&#x27;2000-12-17&#x27;,&#x27;8000.00&#x27;,NULL,20),			(1002,&#x27;卢俊义&#x27;,3,1006,&#x27;2001-02-20&#x27;,&#x27;16000.00&#x27;,&#x27;3000.00&#x27;,30),			(1003,&#x27;林冲&#x27;,3,1006,&#x27;2001-02-22&#x27;,&#x27;12500.00&#x27;,&#x27;5000.00&#x27;,30),			(1004,&#x27;唐僧&#x27;,2,1009,&#x27;2001-04-02&#x27;,&#x27;29750.00&#x27;,NULL,20),			(1005,&#x27;李逵&#x27;,4,1006,&#x27;2001-09-28&#x27;,&#x27;12500.00&#x27;,&#x27;14000.00&#x27;,30),			(1006,&#x27;宋江&#x27;,2,1009,&#x27;2001-05-01&#x27;,&#x27;28500.00&#x27;,NULL,30),			(1007,&#x27;刘备&#x27;,2,1009,&#x27;2001-09-01&#x27;,&#x27;24500.00&#x27;,NULL,10),			(1008,&#x27;猪八戒&#x27;,4,1004,&#x27;2007-04-19&#x27;,&#x27;30000.00&#x27;,NULL,20),			(1009,&#x27;罗贯中&#x27;,1,NULL,&#x27;2001-11-17&#x27;,&#x27;50000.00&#x27;,NULL,10),			(1010,&#x27;吴用&#x27;,3,1006,&#x27;2001-09-08&#x27;,&#x27;15000.00&#x27;,&#x27;0.00&#x27;,30),			(1011,&#x27;沙僧&#x27;,4,1004,&#x27;2007-05-23&#x27;,&#x27;11000.00&#x27;,NULL,20),			(1012,&#x27;李逵&#x27;,4,1006,&#x27;2001-12-03&#x27;,&#x27;9500.00&#x27;,NULL,30),			(1013,&#x27;小白龙&#x27;,4,1004,&#x27;2001-12-03&#x27;,&#x27;30000.00&#x27;,NULL,20),			(1014,&#x27;关羽&#x27;,4,1007,&#x27;2002-01-23&#x27;,&#x27;13000.00&#x27;,NULL,10);-- 添加工资等级INSERT INTO salarygrade(grade,losalary,hisalary) VALUES 			(1,7000,12000),			(2,12010,14000),			(3,14010,20000),			(4,20010,30000),			(5,30010,99990);
-
-按照需求查询从三张表中查询相应数据
-
-
-查询所有员工信息。查询员工编号，员工姓名，工资，职务名称，职务描述
-
-
-123456789101112select  -- 2. 分析需要查询的数据	emp.id,	emp.ename,	emp.salary,	job.jname,	job.descriptionfrom	-- 1. 分析需要使用的表	emp,	jobwhere	-- 3. 分析查询数据的条件	emp.job_id = job.id;
-
-
-
-查询员工编号，员工姓名，工资，职务名称，职务描述，部门名称，部门位置
-
-
-1234567891011121314select 		-- 2. 分析查询的数据	emp.ename,	emp.salary,	job.jname,	job.description,	dept.dname,	dept.locfrom 		-- 1. 分析需要的表	emp,	job,	deptwhere 		-- 3. 分析查询条件	emp.job_id = job.id and emp.dept_id = dept.id;
-
-
-
-查询员工姓名，工资，工资等级
-
-
-1234567891011select 		-- 2. 分析显示的数据	emp.ename,	emp.salary,	salarygrade.gradefrom  		-- 1.分析需要表	emp,	salarygradewhere 		-- 3. 分析条件【重点，难点】	emp.salary &gt;= salarygrade.losalary and emp.salary &lt;= salarygrade.hisalary	-- emp.salary BETWEEN salarygrade.losalary and salarygrade.hisalary
-
-
-
-查询员工姓名，工资，职务名称，职务描述，部门名称，部门位置，工资等级
-
-
-12345678910111213141516select 		-- 2. 分析显示的数据	emp.ename,	emp.salary,	job.description,	job.jname,	dept.loc,	salarygrade.gradefrom  		-- 1.分析需要表	emp,	job,	salarygrade,	deptwhere 		-- 3. 分析条件【重点，难点】	emp.salary &gt;= salarygrade.losalary and emp.salary &lt;= salarygrade.hisalary and emp.job_id = job.id and emp.dept_id = dept.id;	-- emp.salary BETWEEN salarygrade.losalary and salarygrade.hisalary
-
-
-
-查询出部门编号、部门名称、部门位置、部门人数
-
-条件分析：
-      1. 先统计出emp表中的每个部门的人数。
-          2. 根据统计部门人数的表，以及部门表查询出结果
-
-1234567891011select 			dept.id,	dept.dname,	dept.loc,	t2.totalfrom  			dept t1,	(select dept_id,count(id) total from emp group by dept_id) t2  -- 辅助表where 			t1.id = t2.dept_id;
-
-
-
-查询所有员工的姓名及其直接上级的姓名,没有领导的员工也需要查询
-
-
-12345678910111213141516171819202122-- 不可以查出空select 	t1.ename,	t1.mgr,	t2.id,	t2.enamefrom	emp t1,	emp t2where t1.mgr = t2.id;-- 可以查出空select 	t1.ename,	t1.mgr,	t2.id,	t2.enamefrom	emp t1left join emp t2on t1.mgr = t2.id;
-
-
-
-
-
-3. 事务
-引入
-
-在实际开发中，一个业务操作通常包含了多次数据库的操作。例如：转账。
-
-创建表、添加数据
-123456789-- 创建账号表create table account(	id int primary key auto_increment,    name varchar(10),    balance double);-- 添加数据insert into account values(1,&quot;Tobing&quot;,1000),(null,&quot;Zenyet&quot;,1000);
-
-模拟转账【正常情况】
-12345-- 1.Tobing - 500update account set balance = balance - 500 where name = &#x27;Tobing&#x27;;-- 2.Zenyet + 500update account set balance = balance + 500 where name = &#x27;Zenyet&#x27;;
-
-模拟转账【出现异常】
-123456-- 1.Tobing - 500update account set balance = balance - 500 where name = &#x27;Tobing&#x27;;出现异常-- 2.Zenyet + 500update account set balance = balance + 500 where name = &#x27;Zenyet&#x27;;
-
-
-此时会出现Tobing已经减掉500，而Zenyet却没有加上500。500凭空消失了
-
-
-有以上案例我们可以看出
-
-
-在实际开发中，一个事务往往包含了多次的数据库操作（本例中转账就包含了两个步骤），如果其中一个步骤出现了异常，往往会导致结果出现异常。
-而数据库通过使用事务这一操作。将若干的数据库操作，定义在一个事务中，如果事务中任意语句执行出现异常，可以选择进行rollback，是数据库回滚到事务开始状态。如果执行没有问题，则可以commit，提交事务。
-
-
-
-
-
-
-
-
-事务提交的分类
-
-
-手动提交：MySQL默认自动提交，一条DML自动提交一次事务。
-自动提交：Oracle默认手动提交，先开启事务，然后再提交
-
-
-
-MySQL中修改事务默认的提交方式。
-12345-- 查看事务提交的方式select @@autocommit;-- 修改默认提交方式 1代表自动提价 | 0代表手动提交set @@autocommit = 0;
-
-事务的四大特征【重点】
-
-
-原子性：是不可分割的最小单位，事务中的所有操作要么同时成功，要么同时失败。
-持久性：事务commit或者rollback，数据库都会持久化保存数据
-隔离性：多个事务之间相互独立
-一致性：事务操作前后，数据总量不变。
-
-
-
-事务的隔离级别
-
-引入：多个事务之间隔离，相互独立。但是如果多个事务操作同一数据，会引发一些问题，设置隔离级别可以解决这些问题。
-
-引发的问题
-
-脏读：一个事务读取到另外一个事务没有提交（commit）的数据。
-虚读（不可重复读）：同一事务中，两次读到的数据不一样。
-幻读：一个事务操作数据表中的所有记录，另一个事务添加了一条数据，则第一个事务查询不到自己的修改。
-
-
-隔离级别
-
-read uncommitted（读未提交）
-
-产生：脏读、不可重复读、幻读。
-
-
-read committed（读已提交）：
-
-产生：不可重复读、幻读。
-
-
-repeatable read（可重复读）：
-
-产生：幻读。
-
-
-serializable（串行化）：
-
-解决所有
-
-
-注意
-
-隔离级别从小到大安全性越来越高，但是效率越来越低
-通常在特殊场景才会修改 隔离级别。一般使用默认隔离级别
-Oracle默认read committed
-MySQL默认repeatable read
-
-
-隔离级别操作
-12345-- 查询隔离级别select @@tx_isolation;-- 修改隔离级别set global transaction isolation level [隔离级别字符串]
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-"
+          target="_blank" href="http://service.weibo.com/share/share.php?url=https://tobing.top/2019/11/23/MySQL-4-%E5%A4%9A%E8%A1%A8%E6%9F%A5%E8%AF%A2%E4%B8%8E%E4%BA%8B%E5%8A%A1/&title=MySQL-4-多表查询与事务 - tobing&summary=MySQL学习第四弹。"
           
           >
           
@@ -1715,7 +834,10 @@ MySQL默认repeatable read
       
         <a class='prev' href='/2019/11/23/Mybatis-2-CRUD/'>
           <p class='title'><i class="fas fa-chevron-left" aria-hidden="true"></i>Mybatis-2-CRUD</p>
-          <p class='content'>Mybatis-2-简单CRUD
+          <p class='content'>Mybatis学习第二弹。
+
+
+Mybatis-2-简单CRUD
 步骤
 
 创建Maven工程
@@ -1723,17 +845,16 @@ MySQL默认repeatable read
 编写实体类和持久层接口
 编写SqlMapConfig.xml
 编写映射配置文件
-编写测试类
-添加其他查询功能
-
-
-使用要求...</p>
+编写测试类...</p>
         </a>
       
       
         <a class='next' href='/2019/11/23/MySQL-3-%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E8%AE%BE%E8%AE%A1/'>
           <p class='title'>MySQL-3-数据库的设计<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
-          <p class='content'>MySQL-3-数据库的设计1. 表之间的关系1. 分类
+          <p class='content'>MySQL学习第三弹。
+
+
+MySQL-3-数据库的设计1. 表之间的关系1. 分类
 
 一对一
 人和身份证
@@ -1742,9 +863,7 @@ MySQL默认repeatable read
 
 一对多
 部门和员工
-一个部门有多个员工，而多个员工对应一个部门
-
-...</p>
+一个部门有多个员工...</p>
         </a>
       
     </div>

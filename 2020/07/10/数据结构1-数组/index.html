@@ -21,24 +21,11 @@
   
   <title>数据结构-数组 - tobing</title>
   
-    <meta name="keywords" content="数据结构,数组">
+    <meta name="keywords" content="数据结构,数组 - Java">
   
 
   
-    <meta name="description" content="数据结构-数组1. 数组概述
-特点
-顺序存放、可以随机访问。
-
-缺点
-数组功能比较弱，考虑封装。
-
-
-2. 封装自己的数组
-引入
-为了增强数组的功能，我们对数组进行二次封装，虽然Java已经有ArrayList对数组进行了封装，但为了学习，我们对数组进行封装。
-
-代码
-1234567891011121314151...">
+    <meta name="description" content="数据结构数组的的学习笔记。">
   
 
   <!-- feed -->
@@ -396,7 +383,7 @@
   <div class='new-meta-item category'>
     <a class='notlink'>
       <i class="fas fa-folder-open fa-fw" aria-hidden="true"></i>
-      <a class="category-link" href="/categories/Java/">Java</a>
+      <a class="category-link" href="/categories/%E7%90%86%E8%AE%BA%E5%AD%A6%E4%B9%A0/">理论学习</a>
     </a>
   </div>
 
@@ -435,7 +422,10 @@
 
 
   
-  <h1 id="数据结构-数组"><a href="#数据结构-数组" class="headerlink" title="数据结构-数组"></a>数据结构-数组</h1><h2 id="1-数组概述"><a href="#1-数组概述" class="headerlink" title="1. 数组概述"></a>1. 数组概述</h2><ol>
+  <p>数据结构数组的的学习笔记。</p>
+<a id="more"></a>
+
+<h1 id="数据结构-数组"><a href="#数据结构-数组" class="headerlink" title="数据结构-数组"></a>数据结构-数组</h1><h2 id="1-数组概述"><a href="#1-数组概述" class="headerlink" title="1. 数组概述"></a>1. 数组概述</h2><ol>
 <li><p>特点</p>
 <p>顺序存放、可以随机访问。</p>
 </li>
@@ -558,10 +548,10 @@
     <div class='new-meta-box'>
       
         
-          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2020-07-10T00:29:23+08:00">
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-01-15T11:25:58+08:00">
   <a class='notlink'>
     <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
-    <p>更新于：Jul 10, 2020</p>
+    <p>更新于：Jan 15, 2021</p>
   </a>
 </div>
 
@@ -570,7 +560,7 @@
         
           
   
-  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>数据结构</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/%E6%95%B0%E7%BB%84/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>数组</p></a></div>
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>数据结构</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/%E6%95%B0%E7%BB%84-Java/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>数组 - Java</p></a></div>
 
 
         
@@ -583,96 +573,7 @@
       
         <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer noopener"
           
-          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://tobing.top/2020/07/10/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%841-%E6%95%B0%E7%BB%84/&title=数据结构-数组 - tobing&summary=数据结构-数组1. 数组概述
-特点
-顺序存放、可以随机访问。
-
-缺点
-数组功能比较弱，考虑封装。
-
-
-2. 封装自己的数组
-引入
-为了增强数组的功能，我们对数组进行二次封装，虽然Java已经有ArrayList对数组进行了封装，但为了学习，我们对数组进行封装。
-
-代码
-123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384858687888990919293949596979899100101102103104105106107108109110111112113114115116117118119120121122123124125126127128129130131132133134135136137138139140141142143144145146147148149150151152153154155156157158159160161162163164package top.tobing.ds.array;public class Array&lt;E&gt; &#123;    private E[] data;    private int size;    // 构造函数，传入数组的容量capacity构造Array    public Array(int capacity) &#123;        data = (E[]) new Object[capacity];        size = 0;    &#125;    // 默认构造    public Array() &#123;        this(10);    &#125;    // 获取数组的容量    public int getCapacity() &#123;        return data.length;    &#125;    // 获取数组的元素个数    public int getSize() &#123;        return size;    &#125;    // 判断数组是否为空    public boolean isEmpty() &#123;        return size == 0;    &#125;    // 在所有元素后添加一个元素    public void addLast(E e) &#123;        add(size, e);    &#125;    // 在使用元素前添加一个元素    public void addFirst(E e) &#123;        add(0, e);    &#125;    // 在索引index处添加一个元素    public void add(int index, E e) &#123;        if (index &lt; 0 || index &gt; data.length) &#123;            throw new IllegalArgumentException(&quot;Add failed. Require index &gt;= 0 and index &lt;= size&quot;);        &#125;        if (index == data.length) &#123;            resize(2 * data.length);        &#125;        for (int i = size; i &gt; index; i--) &#123;            data[i] = data[i - 1];        &#125;        data[index] = e;        size++;    &#125;    // 获取index索引位置的值    public E get(int index) &#123;        if (index &lt; 0 || index &gt;= size) &#123;            throw new IllegalArgumentException(&quot;Get failed. Index is illegal.&quot;);        &#125;        return data[index];    &#125;    // 修改index索引出的值为e    public void set(int index, E e) &#123;        if (index &lt; 0 || index &gt;= size) &#123;            throw new IllegalArgumentException(&quot;Set failed, Index is illegal.&quot;);        &#125;        data[index] = e;    &#125;    // 查找数组中是否包含元素e    public boolean contains(E e) &#123;        for (int i = 0; i &lt; size; i++) &#123;            if (data[i].equals(e)) &#123;                return true;            &#125;        &#125;        return false;    &#125;    // 查找数组中元素e所在的索引，如果不存在元素e，返回-1    public int find(E e) &#123;        for (int i = 0; i &lt; size; i++) &#123;            if (data[i].equals(e)) &#123;                return i;            &#125;        &#125;        return -1;    &#125;    // 删除数组中索引为index位置的元素，返回被删除的元素    public E remove(int index) &#123;        if (index &lt; 0 || index &gt;= size) &#123;            throw new IllegalArgumentException(&quot;Rmove failed. Index is illegal.&quot;);        &#125;        E temp = data[index];        for (int i = index; i &lt; size - 1; i++) &#123;            data[i] = data[i + 1];        &#125;        size--;        data[size] = null;        // 懒汉式：避免复杂度震荡        if (size == data.length / 4 &amp;&amp; data.length / 2 != 0) &#123;            resize(data.length / 2);        &#125;        return temp;    &#125;    // 删除元素第一个元素    public E removeFirst() &#123;        E temp = remove(0);        return temp;    &#125;    // 删除元素最后一个元素    public E removeLast() &#123;        E temp = remove(size - 1);        return temp;    &#125;    // 删除数组中元素e    public void removeElement(E e) &#123;        int index = find(e);        if (index != -1) &#123;            remove(index);        &#125;    &#125;    @Override    public String toString() &#123;        StringBuilder builder = new StringBuilder();        builder.append(String.format(&quot;Array: size = %d, capacity = %d\n&quot;, size, data.length));        builder.append(&#x27;[&#x27;);        for (int i = 0; i &lt; data.length; i++) &#123;            builder.append(data[i]);            if (i != data.length - 1) &#123;                builder.append(&quot;, &quot;);            &#125;        &#125;        builder.append(&quot;]&quot;);        return builder.toString();    &#125;    // 将数组的容量变成newCapacity大小    private void resize(int newCapacity) &#123;        E[] newData = (E[]) new Object[newCapacity];        for (int i = 0; i &lt; size; i++) &#123;            newData[i] = data[i];        &#125;        data = newData;    &#125;&#125;
-
-代码中的注意点
-泛型数组在通过指定大小创建时要以(E[])Objec[capacity]方式。
-添加add或者删除remove元素的时候要对传入的index进行合法性校验。
-add和remove都是采用覆盖的方式，区别两种的实现：一个是从后往前移，另一个则相反。
-add和remove的同时要维护size，即更新size。
-remove操作时要对size所在的位置置为null，以至于gc回收。
-find操作判断元素是否相等时要使用equals。
-动态数组时，要注意remove的容量调整时机，使用懒汉式可以避免复杂度震荡。
-
-复杂度分析
-
-
-
-函数名
-复杂度
-其他
-
-
-
-add(int,E)
-O(n)
-移动挪位
-
-
-addFirst
-O(n)
-
-
-
-addLast
-O(1)、O(n)
-不用挪位、容量变化
-
-
-remove(int,E)
-O(n)
-移动覆盖
-
-
-removeFirst
-O(n)
-
-
-
-removeLast
-O(1)、O(n)
-不用覆盖、容量变化
-
-
-removeElement(E)
-O(n)
-遍历查找
-
-
-contains
-O(n)
-
-
-
-find
-O(n)
-
-
-
-get
-O(1)
-
-
-
-resize复杂度分析：加上容量为n、n+1次addLast，触发resize，纵观2n+1基本操作平均，每次addLast，进行2次基本操作，O(1)。 这次叫做均摊复杂度分析。
-addLast和removeLast同时存在是，如果采用饿汉式，即size=capacity/2立马缩减容量，容易引发复杂度震荡。因此考虑使用懒汉式。即推迟到size=capacity/4,才将capacity置为原理一半。
-
-
-3. 拓展查看Java对ArrayList的实现，对比我们的实现。
-"
+          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://tobing.top/2020/07/10/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%841-%E6%95%B0%E7%BB%84/&title=数据结构-数组 - tobing&summary=数据结构数组的的学习笔记。"
           
           >
           
@@ -684,96 +585,7 @@ addLast和removeLast同时存在是，如果采用饿汉式，即size=capacity/2
       
         <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer noopener"
           
-          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://tobing.top/2020/07/10/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%841-%E6%95%B0%E7%BB%84/&title=数据结构-数组 - tobing&summary=数据结构-数组1. 数组概述
-特点
-顺序存放、可以随机访问。
-
-缺点
-数组功能比较弱，考虑封装。
-
-
-2. 封装自己的数组
-引入
-为了增强数组的功能，我们对数组进行二次封装，虽然Java已经有ArrayList对数组进行了封装，但为了学习，我们对数组进行封装。
-
-代码
-123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384858687888990919293949596979899100101102103104105106107108109110111112113114115116117118119120121122123124125126127128129130131132133134135136137138139140141142143144145146147148149150151152153154155156157158159160161162163164package top.tobing.ds.array;public class Array&lt;E&gt; &#123;    private E[] data;    private int size;    // 构造函数，传入数组的容量capacity构造Array    public Array(int capacity) &#123;        data = (E[]) new Object[capacity];        size = 0;    &#125;    // 默认构造    public Array() &#123;        this(10);    &#125;    // 获取数组的容量    public int getCapacity() &#123;        return data.length;    &#125;    // 获取数组的元素个数    public int getSize() &#123;        return size;    &#125;    // 判断数组是否为空    public boolean isEmpty() &#123;        return size == 0;    &#125;    // 在所有元素后添加一个元素    public void addLast(E e) &#123;        add(size, e);    &#125;    // 在使用元素前添加一个元素    public void addFirst(E e) &#123;        add(0, e);    &#125;    // 在索引index处添加一个元素    public void add(int index, E e) &#123;        if (index &lt; 0 || index &gt; data.length) &#123;            throw new IllegalArgumentException(&quot;Add failed. Require index &gt;= 0 and index &lt;= size&quot;);        &#125;        if (index == data.length) &#123;            resize(2 * data.length);        &#125;        for (int i = size; i &gt; index; i--) &#123;            data[i] = data[i - 1];        &#125;        data[index] = e;        size++;    &#125;    // 获取index索引位置的值    public E get(int index) &#123;        if (index &lt; 0 || index &gt;= size) &#123;            throw new IllegalArgumentException(&quot;Get failed. Index is illegal.&quot;);        &#125;        return data[index];    &#125;    // 修改index索引出的值为e    public void set(int index, E e) &#123;        if (index &lt; 0 || index &gt;= size) &#123;            throw new IllegalArgumentException(&quot;Set failed, Index is illegal.&quot;);        &#125;        data[index] = e;    &#125;    // 查找数组中是否包含元素e    public boolean contains(E e) &#123;        for (int i = 0; i &lt; size; i++) &#123;            if (data[i].equals(e)) &#123;                return true;            &#125;        &#125;        return false;    &#125;    // 查找数组中元素e所在的索引，如果不存在元素e，返回-1    public int find(E e) &#123;        for (int i = 0; i &lt; size; i++) &#123;            if (data[i].equals(e)) &#123;                return i;            &#125;        &#125;        return -1;    &#125;    // 删除数组中索引为index位置的元素，返回被删除的元素    public E remove(int index) &#123;        if (index &lt; 0 || index &gt;= size) &#123;            throw new IllegalArgumentException(&quot;Rmove failed. Index is illegal.&quot;);        &#125;        E temp = data[index];        for (int i = index; i &lt; size - 1; i++) &#123;            data[i] = data[i + 1];        &#125;        size--;        data[size] = null;        // 懒汉式：避免复杂度震荡        if (size == data.length / 4 &amp;&amp; data.length / 2 != 0) &#123;            resize(data.length / 2);        &#125;        return temp;    &#125;    // 删除元素第一个元素    public E removeFirst() &#123;        E temp = remove(0);        return temp;    &#125;    // 删除元素最后一个元素    public E removeLast() &#123;        E temp = remove(size - 1);        return temp;    &#125;    // 删除数组中元素e    public void removeElement(E e) &#123;        int index = find(e);        if (index != -1) &#123;            remove(index);        &#125;    &#125;    @Override    public String toString() &#123;        StringBuilder builder = new StringBuilder();        builder.append(String.format(&quot;Array: size = %d, capacity = %d\n&quot;, size, data.length));        builder.append(&#x27;[&#x27;);        for (int i = 0; i &lt; data.length; i++) &#123;            builder.append(data[i]);            if (i != data.length - 1) &#123;                builder.append(&quot;, &quot;);            &#125;        &#125;        builder.append(&quot;]&quot;);        return builder.toString();    &#125;    // 将数组的容量变成newCapacity大小    private void resize(int newCapacity) &#123;        E[] newData = (E[]) new Object[newCapacity];        for (int i = 0; i &lt; size; i++) &#123;            newData[i] = data[i];        &#125;        data = newData;    &#125;&#125;
-
-代码中的注意点
-泛型数组在通过指定大小创建时要以(E[])Objec[capacity]方式。
-添加add或者删除remove元素的时候要对传入的index进行合法性校验。
-add和remove都是采用覆盖的方式，区别两种的实现：一个是从后往前移，另一个则相反。
-add和remove的同时要维护size，即更新size。
-remove操作时要对size所在的位置置为null，以至于gc回收。
-find操作判断元素是否相等时要使用equals。
-动态数组时，要注意remove的容量调整时机，使用懒汉式可以避免复杂度震荡。
-
-复杂度分析
-
-
-
-函数名
-复杂度
-其他
-
-
-
-add(int,E)
-O(n)
-移动挪位
-
-
-addFirst
-O(n)
-
-
-
-addLast
-O(1)、O(n)
-不用挪位、容量变化
-
-
-remove(int,E)
-O(n)
-移动覆盖
-
-
-removeFirst
-O(n)
-
-
-
-removeLast
-O(1)、O(n)
-不用覆盖、容量变化
-
-
-removeElement(E)
-O(n)
-遍历查找
-
-
-contains
-O(n)
-
-
-
-find
-O(n)
-
-
-
-get
-O(1)
-
-
-
-resize复杂度分析：加上容量为n、n+1次addLast，触发resize，纵观2n+1基本操作平均，每次addLast，进行2次基本操作，O(1)。 这次叫做均摊复杂度分析。
-addLast和removeLast同时存在是，如果采用饿汉式，即size=capacity/2立马缩减容量，容易引发复杂度震荡。因此考虑使用懒汉式。即推迟到size=capacity/4,才将capacity置为原理一半。
-
-
-3. 拓展查看Java对ArrayList的实现，对比我们的实现。
-"
+          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://tobing.top/2020/07/10/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%841-%E6%95%B0%E7%BB%84/&title=数据结构-数组 - tobing&summary=数据结构数组的的学习笔记。"
           
           >
           
@@ -785,96 +597,7 @@ addLast和removeLast同时存在是，如果采用饿汉式，即size=capacity/2
       
         <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer noopener"
           
-          target="_blank" href="http://service.weibo.com/share/share.php?url=https://tobing.top/2020/07/10/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%841-%E6%95%B0%E7%BB%84/&title=数据结构-数组 - tobing&summary=数据结构-数组1. 数组概述
-特点
-顺序存放、可以随机访问。
-
-缺点
-数组功能比较弱，考虑封装。
-
-
-2. 封装自己的数组
-引入
-为了增强数组的功能，我们对数组进行二次封装，虽然Java已经有ArrayList对数组进行了封装，但为了学习，我们对数组进行封装。
-
-代码
-123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384858687888990919293949596979899100101102103104105106107108109110111112113114115116117118119120121122123124125126127128129130131132133134135136137138139140141142143144145146147148149150151152153154155156157158159160161162163164package top.tobing.ds.array;public class Array&lt;E&gt; &#123;    private E[] data;    private int size;    // 构造函数，传入数组的容量capacity构造Array    public Array(int capacity) &#123;        data = (E[]) new Object[capacity];        size = 0;    &#125;    // 默认构造    public Array() &#123;        this(10);    &#125;    // 获取数组的容量    public int getCapacity() &#123;        return data.length;    &#125;    // 获取数组的元素个数    public int getSize() &#123;        return size;    &#125;    // 判断数组是否为空    public boolean isEmpty() &#123;        return size == 0;    &#125;    // 在所有元素后添加一个元素    public void addLast(E e) &#123;        add(size, e);    &#125;    // 在使用元素前添加一个元素    public void addFirst(E e) &#123;        add(0, e);    &#125;    // 在索引index处添加一个元素    public void add(int index, E e) &#123;        if (index &lt; 0 || index &gt; data.length) &#123;            throw new IllegalArgumentException(&quot;Add failed. Require index &gt;= 0 and index &lt;= size&quot;);        &#125;        if (index == data.length) &#123;            resize(2 * data.length);        &#125;        for (int i = size; i &gt; index; i--) &#123;            data[i] = data[i - 1];        &#125;        data[index] = e;        size++;    &#125;    // 获取index索引位置的值    public E get(int index) &#123;        if (index &lt; 0 || index &gt;= size) &#123;            throw new IllegalArgumentException(&quot;Get failed. Index is illegal.&quot;);        &#125;        return data[index];    &#125;    // 修改index索引出的值为e    public void set(int index, E e) &#123;        if (index &lt; 0 || index &gt;= size) &#123;            throw new IllegalArgumentException(&quot;Set failed, Index is illegal.&quot;);        &#125;        data[index] = e;    &#125;    // 查找数组中是否包含元素e    public boolean contains(E e) &#123;        for (int i = 0; i &lt; size; i++) &#123;            if (data[i].equals(e)) &#123;                return true;            &#125;        &#125;        return false;    &#125;    // 查找数组中元素e所在的索引，如果不存在元素e，返回-1    public int find(E e) &#123;        for (int i = 0; i &lt; size; i++) &#123;            if (data[i].equals(e)) &#123;                return i;            &#125;        &#125;        return -1;    &#125;    // 删除数组中索引为index位置的元素，返回被删除的元素    public E remove(int index) &#123;        if (index &lt; 0 || index &gt;= size) &#123;            throw new IllegalArgumentException(&quot;Rmove failed. Index is illegal.&quot;);        &#125;        E temp = data[index];        for (int i = index; i &lt; size - 1; i++) &#123;            data[i] = data[i + 1];        &#125;        size--;        data[size] = null;        // 懒汉式：避免复杂度震荡        if (size == data.length / 4 &amp;&amp; data.length / 2 != 0) &#123;            resize(data.length / 2);        &#125;        return temp;    &#125;    // 删除元素第一个元素    public E removeFirst() &#123;        E temp = remove(0);        return temp;    &#125;    // 删除元素最后一个元素    public E removeLast() &#123;        E temp = remove(size - 1);        return temp;    &#125;    // 删除数组中元素e    public void removeElement(E e) &#123;        int index = find(e);        if (index != -1) &#123;            remove(index);        &#125;    &#125;    @Override    public String toString() &#123;        StringBuilder builder = new StringBuilder();        builder.append(String.format(&quot;Array: size = %d, capacity = %d\n&quot;, size, data.length));        builder.append(&#x27;[&#x27;);        for (int i = 0; i &lt; data.length; i++) &#123;            builder.append(data[i]);            if (i != data.length - 1) &#123;                builder.append(&quot;, &quot;);            &#125;        &#125;        builder.append(&quot;]&quot;);        return builder.toString();    &#125;    // 将数组的容量变成newCapacity大小    private void resize(int newCapacity) &#123;        E[] newData = (E[]) new Object[newCapacity];        for (int i = 0; i &lt; size; i++) &#123;            newData[i] = data[i];        &#125;        data = newData;    &#125;&#125;
-
-代码中的注意点
-泛型数组在通过指定大小创建时要以(E[])Objec[capacity]方式。
-添加add或者删除remove元素的时候要对传入的index进行合法性校验。
-add和remove都是采用覆盖的方式，区别两种的实现：一个是从后往前移，另一个则相反。
-add和remove的同时要维护size，即更新size。
-remove操作时要对size所在的位置置为null，以至于gc回收。
-find操作判断元素是否相等时要使用equals。
-动态数组时，要注意remove的容量调整时机，使用懒汉式可以避免复杂度震荡。
-
-复杂度分析
-
-
-
-函数名
-复杂度
-其他
-
-
-
-add(int,E)
-O(n)
-移动挪位
-
-
-addFirst
-O(n)
-
-
-
-addLast
-O(1)、O(n)
-不用挪位、容量变化
-
-
-remove(int,E)
-O(n)
-移动覆盖
-
-
-removeFirst
-O(n)
-
-
-
-removeLast
-O(1)、O(n)
-不用覆盖、容量变化
-
-
-removeElement(E)
-O(n)
-遍历查找
-
-
-contains
-O(n)
-
-
-
-find
-O(n)
-
-
-
-get
-O(1)
-
-
-
-resize复杂度分析：加上容量为n、n+1次addLast，触发resize，纵观2n+1基本操作平均，每次addLast，进行2次基本操作，O(1)。 这次叫做均摊复杂度分析。
-addLast和removeLast同时存在是，如果采用饿汉式，即size=capacity/2立马缩减容量，容易引发复杂度震荡。因此考虑使用懒汉式。即推迟到size=capacity/4,才将capacity置为原理一半。
-
-
-3. 拓展查看Java对ArrayList的实现，对比我们的实现。
-"
+          target="_blank" href="http://service.weibo.com/share/share.php?url=https://tobing.top/2020/07/10/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%841-%E6%95%B0%E7%BB%84/&title=数据结构-数组 - tobing&summary=数据结构数组的的学习笔记。"
           
           >
           
@@ -906,13 +629,19 @@ addLast和removeLast同时存在是，如果采用饿汉式，即size=capacity/2
       
         <a class='prev' href='/2020/07/17/Docker%E5%88%9D%E8%AF%86/'>
           <p class='title'><i class="fas fa-chevron-left" aria-hidden="true"></i>Docker初识</p>
-          <p class='content'>Docker1. Docker简介1. 什么是Docker​    Docker是一个开源项目，诞生与2013年，最初四dotCloud的一个内部业余项目，后来家人Linux，遵从了Apache...</p>
+          <p class='content'>Docker是一个开源项目，诞生与2013年，最初四dotCloud的一个内部业余项目，后来家人Linux，遵从了Apache2.0协议，GitHub上维护。
+
+
+Docker1. Docker...</p>
         </a>
       
       
         <a class='next' href='/2020/06/21/%E6%A0%91%E8%8E%93%E6%B4%BE%E8%BF%9E%E6%8E%A5DHT11/'>
           <p class='title'>树莓派连接DHT11<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
-          <p class='content'>树莓派读取DHT11并输出1. 工具
+          <p class='content'>本文介绍树莓派读取DHT11的温度。
+
+
+树莓派读取DHT11并输出1. 工具
 树莓派B+
 DHT11、杜邦线
 
@@ -921,7 +650,7 @@ DHT11、杜邦线
 
 
 
-将vcc接到5V或3.3V，GND接GND，DATA接到接到GPIO23【不同...</p>
+将vcc接到5V或3.3V，GND接...</p>
         </a>
       
     </div>

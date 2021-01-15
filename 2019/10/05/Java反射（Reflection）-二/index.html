@@ -25,12 +25,7 @@
   
 
   
-    <meta name="description" content="Java反射（Reflection）(二)
-获取了某个Object实例对应的Class，我们就可以通过反射获取他的一切信息。
-
-1. 访问字段(Filed)
-通过Class访问字段（Field）信息的几个方法
-Field getField(String name) ：获取指定名称的Field（包含父类，子类的pu...">
+    <meta name="description" content="反射介绍第二弹。">
   
 
   <!-- feed -->
@@ -388,7 +383,7 @@ Field getField(String name) ：获取指定名称的Field（包含父类，子�
   <div class='new-meta-item category'>
     <a class='notlink'>
       <i class="fas fa-folder-open fa-fw" aria-hidden="true"></i>
-      <a class="category-link" href="/categories/Java/">Java</a>
+      <a class="category-link" href="/categories/%E7%90%86%E8%AE%BA%E5%AD%A6%E4%B9%A0/">理论学习</a>
     </a>
   </div>
 
@@ -427,7 +422,10 @@ Field getField(String name) ：获取指定名称的Field（包含父类，子�
 
 
   
-  <h1 id="Java反射（Reflection）-二"><a href="#Java反射（Reflection）-二" class="headerlink" title="Java反射（Reflection）(二)"></a>Java反射（Reflection）(二)</h1><ul>
+  <p>反射介绍第二弹。</p>
+<a id="more"></a>
+
+<h1 id="Java反射（Reflection）-二"><a href="#Java反射（Reflection）-二" class="headerlink" title="Java反射（Reflection）(二)"></a>Java反射（Reflection）(二)</h1><ul>
 <li>获取了某个Object实例对应的Class，我们就可以通过反射获取他的一切信息。</li>
 </ul>
 <h3 id="1-访问字段-Filed"><a href="#1-访问字段-Filed" class="headerlink" title="1. 访问字段(Filed)"></a>1. 访问字段(Filed)</h3><ul>
@@ -513,10 +511,10 @@ Field getField(String name) ：获取指定名称的Field（包含父类，子�
     <div class='new-meta-box'>
       
         
-          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2019-10-05T21:09:58+08:00">
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-01-15T11:04:38+08:00">
   <a class='notlink'>
     <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
-    <p>更新于：Oct 5, 2019</p>
+    <p>更新于：Jan 15, 2021</p>
   </a>
 </div>
 
@@ -538,59 +536,7 @@ Field getField(String name) ：获取指定名称的Field（包含父类，子�
       
         <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer noopener"
           
-          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://tobing.top/2019/10/05/Java%E5%8F%8D%E5%B0%84%EF%BC%88Reflection%EF%BC%89-%E4%BA%8C/&title=Java反射（Reflection）(二) - tobing&summary=Java反射（Reflection）(二)
-获取了某个Object实例对应的Class，我们就可以通过反射获取他的一切信息。
-
-1. 访问字段(Filed)
-通过Class访问字段（Field）信息的几个方法
-Field getField(String name) ：获取指定名称的Field（包含父类，子类的public的Field）
-
-Filed getDeclaredField(String name) ：获取指定名称的Filed（包含子类的所有Field）
-
-Field[] getFields() ：获取所有Field（包含父类，子类的public的Field）
-
-Filed[] getDeclaredFields() ：获取所有Filed（包含子类的所有Field）
-12345678910111213141516171819202122232425262728293031323334353637package top.tobing.reflection;import java.lang.reflect.Field;/** * 获取实例的字段信息 * @author Tobing */public class Demo02ReflectField &#123;	public static void main(String[] args) throws NoSuchFieldException, SecurityException &#123;		Student stu = new Student();		// 获取Student名称为id的Field		System.out.println(stu.getClass().getField(&quot;name&quot;));		System.out.println(stu.getClass().getField(&quot;id&quot;));		System.out.println(stu.getClass().getDeclaredField(&quot;score&quot;));		// 以下语句会抛出:java.lang.NoSuchFieldException 该方法不能找到父类的public方法		//System.out.println(stu.getClass().getDeclaredField(&quot;name&quot;));		Field[] fields1 = stu.getClass().getFields();	// 获取stu的使用public修饰的方法		System.out.println(&quot;stu的public修饰Field（包含父类）：&quot;);		for(Field f:fields1) &#123;			System.out.println(f.getName());		&#125;		Field[] fields2 = stu.getClass().getDeclaredFields();		System.out.println(&quot;本类中的所有属性（包含private）：&quot;);		for(Field f:fields2) &#123;			System.out.println(f.getName());		&#125;			&#125;&#125;class Human&#123;	public String name;&#125;class Student extends Human &#123;	public String id;	private double score;&#125;
-
-12345678910# 输出结果public java.lang.String top.tobing.reflection.Human.namepublic java.lang.String top.tobing.reflection.Student.idprivate double top.tobing.reflection.Student.scorestu的public修饰Field（包含父类）：idname本类中的所有属性（包含private）：idscore
-
-
-
-
-
-
-
-
-Field的常用操作
-String getName()       返回此 Field 对象表示的字段的`名称 `
-
-Class&lt;?&gt; getType()       返回一个 Class 对象，它标识了此 Field 对象所表示字段的`声明类型`。 
-
-int getModifiers()       以整数形式返回由此 Field 对象表示的字段的` Java 语言修饰符`。 
-
-
-1234567891011121314151617181920212223242526272829package top.tobing.reflection;import java.lang.reflect.Field;import java.lang.reflect.Modifier;/** * 字段的常用方法 * @author Tobing */public class Demo03ReflectField2 &#123;	public static void main(String[] args) throws NoSuchFieldException, SecurityException &#123;		Teacher t = new Teacher();		Field f2 = t.getClass().getDeclaredField(&quot;age&quot;);		Field f1 = t.getClass().getDeclaredField(&quot;name&quot;);		System.out.println(&quot;-----------------------------------------------------&quot;);		System.out.println(&quot;名称：&quot;+f1.getName());		System.out.println(&quot;返回值类型：&quot;+f1.getType());		System.out.println(&quot;Java语言修饰符int形式：&quot;+f1.getModifiers());		System.out.println(&quot;isPrivate：&quot;+Modifier.isPrivate(f1.getModifiers()));				System.out.println(&quot;-----------------------------------------------------&quot;);		System.out.println(&quot;名称：&quot;+f2.getName());		System.out.println(&quot;返回值类型：&quot;+f2.getType());		System.out.println(&quot;Java语言修饰符int形式：&quot;+f2.getModifiers());		System.out.println(&quot;isPublic：&quot;+Modifier.isPublic(f2.getModifiers()));			&#125;&#125;class Teacher&#123;	private String name;	public int age;&#125;
-
-1234567891011# 输出结果-----------------------------------------------------名称：name返回值类型：class java.lang.StringJava语言修饰符int形式：2isPrivate：true-----------------------------------------------------名称：age返回值类型：intJava语言修饰符int形式：1isPublic：true
-
-
-
-2. 访问字段的值
-Object get(Object obj) ：返回指定实例对应字段的值
-Returns the value of the field represented by this Field, on the specified object. 
-
-void setAccessible(boolean flag) ：设置是否可以范围（权限不够的时候）
-​    Set the accessible flag for this object to the indicated boolean value. 
-123456789101112131415161718192021222324252627282930package top.tobing.reflection;import java.lang.reflect.Field;import java.lang.reflect.Modifier;/** * 字段的常用方法 * @author Tobing */public class Demo03ReflectField3 &#123;	public static void main(String[] args) throws Exception&#123;		People p = new People();		p.setName(&quot;张三丰&quot;);		Field f1 = p.getClass().getDeclaredField(&quot;name&quot;);		// f1.get(p); //直接执行该语句会抛出异常java.lang.IllegalAccessException		// cannot access a member of class top.tobing.reflection.People with modifiers &quot;private&quot; 		//不能访问修饰符为private的字段		// 暴力反射，忽略修饰符 // 通常情况下，如果修饰符权限不够就考虑使用该方法（反射是非常规的用法）		f1.setAccessible(true);			Object obj = f1.get(p);		System.out.println(obj);  // 输出： 张三丰		f1.set(p,&quot;张无忌&quot;);		System.out.println(f1.get(p));	// 修改后输出 张无忌	&#125;&#125;class People&#123;	private String name;	public int age;	public void setName(String name) &#123;		this.name = name;	&#125;&#125;
-
-
-
-
-
-总结
-理解还未深入，仍需学习。
-
-"
+          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://tobing.top/2019/10/05/Java%E5%8F%8D%E5%B0%84%EF%BC%88Reflection%EF%BC%89-%E4%BA%8C/&title=Java反射（Reflection）(二) - tobing&summary=反射介绍第二弹。"
           
           >
           
@@ -602,59 +548,7 @@ void setAccessible(boolean flag) ：设置是否可以范围（权限不够的�
       
         <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer noopener"
           
-          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://tobing.top/2019/10/05/Java%E5%8F%8D%E5%B0%84%EF%BC%88Reflection%EF%BC%89-%E4%BA%8C/&title=Java反射（Reflection）(二) - tobing&summary=Java反射（Reflection）(二)
-获取了某个Object实例对应的Class，我们就可以通过反射获取他的一切信息。
-
-1. 访问字段(Filed)
-通过Class访问字段（Field）信息的几个方法
-Field getField(String name) ：获取指定名称的Field（包含父类，子类的public的Field）
-
-Filed getDeclaredField(String name) ：获取指定名称的Filed（包含子类的所有Field）
-
-Field[] getFields() ：获取所有Field（包含父类，子类的public的Field）
-
-Filed[] getDeclaredFields() ：获取所有Filed（包含子类的所有Field）
-12345678910111213141516171819202122232425262728293031323334353637package top.tobing.reflection;import java.lang.reflect.Field;/** * 获取实例的字段信息 * @author Tobing */public class Demo02ReflectField &#123;	public static void main(String[] args) throws NoSuchFieldException, SecurityException &#123;		Student stu = new Student();		// 获取Student名称为id的Field		System.out.println(stu.getClass().getField(&quot;name&quot;));		System.out.println(stu.getClass().getField(&quot;id&quot;));		System.out.println(stu.getClass().getDeclaredField(&quot;score&quot;));		// 以下语句会抛出:java.lang.NoSuchFieldException 该方法不能找到父类的public方法		//System.out.println(stu.getClass().getDeclaredField(&quot;name&quot;));		Field[] fields1 = stu.getClass().getFields();	// 获取stu的使用public修饰的方法		System.out.println(&quot;stu的public修饰Field（包含父类）：&quot;);		for(Field f:fields1) &#123;			System.out.println(f.getName());		&#125;		Field[] fields2 = stu.getClass().getDeclaredFields();		System.out.println(&quot;本类中的所有属性（包含private）：&quot;);		for(Field f:fields2) &#123;			System.out.println(f.getName());		&#125;			&#125;&#125;class Human&#123;	public String name;&#125;class Student extends Human &#123;	public String id;	private double score;&#125;
-
-12345678910# 输出结果public java.lang.String top.tobing.reflection.Human.namepublic java.lang.String top.tobing.reflection.Student.idprivate double top.tobing.reflection.Student.scorestu的public修饰Field（包含父类）：idname本类中的所有属性（包含private）：idscore
-
-
-
-
-
-
-
-
-Field的常用操作
-String getName()       返回此 Field 对象表示的字段的`名称 `
-
-Class&lt;?&gt; getType()       返回一个 Class 对象，它标识了此 Field 对象所表示字段的`声明类型`。 
-
-int getModifiers()       以整数形式返回由此 Field 对象表示的字段的` Java 语言修饰符`。 
-
-
-1234567891011121314151617181920212223242526272829package top.tobing.reflection;import java.lang.reflect.Field;import java.lang.reflect.Modifier;/** * 字段的常用方法 * @author Tobing */public class Demo03ReflectField2 &#123;	public static void main(String[] args) throws NoSuchFieldException, SecurityException &#123;		Teacher t = new Teacher();		Field f2 = t.getClass().getDeclaredField(&quot;age&quot;);		Field f1 = t.getClass().getDeclaredField(&quot;name&quot;);		System.out.println(&quot;-----------------------------------------------------&quot;);		System.out.println(&quot;名称：&quot;+f1.getName());		System.out.println(&quot;返回值类型：&quot;+f1.getType());		System.out.println(&quot;Java语言修饰符int形式：&quot;+f1.getModifiers());		System.out.println(&quot;isPrivate：&quot;+Modifier.isPrivate(f1.getModifiers()));				System.out.println(&quot;-----------------------------------------------------&quot;);		System.out.println(&quot;名称：&quot;+f2.getName());		System.out.println(&quot;返回值类型：&quot;+f2.getType());		System.out.println(&quot;Java语言修饰符int形式：&quot;+f2.getModifiers());		System.out.println(&quot;isPublic：&quot;+Modifier.isPublic(f2.getModifiers()));			&#125;&#125;class Teacher&#123;	private String name;	public int age;&#125;
-
-1234567891011# 输出结果-----------------------------------------------------名称：name返回值类型：class java.lang.StringJava语言修饰符int形式：2isPrivate：true-----------------------------------------------------名称：age返回值类型：intJava语言修饰符int形式：1isPublic：true
-
-
-
-2. 访问字段的值
-Object get(Object obj) ：返回指定实例对应字段的值
-Returns the value of the field represented by this Field, on the specified object. 
-
-void setAccessible(boolean flag) ：设置是否可以范围（权限不够的时候）
-​    Set the accessible flag for this object to the indicated boolean value. 
-123456789101112131415161718192021222324252627282930package top.tobing.reflection;import java.lang.reflect.Field;import java.lang.reflect.Modifier;/** * 字段的常用方法 * @author Tobing */public class Demo03ReflectField3 &#123;	public static void main(String[] args) throws Exception&#123;		People p = new People();		p.setName(&quot;张三丰&quot;);		Field f1 = p.getClass().getDeclaredField(&quot;name&quot;);		// f1.get(p); //直接执行该语句会抛出异常java.lang.IllegalAccessException		// cannot access a member of class top.tobing.reflection.People with modifiers &quot;private&quot; 		//不能访问修饰符为private的字段		// 暴力反射，忽略修饰符 // 通常情况下，如果修饰符权限不够就考虑使用该方法（反射是非常规的用法）		f1.setAccessible(true);			Object obj = f1.get(p);		System.out.println(obj);  // 输出： 张三丰		f1.set(p,&quot;张无忌&quot;);		System.out.println(f1.get(p));	// 修改后输出 张无忌	&#125;&#125;class People&#123;	private String name;	public int age;	public void setName(String name) &#123;		this.name = name;	&#125;&#125;
-
-
-
-
-
-总结
-理解还未深入，仍需学习。
-
-"
+          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://tobing.top/2019/10/05/Java%E5%8F%8D%E5%B0%84%EF%BC%88Reflection%EF%BC%89-%E4%BA%8C/&title=Java反射（Reflection）(二) - tobing&summary=反射介绍第二弹。"
           
           >
           
@@ -666,59 +560,7 @@ void setAccessible(boolean flag) ：设置是否可以范围（权限不够的�
       
         <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer noopener"
           
-          target="_blank" href="http://service.weibo.com/share/share.php?url=https://tobing.top/2019/10/05/Java%E5%8F%8D%E5%B0%84%EF%BC%88Reflection%EF%BC%89-%E4%BA%8C/&title=Java反射（Reflection）(二) - tobing&summary=Java反射（Reflection）(二)
-获取了某个Object实例对应的Class，我们就可以通过反射获取他的一切信息。
-
-1. 访问字段(Filed)
-通过Class访问字段（Field）信息的几个方法
-Field getField(String name) ：获取指定名称的Field（包含父类，子类的public的Field）
-
-Filed getDeclaredField(String name) ：获取指定名称的Filed（包含子类的所有Field）
-
-Field[] getFields() ：获取所有Field（包含父类，子类的public的Field）
-
-Filed[] getDeclaredFields() ：获取所有Filed（包含子类的所有Field）
-12345678910111213141516171819202122232425262728293031323334353637package top.tobing.reflection;import java.lang.reflect.Field;/** * 获取实例的字段信息 * @author Tobing */public class Demo02ReflectField &#123;	public static void main(String[] args) throws NoSuchFieldException, SecurityException &#123;		Student stu = new Student();		// 获取Student名称为id的Field		System.out.println(stu.getClass().getField(&quot;name&quot;));		System.out.println(stu.getClass().getField(&quot;id&quot;));		System.out.println(stu.getClass().getDeclaredField(&quot;score&quot;));		// 以下语句会抛出:java.lang.NoSuchFieldException 该方法不能找到父类的public方法		//System.out.println(stu.getClass().getDeclaredField(&quot;name&quot;));		Field[] fields1 = stu.getClass().getFields();	// 获取stu的使用public修饰的方法		System.out.println(&quot;stu的public修饰Field（包含父类）：&quot;);		for(Field f:fields1) &#123;			System.out.println(f.getName());		&#125;		Field[] fields2 = stu.getClass().getDeclaredFields();		System.out.println(&quot;本类中的所有属性（包含private）：&quot;);		for(Field f:fields2) &#123;			System.out.println(f.getName());		&#125;			&#125;&#125;class Human&#123;	public String name;&#125;class Student extends Human &#123;	public String id;	private double score;&#125;
-
-12345678910# 输出结果public java.lang.String top.tobing.reflection.Human.namepublic java.lang.String top.tobing.reflection.Student.idprivate double top.tobing.reflection.Student.scorestu的public修饰Field（包含父类）：idname本类中的所有属性（包含private）：idscore
-
-
-
-
-
-
-
-
-Field的常用操作
-String getName()       返回此 Field 对象表示的字段的`名称 `
-
-Class&lt;?&gt; getType()       返回一个 Class 对象，它标识了此 Field 对象所表示字段的`声明类型`。 
-
-int getModifiers()       以整数形式返回由此 Field 对象表示的字段的` Java 语言修饰符`。 
-
-
-1234567891011121314151617181920212223242526272829package top.tobing.reflection;import java.lang.reflect.Field;import java.lang.reflect.Modifier;/** * 字段的常用方法 * @author Tobing */public class Demo03ReflectField2 &#123;	public static void main(String[] args) throws NoSuchFieldException, SecurityException &#123;		Teacher t = new Teacher();		Field f2 = t.getClass().getDeclaredField(&quot;age&quot;);		Field f1 = t.getClass().getDeclaredField(&quot;name&quot;);		System.out.println(&quot;-----------------------------------------------------&quot;);		System.out.println(&quot;名称：&quot;+f1.getName());		System.out.println(&quot;返回值类型：&quot;+f1.getType());		System.out.println(&quot;Java语言修饰符int形式：&quot;+f1.getModifiers());		System.out.println(&quot;isPrivate：&quot;+Modifier.isPrivate(f1.getModifiers()));				System.out.println(&quot;-----------------------------------------------------&quot;);		System.out.println(&quot;名称：&quot;+f2.getName());		System.out.println(&quot;返回值类型：&quot;+f2.getType());		System.out.println(&quot;Java语言修饰符int形式：&quot;+f2.getModifiers());		System.out.println(&quot;isPublic：&quot;+Modifier.isPublic(f2.getModifiers()));			&#125;&#125;class Teacher&#123;	private String name;	public int age;&#125;
-
-1234567891011# 输出结果-----------------------------------------------------名称：name返回值类型：class java.lang.StringJava语言修饰符int形式：2isPrivate：true-----------------------------------------------------名称：age返回值类型：intJava语言修饰符int形式：1isPublic：true
-
-
-
-2. 访问字段的值
-Object get(Object obj) ：返回指定实例对应字段的值
-Returns the value of the field represented by this Field, on the specified object. 
-
-void setAccessible(boolean flag) ：设置是否可以范围（权限不够的时候）
-​    Set the accessible flag for this object to the indicated boolean value. 
-123456789101112131415161718192021222324252627282930package top.tobing.reflection;import java.lang.reflect.Field;import java.lang.reflect.Modifier;/** * 字段的常用方法 * @author Tobing */public class Demo03ReflectField3 &#123;	public static void main(String[] args) throws Exception&#123;		People p = new People();		p.setName(&quot;张三丰&quot;);		Field f1 = p.getClass().getDeclaredField(&quot;name&quot;);		// f1.get(p); //直接执行该语句会抛出异常java.lang.IllegalAccessException		// cannot access a member of class top.tobing.reflection.People with modifiers &quot;private&quot; 		//不能访问修饰符为private的字段		// 暴力反射，忽略修饰符 // 通常情况下，如果修饰符权限不够就考虑使用该方法（反射是非常规的用法）		f1.setAccessible(true);			Object obj = f1.get(p);		System.out.println(obj);  // 输出： 张三丰		f1.set(p,&quot;张无忌&quot;);		System.out.println(f1.get(p));	// 修改后输出 张无忌	&#125;&#125;class People&#123;	private String name;	public int age;	public void setName(String name) &#123;		this.name = name;	&#125;&#125;
-
-
-
-
-
-总结
-理解还未深入，仍需学习。
-
-"
+          target="_blank" href="http://service.weibo.com/share/share.php?url=https://tobing.top/2019/10/05/Java%E5%8F%8D%E5%B0%84%EF%BC%88Reflection%EF%BC%89-%E4%BA%8C/&title=Java反射（Reflection）(二) - tobing&summary=反射介绍第二弹。"
           
           >
           
@@ -750,19 +592,22 @@ void setAccessible(boolean flag) ：设置是否可以范围（权限不够的�
       
         <a class='prev' href='/2019/10/07/Java%E6%B3%A8%E8%A7%A3/'>
           <p class='title'><i class="fas fa-chevron-left" aria-hidden="true"></i>Java注解</p>
-          <p class='content'>注解
+          <p class='content'>在框架的使用过程中，常用到注解，本文对注解进行简单介绍。
+
+
+注解
 定义：注解（Annotation），也叫元数据。一种代码级别的说明。
-它是JDK1.5及以后版本引入的一个特性，与类、接口、枚举是在同一个层次。它可以声明在包、类、字段、方法、局部变量、方...</p>
+它是JDK1.5及以后版本引入的一个特性，与类、接口、枚...</p>
         </a>
       
       
         <a class='next' href='/2019/10/04/Java%E5%8F%8D%E5%B0%84%EF%BC%88Reflection%EF%BC%89-%E4%B8%80/'>
           <p class='title'>Java反射（Reflection）(一)<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
-          <p class='content'>Java反射（Reflection）(一)1. 什么是反射
-通过Class实例获取class（包含类和接口）信息的方法称为反射（Reflection）。
+          <p class='content'>在Java常用的框架中，反射被频繁的使用，本文介绍反射的简单使用。
 
-2. Class类
-除了基本数据类型:...</p>
+
+Java反射（Reflection）(一)1. 什么是反射
+通过Class实例获取class（包含类和接口）信息的方法称为...</p>
         </a>
       
     </div>

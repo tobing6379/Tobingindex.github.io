@@ -25,15 +25,7 @@
   
 
   
-    <meta name="description" content="Oracle-下1. 视图
-视图就是提供一个查询的窗口，所有数据来自于原表
-
-
-数据准备
-12-- 查询语句创建表create table emp as select * from scott.emp;
-
-视图操作
-12345678-- 创建视图【必须要dba权限】create view v_emp as sel...">
+    <meta name="description" content="Oracle数据库第二弹。">
   
 
   <!-- feed -->
@@ -391,7 +383,7 @@
   <div class='new-meta-item category'>
     <a class='notlink'>
       <i class="fas fa-folder-open fa-fw" aria-hidden="true"></i>
-      <a class="category-link" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a>
+      <a class="category-link" href="/categories/%E7%90%86%E8%AE%BA%E5%AD%A6%E4%B9%A0/">理论学习</a>
     </a>
   </div>
 
@@ -430,7 +422,10 @@
 
 
   
-  <h1 id="Oracle-下"><a href="#Oracle-下" class="headerlink" title="Oracle-下"></a>Oracle-下</h1><h2 id="1-视图"><a href="#1-视图" class="headerlink" title="1. 视图"></a>1. 视图</h2><blockquote>
+  <p>Oracle数据库第二弹。</p>
+<a id="more"></a>
+
+<h1 id="Oracle-下"><a href="#Oracle-下" class="headerlink" title="Oracle-下"></a>Oracle-下</h1><h2 id="1-视图"><a href="#1-视图" class="headerlink" title="1. 视图"></a>1. 视图</h2><blockquote>
 <p>视图就是提供一个查询的窗口，所有数据来自于原表</p>
 </blockquote>
 <ol>
@@ -652,10 +647,10 @@
     <div class='new-meta-box'>
       
         
-          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2020-01-23T14:44:00+08:00">
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-01-15T11:20:58+08:00">
   <a class='notlink'>
     <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
-    <p>更新于：Jan 23, 2020</p>
+    <p>更新于：Jan 15, 2021</p>
   </a>
 </div>
 
@@ -677,83 +672,7 @@
       
         <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer noopener"
           
-          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://tobing.top/2020/01/22/Oracle-%E4%B8%8B/&title=Oracle-下 - tobing&summary=Oracle-下1. 视图
-视图就是提供一个查询的窗口，所有数据来自于原表
-
-
-数据准备
-12-- 查询语句创建表create table emp as select * from scott.emp;
-
-视图操作
-12345678-- 创建视图【必须要dba权限】create view v_emp as select ename,job from emp;-- 查询视图select * from v_emp;-- 修改视图【不推荐】udpate v_emp set job=&#x27;LER&#x27; where ename=&#x27;ALLEN&#x27;;-- 创建只读视图【一般设置为只读】create view v_emp1 as select ename,job from emp with read only;
-
-
-视图的作用：
-1. 视图可以屏蔽一些敏感字段。
-
-   2. 保证总部和分部数据及时统一。
-
-
-
-2. 索引
-索引就是在表的列上构建一个二叉树，从而达到大大提高查询效率的目的。
-但是索引会影响增删改的效率。
-
-
-单列索引
-12-- 创建单列索引create index idx_ename on emp(ename);
-
-
-单列索引触发规则，条件必须是索引列中的原始值。
-单列函数，模糊查询，都会影响索引的触发
-
-
-复合索引
-12-- 创建复合索引create index idx_enamejob on emp(ename,job);
-
-
-复合索引中第一列为优先检索列。
-如果要触发复合索引，必须包含有优先索引中的原始值。
-
-123select * from emp where ename = &#x27;SCOTT&#x27; and job=&#x27;xx&#x27;;	-- 触发复合索引select * from emp where job = &#x27;xx&#x27;;						-- 不触发索引select * from emp where ename = &quot;SCOTT&quot;;				-- 触发单列索引
-
-
-
-3. pl/sql编程语言
-是对sql语言的扩展，使得sql语言具有过程化编程的特性。
-比一般过程编程语言，更加灵活高效。
-主要用来编写存储过程和存储函数等。
-
-
-声明方法
-
-赋值操作可以使用**:=**，也可以使用into查询语句赋值。
-
-123456789101112131415declare	-- 变量声明	i number(2) :&#x3D; 10;	s varchar(10) :&#x3D;&#39;tobing&#39;;	ena emp.ename%type;	--引用型变量	emprow emp%rowtype;	--记录型变量begin	dbms_output.put_line(i);	dbms_output.put_line(s);	-- 应用型变量赋值	select ename into ena from emp where empno &#x3D; 7788;	-- 记录型变量赋值	select * into emprow from emp where empno &#x3D; 7788;	dbms_output.put_line(emprow.ename||&#39;工作为：&#39;||emprow.job);end;
-
-if判断
-1234567891011121314-- 输入小于18的数字，输入‘less than 18’-- 输入大于18小于40的数字，输出‘18·40’-- 输入大于40的数字，输出‘older than 40’declare	i number(3) :&#x3D;&amp;ii;begin	if i&lt;18 then		dbms_output.put_line(&#39;less than 18&#39;);	elsif i&lt;40 then		dbms_output.put_line(&#39;18-40&#39;);	else		dbms_output.put_line(&#39;older than 40&#39;);	end if;end;
-
-while循环
-
-循环输出1-10数值
-
-12345678declare	i number(1) :&#x3D; 1;begin	while i&lt;11 loop		dbms_output.put_line(i);		i:&#x3D;i+1;	end loop;end;
-
-exit循环【重点掌握】
-123456789declare	i number(1) :&#x3D;1;begin	loop	exit when i&gt;10;		dbms_output.put_line(i);		i:&#x3D;i+1;	end loopend;
-
-for循环
-1234567declare	begin	for i in 1..10 loop		dbms_output.put_line(i);	end loop;end;
-
-游标
-
-可以存放多个对象，多行记录
-
-123456789101112131415161718192021222324252627282930-- 输出emp表中所有员工姓名declare	cursor c1 is select * from emp; -- 存储emp表所有记录	emprow emp%rowtype;		-- 存储一行的变量begin	open c1;		loop			fetch c1 into emprow;		-- 取出c1中每行记录，存储到emprow中			exit when c1%nutfound;		-- 结束标志			dbms_output.put_line(emprow.ename);	-- 输出		end loop;    close c1;end;-- 给指定部门涨工资declare	-- 获取指定部门的所有empno	cursor c2(eno emp.deptno%type) is select empno from emp where deptno &#x3D; eno;	-- 用于存储每次获取到的empno	en emp.empno%type;begin	open c2(10);	-- 获取10部门的所有empno        loop            fetch c2 into en;	-- 循环取出10部门的empno            exit when c2%notfound;	-- 循环结束标志            update emp set sal&#x3D;sal+10 where cempno&#x3D;en;	-- 通过取出的empno进行操作        end loop;    close c2;end;
-
-
-"
+          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://tobing.top/2020/01/22/Oracle-%E4%B8%8B/&title=Oracle-下 - tobing&summary=Oracle数据库第二弹。"
           
           >
           
@@ -765,83 +684,7 @@ for循环
       
         <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer noopener"
           
-          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://tobing.top/2020/01/22/Oracle-%E4%B8%8B/&title=Oracle-下 - tobing&summary=Oracle-下1. 视图
-视图就是提供一个查询的窗口，所有数据来自于原表
-
-
-数据准备
-12-- 查询语句创建表create table emp as select * from scott.emp;
-
-视图操作
-12345678-- 创建视图【必须要dba权限】create view v_emp as select ename,job from emp;-- 查询视图select * from v_emp;-- 修改视图【不推荐】udpate v_emp set job=&#x27;LER&#x27; where ename=&#x27;ALLEN&#x27;;-- 创建只读视图【一般设置为只读】create view v_emp1 as select ename,job from emp with read only;
-
-
-视图的作用：
-1. 视图可以屏蔽一些敏感字段。
-
-   2. 保证总部和分部数据及时统一。
-
-
-
-2. 索引
-索引就是在表的列上构建一个二叉树，从而达到大大提高查询效率的目的。
-但是索引会影响增删改的效率。
-
-
-单列索引
-12-- 创建单列索引create index idx_ename on emp(ename);
-
-
-单列索引触发规则，条件必须是索引列中的原始值。
-单列函数，模糊查询，都会影响索引的触发
-
-
-复合索引
-12-- 创建复合索引create index idx_enamejob on emp(ename,job);
-
-
-复合索引中第一列为优先检索列。
-如果要触发复合索引，必须包含有优先索引中的原始值。
-
-123select * from emp where ename = &#x27;SCOTT&#x27; and job=&#x27;xx&#x27;;	-- 触发复合索引select * from emp where job = &#x27;xx&#x27;;						-- 不触发索引select * from emp where ename = &quot;SCOTT&quot;;				-- 触发单列索引
-
-
-
-3. pl/sql编程语言
-是对sql语言的扩展，使得sql语言具有过程化编程的特性。
-比一般过程编程语言，更加灵活高效。
-主要用来编写存储过程和存储函数等。
-
-
-声明方法
-
-赋值操作可以使用**:=**，也可以使用into查询语句赋值。
-
-123456789101112131415declare	-- 变量声明	i number(2) :&#x3D; 10;	s varchar(10) :&#x3D;&#39;tobing&#39;;	ena emp.ename%type;	--引用型变量	emprow emp%rowtype;	--记录型变量begin	dbms_output.put_line(i);	dbms_output.put_line(s);	-- 应用型变量赋值	select ename into ena from emp where empno &#x3D; 7788;	-- 记录型变量赋值	select * into emprow from emp where empno &#x3D; 7788;	dbms_output.put_line(emprow.ename||&#39;工作为：&#39;||emprow.job);end;
-
-if判断
-1234567891011121314-- 输入小于18的数字，输入‘less than 18’-- 输入大于18小于40的数字，输出‘18·40’-- 输入大于40的数字，输出‘older than 40’declare	i number(3) :&#x3D;&amp;ii;begin	if i&lt;18 then		dbms_output.put_line(&#39;less than 18&#39;);	elsif i&lt;40 then		dbms_output.put_line(&#39;18-40&#39;);	else		dbms_output.put_line(&#39;older than 40&#39;);	end if;end;
-
-while循环
-
-循环输出1-10数值
-
-12345678declare	i number(1) :&#x3D; 1;begin	while i&lt;11 loop		dbms_output.put_line(i);		i:&#x3D;i+1;	end loop;end;
-
-exit循环【重点掌握】
-123456789declare	i number(1) :&#x3D;1;begin	loop	exit when i&gt;10;		dbms_output.put_line(i);		i:&#x3D;i+1;	end loopend;
-
-for循环
-1234567declare	begin	for i in 1..10 loop		dbms_output.put_line(i);	end loop;end;
-
-游标
-
-可以存放多个对象，多行记录
-
-123456789101112131415161718192021222324252627282930-- 输出emp表中所有员工姓名declare	cursor c1 is select * from emp; -- 存储emp表所有记录	emprow emp%rowtype;		-- 存储一行的变量begin	open c1;		loop			fetch c1 into emprow;		-- 取出c1中每行记录，存储到emprow中			exit when c1%nutfound;		-- 结束标志			dbms_output.put_line(emprow.ename);	-- 输出		end loop;    close c1;end;-- 给指定部门涨工资declare	-- 获取指定部门的所有empno	cursor c2(eno emp.deptno%type) is select empno from emp where deptno &#x3D; eno;	-- 用于存储每次获取到的empno	en emp.empno%type;begin	open c2(10);	-- 获取10部门的所有empno        loop            fetch c2 into en;	-- 循环取出10部门的empno            exit when c2%notfound;	-- 循环结束标志            update emp set sal&#x3D;sal+10 where cempno&#x3D;en;	-- 通过取出的empno进行操作        end loop;    close c2;end;
-
-
-"
+          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://tobing.top/2020/01/22/Oracle-%E4%B8%8B/&title=Oracle-下 - tobing&summary=Oracle数据库第二弹。"
           
           >
           
@@ -853,83 +696,7 @@ for循环
       
         <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer noopener"
           
-          target="_blank" href="http://service.weibo.com/share/share.php?url=https://tobing.top/2020/01/22/Oracle-%E4%B8%8B/&title=Oracle-下 - tobing&summary=Oracle-下1. 视图
-视图就是提供一个查询的窗口，所有数据来自于原表
-
-
-数据准备
-12-- 查询语句创建表create table emp as select * from scott.emp;
-
-视图操作
-12345678-- 创建视图【必须要dba权限】create view v_emp as select ename,job from emp;-- 查询视图select * from v_emp;-- 修改视图【不推荐】udpate v_emp set job=&#x27;LER&#x27; where ename=&#x27;ALLEN&#x27;;-- 创建只读视图【一般设置为只读】create view v_emp1 as select ename,job from emp with read only;
-
-
-视图的作用：
-1. 视图可以屏蔽一些敏感字段。
-
-   2. 保证总部和分部数据及时统一。
-
-
-
-2. 索引
-索引就是在表的列上构建一个二叉树，从而达到大大提高查询效率的目的。
-但是索引会影响增删改的效率。
-
-
-单列索引
-12-- 创建单列索引create index idx_ename on emp(ename);
-
-
-单列索引触发规则，条件必须是索引列中的原始值。
-单列函数，模糊查询，都会影响索引的触发
-
-
-复合索引
-12-- 创建复合索引create index idx_enamejob on emp(ename,job);
-
-
-复合索引中第一列为优先检索列。
-如果要触发复合索引，必须包含有优先索引中的原始值。
-
-123select * from emp where ename = &#x27;SCOTT&#x27; and job=&#x27;xx&#x27;;	-- 触发复合索引select * from emp where job = &#x27;xx&#x27;;						-- 不触发索引select * from emp where ename = &quot;SCOTT&quot;;				-- 触发单列索引
-
-
-
-3. pl/sql编程语言
-是对sql语言的扩展，使得sql语言具有过程化编程的特性。
-比一般过程编程语言，更加灵活高效。
-主要用来编写存储过程和存储函数等。
-
-
-声明方法
-
-赋值操作可以使用**:=**，也可以使用into查询语句赋值。
-
-123456789101112131415declare	-- 变量声明	i number(2) :&#x3D; 10;	s varchar(10) :&#x3D;&#39;tobing&#39;;	ena emp.ename%type;	--引用型变量	emprow emp%rowtype;	--记录型变量begin	dbms_output.put_line(i);	dbms_output.put_line(s);	-- 应用型变量赋值	select ename into ena from emp where empno &#x3D; 7788;	-- 记录型变量赋值	select * into emprow from emp where empno &#x3D; 7788;	dbms_output.put_line(emprow.ename||&#39;工作为：&#39;||emprow.job);end;
-
-if判断
-1234567891011121314-- 输入小于18的数字，输入‘less than 18’-- 输入大于18小于40的数字，输出‘18·40’-- 输入大于40的数字，输出‘older than 40’declare	i number(3) :&#x3D;&amp;ii;begin	if i&lt;18 then		dbms_output.put_line(&#39;less than 18&#39;);	elsif i&lt;40 then		dbms_output.put_line(&#39;18-40&#39;);	else		dbms_output.put_line(&#39;older than 40&#39;);	end if;end;
-
-while循环
-
-循环输出1-10数值
-
-12345678declare	i number(1) :&#x3D; 1;begin	while i&lt;11 loop		dbms_output.put_line(i);		i:&#x3D;i+1;	end loop;end;
-
-exit循环【重点掌握】
-123456789declare	i number(1) :&#x3D;1;begin	loop	exit when i&gt;10;		dbms_output.put_line(i);		i:&#x3D;i+1;	end loopend;
-
-for循环
-1234567declare	begin	for i in 1..10 loop		dbms_output.put_line(i);	end loop;end;
-
-游标
-
-可以存放多个对象，多行记录
-
-123456789101112131415161718192021222324252627282930-- 输出emp表中所有员工姓名declare	cursor c1 is select * from emp; -- 存储emp表所有记录	emprow emp%rowtype;		-- 存储一行的变量begin	open c1;		loop			fetch c1 into emprow;		-- 取出c1中每行记录，存储到emprow中			exit when c1%nutfound;		-- 结束标志			dbms_output.put_line(emprow.ename);	-- 输出		end loop;    close c1;end;-- 给指定部门涨工资declare	-- 获取指定部门的所有empno	cursor c2(eno emp.deptno%type) is select empno from emp where deptno &#x3D; eno;	-- 用于存储每次获取到的empno	en emp.empno%type;begin	open c2(10);	-- 获取10部门的所有empno        loop            fetch c2 into en;	-- 循环取出10部门的empno            exit when c2%notfound;	-- 循环结束标志            update emp set sal&#x3D;sal+10 where cempno&#x3D;en;	-- 通过取出的empno进行操作        end loop;    close c2;end;
-
-
-"
+          target="_blank" href="http://service.weibo.com/share/share.php?url=https://tobing.top/2020/01/22/Oracle-%E4%B8%8B/&title=Oracle-下 - tobing&summary=Oracle数据库第二弹。"
           
           >
           
@@ -961,16 +728,21 @@ for循环
       
         <a class='prev' href='/2020/02/03/2019/'>
           <p class='title'><i class="fas fa-chevron-left" aria-hidden="true"></i>2019</p>
-          <p class='content'>2019迟到的2019总结​    正月初九是家乡的年例，但是因为肺炎的原因，本应该是一年中最热闹的一天，在今年却显得格外冷清，希望国家早日战胜这场无硝烟的战役。
-​    年总结很早就想写了，...</p>
+          <p class='content'>​    正月初九是家乡的年例，但是因为肺炎的原因，本应该是一年中最热闹的一天，在今年却显得格外冷清，希望国家早日战胜这场无硝烟的战役。
+
+
+2019迟到的2019总结​    正月初九是家乡的...</p>
         </a>
       
       
         <a class='next' href='/2020/01/19/Oracle-%E4%B8%8A/'>
           <p class='title'>Oracle-上<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
-          <p class='content'>Oracle-上1. 基本使用
+          <p class='content'>Oracle学习第一弹。
+
+
+Oracle-上1. 基本使用
 创建表空间，并给表空间指定用户
-123456789101112131415161718--创建表空间create tablespace tbspace	--指定表...</p>
+123456789101112131415161718--创建表空间create tablespac...</p>
         </a>
       
     </div>

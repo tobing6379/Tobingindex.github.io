@@ -21,15 +21,11 @@
   
   <title>MySQL-2-基本操作 - tobing</title>
   
-    <meta name="keywords" content="MySQL,复习">
+    <meta name="keywords" content="MySQL">
   
 
   
-    <meta name="description" content="MySQL-2-基本操作1. DDL：操作数据库、表
-操作数据库：CRUD
-
-C（Create）：创建
-1234-- 创建数据库create database [数据库名称];			create database if not exists [数据库名称];				-- 创建并判断是否存在create datab...">
+    <meta name="description" content="MySQL复习第二弹。">
   
 
   <!-- feed -->
@@ -387,7 +383,7 @@ C（Create）：创建
   <div class='new-meta-item category'>
     <a class='notlink'>
       <i class="fas fa-folder-open fa-fw" aria-hidden="true"></i>
-      <a class="category-link" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a>
+      <a class="category-link" href="/categories/%E7%90%86%E8%AE%BA%E5%AD%A6%E4%B9%A0/">理论学习</a>
     </a>
   </div>
 
@@ -426,7 +422,10 @@ C（Create）：创建
 
 
   
-  <h1 id="MySQL-2-基本操作"><a href="#MySQL-2-基本操作" class="headerlink" title="MySQL-2-基本操作"></a>MySQL-2-基本操作</h1><h3 id="1-DDL：操作数据库、表"><a href="#1-DDL：操作数据库、表" class="headerlink" title="1. DDL：操作数据库、表"></a>1. DDL：操作数据库、表</h3><ol>
+  <p>MySQL复习第二弹。</p>
+<a id="more"></a>
+
+<h1 id="MySQL-2-基本操作"><a href="#MySQL-2-基本操作" class="headerlink" title="MySQL-2-基本操作"></a>MySQL-2-基本操作</h1><h3 id="1-DDL：操作数据库、表"><a href="#1-DDL：操作数据库、表" class="headerlink" title="1. DDL：操作数据库、表"></a>1. DDL：操作数据库、表</h3><ol>
 <li><p>操作数据库：CRUD</p>
 <ol>
 <li><p>C（Create）：创建</p>
@@ -676,7 +675,7 @@ C（Create）：创建
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 格式</span></span><br><span class="line">constraint 外键名称 foreign key (外键列名称) references 主键名称(主列表名称)</span><br><span class="line"><span class="comment">-- 创建employee表给其添加外键约束</span></span><br><span class="line"><span class="comment">-- 创建员工表</span></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> employee(</span><br><span class="line">	<span class="keyword">id</span> <span class="built_in">INT</span> PRIMARY <span class="keyword">KEY</span> AUTO_INCREMENT,</span><br><span class="line">	<span class="keyword">NAME</span> <span class="built_in">VARCHAR</span>(<span class="number">20</span>),</span><br><span class="line">	age <span class="built_in">INT</span>,</span><br><span class="line">	dep_id <span class="built_in">INT</span> <span class="comment">-- 对应department表的主键</span></span><br><span class="line">    <span class="keyword">constraint</span> emp_dep_fk <span class="keyword">foreign</span> <span class="keyword">key</span> (dep_id) <span class="keyword">references</span> department(<span class="keyword">id</span>)  <span class="comment">-- 给dep_int 添加到department表的外键约束</span></span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 试图删除部门表中的id为1的部门</span></span><br><span class="line"><span class="keyword">delete</span> <span class="keyword">from</span> department <span class="keyword">where</span> <span class="keyword">id</span> = <span class="number">1</span></span><br><span class="line"><span class="comment">-- 执行时报以下错误</span></span><br><span class="line">Cannot <span class="keyword">delete</span> <span class="keyword">or</span> <span class="keyword">update</span> a <span class="keyword">parent</span> <span class="keyword">row</span>: a <span class="keyword">foreign</span> <span class="keyword">key</span> <span class="keyword">constraint</span> fails (<span class="string">`db8100`</span>.<span class="string">`employee`</span>, <span class="keyword">CONSTRAINT</span> <span class="string">`emp_dep_fk`</span> <span class="keyword">FOREIGN</span> <span class="keyword">KEY</span> (<span class="string">`dep_id`</span>) <span class="keyword">REFERENCES</span> <span class="string">`department`</span> (<span class="string">`id`</span>))</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 <p>此时，部门表已经和员工表建立了关系</p>
-<p><img src="/images/%E6%95%B0%E6%8D%AE%E5%BA%93/mysql-2-rela.png" class="lazyload" data-srcset="/images/%E6%95%B0%E6%8D%AE%E5%BA%93/mysql-2-rela.png" srcset="data:image/png;base64,666" alt="mysql-2-rela"></p>
+<p><img src="https://gitee.com/tobing/imagebed/raw/master/mysql-2-rela.png" class="lazyload" data-srcset="https://gitee.com/tobing/imagebed/raw/master/mysql-2-rela.png" srcset="data:image/png;base64,666" alt="mysql-2-rela"></p>
 </li>
 </ul>
 <h3 id="7-外键约束-级联"><a href="#7-外键约束-级联" class="headerlink" title="7. 外键约束-级联"></a>7. 外键约束-级联</h3><ul>
@@ -736,10 +735,10 @@ C（Create）：创建
     <div class='new-meta-box'>
       
         
-          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2019-11-15T22:13:35+08:00">
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-01-15T12:15:13+08:00">
   <a class='notlink'>
     <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
-    <p>更新于：Nov 15, 2019</p>
+    <p>更新于：Jan 15, 2021</p>
   </a>
 </div>
 
@@ -748,7 +747,7 @@ C（Create）：创建
         
           
   
-  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/MySQL/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>MySQL</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/%E5%A4%8D%E4%B9%A0/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>复习</p></a></div>
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/MySQL/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>MySQL</p></a></div>
 
 
         
@@ -761,170 +760,7 @@ C（Create）：创建
       
         <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer noopener"
           
-          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://tobing.top/2019/11/15/MySQL-2-%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C/&title=MySQL-2-基本操作 - tobing&summary=MySQL-2-基本操作1. DDL：操作数据库、表
-操作数据库：CRUD
-
-C（Create）：创建
-1234-- 创建数据库create database [数据库名称];			create database if not exists [数据库名称];				-- 创建并判断是否存在create database [数据库名称] character set [字符集名称]; 	 -- 创建并指定字符集
-
-12-- 创建db4数据库，判断是否存在，并指定字符集为gbkcreate database if not exists db4 character set gbk;
-
-R（Retrieve）：查询
-1234-- 查询所有数据库名称show databases;-- 查询某一个数据库的字符集：查询某一个数据库的创建语句show create database [数据库名称]
-
-U（Update）：修改
-12-- 修改数据库字符集alter database [数据库名称] character set [字符集名称]
-
-D（Delete）：删除
-1234-- 删除数据库drop database [数据库名称];-- 判断存在，存在再删除drop database if exists [数据库名称];
-
-使用数据库
-1234-- 查询当前使用的数据库名称select database();-- 使用数据库use [数据库名称];
-
-
-
-操作表
-
-C（Create）：创建
-1234567-- 创建表create table [表名] (	列名 数据类型,    列名 数据类型,    ...	-- 最后一个没有逗号);
-
-
-
-int：整数
-double：浮点
-date：日期（年月日），yyyy-MM-dd
-datetime：（年月日时分秒） yyyy-MM-dd HH:mm:ss
-timestamp：时间戳类型 包含年月日时分秒  yyyy-MM-dd（默认为当前系统时间）
-varchar：字符串
-
-
-12-- 复制表create table [表名] like [被复制的表] 
-
-R（Retrieve）：查询
-12345-- 查询当前数据库下所有的表show tables;-- 查指定的表结构desc [表名]
-
-U（Update）：修改
-1234567891011-- 修改表名alter table [表名] rename to [新的表名]-- 修改表的字符集alter table [表名] character set [字符集名称]-- 添加一列alter table [表名] add [列名] [数据类型]-- 修改列名称 类型alter table [表名] change [列名] [新列名] [新数据类型]-- 删除列alter table [表名] drop [列名]
-
-D（Delete）：删除
-1234-- 删除表drop table [表名];drop table if exists [表名];
-
-
-
-
-
-2. DML：修改表中的数据
-添加数据：insert
-12345-- 插入insert into 表名(列名1，列名2，列名3....) values(值1，值2，值3...);insert into 表名 values(值1，值2，....);
-
-
-
-列名要和值一一对应。
-如果表名后，不定义列名，则给所有的列添加值。
-除了数学类型，其他类型需要使用引号（单双都可以）引起来。
-
-
-
-删除数据：delete
-123456delete from [表名] [where 条件]-- 删除所有记录delete from [表名]; 	-- 不推荐使用。有多少天记录就输出第三条记录（按记录删除）truncate table [表名]	-- 推荐使用，效率更高，先删除表，如果在创建一张的表（按表删除）
-
-
-
-如果不加条件，则删除表中所有记录
-
-
-
-修改数据：update
-12update [表名] set [列1] = [列1], [列2] = [值2] .... [where 条件]
-
-
-注意：如果不加任何条件，表中使用记录都会被更改。
-
-
-
-3. DQL：查询表中记录
-格式
-123456789101112131415select    [字段列表]from    [表名列表]where    [条件列表]group by    [分组字段]having    [分组之后的条件]order by    [排序]limit    [分页限定]
-
-
-
-
-
-普通字段查询
-123456789101112-- 多字段查询select 字段1，字段2... from [表名];-- 查询所有字段select * from [表名];-- 去除重复distinctselect distinct [列名] from [表名];-- 查询结果运行select *,(列1+列2) form [表名]	-- 显示该表所有数据，并将列1和列2的也相加显示（不限于相加）select *,(列1+列2) as [新列名] from [表名] -- 将新加的类列名设置为【新列名】
-
-
-as : 起别名
-
-
-条件查询
-12where [条件]
-
-
-
-运算符
-
-&lt;、&gt;
-between…and
-in(集合)
-like:模糊查询
-​    _：单个任意字符
-​    %：多个任意字符
-is null
-and 或 &amp;&amp;
-or 或 ||
-not 或 ！
-
-
-排序查询
-123order by [子句]order by 排序字段1，排序方式1，排序字段2，排序方式2....
-
-
-asc：默认，升序排序
-desc：降序排序
-
-
-聚合函数：将一列数据作为一个整体，降序纵向计算。（例如：求和）
-123select count(列名) from [表名] -- 给某一列求个数select count(ifnull([列名],0)) from [表名]
-
-
-
-count：计算个数
-一般选择非空的列，主键
-count(*)
-
-
-max：计算最大值
-min：计算最小值
-sum：计算和
-avg：计算平均值
-
-注意：使用时排查null值，一般选择非空列
-
-
-分组查询 group by
-
-
-
-常用于对某个具有相同特征的整体进行操作
-
-注意：分组之后，查询的字段只能写聚合函数和分组字段。否则没有意义
-having和where的区别
-
-where在分组之前进行限定，如果不满足条件，不参与分组。where之后不可以跟聚合函数。
-having在分组后进行限定，如果不满足，则不会被查询出来。having可以进行聚合函数的判断。
-
-
-
-分页查询 limit
-123456-- 模拟每页显示3条内容-- 显示从0开始的3条记录select * from [表名] limit 0,3;  -- 第一页-- 显示从3开始的3条记录select * from [表名] limit 3,3;  -- 第二页
-
-
-注意：limit是Mysql的方言
-
-
-
-4. limit案例"
+          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://tobing.top/2019/11/15/MySQL-2-%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C/&title=MySQL-2-基本操作 - tobing&summary=MySQL复习第二弹。"
           
           >
           
@@ -936,170 +772,7 @@ having在分组后进行限定，如果不满足，则不会被查询出来。ha
       
         <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer noopener"
           
-          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://tobing.top/2019/11/15/MySQL-2-%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C/&title=MySQL-2-基本操作 - tobing&summary=MySQL-2-基本操作1. DDL：操作数据库、表
-操作数据库：CRUD
-
-C（Create）：创建
-1234-- 创建数据库create database [数据库名称];			create database if not exists [数据库名称];				-- 创建并判断是否存在create database [数据库名称] character set [字符集名称]; 	 -- 创建并指定字符集
-
-12-- 创建db4数据库，判断是否存在，并指定字符集为gbkcreate database if not exists db4 character set gbk;
-
-R（Retrieve）：查询
-1234-- 查询所有数据库名称show databases;-- 查询某一个数据库的字符集：查询某一个数据库的创建语句show create database [数据库名称]
-
-U（Update）：修改
-12-- 修改数据库字符集alter database [数据库名称] character set [字符集名称]
-
-D（Delete）：删除
-1234-- 删除数据库drop database [数据库名称];-- 判断存在，存在再删除drop database if exists [数据库名称];
-
-使用数据库
-1234-- 查询当前使用的数据库名称select database();-- 使用数据库use [数据库名称];
-
-
-
-操作表
-
-C（Create）：创建
-1234567-- 创建表create table [表名] (	列名 数据类型,    列名 数据类型,    ...	-- 最后一个没有逗号);
-
-
-
-int：整数
-double：浮点
-date：日期（年月日），yyyy-MM-dd
-datetime：（年月日时分秒） yyyy-MM-dd HH:mm:ss
-timestamp：时间戳类型 包含年月日时分秒  yyyy-MM-dd（默认为当前系统时间）
-varchar：字符串
-
-
-12-- 复制表create table [表名] like [被复制的表] 
-
-R（Retrieve）：查询
-12345-- 查询当前数据库下所有的表show tables;-- 查指定的表结构desc [表名]
-
-U（Update）：修改
-1234567891011-- 修改表名alter table [表名] rename to [新的表名]-- 修改表的字符集alter table [表名] character set [字符集名称]-- 添加一列alter table [表名] add [列名] [数据类型]-- 修改列名称 类型alter table [表名] change [列名] [新列名] [新数据类型]-- 删除列alter table [表名] drop [列名]
-
-D（Delete）：删除
-1234-- 删除表drop table [表名];drop table if exists [表名];
-
-
-
-
-
-2. DML：修改表中的数据
-添加数据：insert
-12345-- 插入insert into 表名(列名1，列名2，列名3....) values(值1，值2，值3...);insert into 表名 values(值1，值2，....);
-
-
-
-列名要和值一一对应。
-如果表名后，不定义列名，则给所有的列添加值。
-除了数学类型，其他类型需要使用引号（单双都可以）引起来。
-
-
-
-删除数据：delete
-123456delete from [表名] [where 条件]-- 删除所有记录delete from [表名]; 	-- 不推荐使用。有多少天记录就输出第三条记录（按记录删除）truncate table [表名]	-- 推荐使用，效率更高，先删除表，如果在创建一张的表（按表删除）
-
-
-
-如果不加条件，则删除表中所有记录
-
-
-
-修改数据：update
-12update [表名] set [列1] = [列1], [列2] = [值2] .... [where 条件]
-
-
-注意：如果不加任何条件，表中使用记录都会被更改。
-
-
-
-3. DQL：查询表中记录
-格式
-123456789101112131415select    [字段列表]from    [表名列表]where    [条件列表]group by    [分组字段]having    [分组之后的条件]order by    [排序]limit    [分页限定]
-
-
-
-
-
-普通字段查询
-123456789101112-- 多字段查询select 字段1，字段2... from [表名];-- 查询所有字段select * from [表名];-- 去除重复distinctselect distinct [列名] from [表名];-- 查询结果运行select *,(列1+列2) form [表名]	-- 显示该表所有数据，并将列1和列2的也相加显示（不限于相加）select *,(列1+列2) as [新列名] from [表名] -- 将新加的类列名设置为【新列名】
-
-
-as : 起别名
-
-
-条件查询
-12where [条件]
-
-
-
-运算符
-
-&lt;、&gt;
-between…and
-in(集合)
-like:模糊查询
-​    _：单个任意字符
-​    %：多个任意字符
-is null
-and 或 &amp;&amp;
-or 或 ||
-not 或 ！
-
-
-排序查询
-123order by [子句]order by 排序字段1，排序方式1，排序字段2，排序方式2....
-
-
-asc：默认，升序排序
-desc：降序排序
-
-
-聚合函数：将一列数据作为一个整体，降序纵向计算。（例如：求和）
-123select count(列名) from [表名] -- 给某一列求个数select count(ifnull([列名],0)) from [表名]
-
-
-
-count：计算个数
-一般选择非空的列，主键
-count(*)
-
-
-max：计算最大值
-min：计算最小值
-sum：计算和
-avg：计算平均值
-
-注意：使用时排查null值，一般选择非空列
-
-
-分组查询 group by
-
-
-
-常用于对某个具有相同特征的整体进行操作
-
-注意：分组之后，查询的字段只能写聚合函数和分组字段。否则没有意义
-having和where的区别
-
-where在分组之前进行限定，如果不满足条件，不参与分组。where之后不可以跟聚合函数。
-having在分组后进行限定，如果不满足，则不会被查询出来。having可以进行聚合函数的判断。
-
-
-
-分页查询 limit
-123456-- 模拟每页显示3条内容-- 显示从0开始的3条记录select * from [表名] limit 0,3;  -- 第一页-- 显示从3开始的3条记录select * from [表名] limit 3,3;  -- 第二页
-
-
-注意：limit是Mysql的方言
-
-
-
-4. limit案例"
+          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://tobing.top/2019/11/15/MySQL-2-%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C/&title=MySQL-2-基本操作 - tobing&summary=MySQL复习第二弹。"
           
           >
           
@@ -1111,170 +784,7 @@ having在分组后进行限定，如果不满足，则不会被查询出来。ha
       
         <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer noopener"
           
-          target="_blank" href="http://service.weibo.com/share/share.php?url=https://tobing.top/2019/11/15/MySQL-2-%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C/&title=MySQL-2-基本操作 - tobing&summary=MySQL-2-基本操作1. DDL：操作数据库、表
-操作数据库：CRUD
-
-C（Create）：创建
-1234-- 创建数据库create database [数据库名称];			create database if not exists [数据库名称];				-- 创建并判断是否存在create database [数据库名称] character set [字符集名称]; 	 -- 创建并指定字符集
-
-12-- 创建db4数据库，判断是否存在，并指定字符集为gbkcreate database if not exists db4 character set gbk;
-
-R（Retrieve）：查询
-1234-- 查询所有数据库名称show databases;-- 查询某一个数据库的字符集：查询某一个数据库的创建语句show create database [数据库名称]
-
-U（Update）：修改
-12-- 修改数据库字符集alter database [数据库名称] character set [字符集名称]
-
-D（Delete）：删除
-1234-- 删除数据库drop database [数据库名称];-- 判断存在，存在再删除drop database if exists [数据库名称];
-
-使用数据库
-1234-- 查询当前使用的数据库名称select database();-- 使用数据库use [数据库名称];
-
-
-
-操作表
-
-C（Create）：创建
-1234567-- 创建表create table [表名] (	列名 数据类型,    列名 数据类型,    ...	-- 最后一个没有逗号);
-
-
-
-int：整数
-double：浮点
-date：日期（年月日），yyyy-MM-dd
-datetime：（年月日时分秒） yyyy-MM-dd HH:mm:ss
-timestamp：时间戳类型 包含年月日时分秒  yyyy-MM-dd（默认为当前系统时间）
-varchar：字符串
-
-
-12-- 复制表create table [表名] like [被复制的表] 
-
-R（Retrieve）：查询
-12345-- 查询当前数据库下所有的表show tables;-- 查指定的表结构desc [表名]
-
-U（Update）：修改
-1234567891011-- 修改表名alter table [表名] rename to [新的表名]-- 修改表的字符集alter table [表名] character set [字符集名称]-- 添加一列alter table [表名] add [列名] [数据类型]-- 修改列名称 类型alter table [表名] change [列名] [新列名] [新数据类型]-- 删除列alter table [表名] drop [列名]
-
-D（Delete）：删除
-1234-- 删除表drop table [表名];drop table if exists [表名];
-
-
-
-
-
-2. DML：修改表中的数据
-添加数据：insert
-12345-- 插入insert into 表名(列名1，列名2，列名3....) values(值1，值2，值3...);insert into 表名 values(值1，值2，....);
-
-
-
-列名要和值一一对应。
-如果表名后，不定义列名，则给所有的列添加值。
-除了数学类型，其他类型需要使用引号（单双都可以）引起来。
-
-
-
-删除数据：delete
-123456delete from [表名] [where 条件]-- 删除所有记录delete from [表名]; 	-- 不推荐使用。有多少天记录就输出第三条记录（按记录删除）truncate table [表名]	-- 推荐使用，效率更高，先删除表，如果在创建一张的表（按表删除）
-
-
-
-如果不加条件，则删除表中所有记录
-
-
-
-修改数据：update
-12update [表名] set [列1] = [列1], [列2] = [值2] .... [where 条件]
-
-
-注意：如果不加任何条件，表中使用记录都会被更改。
-
-
-
-3. DQL：查询表中记录
-格式
-123456789101112131415select    [字段列表]from    [表名列表]where    [条件列表]group by    [分组字段]having    [分组之后的条件]order by    [排序]limit    [分页限定]
-
-
-
-
-
-普通字段查询
-123456789101112-- 多字段查询select 字段1，字段2... from [表名];-- 查询所有字段select * from [表名];-- 去除重复distinctselect distinct [列名] from [表名];-- 查询结果运行select *,(列1+列2) form [表名]	-- 显示该表所有数据，并将列1和列2的也相加显示（不限于相加）select *,(列1+列2) as [新列名] from [表名] -- 将新加的类列名设置为【新列名】
-
-
-as : 起别名
-
-
-条件查询
-12where [条件]
-
-
-
-运算符
-
-&lt;、&gt;
-between…and
-in(集合)
-like:模糊查询
-​    _：单个任意字符
-​    %：多个任意字符
-is null
-and 或 &amp;&amp;
-or 或 ||
-not 或 ！
-
-
-排序查询
-123order by [子句]order by 排序字段1，排序方式1，排序字段2，排序方式2....
-
-
-asc：默认，升序排序
-desc：降序排序
-
-
-聚合函数：将一列数据作为一个整体，降序纵向计算。（例如：求和）
-123select count(列名) from [表名] -- 给某一列求个数select count(ifnull([列名],0)) from [表名]
-
-
-
-count：计算个数
-一般选择非空的列，主键
-count(*)
-
-
-max：计算最大值
-min：计算最小值
-sum：计算和
-avg：计算平均值
-
-注意：使用时排查null值，一般选择非空列
-
-
-分组查询 group by
-
-
-
-常用于对某个具有相同特征的整体进行操作
-
-注意：分组之后，查询的字段只能写聚合函数和分组字段。否则没有意义
-having和where的区别
-
-where在分组之前进行限定，如果不满足条件，不参与分组。where之后不可以跟聚合函数。
-having在分组后进行限定，如果不满足，则不会被查询出来。having可以进行聚合函数的判断。
-
-
-
-分页查询 limit
-123456-- 模拟每页显示3条内容-- 显示从0开始的3条记录select * from [表名] limit 0,3;  -- 第一页-- 显示从3开始的3条记录select * from [表名] limit 3,3;  -- 第二页
-
-
-注意：limit是Mysql的方言
-
-
-
-4. limit案例"
+          target="_blank" href="http://service.weibo.com/share/share.php?url=https://tobing.top/2019/11/15/MySQL-2-%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C/&title=MySQL-2-基本操作 - tobing&summary=MySQL复习第二弹。"
           
           >
           
@@ -1306,7 +816,10 @@ having在分组后进行限定，如果不满足，则不会被查询出来。ha
       
         <a class='prev' href='/2019/11/23/MySQL-3-%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E8%AE%BE%E8%AE%A1/'>
           <p class='title'><i class="fas fa-chevron-left" aria-hidden="true"></i>MySQL-3-数据库的设计</p>
-          <p class='content'>MySQL-3-数据库的设计1. 表之间的关系1. 分类
+          <p class='content'>MySQL学习第三弹。
+
+
+MySQL-3-数据库的设计1. 表之间的关系1. 分类
 
 一对一
 人和身份证
@@ -1315,15 +828,16 @@ having在分组后进行限定，如果不满足，则不会被查询出来。ha
 
 一对多
 部门和员工
-一个部门有多个员工，而多个员工对应一个部门
-
-...</p>
+一个部门有多个员工...</p>
         </a>
       
       
         <a class='next' href='/2019/11/15/MySQL-1-%E6%A6%82%E8%BF%B0/'>
           <p class='title'>MySQL-1-概述<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
-          <p class='content'>MySQL-1-概述1. 数据库引入
+          <p class='content'>本文是对MySQL的复习笔记。
+
+
+MySQL-1-概述1. 数据库引入
 常见不同存放数据介质的比较
 
 
@@ -1341,11 +855,7 @@ having在分组后进行限定，如果不满足，则不会被查询出来。ha
 
 硬盘
 永久保存
-操作数据不方便
-
-
-数据库
-永久保存、查询速度快、...</p>
+操作数据不方便...</p>
         </a>
       
     </div>

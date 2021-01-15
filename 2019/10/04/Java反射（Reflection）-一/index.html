@@ -25,12 +25,7 @@
   
 
   
-    <meta name="description" content="Java反射（Reflection）(一)1. 什么是反射
-通过Class实例获取class（包含类和接口）信息的方法称为反射（Reflection）。
-
-2. Class类
-除了基本数据类型:int double long等之外，其他的类型都是class，包括了interface
-class 是由JVM动态加载...">
+    <meta name="description" content="在Java常用的框架中，反射被频繁的使用，本文介绍反射的简单使用。">
   
 
   <!-- feed -->
@@ -388,7 +383,7 @@ class 是由JVM动态加载...">
   <div class='new-meta-item category'>
     <a class='notlink'>
       <i class="fas fa-folder-open fa-fw" aria-hidden="true"></i>
-      <a class="category-link" href="/categories/Java/">Java</a>
+      <a class="category-link" href="/categories/%E7%90%86%E8%AE%BA%E5%AD%A6%E4%B9%A0/">理论学习</a>
     </a>
   </div>
 
@@ -427,7 +422,10 @@ class 是由JVM动态加载...">
 
 
   
-  <h1 id="Java反射（Reflection）-一"><a href="#Java反射（Reflection）-一" class="headerlink" title="Java反射（Reflection）(一)"></a>Java反射（Reflection）(一)</h1><h3 id="1-什么是反射"><a href="#1-什么是反射" class="headerlink" title="1. 什么是反射"></a>1. 什么是反射</h3><ul>
+  <p>在Java常用的框架中，反射被频繁的使用，本文介绍反射的简单使用。</p>
+<a id="more"></a>
+
+<h1 id="Java反射（Reflection）-一"><a href="#Java反射（Reflection）-一" class="headerlink" title="Java反射（Reflection）(一)"></a>Java反射（Reflection）(一)</h1><h3 id="1-什么是反射"><a href="#1-什么是反射" class="headerlink" title="1. 什么是反射"></a>1. 什么是反射</h3><ul>
 <li>通过<code>Class</code>实例获取<code>class</code>（包含类和接口）信息的方法称为反射（Reflection）。</li>
 </ul>
 <h3 id="2-Class类"><a href="#2-Class类" class="headerlink" title="2. Class类"></a>2. Class类</h3><ul>
@@ -540,10 +538,10 @@ class 是由JVM动态加载...">
     <div class='new-meta-box'>
       
         
-          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2019-10-04T17:20:43+08:00">
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-01-15T11:04:06+08:00">
   <a class='notlink'>
     <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
-    <p>更新于：Oct 4, 2019</p>
+    <p>更新于：Jan 15, 2021</p>
   </a>
 </div>
 
@@ -565,49 +563,7 @@ class 是由JVM动态加载...">
       
         <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer noopener"
           
-          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://tobing.top/2019/10/04/Java%E5%8F%8D%E5%B0%84%EF%BC%88Reflection%EF%BC%89-%E4%B8%80/&title=Java反射（Reflection）(一) - tobing&summary=Java反射（Reflection）(一)1. 什么是反射
-通过Class实例获取class（包含类和接口）信息的方法称为反射（Reflection）。
-
-2. Class类
-除了基本数据类型:int double long等之外，其他的类型都是class，包括了interface
-class 是由JVM动态加载的
-每加载一种class，JVM就为其创建一个Class类型的实例，并关联起来。
-
-123public final class Class&#123;    private Class()&#123;&#125;&#125;
-
-
-以String类为例，当JVM加载String类时，它首先读取String.class文件到内存，然后为String类创建一个Class实例与之关联起来
-
-1Class c1 = new Class(String);
-
-
-Class实例是JVM内部创建的，Class类的构造方法是private，只能由JVM能创建Class实例。
-
-
-JVM拥有的每一个Class实例都关联了一个数据类型（class 或者 interface）
-Class实例包含了class的所有信息：name，package，super，interface，field，method等
-因此我们可以通过Class实例来获取对应class的所有信息
-
-
-
-如何获取到Class实例（三种方法）
-通过类的静态变量
-1Class strClass = String.class;
-
-通过类实例的getClass()方法
-12Stirng s = &quot;Hello&quot;;Class strClass = s.getClass()；
-
-通过Class.forName(&quot;全限定类名&quot;)获取
-1Class strClass = Class.forName(&quot;java.lang.String&quot;);
-
-注意
-因为Class实例在JVM中是唯一的，所以可以用==比较两个Class
-
-
-
-
-
-3. 反射的目的"
+          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://tobing.top/2019/10/04/Java%E5%8F%8D%E5%B0%84%EF%BC%88Reflection%EF%BC%89-%E4%B8%80/&title=Java反射（Reflection）(一) - tobing&summary=在Java常用的框架中，反射被频繁的使用，本文介绍反射的简单使用。"
           
           >
           
@@ -619,49 +575,7 @@ Class实例包含了class的所有信息：name，package，super，interface，
       
         <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer noopener"
           
-          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://tobing.top/2019/10/04/Java%E5%8F%8D%E5%B0%84%EF%BC%88Reflection%EF%BC%89-%E4%B8%80/&title=Java反射（Reflection）(一) - tobing&summary=Java反射（Reflection）(一)1. 什么是反射
-通过Class实例获取class（包含类和接口）信息的方法称为反射（Reflection）。
-
-2. Class类
-除了基本数据类型:int double long等之外，其他的类型都是class，包括了interface
-class 是由JVM动态加载的
-每加载一种class，JVM就为其创建一个Class类型的实例，并关联起来。
-
-123public final class Class&#123;    private Class()&#123;&#125;&#125;
-
-
-以String类为例，当JVM加载String类时，它首先读取String.class文件到内存，然后为String类创建一个Class实例与之关联起来
-
-1Class c1 = new Class(String);
-
-
-Class实例是JVM内部创建的，Class类的构造方法是private，只能由JVM能创建Class实例。
-
-
-JVM拥有的每一个Class实例都关联了一个数据类型（class 或者 interface）
-Class实例包含了class的所有信息：name，package，super，interface，field，method等
-因此我们可以通过Class实例来获取对应class的所有信息
-
-
-
-如何获取到Class实例（三种方法）
-通过类的静态变量
-1Class strClass = String.class;
-
-通过类实例的getClass()方法
-12Stirng s = &quot;Hello&quot;;Class strClass = s.getClass()；
-
-通过Class.forName(&quot;全限定类名&quot;)获取
-1Class strClass = Class.forName(&quot;java.lang.String&quot;);
-
-注意
-因为Class实例在JVM中是唯一的，所以可以用==比较两个Class
-
-
-
-
-
-3. 反射的目的"
+          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://tobing.top/2019/10/04/Java%E5%8F%8D%E5%B0%84%EF%BC%88Reflection%EF%BC%89-%E4%B8%80/&title=Java反射（Reflection）(一) - tobing&summary=在Java常用的框架中，反射被频繁的使用，本文介绍反射的简单使用。"
           
           >
           
@@ -673,49 +587,7 @@ Class实例包含了class的所有信息：name，package，super，interface，
       
         <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer noopener"
           
-          target="_blank" href="http://service.weibo.com/share/share.php?url=https://tobing.top/2019/10/04/Java%E5%8F%8D%E5%B0%84%EF%BC%88Reflection%EF%BC%89-%E4%B8%80/&title=Java反射（Reflection）(一) - tobing&summary=Java反射（Reflection）(一)1. 什么是反射
-通过Class实例获取class（包含类和接口）信息的方法称为反射（Reflection）。
-
-2. Class类
-除了基本数据类型:int double long等之外，其他的类型都是class，包括了interface
-class 是由JVM动态加载的
-每加载一种class，JVM就为其创建一个Class类型的实例，并关联起来。
-
-123public final class Class&#123;    private Class()&#123;&#125;&#125;
-
-
-以String类为例，当JVM加载String类时，它首先读取String.class文件到内存，然后为String类创建一个Class实例与之关联起来
-
-1Class c1 = new Class(String);
-
-
-Class实例是JVM内部创建的，Class类的构造方法是private，只能由JVM能创建Class实例。
-
-
-JVM拥有的每一个Class实例都关联了一个数据类型（class 或者 interface）
-Class实例包含了class的所有信息：name，package，super，interface，field，method等
-因此我们可以通过Class实例来获取对应class的所有信息
-
-
-
-如何获取到Class实例（三种方法）
-通过类的静态变量
-1Class strClass = String.class;
-
-通过类实例的getClass()方法
-12Stirng s = &quot;Hello&quot;;Class strClass = s.getClass()；
-
-通过Class.forName(&quot;全限定类名&quot;)获取
-1Class strClass = Class.forName(&quot;java.lang.String&quot;);
-
-注意
-因为Class实例在JVM中是唯一的，所以可以用==比较两个Class
-
-
-
-
-
-3. 反射的目的"
+          target="_blank" href="http://service.weibo.com/share/share.php?url=https://tobing.top/2019/10/04/Java%E5%8F%8D%E5%B0%84%EF%BC%88Reflection%EF%BC%89-%E4%B8%80/&title=Java反射（Reflection）(一) - tobing&summary=在Java常用的框架中，反射被频繁的使用，本文介绍反射的简单使用。"
           
           >
           
@@ -747,20 +619,23 @@ Class实例包含了class的所有信息：name，package，super，interface，
       
         <a class='prev' href='/2019/10/05/Java%E5%8F%8D%E5%B0%84%EF%BC%88Reflection%EF%BC%89-%E4%BA%8C/'>
           <p class='title'><i class="fas fa-chevron-left" aria-hidden="true"></i>Java反射（Reflection）(二)</p>
-          <p class='content'>Java反射（Reflection）(二)
+          <p class='content'>反射介绍第二弹。
+
+
+Java反射（Reflection）(二)
 获取了某个Object实例对应的Class，我们就可以通过反射获取他的一切信息。
 
 1. 访问字段(Filed)
-通过Class访问字段（Field）...</p>
+通过Class...</p>
         </a>
       
       
         <a class='next' href='/2019/10/03/Idea-java-%E4%B8%8D%E6%94%AF%E6%8C%81%E5%8F%91%E8%A1%8C%E7%89%88%E6%9C%AC5/'>
           <p class='title'>Idea:java 不支持发行版本5<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
-          <p class='content'>Intellij idea : java 不支持发行版本51. 问题描述
-在使用Intellij idea构建Maven工程的时候，运行报错Error : java 不支持发行版本5。
+          <p class='content'>在使用Intellij idea构建Maven工程的时候，运行报错Error : java 不支持发行版本5。本文针对该问题提出了几个解决方法。
 
-2. ...</p>
+
+Intellij idea : java 不...</p>
         </a>
       
     </div>

@@ -25,11 +25,7 @@
   
 
   
-    <meta name="description" content="JDBC的封装1. 引入
-即是使用了获取连接的工具类，简化了获取连接的操作。但是在编写程序查询数据库的时候，仍然需要编写较为繁杂的语句，封装结果，释放资源等。因此就有人将这些流程封装为工具包，提供给别人使用。让我们编写代码的时候，只需要关注SQL语句的执行。
-
-2. Spring JDBC
-Spring框架对JD...">
+    <meta name="description" content="本文对JDBC进行介绍。">
   
 
   <!-- feed -->
@@ -387,7 +383,7 @@ Spring框架对JD...">
   <div class='new-meta-item category'>
     <a class='notlink'>
       <i class="fas fa-folder-open fa-fw" aria-hidden="true"></i>
-      <a class="category-link" href="/categories/Java/">Java</a>
+      <a class="category-link" href="/categories/%E7%90%86%E8%AE%BA%E5%AD%A6%E4%B9%A0/">理论学习</a>
     </a>
   </div>
 
@@ -426,7 +422,10 @@ Spring框架对JD...">
 
 
   
-  <h1 id="JDBC的封装"><a href="#JDBC的封装" class="headerlink" title="JDBC的封装"></a>JDBC的封装</h1><h3 id="1-引入"><a href="#1-引入" class="headerlink" title="1. 引入"></a>1. 引入</h3><ul>
+  <p>本文对JDBC进行介绍。</p>
+<a id="more"></a>
+
+<h1 id="JDBC的封装"><a href="#JDBC的封装" class="headerlink" title="JDBC的封装"></a>JDBC的封装</h1><h3 id="1-引入"><a href="#1-引入" class="headerlink" title="1. 引入"></a>1. 引入</h3><ul>
 <li>即是使用了获取连接的工具类，简化了获取连接的操作。但是在编写程序查询数据库的时候，仍然需要编写较为繁杂的语句，封装结果，释放资源等。因此就有人将这些流程封装为工具包，提供给别人使用。让我们编写代码的时候，只需要关注SQL语句的执行。</li>
 </ul>
 <h3 id="2-Spring-JDBC"><a href="#2-Spring-JDBC" class="headerlink" title="2. Spring JDBC"></a>2. Spring JDBC</h3><ul>
@@ -544,10 +543,10 @@ Spring框架对JD...">
     <div class='new-meta-box'>
       
         
-          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2019-11-04T22:16:50+08:00">
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-01-15T11:10:51+08:00">
   <a class='notlink'>
     <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
-    <p>更新于：Nov 4, 2019</p>
+    <p>更新于：Jan 15, 2021</p>
   </a>
 </div>
 
@@ -569,91 +568,7 @@ Spring框架对JD...">
       
         <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer noopener"
           
-          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://tobing.top/2019/11/04/JDBC%E7%9A%84%E5%B0%81%E8%A3%85/&title=JDBC的封装 - tobing&summary=JDBC的封装1. 引入
-即是使用了获取连接的工具类，简化了获取连接的操作。但是在编写程序查询数据库的时候，仍然需要编写较为繁杂的语句，封装结果，释放资源等。因此就有人将这些流程封装为工具包，提供给别人使用。让我们编写代码的时候，只需要关注SQL语句的执行。
-
-2. Spring JDBC
-Spring框架对JDBC的简单封装，提供了JDBCTemplate对象简化JDBC的开发。
-
-开发步骤
-
-
-导入jar包
-
-创建依赖于DataSource的JdbcTemplate对象。
-
-调用JdbcTemplate的方法完成CRUD
-
-
-
-
-JDBCTemplate提供的方法
-
-
-update()：执行DML。增、删、改。
-
-queryForMap()：查询结果集，封装为map集合。列名为key，值为value
-
-此方法的返回值长度只能是1。
-
-
-queryForList()：将查询的结果封装为List。
-
-此方法将每条记录封装为Map，然后将Map封装到List中。
-
-
-query()：查询结果，将结果封装为JavaBean
-
-RowMapper参数（一个接口）
-可以直接自己实现。
-一般我们使用BeanPropertyRowMapper实现类。可以完成数据到JavaBean的自动封装
-new BeanPropertyRowMapper&lt;类型&gt;(类型.class)
-
-
-
-
-queryForObject()：查询结果，将结果封装为对象
-
-一般用于聚合函数的查询。例如：求和函数
-
-
-
-
-
-案例：
-
-
-导包（连接池，数据库驱动，JdbcTemplate包等）
-创建Template对象
-CRUD（以account为例）
-修改1号数据的 balance 为 200000
-添加一条记录
-删除刚才添加的记录
-查询id为1的记录，将其封装为Map集合
-查询所有记录，将其封装为List
-查询所有记录，将其封装为Emp对象的List集合
-查询总记录数
-
-
-
-
-
-account表
-12345| id | name   | balance |+----+--------+---------+|  1 | tobing |   99600 ||  2 | acto   |  100400 ||  6 | rongon |  199900 |
-
-account对应的Account类
-12345678910111213package top.tobing.domain;public class Account &#123;    private Integer id;    private String name;    private Double balance;    //getter and setter    @Override    public String toString() &#123;&#125;&#125;
-
-JdbcTemplate测试类
-123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384858687888990919293949596979899100101102103104105package top.tobing.jdbctemplate;import org.junit.Test;import org.springframework.jdbc.core.BeanPropertyRowMapper;import org.springframework.jdbc.core.JdbcTemplate;import org.springframework.jdbc.core.RowMapper;import top.tobing.domain.Account;import top.tobing.utils.JDBCUtils;import java.sql.ResultSet;import java.sql.SQLException;import java.util.List;import java.util.Map;/*采用测试类的方式完成CRUD任务 */public class JdbcTemplateDemo01 &#123;    //1. 修改1号数据的 balance 为 200000    @Test    public void test01()&#123;        // 获取JdbcTemplate        JdbcTemplate template = new JdbcTemplate(JDBCUtils.getDataSource());        // 编写SQL语句        String sql = &quot;update account set balance = ? where id = 1&quot;;        int i = template.update(sql, 300000);        System.out.println(i);    &#125;    //2. 添加一条记录    @Test    public void test02()&#123;        JdbcTemplate template = new JdbcTemplate(JDBCUtils.getDataSource());        String sql = &quot;insert into account values(null,?,?)&quot;;        int i = template.update(sql, &quot;ggo&quot;, 200000);        System.out.println(i);    &#125;    //3. 删除刚才添加的记录    @Test    public void test03()&#123;        JdbcTemplate template = new JdbcTemplate(JDBCUtils.getDataSource());        String sql = &quot;delete from account where id = ?&quot;;        int i = template.update(sql, 8);        System.out.println(i);    &#125;    //4. 查询id为1的记录，将其封装为Map集合    @Test    public void test04()&#123;        JdbcTemplate template = new JdbcTemplate(JDBCUtils.getDataSource());        String sql = &quot;select * from account where id = 1&quot;;        Map&lt;String, Object&gt; map = template.queryForMap(sql);        System.out.println(map);        // &#123;id=1, name=tobing, balance=300000.0&#125;    &#125;    //5. 查询所有记录，将其封装为List    @Test    public void test05()&#123;        JdbcTemplate template = new JdbcTemplate(JDBCUtils.getDataSource());        String sql = &quot;select * from account&quot;;        List&lt;Map&lt;String, Object&gt;&gt; maps = template.queryForList(sql);        for (Map&lt;String, Object&gt; map : maps) &#123;            System.out.println(map);        &#125;    &#125;    //6. 查询所有记录，将其封装为Emp对象的List集合    @Test    public void test06()&#123;        JdbcTemplate template = new JdbcTemplate(JDBCUtils.getDataSource());        String sql = &quot;select * from account&quot;;        List&lt;Account&gt; list = template.query(sql, new RowMapper&lt;Account&gt;() &#123;            @Override            public Account mapRow(ResultSet rs, int i) throws SQLException &#123;                Account a = new Account();                int id = rs.getInt(&quot;id&quot;);                String name = rs.getString(&quot;name&quot;);                double balance = rs.getDouble(&quot;balance&quot;);                a.setId(id);                a.setBalance(balance);                a.setName(name);                return a;            &#125;        &#125;);        for (Account a : list) &#123;            System.out.println(a);        &#125;    &#125;    //6_1. 查询所有记录，将其封装为Emp对象的List集合    @Test    public void test0601()&#123;        JdbcTemplate template = new JdbcTemplate(JDBCUtils.getDataSource());        String sql = &quot;select * from account&quot;;        List&lt;Account&gt; accounts = template.query(sql, new BeanPropertyRowMapper&lt;Account&gt;(Account.class));        for (Account account : accounts) &#123;            System.out.println(account);        &#125;    &#125;    //7. 查询总记录数    @Test    public void test07()&#123;        JdbcTemplate template = new JdbcTemplate(JDBCUtils.getDataSource());        String sql = &quot;select count(id) from account&quot;;        Long sum = template.queryForObject(sql, Long.class);        System.out.println(sum);    &#125;&#125;
-
-
-
-
-
-
-
-"
+          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://tobing.top/2019/11/04/JDBC%E7%9A%84%E5%B0%81%E8%A3%85/&title=JDBC的封装 - tobing&summary=本文对JDBC进行介绍。"
           
           >
           
@@ -665,91 +580,7 @@ JdbcTemplate测试类
       
         <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer noopener"
           
-          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://tobing.top/2019/11/04/JDBC%E7%9A%84%E5%B0%81%E8%A3%85/&title=JDBC的封装 - tobing&summary=JDBC的封装1. 引入
-即是使用了获取连接的工具类，简化了获取连接的操作。但是在编写程序查询数据库的时候，仍然需要编写较为繁杂的语句，封装结果，释放资源等。因此就有人将这些流程封装为工具包，提供给别人使用。让我们编写代码的时候，只需要关注SQL语句的执行。
-
-2. Spring JDBC
-Spring框架对JDBC的简单封装，提供了JDBCTemplate对象简化JDBC的开发。
-
-开发步骤
-
-
-导入jar包
-
-创建依赖于DataSource的JdbcTemplate对象。
-
-调用JdbcTemplate的方法完成CRUD
-
-
-
-
-JDBCTemplate提供的方法
-
-
-update()：执行DML。增、删、改。
-
-queryForMap()：查询结果集，封装为map集合。列名为key，值为value
-
-此方法的返回值长度只能是1。
-
-
-queryForList()：将查询的结果封装为List。
-
-此方法将每条记录封装为Map，然后将Map封装到List中。
-
-
-query()：查询结果，将结果封装为JavaBean
-
-RowMapper参数（一个接口）
-可以直接自己实现。
-一般我们使用BeanPropertyRowMapper实现类。可以完成数据到JavaBean的自动封装
-new BeanPropertyRowMapper&lt;类型&gt;(类型.class)
-
-
-
-
-queryForObject()：查询结果，将结果封装为对象
-
-一般用于聚合函数的查询。例如：求和函数
-
-
-
-
-
-案例：
-
-
-导包（连接池，数据库驱动，JdbcTemplate包等）
-创建Template对象
-CRUD（以account为例）
-修改1号数据的 balance 为 200000
-添加一条记录
-删除刚才添加的记录
-查询id为1的记录，将其封装为Map集合
-查询所有记录，将其封装为List
-查询所有记录，将其封装为Emp对象的List集合
-查询总记录数
-
-
-
-
-
-account表
-12345| id | name   | balance |+----+--------+---------+|  1 | tobing |   99600 ||  2 | acto   |  100400 ||  6 | rongon |  199900 |
-
-account对应的Account类
-12345678910111213package top.tobing.domain;public class Account &#123;    private Integer id;    private String name;    private Double balance;    //getter and setter    @Override    public String toString() &#123;&#125;&#125;
-
-JdbcTemplate测试类
-123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384858687888990919293949596979899100101102103104105package top.tobing.jdbctemplate;import org.junit.Test;import org.springframework.jdbc.core.BeanPropertyRowMapper;import org.springframework.jdbc.core.JdbcTemplate;import org.springframework.jdbc.core.RowMapper;import top.tobing.domain.Account;import top.tobing.utils.JDBCUtils;import java.sql.ResultSet;import java.sql.SQLException;import java.util.List;import java.util.Map;/*采用测试类的方式完成CRUD任务 */public class JdbcTemplateDemo01 &#123;    //1. 修改1号数据的 balance 为 200000    @Test    public void test01()&#123;        // 获取JdbcTemplate        JdbcTemplate template = new JdbcTemplate(JDBCUtils.getDataSource());        // 编写SQL语句        String sql = &quot;update account set balance = ? where id = 1&quot;;        int i = template.update(sql, 300000);        System.out.println(i);    &#125;    //2. 添加一条记录    @Test    public void test02()&#123;        JdbcTemplate template = new JdbcTemplate(JDBCUtils.getDataSource());        String sql = &quot;insert into account values(null,?,?)&quot;;        int i = template.update(sql, &quot;ggo&quot;, 200000);        System.out.println(i);    &#125;    //3. 删除刚才添加的记录    @Test    public void test03()&#123;        JdbcTemplate template = new JdbcTemplate(JDBCUtils.getDataSource());        String sql = &quot;delete from account where id = ?&quot;;        int i = template.update(sql, 8);        System.out.println(i);    &#125;    //4. 查询id为1的记录，将其封装为Map集合    @Test    public void test04()&#123;        JdbcTemplate template = new JdbcTemplate(JDBCUtils.getDataSource());        String sql = &quot;select * from account where id = 1&quot;;        Map&lt;String, Object&gt; map = template.queryForMap(sql);        System.out.println(map);        // &#123;id=1, name=tobing, balance=300000.0&#125;    &#125;    //5. 查询所有记录，将其封装为List    @Test    public void test05()&#123;        JdbcTemplate template = new JdbcTemplate(JDBCUtils.getDataSource());        String sql = &quot;select * from account&quot;;        List&lt;Map&lt;String, Object&gt;&gt; maps = template.queryForList(sql);        for (Map&lt;String, Object&gt; map : maps) &#123;            System.out.println(map);        &#125;    &#125;    //6. 查询所有记录，将其封装为Emp对象的List集合    @Test    public void test06()&#123;        JdbcTemplate template = new JdbcTemplate(JDBCUtils.getDataSource());        String sql = &quot;select * from account&quot;;        List&lt;Account&gt; list = template.query(sql, new RowMapper&lt;Account&gt;() &#123;            @Override            public Account mapRow(ResultSet rs, int i) throws SQLException &#123;                Account a = new Account();                int id = rs.getInt(&quot;id&quot;);                String name = rs.getString(&quot;name&quot;);                double balance = rs.getDouble(&quot;balance&quot;);                a.setId(id);                a.setBalance(balance);                a.setName(name);                return a;            &#125;        &#125;);        for (Account a : list) &#123;            System.out.println(a);        &#125;    &#125;    //6_1. 查询所有记录，将其封装为Emp对象的List集合    @Test    public void test0601()&#123;        JdbcTemplate template = new JdbcTemplate(JDBCUtils.getDataSource());        String sql = &quot;select * from account&quot;;        List&lt;Account&gt; accounts = template.query(sql, new BeanPropertyRowMapper&lt;Account&gt;(Account.class));        for (Account account : accounts) &#123;            System.out.println(account);        &#125;    &#125;    //7. 查询总记录数    @Test    public void test07()&#123;        JdbcTemplate template = new JdbcTemplate(JDBCUtils.getDataSource());        String sql = &quot;select count(id) from account&quot;;        Long sum = template.queryForObject(sql, Long.class);        System.out.println(sum);    &#125;&#125;
-
-
-
-
-
-
-
-"
+          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://tobing.top/2019/11/04/JDBC%E7%9A%84%E5%B0%81%E8%A3%85/&title=JDBC的封装 - tobing&summary=本文对JDBC进行介绍。"
           
           >
           
@@ -761,91 +592,7 @@ JdbcTemplate测试类
       
         <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer noopener"
           
-          target="_blank" href="http://service.weibo.com/share/share.php?url=https://tobing.top/2019/11/04/JDBC%E7%9A%84%E5%B0%81%E8%A3%85/&title=JDBC的封装 - tobing&summary=JDBC的封装1. 引入
-即是使用了获取连接的工具类，简化了获取连接的操作。但是在编写程序查询数据库的时候，仍然需要编写较为繁杂的语句，封装结果，释放资源等。因此就有人将这些流程封装为工具包，提供给别人使用。让我们编写代码的时候，只需要关注SQL语句的执行。
-
-2. Spring JDBC
-Spring框架对JDBC的简单封装，提供了JDBCTemplate对象简化JDBC的开发。
-
-开发步骤
-
-
-导入jar包
-
-创建依赖于DataSource的JdbcTemplate对象。
-
-调用JdbcTemplate的方法完成CRUD
-
-
-
-
-JDBCTemplate提供的方法
-
-
-update()：执行DML。增、删、改。
-
-queryForMap()：查询结果集，封装为map集合。列名为key，值为value
-
-此方法的返回值长度只能是1。
-
-
-queryForList()：将查询的结果封装为List。
-
-此方法将每条记录封装为Map，然后将Map封装到List中。
-
-
-query()：查询结果，将结果封装为JavaBean
-
-RowMapper参数（一个接口）
-可以直接自己实现。
-一般我们使用BeanPropertyRowMapper实现类。可以完成数据到JavaBean的自动封装
-new BeanPropertyRowMapper&lt;类型&gt;(类型.class)
-
-
-
-
-queryForObject()：查询结果，将结果封装为对象
-
-一般用于聚合函数的查询。例如：求和函数
-
-
-
-
-
-案例：
-
-
-导包（连接池，数据库驱动，JdbcTemplate包等）
-创建Template对象
-CRUD（以account为例）
-修改1号数据的 balance 为 200000
-添加一条记录
-删除刚才添加的记录
-查询id为1的记录，将其封装为Map集合
-查询所有记录，将其封装为List
-查询所有记录，将其封装为Emp对象的List集合
-查询总记录数
-
-
-
-
-
-account表
-12345| id | name   | balance |+----+--------+---------+|  1 | tobing |   99600 ||  2 | acto   |  100400 ||  6 | rongon |  199900 |
-
-account对应的Account类
-12345678910111213package top.tobing.domain;public class Account &#123;    private Integer id;    private String name;    private Double balance;    //getter and setter    @Override    public String toString() &#123;&#125;&#125;
-
-JdbcTemplate测试类
-123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384858687888990919293949596979899100101102103104105package top.tobing.jdbctemplate;import org.junit.Test;import org.springframework.jdbc.core.BeanPropertyRowMapper;import org.springframework.jdbc.core.JdbcTemplate;import org.springframework.jdbc.core.RowMapper;import top.tobing.domain.Account;import top.tobing.utils.JDBCUtils;import java.sql.ResultSet;import java.sql.SQLException;import java.util.List;import java.util.Map;/*采用测试类的方式完成CRUD任务 */public class JdbcTemplateDemo01 &#123;    //1. 修改1号数据的 balance 为 200000    @Test    public void test01()&#123;        // 获取JdbcTemplate        JdbcTemplate template = new JdbcTemplate(JDBCUtils.getDataSource());        // 编写SQL语句        String sql = &quot;update account set balance = ? where id = 1&quot;;        int i = template.update(sql, 300000);        System.out.println(i);    &#125;    //2. 添加一条记录    @Test    public void test02()&#123;        JdbcTemplate template = new JdbcTemplate(JDBCUtils.getDataSource());        String sql = &quot;insert into account values(null,?,?)&quot;;        int i = template.update(sql, &quot;ggo&quot;, 200000);        System.out.println(i);    &#125;    //3. 删除刚才添加的记录    @Test    public void test03()&#123;        JdbcTemplate template = new JdbcTemplate(JDBCUtils.getDataSource());        String sql = &quot;delete from account where id = ?&quot;;        int i = template.update(sql, 8);        System.out.println(i);    &#125;    //4. 查询id为1的记录，将其封装为Map集合    @Test    public void test04()&#123;        JdbcTemplate template = new JdbcTemplate(JDBCUtils.getDataSource());        String sql = &quot;select * from account where id = 1&quot;;        Map&lt;String, Object&gt; map = template.queryForMap(sql);        System.out.println(map);        // &#123;id=1, name=tobing, balance=300000.0&#125;    &#125;    //5. 查询所有记录，将其封装为List    @Test    public void test05()&#123;        JdbcTemplate template = new JdbcTemplate(JDBCUtils.getDataSource());        String sql = &quot;select * from account&quot;;        List&lt;Map&lt;String, Object&gt;&gt; maps = template.queryForList(sql);        for (Map&lt;String, Object&gt; map : maps) &#123;            System.out.println(map);        &#125;    &#125;    //6. 查询所有记录，将其封装为Emp对象的List集合    @Test    public void test06()&#123;        JdbcTemplate template = new JdbcTemplate(JDBCUtils.getDataSource());        String sql = &quot;select * from account&quot;;        List&lt;Account&gt; list = template.query(sql, new RowMapper&lt;Account&gt;() &#123;            @Override            public Account mapRow(ResultSet rs, int i) throws SQLException &#123;                Account a = new Account();                int id = rs.getInt(&quot;id&quot;);                String name = rs.getString(&quot;name&quot;);                double balance = rs.getDouble(&quot;balance&quot;);                a.setId(id);                a.setBalance(balance);                a.setName(name);                return a;            &#125;        &#125;);        for (Account a : list) &#123;            System.out.println(a);        &#125;    &#125;    //6_1. 查询所有记录，将其封装为Emp对象的List集合    @Test    public void test0601()&#123;        JdbcTemplate template = new JdbcTemplate(JDBCUtils.getDataSource());        String sql = &quot;select * from account&quot;;        List&lt;Account&gt; accounts = template.query(sql, new BeanPropertyRowMapper&lt;Account&gt;(Account.class));        for (Account account : accounts) &#123;            System.out.println(account);        &#125;    &#125;    //7. 查询总记录数    @Test    public void test07()&#123;        JdbcTemplate template = new JdbcTemplate(JDBCUtils.getDataSource());        String sql = &quot;select count(id) from account&quot;;        Long sum = template.queryForObject(sql, Long.class);        System.out.println(sum);    &#125;&#125;
-
-
-
-
-
-
-
-"
+          target="_blank" href="http://service.weibo.com/share/share.php?url=https://tobing.top/2019/11/04/JDBC%E7%9A%84%E5%B0%81%E8%A3%85/&title=JDBC的封装 - tobing&summary=本文对JDBC进行介绍。"
           
           >
           
@@ -877,7 +624,10 @@ JdbcTemplate测试类
       
         <a class='prev' href='/2019/11/15/MySQL-1-%E6%A6%82%E8%BF%B0/'>
           <p class='title'><i class="fas fa-chevron-left" aria-hidden="true"></i>MySQL-1-概述</p>
-          <p class='content'>MySQL-1-概述1. 数据库引入
+          <p class='content'>本文是对MySQL的复习笔记。
+
+
+MySQL-1-概述1. 数据库引入
 常见不同存放数据介质的比较
 
 
@@ -895,18 +645,17 @@ JdbcTemplate测试类
 
 硬盘
 永久保存
-操作数据不方便
-
-
-数据库
-永久保存、查询速度快、...</p>
+操作数据不方便...</p>
         </a>
       
       
         <a class='next' href='/2019/11/04/%E6%95%B0%E6%8D%AE%E5%BA%93%E8%BF%9E%E6%8E%A5%E6%B1%A0%E6%8A%80%E6%9C%AF/'>
           <p class='title'>数据库连接池技术<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
-          <p class='content'>数据库连接池技术1. 引入
-在对数据库进行操作的时候，每次执行不同操作，都要去申请连接对象，这样频繁地向系统申请资源会花费大量时间。因此人们引入了池子的概念：一开始就申请多个连接对象，并把这些连...</p>
+          <p class='content'>池化技术是提供系统资源利用率必不可少的，接下来接受数据库连接池。
+
+
+数据库连接池技术1. 引入
+在对数据库进行操作的时候，每次执行不同操作，都要去申请连接对象，这样频繁地向系统申请资源会花费大...</p>
         </a>
       
     </div>

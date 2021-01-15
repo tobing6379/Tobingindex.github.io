@@ -25,25 +25,7 @@
   
 
   
-    <meta name="description" content="Mybatis-4-多表查询1
- 表之间的关系：多对一、一对多、多对多。
-
-Mybatis中多表查询的步骤
-建表
-
-构建对应的实体类
-
-建立对应的配置文件
-
-实现配置：查询A表时可以得到A中包含B表的信息，反之亦然。
-
-
-1. 一对一方式一
-需求：查询使用账户信息，关联查询下单的用户信息。    
-
-
-建表
-12...">
+    <meta name="description" content="Mybatis学习第四弹。">
   
 
   <!-- feed -->
@@ -401,7 +383,7 @@ Mybatis中多表查询的步骤
   <div class='new-meta-item category'>
     <a class='notlink'>
       <i class="fas fa-folder-open fa-fw" aria-hidden="true"></i>
-      <a class="category-link" href="/categories/Java/">Java</a>
+      <a class="category-link" href="/categories/%E7%90%86%E8%AE%BA%E5%AD%A6%E4%B9%A0/">理论学习</a>
     </a>
   </div>
 
@@ -440,7 +422,10 @@ Mybatis中多表查询的步骤
 
 
   
-  <h1 id="Mybatis-4-多表查询1"><a href="#Mybatis-4-多表查询1" class="headerlink" title="Mybatis-4-多表查询1"></a>Mybatis-4-多表查询1</h1><blockquote>
+  <p>Mybatis学习第四弹。</p>
+<a id="more"></a>
+
+<h1 id="Mybatis-4-多表查询1"><a href="#Mybatis-4-多表查询1" class="headerlink" title="Mybatis-4-多表查询1"></a>Mybatis-4-多表查询1</h1><blockquote>
 <p> 表之间的关系：多对一、一对多、多对多。</p>
 </blockquote>
 <h2 id="Mybatis中多表查询的步骤"><a href="#Mybatis中多表查询的步骤" class="headerlink" title="Mybatis中多表查询的步骤"></a>Mybatis中多表查询的步骤</h2><ol>
@@ -460,7 +445,7 @@ Mybatis中多表查询的步骤
 <li><p>建表</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 创建user表</span></span><br><span class="line"><span class="keyword">DROP</span> <span class="keyword">TABLE</span> <span class="keyword">IF</span> <span class="keyword">EXISTS</span> <span class="keyword">USER</span> ;<span class="comment">-- 如果存在则删除该表</span></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> <span class="keyword">USER</span>(</span><br><span class="line">	<span class="keyword">id</span> <span class="built_in">INT</span> PRIMARY <span class="keyword">KEY</span> AUTO_INCREMENT,</span><br><span class="line">	username <span class="built_in">VARCHAR</span>(<span class="number">32</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span> ,</span><br><span class="line">	birthday <span class="built_in">DATE</span>,</span><br><span class="line">	sex <span class="built_in">CHAR</span>(<span class="number">1</span>) ,</span><br><span class="line">	address <span class="built_in">VARCHAR</span>(<span class="number">256</span>)</span><br><span class="line">);</span><br><span class="line"><span class="comment">-- 创建account表</span></span><br><span class="line"><span class="keyword">DROP</span> <span class="keyword">TABLE</span> <span class="keyword">IF</span> <span class="keyword">EXISTS</span> <span class="keyword">account</span>;</span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> <span class="keyword">account</span>(</span><br><span class="line">	<span class="keyword">id</span> <span class="built_in">INT</span> <span class="keyword">NOT</span> <span class="literal">NULL</span> PRIMARY <span class="keyword">KEY</span> AUTO_INCREMENT,</span><br><span class="line">	uid <span class="built_in">INT</span> ,</span><br><span class="line">	money <span class="keyword">DOUBLE</span>,</span><br><span class="line">	<span class="keyword">FOREIGN</span> <span class="keyword">KEY</span>(uid) <span class="keyword">REFERENCES</span> <span class="keyword">USER</span>(<span class="keyword">id</span>)</span><br><span class="line">);</span><br><span class="line"><span class="comment">-- 给user添加数据</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> <span class="keyword">USER</span> <span class="keyword">VALUES</span></span><br><span class="line">	(<span class="number">41</span>,<span class="string">&#x27;Tobing&#x27;</span>,<span class="literal">NULL</span>,<span class="string">&#x27;男&#x27;</span>,<span class="string">&#x27;四川&#x27;</span>),</span><br><span class="line">	(<span class="literal">NULL</span>,<span class="string">&#x27;Rongon&#x27;</span>,<span class="literal">NULL</span>,<span class="string">&#x27;男&#x27;</span>,<span class="string">&#x27;江苏&#x27;</span>),</span><br><span class="line">	(<span class="literal">NULL</span>,<span class="string">&#x27;Zenyet&#x27;</span>,<span class="literal">NULL</span>,<span class="string">&#x27;男&#x27;</span>,<span class="string">&#x27;广东&#x27;</span>),</span><br><span class="line">	(<span class="literal">NULL</span>,<span class="string">&#x27;尼古拉斯&#x27;</span>,<span class="literal">NULL</span>,<span class="string">&#x27;男&#x27;</span>,<span class="string">&#x27;英国&#x27;</span>);</span><br><span class="line"><span class="comment">-- 给account添加数据</span></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> <span class="keyword">account</span> <span class="keyword">VALUES</span></span><br><span class="line">	(<span class="number">1</span>,<span class="number">41</span>,<span class="number">20000</span>),(<span class="number">2</span>,<span class="number">42</span>,<span class="number">40000</span>),</span><br><span class="line">	(<span class="number">3</span>,<span class="number">43</span>,<span class="number">30000</span>),(<span class="number">4</span>,<span class="number">44</span>,<span class="number">21000</span>);</span><br><span class="line">	</span><br><span class="line">	</span><br></pre></td></tr></table></figure>
 
-<p><img src="/images/Mybatis/my-4-table.png" class="lazyload" data-srcset="/images/Mybatis/my-4-table.png" srcset="data:image/png;base64,666" alt="my-4-table"></p>
+<p><img src="https://gitee.com/tobing/imagebed/raw/master/my-4-table.png" class="lazyload" data-srcset="https://gitee.com/tobing/imagebed/raw/master/my-4-table.png" srcset="data:image/png;base64,666" alt="my-4-table"></p>
 </li>
 <li><p>构建实体类</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// account表实体类</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Account</span> <span class="keyword">implements</span> <span class="title">Serializable</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> id;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> uid;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">double</span> money;</span><br><span class="line"> 	<span class="comment">//setter and getter .....    </span></span><br><span class="line">    <span class="comment">//toString</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// User表实体类</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">User</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> id;</span><br><span class="line">    <span class="keyword">private</span> String username;</span><br><span class="line">    <span class="keyword">private</span> Date birthday;</span><br><span class="line">    <span class="keyword">private</span> String sex;</span><br><span class="line">    <span class="keyword">private</span> String address;</span><br><span class="line">	<span class="comment">//setter and getter .....    </span></span><br><span class="line">    <span class="comment">//toString</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 一对一多表查询结果的实体类</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AccountUser</span> <span class="keyword">extends</span> <span class="title">Account</span> <span class="keyword">implements</span> <span class="title">Serializable</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> id;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> uid;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">double</span> money;</span><br><span class="line">    <span class="keyword">private</span> String username;</span><br><span class="line">    <span class="keyword">private</span> String address;</span><br><span class="line">    <span class="comment">//setter and getter .....    </span></span><br><span class="line">    <span class="comment">//toString</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -507,7 +492,7 @@ Mybatis中多表查询的步骤
 <blockquote>
 <p>说明</p>
 </blockquote>
-<p><img src="/images/Mybatis/my-4-resultMap.png" class="lazyload" data-srcset="/images/Mybatis/my-4-resultMap.png" srcset="data:image/png;base64,666" alt="resultMap"></p>
+<p><img src="https://gitee.com/tobing/imagebed/raw/master/my-4-resultMap.png" class="lazyload" data-srcset="https://gitee.com/tobing/imagebed/raw/master/my-4-resultMap.png" srcset="data:image/png;base64,666" alt="resultMap"></p>
 </li>
 <li><p>使用Test查询测试</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">findAllAccountTest</span><span class="params">()</span></span>&#123;</span><br><span class="line">    List&lt;Account&gt; list = accountDao.findAllAccount();</span><br><span class="line">    <span class="keyword">for</span> (Account account : list) &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;------------------------------&quot;</span>);</span><br><span class="line">        System.out.println(account.getUser());</span><br><span class="line">        System.out.println(account);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">   </span><br></pre></td></tr></table></figure>
@@ -562,7 +547,7 @@ Mybatis中多表查询的步骤
 <blockquote>
 <p>分析</p>
 </blockquote>
-<p><img src="/images/Mybatis/my-4-oneToNresultMap.png" class="lazyload" data-srcset="/images/Mybatis/my-4-oneToNresultMap.png" srcset="data:image/png;base64,666" alt="oneToNresultMap"></p>
+<p><img src="https://gitee.com/tobing/imagebed/raw/master/my-4-oneToNresultMap.png" class="lazyload" data-srcset="https://gitee.com/tobing/imagebed/raw/master/my-4-oneToNresultMap.png" srcset="data:image/png;base64,666" alt="oneToNresultMap"></p>
 </li>
 <li><p>测试</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">findAllAccountsTest</span><span class="params">()</span></span>&#123;</span><br><span class="line">       List&lt;User&gt; allAccounts = userDao.findAllAccounts();</span><br><span class="line">       <span class="keyword">for</span> (User allAccount : allAccounts) &#123;</span><br><span class="line">           System.out.println(<span class="string">&quot;------------------------&quot;</span>);</span><br><span class="line">           System.out.println(allAccount);</span><br><span class="line">           System.out.println(allAccount.getAccounts());</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br><span class="line">   </span><br></pre></td></tr></table></figure>
@@ -612,10 +597,10 @@ Mybatis中多表查询的步骤
     <div class='new-meta-box'>
       
         
-          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2019-11-23T10:37:24+08:00">
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-01-15T12:17:43+08:00">
   <a class='notlink'>
     <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
-    <p>更新于：Nov 23, 2019</p>
+    <p>更新于：Jan 15, 2021</p>
   </a>
 </div>
 
@@ -637,83 +622,7 @@ Mybatis中多表查询的步骤
       
         <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer noopener"
           
-          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://tobing.top/2019/11/23/Mybatis-4-%E5%A4%9A%E8%A1%A8%E6%9F%A5%E8%AF%A21/&title=Mybatis-4-多表查询1 - tobing&summary=Mybatis-4-多表查询1
- 表之间的关系：多对一、一对多、多对多。
-
-Mybatis中多表查询的步骤
-建表
-
-构建对应的实体类
-
-建立对应的配置文件
-
-实现配置：查询A表时可以得到A中包含B表的信息，反之亦然。
-
-
-1. 一对一方式一
-需求：查询使用账户信息，关联查询下单的用户信息。    
-
-
-建表
-123456789101112131415161718192021222324252627282930-- 创建user表DROP TABLE IF EXISTS USER ;-- 如果存在则删除该表CREATE TABLE USER(	id INT PRIMARY KEY AUTO_INCREMENT,	username VARCHAR(32) NOT NULL ,	birthday DATE,	sex CHAR(1) ,	address VARCHAR(256));-- 创建account表DROP TABLE IF EXISTS account;CREATE TABLE account(	id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,	uid INT ,	money DOUBLE,	FOREIGN KEY(uid) REFERENCES USER(id));-- 给user添加数据INSERT INTO USER VALUES	(41,&#x27;Tobing&#x27;,NULL,&#x27;男&#x27;,&#x27;四川&#x27;),	(NULL,&#x27;Rongon&#x27;,NULL,&#x27;男&#x27;,&#x27;江苏&#x27;),	(NULL,&#x27;Zenyet&#x27;,NULL,&#x27;男&#x27;,&#x27;广东&#x27;),	(NULL,&#x27;尼古拉斯&#x27;,NULL,&#x27;男&#x27;,&#x27;英国&#x27;);-- 给account添加数据INSERT INTO account VALUES	(1,41,20000),(2,42,40000),	(3,43,30000),(4,44,21000);		
-
-
-
-构建实体类
-12345678910111213141516171819202122232425262728// account表实体类public class Account implements Serializable &#123;    private int id;    private int uid;    private double money; 	//setter and getter .....        //toString&#125;// User表实体类public class User &#123;    private int id;    private String username;    private Date birthday;    private String sex;    private String address;	//setter and getter .....        //toString&#125;// 一对一多表查询结果的实体类public class AccountUser extends Account implements Serializable &#123;    private int id;    private int uid;    private double money;    private String username;    private String address;    //setter and getter .....        //toString&#125;
-
-建立配置文件
-1234public interface UserDao &#123;    public List&lt;User&gt; findAll();	// 查询所有的用户    public User findById(int id);	// 通过id查询用户&#125;
-
-123456789&lt;mapper namespace=&quot;top.tobing.dao.UserDao&quot;&gt;    &lt;select id=&quot;findAll&quot; resultType=&quot;top.tobing.domain.User&quot;&gt;        SELECT * from user ;    &lt;/select&gt;    &lt;select id=&quot;findById&quot; resultType=&quot;top.tobing.domain.User&quot; parameterType=&quot;java.lang.Integer&quot;&gt;        select * from user where id = #&#123;id&#125;    &lt;/select&gt;
-
-1234public interface AccountDao &#123;	    public List&lt;AccountUser&gt; findAll();// 多表查询用户以及账户信息    &#125;
-
-12345&lt;mapper namespace=&quot;top.tobing.dao.AccountDao&quot;&gt;    &lt;select id=&quot;findAll&quot; resultType=&quot;top.tobing.domain.AccountUser&quot;&gt;         SELECT account.*,user.username,user.address FROM account,USER WHERE account.uid = user.id;    &lt;/select&gt;&lt;/mapper&gt;
-
-执行操作
-1234567891011 	// 申请资源// 释放资源@Test   public void findAllTest() throws IOException &#123;       //5.执行查询语句       List&lt;AccountUser&gt; accountUsers = accountDao.findAll();       //6.遍历输出       for(AccountUser au:accountUsers)&#123;           System.out.println(au);       &#125;   &#125;
-
-
-关键：写出多表查询的SQL语句，根据sql语句编写配置文件。
-
-
-
-2. 方式二一对一
-
-建表
-构建实体类
-编写Dao接口
-编写接口对应的配置文件
-使用Test查询
-
-
-
-构建实体类
-12345678910111213141516public class User &#123;    private int id;    private String username;    private Date birthday;    private String sex;    private String address;    ...&#125;public class Account implements Serializable &#123;    private int id;    private int uid;    private double money;    private User user;	// 使用内置User对象的方式存放User数据    ...&#125;
-
-编写AccountDao接口
-123// 将多表查询到的数据直接封装到Account中public List&lt;Account&gt; findAllAccount();
-
-编写接口对应的配置文件:AccountDao.xml
-123456789101112131415161718192021222324252627&lt;mapper namespace=&quot;top.tobing.dao.AccountDao&quot;&gt;    &lt;!--Account内建User存储数据--&gt;    &lt;!--建立对应关系--&gt;    &lt;resultMap id=&quot;account&quot; type=&quot;top.tobing.domain.Account&quot;&gt;        &lt;!--对应着Account表中的id，uid，money基本类型属性--&gt;        &lt;id column=&quot;aid&quot; property=&quot;id&quot;/&gt;        &lt;result column=&quot;uid&quot; property=&quot;uid&quot;/&gt;        &lt;result column=&quot;money&quot; property=&quot;money&quot;/&gt;        &lt;!--联系着表的实体类属性--&gt;        &lt;association property=&quot;user&quot; javaType=&quot;top.tobing.domain.User&quot;&gt;            &lt;id column=&quot;id&quot; property=&quot;id&quot;/&gt;            &lt;result column=&quot;username&quot; property=&quot;username&quot;/&gt;            &lt;result column=&quot;sex&quot; property=&quot;sex&quot;/&gt;            &lt;result column=&quot;birthday&quot; property=&quot;birthday&quot;/&gt;            &lt;result column=&quot;address&quot; property=&quot;address&quot;/&gt;        &lt;/association&gt;    &lt;/resultMap&gt;    &lt;select id=&quot;findAllAccount&quot; resultMap=&quot;account&quot;&gt;        select            u.*,a.id as aid,a.uid,a.money        from            account a,user u        where            a.uid = u.id;    &lt;/select&gt;&lt;/mapper&gt;
-
-
-resultMap 标签可以建立查询的列名和实体类的属性名称不一致时建立对应关系。从而实现封装。
-
-
-说明
-
-
-
-使用Test查询测试
-12345678910@Testpublic void findAllAccountTest()&#123;    List&lt;Account&gt; list = accountDao.findAllAccount();    for (Account account : list) &#123;        System.out.println(&quot;------------------------------&quot;);        System.out.println(account.getUser());        System.out.println(account);    &#125;&#125;   
-
-运行结果
-12345678910111213------------------------------User&#123;id=41, username=&#x27;Tobing&#x27;, birthday=null, sex=&#x27;男&#x27;, address=&#x27;四川&#x27;&#125;Account&#123;id=1, uid=41, money=20000.0&#125;------------------------------User&#123;id=42, username=&#x27;Rongon&#x27;, birthday=null, sex=&#x27;男&#x27;, address=&#x27;江苏&#x27;&#125;Account&#123;id=2, uid=42, money=40000.0&#125;------------------------------User&#123;id=43, username=&#x27;Zenyet&#x27;, birthday=null, sex=&#x27;男&#x27;, address=&#x27;广东&#x27;&#125;Account&#123;id=3, uid=43, money=30000.0&#125;------------------------------User&#123;id=44, username=&#x27;尼古拉斯&#x27;, birthday=null, sex=&#x27;男&#x27;, address=&#x27;英国&#x27;&#125;Account&#123;id=4, uid=44, money=21000.0&#125;
-
-
-"
+          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://tobing.top/2019/11/23/Mybatis-4-%E5%A4%9A%E8%A1%A8%E6%9F%A5%E8%AF%A21/&title=Mybatis-4-多表查询1 - tobing&summary=Mybatis学习第四弹。"
           
           >
           
@@ -725,83 +634,7 @@ resultMap 标签可以建立查询的列名和实体类的属性名称不一致�
       
         <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer noopener"
           
-          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://tobing.top/2019/11/23/Mybatis-4-%E5%A4%9A%E8%A1%A8%E6%9F%A5%E8%AF%A21/&title=Mybatis-4-多表查询1 - tobing&summary=Mybatis-4-多表查询1
- 表之间的关系：多对一、一对多、多对多。
-
-Mybatis中多表查询的步骤
-建表
-
-构建对应的实体类
-
-建立对应的配置文件
-
-实现配置：查询A表时可以得到A中包含B表的信息，反之亦然。
-
-
-1. 一对一方式一
-需求：查询使用账户信息，关联查询下单的用户信息。    
-
-
-建表
-123456789101112131415161718192021222324252627282930-- 创建user表DROP TABLE IF EXISTS USER ;-- 如果存在则删除该表CREATE TABLE USER(	id INT PRIMARY KEY AUTO_INCREMENT,	username VARCHAR(32) NOT NULL ,	birthday DATE,	sex CHAR(1) ,	address VARCHAR(256));-- 创建account表DROP TABLE IF EXISTS account;CREATE TABLE account(	id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,	uid INT ,	money DOUBLE,	FOREIGN KEY(uid) REFERENCES USER(id));-- 给user添加数据INSERT INTO USER VALUES	(41,&#x27;Tobing&#x27;,NULL,&#x27;男&#x27;,&#x27;四川&#x27;),	(NULL,&#x27;Rongon&#x27;,NULL,&#x27;男&#x27;,&#x27;江苏&#x27;),	(NULL,&#x27;Zenyet&#x27;,NULL,&#x27;男&#x27;,&#x27;广东&#x27;),	(NULL,&#x27;尼古拉斯&#x27;,NULL,&#x27;男&#x27;,&#x27;英国&#x27;);-- 给account添加数据INSERT INTO account VALUES	(1,41,20000),(2,42,40000),	(3,43,30000),(4,44,21000);		
-
-
-
-构建实体类
-12345678910111213141516171819202122232425262728// account表实体类public class Account implements Serializable &#123;    private int id;    private int uid;    private double money; 	//setter and getter .....        //toString&#125;// User表实体类public class User &#123;    private int id;    private String username;    private Date birthday;    private String sex;    private String address;	//setter and getter .....        //toString&#125;// 一对一多表查询结果的实体类public class AccountUser extends Account implements Serializable &#123;    private int id;    private int uid;    private double money;    private String username;    private String address;    //setter and getter .....        //toString&#125;
-
-建立配置文件
-1234public interface UserDao &#123;    public List&lt;User&gt; findAll();	// 查询所有的用户    public User findById(int id);	// 通过id查询用户&#125;
-
-123456789&lt;mapper namespace=&quot;top.tobing.dao.UserDao&quot;&gt;    &lt;select id=&quot;findAll&quot; resultType=&quot;top.tobing.domain.User&quot;&gt;        SELECT * from user ;    &lt;/select&gt;    &lt;select id=&quot;findById&quot; resultType=&quot;top.tobing.domain.User&quot; parameterType=&quot;java.lang.Integer&quot;&gt;        select * from user where id = #&#123;id&#125;    &lt;/select&gt;
-
-1234public interface AccountDao &#123;	    public List&lt;AccountUser&gt; findAll();// 多表查询用户以及账户信息    &#125;
-
-12345&lt;mapper namespace=&quot;top.tobing.dao.AccountDao&quot;&gt;    &lt;select id=&quot;findAll&quot; resultType=&quot;top.tobing.domain.AccountUser&quot;&gt;         SELECT account.*,user.username,user.address FROM account,USER WHERE account.uid = user.id;    &lt;/select&gt;&lt;/mapper&gt;
-
-执行操作
-1234567891011 	// 申请资源// 释放资源@Test   public void findAllTest() throws IOException &#123;       //5.执行查询语句       List&lt;AccountUser&gt; accountUsers = accountDao.findAll();       //6.遍历输出       for(AccountUser au:accountUsers)&#123;           System.out.println(au);       &#125;   &#125;
-
-
-关键：写出多表查询的SQL语句，根据sql语句编写配置文件。
-
-
-
-2. 方式二一对一
-
-建表
-构建实体类
-编写Dao接口
-编写接口对应的配置文件
-使用Test查询
-
-
-
-构建实体类
-12345678910111213141516public class User &#123;    private int id;    private String username;    private Date birthday;    private String sex;    private String address;    ...&#125;public class Account implements Serializable &#123;    private int id;    private int uid;    private double money;    private User user;	// 使用内置User对象的方式存放User数据    ...&#125;
-
-编写AccountDao接口
-123// 将多表查询到的数据直接封装到Account中public List&lt;Account&gt; findAllAccount();
-
-编写接口对应的配置文件:AccountDao.xml
-123456789101112131415161718192021222324252627&lt;mapper namespace=&quot;top.tobing.dao.AccountDao&quot;&gt;    &lt;!--Account内建User存储数据--&gt;    &lt;!--建立对应关系--&gt;    &lt;resultMap id=&quot;account&quot; type=&quot;top.tobing.domain.Account&quot;&gt;        &lt;!--对应着Account表中的id，uid，money基本类型属性--&gt;        &lt;id column=&quot;aid&quot; property=&quot;id&quot;/&gt;        &lt;result column=&quot;uid&quot; property=&quot;uid&quot;/&gt;        &lt;result column=&quot;money&quot; property=&quot;money&quot;/&gt;        &lt;!--联系着表的实体类属性--&gt;        &lt;association property=&quot;user&quot; javaType=&quot;top.tobing.domain.User&quot;&gt;            &lt;id column=&quot;id&quot; property=&quot;id&quot;/&gt;            &lt;result column=&quot;username&quot; property=&quot;username&quot;/&gt;            &lt;result column=&quot;sex&quot; property=&quot;sex&quot;/&gt;            &lt;result column=&quot;birthday&quot; property=&quot;birthday&quot;/&gt;            &lt;result column=&quot;address&quot; property=&quot;address&quot;/&gt;        &lt;/association&gt;    &lt;/resultMap&gt;    &lt;select id=&quot;findAllAccount&quot; resultMap=&quot;account&quot;&gt;        select            u.*,a.id as aid,a.uid,a.money        from            account a,user u        where            a.uid = u.id;    &lt;/select&gt;&lt;/mapper&gt;
-
-
-resultMap 标签可以建立查询的列名和实体类的属性名称不一致时建立对应关系。从而实现封装。
-
-
-说明
-
-
-
-使用Test查询测试
-12345678910@Testpublic void findAllAccountTest()&#123;    List&lt;Account&gt; list = accountDao.findAllAccount();    for (Account account : list) &#123;        System.out.println(&quot;------------------------------&quot;);        System.out.println(account.getUser());        System.out.println(account);    &#125;&#125;   
-
-运行结果
-12345678910111213------------------------------User&#123;id=41, username=&#x27;Tobing&#x27;, birthday=null, sex=&#x27;男&#x27;, address=&#x27;四川&#x27;&#125;Account&#123;id=1, uid=41, money=20000.0&#125;------------------------------User&#123;id=42, username=&#x27;Rongon&#x27;, birthday=null, sex=&#x27;男&#x27;, address=&#x27;江苏&#x27;&#125;Account&#123;id=2, uid=42, money=40000.0&#125;------------------------------User&#123;id=43, username=&#x27;Zenyet&#x27;, birthday=null, sex=&#x27;男&#x27;, address=&#x27;广东&#x27;&#125;Account&#123;id=3, uid=43, money=30000.0&#125;------------------------------User&#123;id=44, username=&#x27;尼古拉斯&#x27;, birthday=null, sex=&#x27;男&#x27;, address=&#x27;英国&#x27;&#125;Account&#123;id=4, uid=44, money=21000.0&#125;
-
-
-"
+          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://tobing.top/2019/11/23/Mybatis-4-%E5%A4%9A%E8%A1%A8%E6%9F%A5%E8%AF%A21/&title=Mybatis-4-多表查询1 - tobing&summary=Mybatis学习第四弹。"
           
           >
           
@@ -813,83 +646,7 @@ resultMap 标签可以建立查询的列名和实体类的属性名称不一致�
       
         <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer noopener"
           
-          target="_blank" href="http://service.weibo.com/share/share.php?url=https://tobing.top/2019/11/23/Mybatis-4-%E5%A4%9A%E8%A1%A8%E6%9F%A5%E8%AF%A21/&title=Mybatis-4-多表查询1 - tobing&summary=Mybatis-4-多表查询1
- 表之间的关系：多对一、一对多、多对多。
-
-Mybatis中多表查询的步骤
-建表
-
-构建对应的实体类
-
-建立对应的配置文件
-
-实现配置：查询A表时可以得到A中包含B表的信息，反之亦然。
-
-
-1. 一对一方式一
-需求：查询使用账户信息，关联查询下单的用户信息。    
-
-
-建表
-123456789101112131415161718192021222324252627282930-- 创建user表DROP TABLE IF EXISTS USER ;-- 如果存在则删除该表CREATE TABLE USER(	id INT PRIMARY KEY AUTO_INCREMENT,	username VARCHAR(32) NOT NULL ,	birthday DATE,	sex CHAR(1) ,	address VARCHAR(256));-- 创建account表DROP TABLE IF EXISTS account;CREATE TABLE account(	id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,	uid INT ,	money DOUBLE,	FOREIGN KEY(uid) REFERENCES USER(id));-- 给user添加数据INSERT INTO USER VALUES	(41,&#x27;Tobing&#x27;,NULL,&#x27;男&#x27;,&#x27;四川&#x27;),	(NULL,&#x27;Rongon&#x27;,NULL,&#x27;男&#x27;,&#x27;江苏&#x27;),	(NULL,&#x27;Zenyet&#x27;,NULL,&#x27;男&#x27;,&#x27;广东&#x27;),	(NULL,&#x27;尼古拉斯&#x27;,NULL,&#x27;男&#x27;,&#x27;英国&#x27;);-- 给account添加数据INSERT INTO account VALUES	(1,41,20000),(2,42,40000),	(3,43,30000),(4,44,21000);		
-
-
-
-构建实体类
-12345678910111213141516171819202122232425262728// account表实体类public class Account implements Serializable &#123;    private int id;    private int uid;    private double money; 	//setter and getter .....        //toString&#125;// User表实体类public class User &#123;    private int id;    private String username;    private Date birthday;    private String sex;    private String address;	//setter and getter .....        //toString&#125;// 一对一多表查询结果的实体类public class AccountUser extends Account implements Serializable &#123;    private int id;    private int uid;    private double money;    private String username;    private String address;    //setter and getter .....        //toString&#125;
-
-建立配置文件
-1234public interface UserDao &#123;    public List&lt;User&gt; findAll();	// 查询所有的用户    public User findById(int id);	// 通过id查询用户&#125;
-
-123456789&lt;mapper namespace=&quot;top.tobing.dao.UserDao&quot;&gt;    &lt;select id=&quot;findAll&quot; resultType=&quot;top.tobing.domain.User&quot;&gt;        SELECT * from user ;    &lt;/select&gt;    &lt;select id=&quot;findById&quot; resultType=&quot;top.tobing.domain.User&quot; parameterType=&quot;java.lang.Integer&quot;&gt;        select * from user where id = #&#123;id&#125;    &lt;/select&gt;
-
-1234public interface AccountDao &#123;	    public List&lt;AccountUser&gt; findAll();// 多表查询用户以及账户信息    &#125;
-
-12345&lt;mapper namespace=&quot;top.tobing.dao.AccountDao&quot;&gt;    &lt;select id=&quot;findAll&quot; resultType=&quot;top.tobing.domain.AccountUser&quot;&gt;         SELECT account.*,user.username,user.address FROM account,USER WHERE account.uid = user.id;    &lt;/select&gt;&lt;/mapper&gt;
-
-执行操作
-1234567891011 	// 申请资源// 释放资源@Test   public void findAllTest() throws IOException &#123;       //5.执行查询语句       List&lt;AccountUser&gt; accountUsers = accountDao.findAll();       //6.遍历输出       for(AccountUser au:accountUsers)&#123;           System.out.println(au);       &#125;   &#125;
-
-
-关键：写出多表查询的SQL语句，根据sql语句编写配置文件。
-
-
-
-2. 方式二一对一
-
-建表
-构建实体类
-编写Dao接口
-编写接口对应的配置文件
-使用Test查询
-
-
-
-构建实体类
-12345678910111213141516public class User &#123;    private int id;    private String username;    private Date birthday;    private String sex;    private String address;    ...&#125;public class Account implements Serializable &#123;    private int id;    private int uid;    private double money;    private User user;	// 使用内置User对象的方式存放User数据    ...&#125;
-
-编写AccountDao接口
-123// 将多表查询到的数据直接封装到Account中public List&lt;Account&gt; findAllAccount();
-
-编写接口对应的配置文件:AccountDao.xml
-123456789101112131415161718192021222324252627&lt;mapper namespace=&quot;top.tobing.dao.AccountDao&quot;&gt;    &lt;!--Account内建User存储数据--&gt;    &lt;!--建立对应关系--&gt;    &lt;resultMap id=&quot;account&quot; type=&quot;top.tobing.domain.Account&quot;&gt;        &lt;!--对应着Account表中的id，uid，money基本类型属性--&gt;        &lt;id column=&quot;aid&quot; property=&quot;id&quot;/&gt;        &lt;result column=&quot;uid&quot; property=&quot;uid&quot;/&gt;        &lt;result column=&quot;money&quot; property=&quot;money&quot;/&gt;        &lt;!--联系着表的实体类属性--&gt;        &lt;association property=&quot;user&quot; javaType=&quot;top.tobing.domain.User&quot;&gt;            &lt;id column=&quot;id&quot; property=&quot;id&quot;/&gt;            &lt;result column=&quot;username&quot; property=&quot;username&quot;/&gt;            &lt;result column=&quot;sex&quot; property=&quot;sex&quot;/&gt;            &lt;result column=&quot;birthday&quot; property=&quot;birthday&quot;/&gt;            &lt;result column=&quot;address&quot; property=&quot;address&quot;/&gt;        &lt;/association&gt;    &lt;/resultMap&gt;    &lt;select id=&quot;findAllAccount&quot; resultMap=&quot;account&quot;&gt;        select            u.*,a.id as aid,a.uid,a.money        from            account a,user u        where            a.uid = u.id;    &lt;/select&gt;&lt;/mapper&gt;
-
-
-resultMap 标签可以建立查询的列名和实体类的属性名称不一致时建立对应关系。从而实现封装。
-
-
-说明
-
-
-
-使用Test查询测试
-12345678910@Testpublic void findAllAccountTest()&#123;    List&lt;Account&gt; list = accountDao.findAllAccount();    for (Account account : list) &#123;        System.out.println(&quot;------------------------------&quot;);        System.out.println(account.getUser());        System.out.println(account);    &#125;&#125;   
-
-运行结果
-12345678910111213------------------------------User&#123;id=41, username=&#x27;Tobing&#x27;, birthday=null, sex=&#x27;男&#x27;, address=&#x27;四川&#x27;&#125;Account&#123;id=1, uid=41, money=20000.0&#125;------------------------------User&#123;id=42, username=&#x27;Rongon&#x27;, birthday=null, sex=&#x27;男&#x27;, address=&#x27;江苏&#x27;&#125;Account&#123;id=2, uid=42, money=40000.0&#125;------------------------------User&#123;id=43, username=&#x27;Zenyet&#x27;, birthday=null, sex=&#x27;男&#x27;, address=&#x27;广东&#x27;&#125;Account&#123;id=3, uid=43, money=30000.0&#125;------------------------------User&#123;id=44, username=&#x27;尼古拉斯&#x27;, birthday=null, sex=&#x27;男&#x27;, address=&#x27;英国&#x27;&#125;Account&#123;id=4, uid=44, money=21000.0&#125;
-
-
-"
+          target="_blank" href="http://service.weibo.com/share/share.php?url=https://tobing.top/2019/11/23/Mybatis-4-%E5%A4%9A%E8%A1%A8%E6%9F%A5%E8%AF%A21/&title=Mybatis-4-多表查询1 - tobing&summary=Mybatis学习第四弹。"
           
           >
           
@@ -921,24 +678,29 @@ resultMap 标签可以建立查询的列名和实体类的属性名称不一致�
       
         <a class='prev' href='/2019/11/23/Mybatis-5-%E5%A4%9A%E8%A1%A8%E6%9F%A5%E8%AF%A22/'>
           <p class='title'><i class="fas fa-chevron-left" aria-hidden="true"></i>Mybatis-5-多表查询2</p>
-          <p class='content'>Mybatis-5-多表查询21. 多对多1. 开发步骤
+          <p class='content'>Mybatis学习第五弹。
+
+
+Mybatis-5-多表查询21. 多对多1. 开发步骤
 
 建表
 创建Maven工程
 添加坐标文件
 编写SqlMapConfig文件
 创建实体类
-创建实体类对应的Dao
-创建Dao对应的配置文件...</p>
+创建实体类对应的...</p>
         </a>
       
       
         <a class='next' href='/2019/11/23/Mybatis-3-%E5%8A%A8%E6%80%81SQL/'>
           <p class='title'>Mybatis-3-动态SQL<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
-          <p class='content'>Mybatis-3-动态SQLif标签
+          <p class='content'>Mybatis学习第三弹。
+
+
+Mybatis-3-动态SQLif标签
 当我们传入的条件是多个，且不同条件查询语句不同的时候常常使用if
 
-12345678910&lt;select id=&quot;findByUser&q...</p>
+12345678910&lt;select id=&q...</p>
         </a>
       
     </div>

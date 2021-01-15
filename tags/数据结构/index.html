@@ -363,6 +363,8 @@
         
           
         
+          
+        
       
     
     
@@ -383,165 +385,7 @@
   
   <div class='md'>
     
-      <h1 id="数据结构2-栈和队列"><a href="#数据结构2-栈和队列" class="headerlink" title="数据结构2-栈和队列"></a>数据结构2-栈和队列</h1><h2 id="1-栈"><a href="#1-栈" class="headerlink" title="1. 栈"></a>1. 栈</h2><ol>
-<li><p>概述</p>
-<p>​    栈也是一种线性结构，和数组相比，是数组操作的子集，规定了只能从一端添加元素，也只能从这一端取出元素，这一端称为栈顶。栈是一种后进先出（LIFO）的数据结构。</p>
-</li>
-<li><p>应用</p>
-<p>undo操作-编辑器</p>
-<p>系统调用栈-os</p>
-<p>括号匹配-编译器</p>
-</li>
-<li><p>实现</p>
-<p>1）定义栈的接口</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> top.tobing.ds.stack;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Stack</span>&lt;<span class="title">E</span>&gt; </span>&#123;</span><br><span class="line">	<span class="comment">// 获取栈的大小</span></span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">getSize</span><span class="params">()</span></span>;</span><br><span class="line">	<span class="comment">// 判断栈是否为空</span></span><br><span class="line">    <span class="function"><span class="keyword">boolean</span> <span class="title">isEmpty</span><span class="params">()</span></span>;</span><br><span class="line">	<span class="comment">// 讲一个元素压栈</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">push</span><span class="params">(E e)</span></span>;</span><br><span class="line">	<span class="comment">// 将栈顶元素弹出</span></span><br><span class="line">    <span class="function">E <span class="title">pop</span><span class="params">()</span></span>;</span><br><span class="line">	<span class="comment">// 查看栈顶元素</span></span><br><span class="line">    <span class="function">E <span class="title">peek</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>2）利用之前编写的动态数组</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> top.tobing.ds.stack;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> Tobing</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ArrayStack</span>&lt;<span class="title">E</span>&gt; <span class="keyword">implements</span> <span class="title">Stack</span>&lt;<span class="title">E</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> Array&lt;E&gt; array;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">ArrayStack</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.array = <span class="keyword">new</span> Array&lt;&gt;();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">ArrayStack</span><span class="params">(<span class="keyword">int</span> capacity)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.array = <span class="keyword">new</span> Array&lt;&gt;(capacity);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getSize</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> array.getSize();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isEmpty</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> array.isEmpty();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 返回栈的容量</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getCapacity</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> array.getCapacity();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">push</span><span class="params">(E e)</span> </span>&#123;</span><br><span class="line">        array.addLast(e);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> E <span class="title">pop</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> array.removeLast();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> E <span class="title">peek</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> array.getLast();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        StringBuilder sb = <span class="keyword">new</span> StringBuilder();</span><br><span class="line">        sb.append(<span class="string">&quot;Stack: &quot;</span>);</span><br><span class="line">        sb.append(<span class="string">&quot;[&quot;</span>);</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; array.getSize(); i++) &#123;</span><br><span class="line">            sb.append(array.get(i));</span><br><span class="line">            <span class="keyword">if</span> (i != array.getSize() - <span class="number">1</span>) &#123;</span><br><span class="line">                sb.append(<span class="string">&quot;, &quot;</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        sb.append(<span class="string">&quot;] top&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> sb.toString();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>Array的代码查看数据结构1-数组</p>
-</blockquote>
-</li>
-<li><p>复杂度分析</p>
-<table>
-<thead>
-<tr>
-<th>函数名</th>
-<th>复杂度</th>
-<th>其他说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>push</td>
-<td>O(1)均摊</td>
-<td>压栈的时候可能触发resize</td>
-</tr>
-<tr>
-<td>pop</td>
-<td>O(1)均摊</td>
-<td>弹栈的时候可能触发resize</td>
-</tr>
-<tr>
-<td>peek</td>
-<td>O(1)</td>
-<td></td>
-</tr>
-</tbody></table>
-</li>
-<li><p>Java中的栈</p>
-<p>​        <code>Stack</code> 类表示后进先出（LIFO）的对象堆栈。它通过五个操作对类 <code>Vector</code> 进行了扩展  ，允许将向量视为堆栈。它提供了通常的 <code>push</code> 和 <code>pop</code> 操作，以及取堆栈顶点的 <code>peek</code>  方法、测试堆栈是否为空的 <code>empty</code> 方法、在堆栈中查找项并确定到堆栈顶距离的 <code>search</code> 方法。  </p>
-<p>首次创建堆栈时，它不包含项。  </p>
-<p><a href="../../java/util/Deque.html"><code>Deque</code></a> 接口及其实现提供了 LIFO  堆栈操作的更完整和更一致的 set，应该优先使用此 set，而非此类。例如： </p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Deque&lt;Integer&gt; stack = <span class="keyword">new</span> ArrayDeque&lt;Integer&gt;();</span><br></pre></td></tr></table></figure>
-
-
-
-</li>
-</ol>
-<h2 id="2-队列"><a href="#2-队列" class="headerlink" title="2. 队列"></a>2. 队列</h2><ol>
-<li><p>概述</p>
-<p>​    队列也是一种线性结构，和数组相比，是数组操作的子集，规定了只能从一端（队尾）添加元素，也只能从另外一端（队首）取出元素，这一端称为栈顶。栈是一种先进先出（FIFO）的数据结构。</p>
-</li>
-<li><p>实现</p>
-<p>1）定义队列接口</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> top.tobing.ds.queue;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Queue</span>&lt;<span class="title">E</span>&gt; </span>&#123;</span><br><span class="line">	<span class="comment">// 获取队列大小</span></span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">getSize</span><span class="params">()</span></span>;</span><br><span class="line">	<span class="comment">// 判断是否为空队列</span></span><br><span class="line">    <span class="function"><span class="keyword">boolean</span> <span class="title">isEmpty</span><span class="params">()</span></span>;</span><br><span class="line">	<span class="comment">// 入队</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">enqueue</span><span class="params">(E e)</span></span>;</span><br><span class="line">	<span class="comment">// 出队</span></span><br><span class="line">    <span class="function">E <span class="title">dequeue</span><span class="params">()</span></span>;</span><br><span class="line">	<span class="comment">// 查看队首元素</span></span><br><span class="line">    <span class="function">E <span class="title">getFront</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>2）队列实现1-数组队列</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> top.tobing.ds.queue;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> Tobing</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ArrayQueue</span>&lt;<span class="title">E</span>&gt; <span class="keyword">implements</span> <span class="title">Queue</span>&lt;<span class="title">E</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> Array&lt;E&gt; array;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">ArrayQueue</span><span class="params">(<span class="keyword">int</span> capacity)</span> </span>&#123;</span><br><span class="line">        array = <span class="keyword">new</span> Array&lt;&gt;(capacity);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">ArrayQueue</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        array = <span class="keyword">new</span> Array&lt;&gt;();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getSize</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> array.getSize();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isEmpty</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> array.isEmpty();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">enqueue</span><span class="params">(E e)</span> </span>&#123;</span><br><span class="line">        array.addLast(e);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> E <span class="title">dequeue</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> array.removeFirst();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> E <span class="title">getFront</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> array.getFirst();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getCapacity</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> array.getCapacity();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        StringBuilder sb = <span class="keyword">new</span> StringBuilder();</span><br><span class="line">        sb.append(<span class="string">&quot;Queue:  front [&quot;</span>);</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; array.getSize(); i++) &#123;</span><br><span class="line">            sb.append(array.get(i));</span><br><span class="line">            <span class="keyword">if</span> (i != array.getSize() - <span class="number">1</span>) &#123;</span><br><span class="line">                sb.append(<span class="string">&quot;, &quot;</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        sb.append(<span class="string">&quot;] tail&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> sb.toString();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>2）队列实现2-循环队列</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> top.tobing.ds.queue;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> top.tobing.ds.queue.Queue;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.Arrays;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> Tobing</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LoopQueue</span>&lt;<span class="title">E</span>&gt; <span class="keyword">implements</span> <span class="title">Queue</span>&lt;<span class="title">E</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> E[] data;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> front, tail;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> size;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">LoopQueue</span><span class="params">(<span class="keyword">int</span> capacity)</span> </span>&#123;</span><br><span class="line">        front = <span class="number">0</span>;</span><br><span class="line">        tail = <span class="number">0</span>;</span><br><span class="line">        size = <span class="number">0</span>;</span><br><span class="line">        data = (E[]) <span class="keyword">new</span> Object[capacity + <span class="number">1</span>];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">LoopQueue</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>(<span class="number">10</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getSize</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.size;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isEmpty</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> front == tail;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">enqueue</span><span class="params">(E e)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> ((tail + <span class="number">1</span>) % data.length == front) &#123;</span><br><span class="line">            resize(getCapacity() * <span class="number">2</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        data[tail] = e;</span><br><span class="line">        size++;</span><br><span class="line">        tail = (tail + <span class="number">1</span>) % data.length;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> E <span class="title">dequeue</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (isEmpty()) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(<span class="string">&quot;Queue is empty.&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        E res = data[front];</span><br><span class="line">        data[front] = <span class="keyword">null</span>;</span><br><span class="line">        front++;</span><br><span class="line">        size--;</span><br><span class="line">        <span class="comment">// 懒汉式：防止复杂度闪烁</span></span><br><span class="line">        <span class="keyword">if</span> (size == getCapacity() / <span class="number">4</span> &amp;&amp; getCapacity() / <span class="number">2</span> != <span class="number">0</span>) &#123;</span><br><span class="line">            resize(getCapacity() / <span class="number">2</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 扩容</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">resize</span><span class="params">(<span class="keyword">int</span> capacity)</span> </span>&#123;</span><br><span class="line">        E[] newData = (E[]) <span class="keyword">new</span> Object[capacity];</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; size; i++) &#123;</span><br><span class="line">            newData[i] = data[(i + front) % data.length];</span><br><span class="line">        &#125;</span><br><span class="line">        data = newData;</span><br><span class="line">        front = <span class="number">0</span>;</span><br><span class="line">        tail = size;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> E <span class="title">getFront</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> data[front];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getCapacity</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> data.length - <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        StringBuilder sb = <span class="keyword">new</span> StringBuilder();</span><br><span class="line">        sb.append(<span class="string">&quot;Queue:  front [&quot;</span>);</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = front; i != tail; i = (i + <span class="number">1</span>) % data.length) &#123;</span><br><span class="line">            sb.append(data[i]);</span><br><span class="line">            <span class="keyword">if</span> ((i + <span class="number">1</span>) % data.length != tail) &#123;</span><br><span class="line">                sb.append(<span class="string">&quot;, &quot;</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        sb.append(<span class="string">&quot;] tail&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> sb.toString();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>复杂度分析</p>
-<p>1）数组复杂度</p>
-<table>
-<thead>
-<tr>
-<th>函数</th>
-<th>复杂度</th>
-<th>其他说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>enqueue</td>
-<td>O(1)均摊</td>
-<td>可能触发resize</td>
-</tr>
-<tr>
-<td>dequeue</td>
-<td>O(n）</td>
-<td>可能触发resize</td>
-</tr>
-<tr>
-<td>getFront</td>
-<td>O(1)</td>
-<td></td>
-</tr>
-<tr>
-<td>getCapacity</td>
-<td>O(1)</td>
-<td></td>
-</tr>
-</tbody></table>
-<p>​    从上面的复杂度分析可知，数组方式实现的队列在每次出队之后，要将剩下的所有元素挪动一遍，导致复杂度O(n)，因此我们考虑在不挪动的情况下实现队列。于是便有了循环队列。</p>
-<p>2）循环队列复杂度</p>
-<table>
-<thead>
-<tr>
-<th>函数</th>
-<th>复杂度</th>
-<th>其他说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>enqueue</td>
-<td>O(1)均摊</td>
-<td>可能触发resize</td>
-</tr>
-<tr>
-<td>dequeue</td>
-<td>O(1)均摊</td>
-<td>可能触发resize</td>
-</tr>
-<tr>
-<td>resize</td>
-<td>O(n)</td>
-<td></td>
-</tr>
-<tr>
-<td>getFront</td>
-<td>O(1)</td>
-<td></td>
-</tr>
-<tr>
-<td>getCapacity</td>
-<td>O(1)</td>
-<td></td>
-</tr>
-<tr>
-<td>getSize</td>
-<td>O(1)</td>
-<td></td>
-</tr>
-</tbody></table>
-</li>
-<li><p>代码注意点</p>
-<p>​    数组方式实现的队列基本都是在Array上进行封装，Array之前已经分析过，因此我们不在进行赘述，我们主要讨论循环队列的实现。</p>
-<p>循环队列使用front和tail记录了队列的队首和队尾。</p>
-<p>循环队列如果全部利用所有元素，判断<strong>front==tail</strong>会有歧义，因此浪费一个元素消除歧义。</p>
-<p>循环队列通过判断**(tail+1)%data.length==front**来巧妙地判断队列是否满。</p>
-<p>循环队列<strong>入队、出队、扩容</strong>的时候都要维护<strong>front、tail、size</strong>。</p>
-<p>循环队列遍历可以有多种方式，通过判断<strong>下标是否为tail</strong>或者<strong>循环次数是否为size</strong>可以判定循环是否可以结束。</p>
-<p><strong>入队</strong>时注意判断队列是否已满（resize），维护size和tail。</p>
-<p><strong>出队</strong>时注意判断队列是否已经为空，同时也要判断是否要进行resize，维护front和size。</p>
-<p><strong>resize</strong>的时候注意维护front、tail和size。</p>
-</li>
-<li><p>Java中的队列</p>
-<p>​    队列通常（但并非一定）以 FIFO（先进先出）的方式排序各个元素。不过优先级队列和 LIFO  队列（或堆栈）例外，前者根据提供的比较器或元素的自然顺序对元素进行排序，后者按  LIFO（后进先出）的方式对元素进行排序。无论使用哪种排序方式，队列的<em>头</em> 都是调用 <a href="../../java/util/Queue.html#remove()"><code>remove()</code></a> 或 <a href="../../java/util/Queue.html#poll()"><code>poll()</code></a> 所移除的元素。在 FIFO  队列中，所有的新元素都插入队列的<em>末尾</em>。其他种类的队列可能使用不同的元素放置规则。每个 <code>Queue</code> 实现必须指定其顺序属性。  </p>
-</li>
-</ol>
-
+      <p>数据结构：栈和队列学习。</p>
     
   </div>
   
@@ -551,7 +395,7 @@
         <time>2020-07-24</time>
         
           <span class="dot"></span>
-          <a class="category-link" href="/categories/Java/">Java</a>
+          <a class="category-link" href="/categories/%E7%90%86%E8%AE%BA%E5%AD%A6%E4%B9%A0/">理论学习</a>
         
       </div>
       
@@ -585,96 +429,7 @@
   
   <div class='md'>
     
-      <h1 id="数据结构-数组"><a href="#数据结构-数组" class="headerlink" title="数据结构-数组"></a>数据结构-数组</h1><h2 id="1-数组概述"><a href="#1-数组概述" class="headerlink" title="1. 数组概述"></a>1. 数组概述</h2><ol>
-<li><p>特点</p>
-<p>顺序存放、可以随机访问。</p>
-</li>
-<li><p>缺点</p>
-<p>数组功能比较弱，考虑封装。</p>
-</li>
-</ol>
-<h2 id="2-封装自己的数组"><a href="#2-封装自己的数组" class="headerlink" title="2. 封装自己的数组"></a>2. 封装自己的数组</h2><ol>
-<li><p>引入</p>
-<p>为了增强数组的功能，我们对数组进行二次封装，虽然Java已经有ArrayList对数组进行了封装，但为了学习，我们对数组进行封装。</p>
-</li>
-<li><p>代码</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> top.tobing.ds.array;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Array</span>&lt;<span class="title">E</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> E[] data;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> size;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 构造函数，传入数组的容量capacity构造Array</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Array</span><span class="params">(<span class="keyword">int</span> capacity)</span> </span>&#123;</span><br><span class="line">        data = (E[]) <span class="keyword">new</span> Object[capacity];</span><br><span class="line">        size = <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 默认构造</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Array</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>(<span class="number">10</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 获取数组的容量</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getCapacity</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> data.length;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 获取数组的元素个数</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getSize</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> size;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 判断数组是否为空</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isEmpty</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> size == <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 在所有元素后添加一个元素</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">addLast</span><span class="params">(E e)</span> </span>&#123;</span><br><span class="line">        add(size, e);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 在使用元素前添加一个元素</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">addFirst</span><span class="params">(E e)</span> </span>&#123;</span><br><span class="line">        add(<span class="number">0</span>, e);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 在索引index处添加一个元素</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">add</span><span class="params">(<span class="keyword">int</span> index, E e)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (index &lt; <span class="number">0</span> || index &gt; data.length) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(<span class="string">&quot;Add failed. Require index &gt;= 0 and index &lt;= size&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (index == data.length) &#123;</span><br><span class="line">            resize(<span class="number">2</span> * data.length);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = size; i &gt; index; i--) &#123;</span><br><span class="line">            data[i] = data[i - <span class="number">1</span>];</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        data[index] = e;</span><br><span class="line"></span><br><span class="line">        size++;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 获取index索引位置的值</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> E <span class="title">get</span><span class="params">(<span class="keyword">int</span> index)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (index &lt; <span class="number">0</span> || index &gt;= size) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(<span class="string">&quot;Get failed. Index is illegal.&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> data[index];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 修改index索引出的值为e</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">set</span><span class="params">(<span class="keyword">int</span> index, E e)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (index &lt; <span class="number">0</span> || index &gt;= size) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(<span class="string">&quot;Set failed, Index is illegal.&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        data[index] = e;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 查找数组中是否包含元素e</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">contains</span><span class="params">(E e)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; size; i++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (data[i].equals(e)) &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 查找数组中元素e所在的索引，如果不存在元素e，返回-1</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">find</span><span class="params">(E e)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; size; i++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (data[i].equals(e)) &#123;</span><br><span class="line">                <span class="keyword">return</span> i;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 删除数组中索引为index位置的元素，返回被删除的元素</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> E <span class="title">remove</span><span class="params">(<span class="keyword">int</span> index)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (index &lt; <span class="number">0</span> || index &gt;= size) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(<span class="string">&quot;Rmove failed. Index is illegal.&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        E temp = data[index];</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = index; i &lt; size - <span class="number">1</span>; i++) &#123;</span><br><span class="line">            data[i] = data[i + <span class="number">1</span>];</span><br><span class="line">        &#125;</span><br><span class="line">        size--;</span><br><span class="line">        data[size] = <span class="keyword">null</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 懒汉式：避免复杂度震荡</span></span><br><span class="line">        <span class="keyword">if</span> (size == data.length / <span class="number">4</span> &amp;&amp; data.length / <span class="number">2</span> != <span class="number">0</span>) &#123;</span><br><span class="line">            resize(data.length / <span class="number">2</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> temp;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 删除元素第一个元素</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> E <span class="title">removeFirst</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        E temp = remove(<span class="number">0</span>);</span><br><span class="line">        <span class="keyword">return</span> temp;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 删除元素最后一个元素</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> E <span class="title">removeLast</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        E temp = remove(size - <span class="number">1</span>);</span><br><span class="line">        <span class="keyword">return</span> temp;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 删除数组中元素e</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">removeElement</span><span class="params">(E e)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> index = find(e);</span><br><span class="line">        <span class="keyword">if</span> (index != -<span class="number">1</span>) &#123;</span><br><span class="line">            remove(index);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        StringBuilder builder = <span class="keyword">new</span> StringBuilder();</span><br><span class="line">        builder.append(String.format(<span class="string">&quot;Array: size = %d, capacity = %d\n&quot;</span>, size, data.length));</span><br><span class="line">        builder.append(<span class="string">&#x27;[&#x27;</span>);</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; data.length; i++) &#123;</span><br><span class="line">            builder.append(data[i]);</span><br><span class="line">            <span class="keyword">if</span> (i != data.length - <span class="number">1</span>) &#123;</span><br><span class="line">                builder.append(<span class="string">&quot;, &quot;</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        builder.append(<span class="string">&quot;]&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> builder.toString();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 将数组的容量变成newCapacity大小</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">resize</span><span class="params">(<span class="keyword">int</span> newCapacity)</span> </span>&#123;</span><br><span class="line">        E[] newData = (E[]) <span class="keyword">new</span> Object[newCapacity];</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; size; i++) &#123;</span><br><span class="line">            newData[i] = data[i];</span><br><span class="line">        &#125;</span><br><span class="line">        data = newData;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>代码中的注意点</p>
-<p>泛型数组在通过指定大小创建时要以<code>(E[])Objec[capacity]</code>方式。</p>
-<p>添加add或者删除remove元素的时候要对传入的index进行合法性校验。</p>
-<p>add和remove都是采用覆盖的方式，区别两种的实现：一个是从后往前移，另一个则相反。</p>
-<p>add和remove的同时要维护size，即更新size。</p>
-<p>remove操作时要对size所在的位置置为null，以至于gc回收。</p>
-<p>find操作判断元素是否相等时要使用equals。</p>
-<p>动态数组时，要注意remove的容量调整时机，使用懒汉式可以避免复杂度震荡。</p>
-</li>
-<li><p>复杂度分析</p>
-<table>
-<thead>
-<tr>
-<th>函数名</th>
-<th>复杂度</th>
-<th>其他</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>add(int,E)</td>
-<td>O(n)</td>
-<td>移动挪位</td>
-</tr>
-<tr>
-<td>addFirst</td>
-<td>O(n)</td>
-<td></td>
-</tr>
-<tr>
-<td>addLast</td>
-<td>O(1)、O(n)</td>
-<td>不用挪位、容量变化</td>
-</tr>
-<tr>
-<td>remove(int,E)</td>
-<td>O(n)</td>
-<td>移动覆盖</td>
-</tr>
-<tr>
-<td>removeFirst</td>
-<td>O(n)</td>
-<td></td>
-</tr>
-<tr>
-<td>removeLast</td>
-<td>O(1)、O(n)</td>
-<td>不用覆盖、容量变化</td>
-</tr>
-<tr>
-<td>removeElement(E)</td>
-<td>O(n)</td>
-<td>遍历查找</td>
-</tr>
-<tr>
-<td>contains</td>
-<td>O(n)</td>
-<td></td>
-</tr>
-<tr>
-<td>find</td>
-<td>O(n)</td>
-<td></td>
-</tr>
-<tr>
-<td>get</td>
-<td>O(1)</td>
-<td></td>
-</tr>
-</tbody></table>
-<p>resize复杂度分析：加上容量为n、n+1次addLast，触发resize，纵观2n+1基本操作平均，每次addLast，进行2次基本操作，O(1)。 这次叫做<strong>均摊复杂度</strong>分析。</p>
-<p>addLast和removeLast同时存在是，如果采用饿汉式，即size=capacity/2立马缩减容量，容易引发复<strong>杂度震荡</strong>。因此考虑使用懒汉式。即推迟到size=capacity/4,才将capacity置为原理一半。</p>
-</li>
-</ol>
-<h2 id="3-拓展"><a href="#3-拓展" class="headerlink" title="3. 拓展"></a>3. 拓展</h2><p>查看Java对ArrayList的实现，对比我们的实现。</p>
-
+      <p>数据结构数组的的学习笔记。</p>
     
   </div>
   
@@ -684,12 +439,56 @@
         <time>2020-07-10</time>
         
           <span class="dot"></span>
-          <a class="category-link" href="/categories/Java/">Java</a>
+          <a class="category-link" href="/categories/%E7%90%86%E8%AE%BA%E5%AD%A6%E4%B9%A0/">理论学习</a>
         
       </div>
       
         <div>
           <a class='readmore' href='/2020/07/10/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%841-%E6%95%B0%E7%BB%84/'>
+            阅读全文
+          </a>
+        </div>
+      
+    </div>
+  
+
+</div>
+
+          </div>
+        
+      
+        
+          <div class='post-wrapper'>
+            <div class="post post-v3 white-box reveal shadow">
+  
+  
+  
+  
+    
+    <h2 class="article-title" >
+      <a href="/2019/10/02/Java%E5%B8%B8%E7%94%A8%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">
+        Java常用数据结构
+      </a>
+    </h2>
+  
+  <div class='md'>
+    
+      <p>有人说：程序=算法+数据结构，接下来就让我们看一下Java中常用的数据结构吧。</p>
+    
+  </div>
+  
+    <div class='meta-v3' line_style='solid'>
+      <div>
+        
+        <time>2019-10-02</time>
+        
+          <span class="dot"></span>
+          <a class="category-link" href="/categories/%E7%90%86%E8%AE%BA%E5%AD%A6%E4%B9%A0/">理论学习</a>
+        
+      </div>
+      
+        <div>
+          <a class='readmore' href='/2019/10/02/Java%E5%B8%B8%E7%94%A8%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/'>
             阅读全文
           </a>
         </div>
@@ -801,64 +600,24 @@
       <ul class="entry navigation">
         
           <li><a class="flat-box"
-            title="/categories/Hexo/" href="/categories/Hexo/"
-            id="categoriesHexo"
-            ><div class='name'>Hexo</div><div class='badge'>(2)</div></a></li>
+            title="/categories/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/" href="/categories/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/"
+            id="categoriesE5B7A5E585B7E4BDBFE794A8"
+            ><div class='name'>工具使用</div><div class='badge'>(5)</div></a></li>
         
           <li><a class="flat-box"
-            title="/categories/Intellij-Idea/" href="/categories/Intellij-Idea/"
-            id="categoriesIntellij-Idea"
-            ><div class='name'>Intellij Idea</div><div class='badge'>(1)</div></a></li>
+            title="/categories/%E6%8A%80%E6%9C%AF%E5%BA%94%E7%94%A8/" href="/categories/%E6%8A%80%E6%9C%AF%E5%BA%94%E7%94%A8/"
+            id="categoriesE68A80E69CAFE5BA94E794A8"
+            ><div class='name'>技术应用</div><div class='badge'>(3)</div></a></li>
         
           <li><a class="flat-box"
-            title="/categories/Java/" href="/categories/Java/"
-            id="categoriesJava"
-            ><div class='name'>Java</div><div class='badge'>(24)</div></a></li>
+            title="/categories/%E6%9D%82%E4%B8%83%E6%9D%82%E5%85%AB/" href="/categories/%E6%9D%82%E4%B8%83%E6%9D%82%E5%85%AB/"
+            id="categoriesE69D82E4B883E69D82E585AB"
+            ><div class='name'>杂七杂八</div><div class='badge'>(4)</div></a></li>
         
           <li><a class="flat-box"
-            title="/categories/Linux/" href="/categories/Linux/"
-            id="categoriesLinux"
-            ><div class='name'>Linux</div><div class='badge'>(1)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/git/" href="/categories/git/"
-            id="categoriesgit"
-            ><div class='name'>git</div><div class='badge'>(1)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/windows%E4%BD%BF%E7%94%A8/" href="/categories/windows%E4%BD%BF%E7%94%A8/"
-            id="categorieswindowsE4BDBFE794A8"
-            ><div class='name'>windows使用</div><div class='badge'>(1)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/%E6%89%8B%E6%9C%BA/" href="/categories/%E6%89%8B%E6%9C%BA/"
-            id="categoriesE6898BE69CBA"
-            ><div class='name'>手机</div><div class='badge'>(1)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/%E6%8A%80%E5%B7%A7/" href="/categories/%E6%8A%80%E5%B7%A7/"
-            id="categoriesE68A80E5B7A7"
-            ><div class='name'>技巧</div><div class='badge'>(1)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/"
-            id="categoriesE695B0E68DAEE5BA93"
-            ><div class='name'>数据库</div><div class='badge'>(7)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/%E7%89%A9%E8%81%94%E7%BD%91/" href="/categories/%E7%89%A9%E8%81%94%E7%BD%91/"
-            id="categoriesE789A9E88194E7BD91"
-            ><div class='name'>物联网</div><div class='badge'>(2)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/%E7%9E%8E%E6%89%AF/" href="/categories/%E7%9E%8E%E6%89%AF/"
-            id="categoriesE79E8EE689AF"
-            ><div class='name'>瞎扯</div><div class='badge'>(1)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/%E8%B7%AF%E7%94%B1%E5%99%A8/" href="/categories/%E8%B7%AF%E7%94%B1%E5%99%A8/"
-            id="categoriesE8B7AFE794B1E599A8"
-            ><div class='name'>路由器</div><div class='badge'>(1)</div></a></li>
+            title="/categories/%E7%90%86%E8%AE%BA%E5%AD%A6%E4%B9%A0/" href="/categories/%E7%90%86%E8%AE%BA%E5%AD%A6%E4%B9%A0/"
+            id="categoriesE79086E8AEBAE5ADA6E4B9A0"
+            ><div class='name'>理论学习</div><div class='badge'>(36)</div></a></li>
         
       </ul>
     </div>
@@ -882,7 +641,7 @@
 
 
     <div class='content'>
-      <a href="/tags/2019/" style="font-size: 14px; color: #999">2019</a> <a href="/tags/DHT11/" style="font-size: 14px; color: #999">DHT11</a> <a href="/tags/ElasticSearch/" style="font-size: 14px; color: #999">ElasticSearch</a> <a href="/tags/JDBC/" style="font-size: 14px; color: #999">JDBC</a> <a href="/tags/Java/" style="font-size: 22.33px; color: #606060">Java</a> <a href="/tags/Linux/" style="font-size: 14px; color: #999">Linux</a> <a href="/tags/MongoDB/" style="font-size: 14px; color: #999">MongoDB</a> <a href="/tags/MySQL/" style="font-size: 20.67px; color: #6c6c6c">MySQL</a> <a href="/tags/Mybatis/" style="font-size: 24px; color: #555">Mybatis</a> <a href="/tags/Oracle/" style="font-size: 15.67px; color: #8e8e8e">Oracle</a> <a href="/tags/Spring/" style="font-size: 17.33px; color: #828282">Spring</a> <a href="/tags/Spring-Security/" style="font-size: 14px; color: #999">Spring-Security</a> <a href="/tags/SpringMVC/" style="font-size: 17.33px; color: #828282">SpringMVC</a> <a href="/tags/Spring%E5%85%A8%E5%AE%B6%E6%A1%B6/" style="font-size: 14px; color: #999">Spring全家桶</a> <a href="/tags/docker/" style="font-size: 14px; color: #999">docker</a> <a href="/tags/git/" style="font-size: 14px; color: #999">git</a> <a href="/tags/gitHub/" style="font-size: 14px; color: #999">gitHub</a> <a href="/tags/githubpage/" style="font-size: 14px; color: #999">githubpage</a> <a href="/tags/hexo/" style="font-size: 15.67px; color: #8e8e8e">hexo</a> <a href="/tags/idea/" style="font-size: 14px; color: #999">idea</a> <a href="/tags/java/" style="font-size: 14px; color: #999">java</a> <a href="/tags/jdbc/" style="font-size: 15.67px; color: #8e8e8e">jdbc</a> <a href="/tags/mysql/" style="font-size: 14px; color: #999">mysql</a> <a href="/tags/root/" style="font-size: 14px; color: #999">root</a> <a href="/tags/token/" style="font-size: 14px; color: #999">token</a> <a href="/tags/win10/" style="font-size: 14px; color: #999">win10</a> <a href="/tags/%E5%85%A5%E9%97%A8/" style="font-size: 14px; color: #999">入门</a> <a href="/tags/%E5%88%86%E9%A1%B5%E6%8F%92%E4%BB%B6/" style="font-size: 14px; color: #999">分页插件</a> <a href="/tags/%E5%8D%95%E7%89%87%E6%9C%BA/" style="font-size: 14px; color: #999">单片机</a> <a href="/tags/%E5%8F%8D%E5%B0%84/" style="font-size: 17.33px; color: #828282">反射</a> <a href="/tags/%E5%9F%9F%E5%90%8D%E7%BB%91%E5%AE%9A/" style="font-size: 14px; color: #999">域名绑定</a> <a href="/tags/%E5%A4%8D%E4%B9%A0/" style="font-size: 19px; color: #777">复习</a> <a href="/tags/%E5%AE%B9%E5%99%A8%E6%8A%80%E6%9C%AF/" style="font-size: 14px; color: #999">容器技术</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" style="font-size: 14px; color: #999">数据库</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" style="font-size: 15.67px; color: #8e8e8e">数据结构</a> <a href="/tags/%E6%95%B0%E7%BB%84/" style="font-size: 14px; color: #999">数组</a> <a href="/tags/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/" style="font-size: 14px; color: #999">文件上传</a> <a href="/tags/%E6%A0%88/" style="font-size: 14px; color: #999">栈</a> <a href="/tags/%E6%A0%91%E8%8E%93%E6%B4%BE/" style="font-size: 14px; color: #999">树莓派</a> <a href="/tags/%E6%A0%A1%E5%9B%AD%E5%AE%BD%E5%B8%A6/" style="font-size: 14px; color: #999">校园宽带</a> <a href="/tags/%E6%B3%A8%E8%A7%A3/" style="font-size: 14px; color: #999">注解</a> <a href="/tags/%E8%BF%9E%E6%8E%A5%E6%B1%A0/" style="font-size: 14px; color: #999">连接池</a> <a href="/tags/%E9%98%9F%E5%88%97/" style="font-size: 14px; color: #999">队列</a> <a href="/tags/%E9%9B%86%E5%90%88/" style="font-size: 14px; color: #999">集合</a> <a href="/tags/%E9%AD%85%E8%93%9DNote5/" style="font-size: 14px; color: #999">魅蓝Note5</a>
+      <a href="/tags/CentOS/" style="font-size: 14px; color: #999">CentOS</a> <a href="/tags/DHT11/" style="font-size: 14px; color: #999">DHT11</a> <a href="/tags/ElasticSearch/" style="font-size: 14px; color: #999">ElasticSearch</a> <a href="/tags/GitHub/" style="font-size: 14px; color: #999">GitHub</a> <a href="/tags/GithubPage/" style="font-size: 14px; color: #999">GithubPage</a> <a href="/tags/Hexo/" style="font-size: 15.67px; color: #8e8e8e">Hexo</a> <a href="/tags/Intellij-idea/" style="font-size: 14px; color: #999">Intellij idea</a> <a href="/tags/JDBC/" style="font-size: 17.33px; color: #828282">JDBC</a> <a href="/tags/Java/" style="font-size: 24px; color: #555">Java</a> <a href="/tags/Linux/" style="font-size: 14px; color: #999">Linux</a> <a href="/tags/MongoDB/" style="font-size: 14px; color: #999">MongoDB</a> <a href="/tags/MySQL/" style="font-size: 20.67px; color: #6c6c6c">MySQL</a> <a href="/tags/Mybatis/" style="font-size: 22.33px; color: #606060">Mybatis</a> <a href="/tags/Oracle/" style="font-size: 15.67px; color: #8e8e8e">Oracle</a> <a href="/tags/PageHelper/" style="font-size: 14px; color: #999">PageHelper</a> <a href="/tags/Spring/" style="font-size: 19px; color: #777">Spring</a> <a href="/tags/Spring-Security/" style="font-size: 14px; color: #999">Spring-Security</a> <a href="/tags/SpringBoot/" style="font-size: 14px; color: #999">SpringBoot</a> <a href="/tags/SpringMVC/" style="font-size: 17.33px; color: #828282">SpringMVC</a> <a href="/tags/Windows/" style="font-size: 14px; color: #999">Windows</a> <a href="/tags/docker/" style="font-size: 14px; color: #999">docker</a> <a href="/tags/git/" style="font-size: 14px; color: #999">git</a> <a href="/tags/jwt/" style="font-size: 14px; color: #999">jwt</a> <a href="/tags/root/" style="font-size: 14px; color: #999">root</a> <a href="/tags/%E5%85%A8%E6%96%87%E6%A3%80%E7%B4%A2/" style="font-size: 14px; color: #999">全文检索</a> <a href="/tags/%E5%88%86%E4%BA%AB/" style="font-size: 14px; color: #999">分享</a> <a href="/tags/%E5%8D%95%E7%89%87%E6%9C%BA/" style="font-size: 14px; color: #999">单片机</a> <a href="/tags/%E5%8F%8D%E5%B0%84/" style="font-size: 17.33px; color: #828282">反射</a> <a href="/tags/%E5%9F%9F%E5%90%8D%E7%BB%91%E5%AE%9A/" style="font-size: 14px; color: #999">域名绑定</a> <a href="/tags/%E5%AE%9E%E9%AA%8C/" style="font-size: 15.67px; color: #8e8e8e">实验</a> <a href="/tags/%E5%AE%B9%E5%99%A8%E6%8A%80%E6%9C%AF/" style="font-size: 14px; color: #999">容器技术</a> <a href="/tags/%E5%B0%8F%E7%A8%8B%E5%BA%8F/" style="font-size: 14px; color: #999">小程序</a> <a href="/tags/%E6%80%BB%E7%BB%93/" style="font-size: 14px; color: #999">总结</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93%E8%BF%9E%E6%8E%A5%E6%B1%A0/" style="font-size: 14px; color: #999">数据库连接池</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" style="font-size: 17.33px; color: #828282">数据结构</a> <a href="/tags/%E6%95%B0%E7%BB%84-Java/" style="font-size: 14px; color: #999">数组 - Java</a> <a href="/tags/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/" style="font-size: 14px; color: #999">文件上传</a> <a href="/tags/%E6%A0%88/" style="font-size: 14px; color: #999">栈</a> <a href="/tags/%E6%A0%91%E8%8E%93%E6%B4%BE/" style="font-size: 14px; color: #999">树莓派</a> <a href="/tags/%E6%A0%A1%E5%9B%AD%E5%AE%BD%E5%B8%A6/" style="font-size: 14px; color: #999">校园宽带</a> <a href="/tags/%E6%B3%A8%E8%A7%A3/" style="font-size: 14px; color: #999">注解</a> <a href="/tags/%E7%89%A9%E8%81%94%E7%BD%91/" style="font-size: 15.67px; color: #8e8e8e">物联网</a> <a href="/tags/%E8%AE%A4%E8%AF%81%E6%9C%BA%E5%88%B6/" style="font-size: 14px; color: #999">认证机制</a> <a href="/tags/%E8%B7%AF%E7%94%B1%E5%99%A8/" style="font-size: 14px; color: #999">路由器</a> <a href="/tags/%E9%98%9F%E5%88%97/" style="font-size: 14px; color: #999">队列</a> <a href="/tags/%E9%9B%86%E5%90%88/" style="font-size: 14px; color: #999">集合</a> <a href="/tags/%E9%AD%85%E8%93%9DNote5/" style="font-size: 14px; color: #999">魅蓝Note5</a>
     </div>
   </section>
 

@@ -25,9 +25,7 @@
   
 
   
-    <meta name="description" content="Java反射（Reflection）(三)1. 通过Class获取Method的几个方法
-Method getDeclaredMethod(String name, Class&lt;?&gt;… parameterTypes) 
-返回一个 Method 对象，该对象反映此 Class 对象所表示的类或接口的指定...">
+    <meta name="description" content="反射第三弹。">
   
 
   <!-- feed -->
@@ -385,7 +383,7 @@ Method getDeclaredMethod(String name, Class&lt;?&gt;… parameterTypes)
   <div class='new-meta-item category'>
     <a class='notlink'>
       <i class="fas fa-folder-open fa-fw" aria-hidden="true"></i>
-      <a class="category-link" href="/categories/Java/">Java</a>
+      <a class="category-link" href="/categories/%E7%90%86%E8%AE%BA%E5%AD%A6%E4%B9%A0/">理论学习</a>
     </a>
   </div>
 
@@ -424,7 +422,10 @@ Method getDeclaredMethod(String name, Class&lt;?&gt;… parameterTypes)
 
 
   
-  <h1 id="Java反射（Reflection）-三"><a href="#Java反射（Reflection）-三" class="headerlink" title="Java反射（Reflection）(三)"></a>Java反射（Reflection）(三)</h1><h4 id="1-通过Class获取Method的几个方法"><a href="#1-通过Class获取Method的几个方法" class="headerlink" title="1. 通过Class获取Method的几个方法"></a>1. 通过Class获取Method的几个方法</h4><ul>
+  <p>反射第三弹。</p>
+<a id="more"></a>
+
+<h1 id="Java反射（Reflection）-三"><a href="#Java反射（Reflection）-三" class="headerlink" title="Java反射（Reflection）(三)"></a>Java反射（Reflection）(三)</h1><h4 id="1-通过Class获取Method的几个方法"><a href="#1-通过Class获取Method的几个方法" class="headerlink" title="1. 通过Class获取Method的几个方法"></a>1. 通过Class获取Method的几个方法</h4><ul>
 <li><p>Method getDeclaredMethod(String name, Class&lt;?&gt;… parameterTypes) </p>
 <pre><code>返回一个 Method 对象，该对象反映此 Class 对象所表示的类或接口的指定已声明方法。 </code></pre>
 </li>
@@ -545,10 +546,10 @@ Method getDeclaredMethod(String name, Class&lt;?&gt;… parameterTypes)
     <div class='new-meta-box'>
       
         
-          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2019-10-19T22:00:55+08:00">
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-01-15T11:07:05+08:00">
   <a class='notlink'>
     <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
-    <p>更新于：Oct 19, 2019</p>
+    <p>更新于：Jan 15, 2021</p>
   </a>
 </div>
 
@@ -570,80 +571,7 @@ Method getDeclaredMethod(String name, Class&lt;?&gt;… parameterTypes)
       
         <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer noopener"
           
-          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://tobing.top/2019/10/19/Java%E5%8F%8D%E5%B0%84%EF%BC%88Reflection%EF%BC%89-%E4%B8%89/&title=Java反射（Reflection）(三) - tobing&summary=Java反射（Reflection）(三)1. 通过Class获取Method的几个方法
-Method getDeclaredMethod(String name, Class&lt;?&gt;… parameterTypes) 
-返回一个 Method 对象，该对象反映此 Class 对象所表示的类或接口的指定已声明方法。 
-
-Method[] getDeclaredMethods() 
-返回 Method 对象的一个数组，这些对象反映此 Class 对象表示的类或接口声明的所有方法，包括公共、保护、默认（包）访问和私有方法，但`不包括继承`的方法。 
-
-Method getMethod(String name, Class&lt;?&gt;… parameterTypes) 
-返回一个 Method 对象，它反映此 Class 对象所表示的类或接口的指定公共成员方法。 
-
-Method[] getMethods() 
-返回一个包含某些 Method 对象的数组，这些对象反映此 Class 对象所表示的类或接口（`包括那些由该类或接口声明的以及从超类和超接口继承的那些的类或接口`）的公共 member 方法 
-123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960package top.tobing.reflection;import java.lang.reflect.Method;/** * 反射之方法 * @author Tobing */public class Demo05ReflectMethod1 &#123;	public static void main(String[] args) throws NoSuchMethodException, SecurityException &#123;		Class cls = Boy.class;		//Method methodA = cls.getMethod(&quot;privateMethod&quot;);//  java.lang.NoSuchMethodException		//Method methodD = cls.getDeclaredMethod(&quot;eat&quot;);  // java.lang.NoSuchMethodException		Method methodB = cls.getDeclaredMethod(&quot;privateMethod&quot;);   // 可以获取私有方法，但不可以获取父类方法		Method methodC = cls.getDeclaredMethod(&quot;publicMethodA&quot;);  		Method methodE = cls.getMethod(&quot;eat&quot;);			// 可以获取父类私有方法，但不可以获取私有方法		System.out.println(methodB.getName());		System.out.println(methodC.getName());		System.out.println(methodE.getName());		Method methods[] = cls.getMethods(); 				System.out.println(&quot;======================================&quot;);		System.out.println(&quot;Boy的所有方法(包含父类继承的)：&quot;);		for(Method m:methods) &#123;			System.out.println(&quot;getMethods:&quot;+m.getName());		&#125;		System.out.println(&quot;======================================&quot;);		Method methods1[] = cls.getDeclaredMethods();		for(Method m:methods1) &#123;			System.out.println(&quot;getDeclaredMethods:&quot;+m.getName());		&#125;			&#125;&#125;/*	Method getMethod(name, Class...)：获取某个public的Method（包括父类）	Method getDeclaredMethod(name, Class...)：获取当前类的某个Method（不包括父类）	Method[] getMethods()：获取所有public的Method（包括父类）	Method[] getDeclaredMethods()：获取当前类的所有Method（不包括父类） */class P&#123;	public void eat()&#123;		System.out.println(&quot;This is p&#x27;s eat!&quot;);	&#125;&#125;class Boy extends P&#123;	public void publicMethodA() &#123;		System.out.println(&quot;This is a public method A !&quot;);	&#125;		public void publicMethodB() &#123;		System.out.println(&quot;This is a public method B !&quot;);	&#125;		private void privateMethod() &#123;		System.out.println(&quot;This is a privateMethod!&quot;);	&#125;	&#125;
-
-运行结果
-12345678910111213141516171819202122privateMethodpublicMethodAeat======================================Boy的所有方法(包含父类继承的)：getMethods:publicMethodBgetMethods:publicMethodAgetMethods:eatgetMethods:waitgetMethods:waitgetMethods:waitgetMethods:equalsgetMethods:toStringgetMethods:hashCodegetMethods:getClassgetMethods:notifygetMethods:notifyAll======================================getDeclaredMethods:privateMethodgetDeclaredMethods:publicMethodBgetDeclaredMethods:publicMethodA
-
-
-
-
-
-
-执行指定对象的方法
-1234567891011121314151617181920212223package top.tobing.reflection;import java.lang.reflect.InvocationTargetException;import java.lang.reflect.Method;/** * 反射之方法 * @author Tobing */public class Demo05ReflectMethod2 &#123;	public static void main(String[] args) throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException &#123;		Class cls = Boy.class;		Method methodB = cls.getDeclaredMethod(&quot;privateMethod&quot;);   // 可以获取私有方法，但不可以获取父类方法		Method methodC = cls.getDeclaredMethod(&quot;publicMethodA&quot;);  		Method methodE = cls.getMethod(&quot;eat&quot;);	 		Boy b = new Boy();		//methodB.invoke(b); // cannot access a member of class top.tobing.reflection.Boy with modifiers &quot;private&quot;		methodE.invoke(b);		methodC.invoke(b); 		&#125;&#125;
-
-运行结果
-12This is p&#x27;s eat!This is a public method A !
-
-要想执行对象中的private方法，可以使用methodObj.setAccessible(true);来设置其是否可被访问
-
-注意：setAccessible(true)可能会失败。如果JVM运行期存在SecurityManager，那么它会根据规则进行检查，有可能阻止setAccessible(true)。例如，某个SecurityManager可能不允许对java和javax开头的package的类调用setAccessible(true)，这样可以保证JVM核心库的安全。
-12methodB.setAccessible(true);  // 设置private方法的访问属性methodB.invoke(b);			  // 执行方法
-
-
-
-
-
-
-使用invoke调用静态方法
-1234567// 使用invoke调用静态方法int temp = Integer.parseInt(&quot;123&quot;);	// 以下代码等同于这一句话//1.获取Integer的字节码对象，通过字节码对象获取到方法 getMethod（方法名称，方法的参数列表）Method methodA = Integer.class.getMethod(&quot;parseInt&quot;,String.class);	//2.通过invoke执行方法  invoke(执行方法所在的对象，执行方法需要的参数（不限个数）)Object obj = methodA.invoke(null,&quot;123&quot;);System.out.println(obj);
-
-
-
-2. 调用构造方法（创建实例）
-在Class类中提供了一个newInstance方法用来创建对象的实例
-12Person p = new Person();	// 这两件代码都可以用于新建对象实例Person p = Person.class.newInstance();
-
-
-但是newInstance方法也有弊端：只能实例化带public修饰的空参数构造方法
-
-
-为了解决以上缺陷，java的reflect的API提供Constructor对象，包含了构造方法的所有信息，可用于创建实例。
-123456789101112131415161718192021222324252627282930313233343536373839404142434445package top.tobing.reflection;import java.lang.reflect.Constructor;import java.lang.reflect.InvocationTargetException;import java.lang.reflect.Method;/** * 反射之方法 * @author Tobing */public class Demo06ReflectMethod4 &#123;	public static void main(String[] args) throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, InstantiationException &#123;		// 方式一：使用newInstance()（不可以获取带参数）		C c = C.class.newInstance();		// 方式二：获取Constructor类（可以获取带参数）		// 不可以获取到非public		Constructor con1 = C.class.getConstructor();					Constructor con2 = C.class.getConstructor(Integer.class);		// 可以获取到非public构造方法		Constructor con3 = C.class.getDeclaredConstructor(String.class);			// 使用Constructor类的newInstance方法		C c1= (C)con1.newInstance();		//调用空参数构造方法		C c2 = (C)con2.newInstance(12);		//低氧		C c3 = (C)con3.newInstance(&quot;Tobing&quot;);			&#125;&#125;class C&#123;	private String name;	private int id;	public C() &#123;		System.out.println(&quot;空参数public构造方法被调用了！！！&quot;);	&#125;		public C(Integer id) &#123;		System.out.println(&quot;带参数public构造方法被调用了！！！&quot;);	&#125;		C (String name)&#123;		this.name = name;		System.out.println(&quot;带参数非public的构造方法执行了！！！&quot;);	&#125;	&#125;
-
-运行结果
-12345空参数public构造方法被调用了！！！空参数public构造方法被调用了！！！带参数public构造方法被调用了！！！带参数非public的构造方法执行了！！！
-
-
-
-
-
-3. 获取继承关系
-获取父类Class
-
-获取interface
-1234567891011121314151617181920212223242526272829package top.tobing.reflection;import java.lang.reflect.Constructor;import java.lang.reflect.InvocationTargetException;import java.lang.reflect.Method;/** * 反射之方法 * @author Tobing */public class Demo07ReflectInherit &#123;	public static void main(String[] args) throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, InstantiationException &#123;		Class cls1 = Integer.class;				// 获取相关父类		Class cls2 = cls1.getSuperclass();		Class cls3 = cls2.getSuperclass();				System.out.println(&quot;Integer&#x27;s super  class is :&quot;+cls2.getName());		System.out.println(&quot;Number&#x27;s super  class is :&quot;+cls3.getName());		System.out.println(&quot;Object&#x27;s super class is :&quot;+cls3.getSuperclass());				// 获取interface		Class[] interfaces = cls1.getInterfaces();		for(Class c:interfaces) &#123;			System.out.println(c.getName());		&#125;	&#125;&#125;
-
-
-
-输出
-12345Integer&#x27;s super  class is :java.lang.NumberNumber&#x27;s super  class is :java.lang.ObjectObject&#x27;s super class is :nulljava.lang.Comparable
-
-
-"
+          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://tobing.top/2019/10/19/Java%E5%8F%8D%E5%B0%84%EF%BC%88Reflection%EF%BC%89-%E4%B8%89/&title=Java反射（Reflection）(三) - tobing&summary=反射第三弹。"
           
           >
           
@@ -655,80 +583,7 @@ Method[] getMethods()
       
         <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer noopener"
           
-          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://tobing.top/2019/10/19/Java%E5%8F%8D%E5%B0%84%EF%BC%88Reflection%EF%BC%89-%E4%B8%89/&title=Java反射（Reflection）(三) - tobing&summary=Java反射（Reflection）(三)1. 通过Class获取Method的几个方法
-Method getDeclaredMethod(String name, Class&lt;?&gt;… parameterTypes) 
-返回一个 Method 对象，该对象反映此 Class 对象所表示的类或接口的指定已声明方法。 
-
-Method[] getDeclaredMethods() 
-返回 Method 对象的一个数组，这些对象反映此 Class 对象表示的类或接口声明的所有方法，包括公共、保护、默认（包）访问和私有方法，但`不包括继承`的方法。 
-
-Method getMethod(String name, Class&lt;?&gt;… parameterTypes) 
-返回一个 Method 对象，它反映此 Class 对象所表示的类或接口的指定公共成员方法。 
-
-Method[] getMethods() 
-返回一个包含某些 Method 对象的数组，这些对象反映此 Class 对象所表示的类或接口（`包括那些由该类或接口声明的以及从超类和超接口继承的那些的类或接口`）的公共 member 方法 
-123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960package top.tobing.reflection;import java.lang.reflect.Method;/** * 反射之方法 * @author Tobing */public class Demo05ReflectMethod1 &#123;	public static void main(String[] args) throws NoSuchMethodException, SecurityException &#123;		Class cls = Boy.class;		//Method methodA = cls.getMethod(&quot;privateMethod&quot;);//  java.lang.NoSuchMethodException		//Method methodD = cls.getDeclaredMethod(&quot;eat&quot;);  // java.lang.NoSuchMethodException		Method methodB = cls.getDeclaredMethod(&quot;privateMethod&quot;);   // 可以获取私有方法，但不可以获取父类方法		Method methodC = cls.getDeclaredMethod(&quot;publicMethodA&quot;);  		Method methodE = cls.getMethod(&quot;eat&quot;);			// 可以获取父类私有方法，但不可以获取私有方法		System.out.println(methodB.getName());		System.out.println(methodC.getName());		System.out.println(methodE.getName());		Method methods[] = cls.getMethods(); 				System.out.println(&quot;======================================&quot;);		System.out.println(&quot;Boy的所有方法(包含父类继承的)：&quot;);		for(Method m:methods) &#123;			System.out.println(&quot;getMethods:&quot;+m.getName());		&#125;		System.out.println(&quot;======================================&quot;);		Method methods1[] = cls.getDeclaredMethods();		for(Method m:methods1) &#123;			System.out.println(&quot;getDeclaredMethods:&quot;+m.getName());		&#125;			&#125;&#125;/*	Method getMethod(name, Class...)：获取某个public的Method（包括父类）	Method getDeclaredMethod(name, Class...)：获取当前类的某个Method（不包括父类）	Method[] getMethods()：获取所有public的Method（包括父类）	Method[] getDeclaredMethods()：获取当前类的所有Method（不包括父类） */class P&#123;	public void eat()&#123;		System.out.println(&quot;This is p&#x27;s eat!&quot;);	&#125;&#125;class Boy extends P&#123;	public void publicMethodA() &#123;		System.out.println(&quot;This is a public method A !&quot;);	&#125;		public void publicMethodB() &#123;		System.out.println(&quot;This is a public method B !&quot;);	&#125;		private void privateMethod() &#123;		System.out.println(&quot;This is a privateMethod!&quot;);	&#125;	&#125;
-
-运行结果
-12345678910111213141516171819202122privateMethodpublicMethodAeat======================================Boy的所有方法(包含父类继承的)：getMethods:publicMethodBgetMethods:publicMethodAgetMethods:eatgetMethods:waitgetMethods:waitgetMethods:waitgetMethods:equalsgetMethods:toStringgetMethods:hashCodegetMethods:getClassgetMethods:notifygetMethods:notifyAll======================================getDeclaredMethods:privateMethodgetDeclaredMethods:publicMethodBgetDeclaredMethods:publicMethodA
-
-
-
-
-
-
-执行指定对象的方法
-1234567891011121314151617181920212223package top.tobing.reflection;import java.lang.reflect.InvocationTargetException;import java.lang.reflect.Method;/** * 反射之方法 * @author Tobing */public class Demo05ReflectMethod2 &#123;	public static void main(String[] args) throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException &#123;		Class cls = Boy.class;		Method methodB = cls.getDeclaredMethod(&quot;privateMethod&quot;);   // 可以获取私有方法，但不可以获取父类方法		Method methodC = cls.getDeclaredMethod(&quot;publicMethodA&quot;);  		Method methodE = cls.getMethod(&quot;eat&quot;);	 		Boy b = new Boy();		//methodB.invoke(b); // cannot access a member of class top.tobing.reflection.Boy with modifiers &quot;private&quot;		methodE.invoke(b);		methodC.invoke(b); 		&#125;&#125;
-
-运行结果
-12This is p&#x27;s eat!This is a public method A !
-
-要想执行对象中的private方法，可以使用methodObj.setAccessible(true);来设置其是否可被访问
-
-注意：setAccessible(true)可能会失败。如果JVM运行期存在SecurityManager，那么它会根据规则进行检查，有可能阻止setAccessible(true)。例如，某个SecurityManager可能不允许对java和javax开头的package的类调用setAccessible(true)，这样可以保证JVM核心库的安全。
-12methodB.setAccessible(true);  // 设置private方法的访问属性methodB.invoke(b);			  // 执行方法
-
-
-
-
-
-
-使用invoke调用静态方法
-1234567// 使用invoke调用静态方法int temp = Integer.parseInt(&quot;123&quot;);	// 以下代码等同于这一句话//1.获取Integer的字节码对象，通过字节码对象获取到方法 getMethod（方法名称，方法的参数列表）Method methodA = Integer.class.getMethod(&quot;parseInt&quot;,String.class);	//2.通过invoke执行方法  invoke(执行方法所在的对象，执行方法需要的参数（不限个数）)Object obj = methodA.invoke(null,&quot;123&quot;);System.out.println(obj);
-
-
-
-2. 调用构造方法（创建实例）
-在Class类中提供了一个newInstance方法用来创建对象的实例
-12Person p = new Person();	// 这两件代码都可以用于新建对象实例Person p = Person.class.newInstance();
-
-
-但是newInstance方法也有弊端：只能实例化带public修饰的空参数构造方法
-
-
-为了解决以上缺陷，java的reflect的API提供Constructor对象，包含了构造方法的所有信息，可用于创建实例。
-123456789101112131415161718192021222324252627282930313233343536373839404142434445package top.tobing.reflection;import java.lang.reflect.Constructor;import java.lang.reflect.InvocationTargetException;import java.lang.reflect.Method;/** * 反射之方法 * @author Tobing */public class Demo06ReflectMethod4 &#123;	public static void main(String[] args) throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, InstantiationException &#123;		// 方式一：使用newInstance()（不可以获取带参数）		C c = C.class.newInstance();		// 方式二：获取Constructor类（可以获取带参数）		// 不可以获取到非public		Constructor con1 = C.class.getConstructor();					Constructor con2 = C.class.getConstructor(Integer.class);		// 可以获取到非public构造方法		Constructor con3 = C.class.getDeclaredConstructor(String.class);			// 使用Constructor类的newInstance方法		C c1= (C)con1.newInstance();		//调用空参数构造方法		C c2 = (C)con2.newInstance(12);		//低氧		C c3 = (C)con3.newInstance(&quot;Tobing&quot;);			&#125;&#125;class C&#123;	private String name;	private int id;	public C() &#123;		System.out.println(&quot;空参数public构造方法被调用了！！！&quot;);	&#125;		public C(Integer id) &#123;		System.out.println(&quot;带参数public构造方法被调用了！！！&quot;);	&#125;		C (String name)&#123;		this.name = name;		System.out.println(&quot;带参数非public的构造方法执行了！！！&quot;);	&#125;	&#125;
-
-运行结果
-12345空参数public构造方法被调用了！！！空参数public构造方法被调用了！！！带参数public构造方法被调用了！！！带参数非public的构造方法执行了！！！
-
-
-
-
-
-3. 获取继承关系
-获取父类Class
-
-获取interface
-1234567891011121314151617181920212223242526272829package top.tobing.reflection;import java.lang.reflect.Constructor;import java.lang.reflect.InvocationTargetException;import java.lang.reflect.Method;/** * 反射之方法 * @author Tobing */public class Demo07ReflectInherit &#123;	public static void main(String[] args) throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, InstantiationException &#123;		Class cls1 = Integer.class;				// 获取相关父类		Class cls2 = cls1.getSuperclass();		Class cls3 = cls2.getSuperclass();				System.out.println(&quot;Integer&#x27;s super  class is :&quot;+cls2.getName());		System.out.println(&quot;Number&#x27;s super  class is :&quot;+cls3.getName());		System.out.println(&quot;Object&#x27;s super class is :&quot;+cls3.getSuperclass());				// 获取interface		Class[] interfaces = cls1.getInterfaces();		for(Class c:interfaces) &#123;			System.out.println(c.getName());		&#125;	&#125;&#125;
-
-
-
-输出
-12345Integer&#x27;s super  class is :java.lang.NumberNumber&#x27;s super  class is :java.lang.ObjectObject&#x27;s super class is :nulljava.lang.Comparable
-
-
-"
+          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://tobing.top/2019/10/19/Java%E5%8F%8D%E5%B0%84%EF%BC%88Reflection%EF%BC%89-%E4%B8%89/&title=Java反射（Reflection）(三) - tobing&summary=反射第三弹。"
           
           >
           
@@ -740,80 +595,7 @@ Method[] getMethods()
       
         <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer noopener"
           
-          target="_blank" href="http://service.weibo.com/share/share.php?url=https://tobing.top/2019/10/19/Java%E5%8F%8D%E5%B0%84%EF%BC%88Reflection%EF%BC%89-%E4%B8%89/&title=Java反射（Reflection）(三) - tobing&summary=Java反射（Reflection）(三)1. 通过Class获取Method的几个方法
-Method getDeclaredMethod(String name, Class&lt;?&gt;… parameterTypes) 
-返回一个 Method 对象，该对象反映此 Class 对象所表示的类或接口的指定已声明方法。 
-
-Method[] getDeclaredMethods() 
-返回 Method 对象的一个数组，这些对象反映此 Class 对象表示的类或接口声明的所有方法，包括公共、保护、默认（包）访问和私有方法，但`不包括继承`的方法。 
-
-Method getMethod(String name, Class&lt;?&gt;… parameterTypes) 
-返回一个 Method 对象，它反映此 Class 对象所表示的类或接口的指定公共成员方法。 
-
-Method[] getMethods() 
-返回一个包含某些 Method 对象的数组，这些对象反映此 Class 对象所表示的类或接口（`包括那些由该类或接口声明的以及从超类和超接口继承的那些的类或接口`）的公共 member 方法 
-123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960package top.tobing.reflection;import java.lang.reflect.Method;/** * 反射之方法 * @author Tobing */public class Demo05ReflectMethod1 &#123;	public static void main(String[] args) throws NoSuchMethodException, SecurityException &#123;		Class cls = Boy.class;		//Method methodA = cls.getMethod(&quot;privateMethod&quot;);//  java.lang.NoSuchMethodException		//Method methodD = cls.getDeclaredMethod(&quot;eat&quot;);  // java.lang.NoSuchMethodException		Method methodB = cls.getDeclaredMethod(&quot;privateMethod&quot;);   // 可以获取私有方法，但不可以获取父类方法		Method methodC = cls.getDeclaredMethod(&quot;publicMethodA&quot;);  		Method methodE = cls.getMethod(&quot;eat&quot;);			// 可以获取父类私有方法，但不可以获取私有方法		System.out.println(methodB.getName());		System.out.println(methodC.getName());		System.out.println(methodE.getName());		Method methods[] = cls.getMethods(); 				System.out.println(&quot;======================================&quot;);		System.out.println(&quot;Boy的所有方法(包含父类继承的)：&quot;);		for(Method m:methods) &#123;			System.out.println(&quot;getMethods:&quot;+m.getName());		&#125;		System.out.println(&quot;======================================&quot;);		Method methods1[] = cls.getDeclaredMethods();		for(Method m:methods1) &#123;			System.out.println(&quot;getDeclaredMethods:&quot;+m.getName());		&#125;			&#125;&#125;/*	Method getMethod(name, Class...)：获取某个public的Method（包括父类）	Method getDeclaredMethod(name, Class...)：获取当前类的某个Method（不包括父类）	Method[] getMethods()：获取所有public的Method（包括父类）	Method[] getDeclaredMethods()：获取当前类的所有Method（不包括父类） */class P&#123;	public void eat()&#123;		System.out.println(&quot;This is p&#x27;s eat!&quot;);	&#125;&#125;class Boy extends P&#123;	public void publicMethodA() &#123;		System.out.println(&quot;This is a public method A !&quot;);	&#125;		public void publicMethodB() &#123;		System.out.println(&quot;This is a public method B !&quot;);	&#125;		private void privateMethod() &#123;		System.out.println(&quot;This is a privateMethod!&quot;);	&#125;	&#125;
-
-运行结果
-12345678910111213141516171819202122privateMethodpublicMethodAeat======================================Boy的所有方法(包含父类继承的)：getMethods:publicMethodBgetMethods:publicMethodAgetMethods:eatgetMethods:waitgetMethods:waitgetMethods:waitgetMethods:equalsgetMethods:toStringgetMethods:hashCodegetMethods:getClassgetMethods:notifygetMethods:notifyAll======================================getDeclaredMethods:privateMethodgetDeclaredMethods:publicMethodBgetDeclaredMethods:publicMethodA
-
-
-
-
-
-
-执行指定对象的方法
-1234567891011121314151617181920212223package top.tobing.reflection;import java.lang.reflect.InvocationTargetException;import java.lang.reflect.Method;/** * 反射之方法 * @author Tobing */public class Demo05ReflectMethod2 &#123;	public static void main(String[] args) throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException &#123;		Class cls = Boy.class;		Method methodB = cls.getDeclaredMethod(&quot;privateMethod&quot;);   // 可以获取私有方法，但不可以获取父类方法		Method methodC = cls.getDeclaredMethod(&quot;publicMethodA&quot;);  		Method methodE = cls.getMethod(&quot;eat&quot;);	 		Boy b = new Boy();		//methodB.invoke(b); // cannot access a member of class top.tobing.reflection.Boy with modifiers &quot;private&quot;		methodE.invoke(b);		methodC.invoke(b); 		&#125;&#125;
-
-运行结果
-12This is p&#x27;s eat!This is a public method A !
-
-要想执行对象中的private方法，可以使用methodObj.setAccessible(true);来设置其是否可被访问
-
-注意：setAccessible(true)可能会失败。如果JVM运行期存在SecurityManager，那么它会根据规则进行检查，有可能阻止setAccessible(true)。例如，某个SecurityManager可能不允许对java和javax开头的package的类调用setAccessible(true)，这样可以保证JVM核心库的安全。
-12methodB.setAccessible(true);  // 设置private方法的访问属性methodB.invoke(b);			  // 执行方法
-
-
-
-
-
-
-使用invoke调用静态方法
-1234567// 使用invoke调用静态方法int temp = Integer.parseInt(&quot;123&quot;);	// 以下代码等同于这一句话//1.获取Integer的字节码对象，通过字节码对象获取到方法 getMethod（方法名称，方法的参数列表）Method methodA = Integer.class.getMethod(&quot;parseInt&quot;,String.class);	//2.通过invoke执行方法  invoke(执行方法所在的对象，执行方法需要的参数（不限个数）)Object obj = methodA.invoke(null,&quot;123&quot;);System.out.println(obj);
-
-
-
-2. 调用构造方法（创建实例）
-在Class类中提供了一个newInstance方法用来创建对象的实例
-12Person p = new Person();	// 这两件代码都可以用于新建对象实例Person p = Person.class.newInstance();
-
-
-但是newInstance方法也有弊端：只能实例化带public修饰的空参数构造方法
-
-
-为了解决以上缺陷，java的reflect的API提供Constructor对象，包含了构造方法的所有信息，可用于创建实例。
-123456789101112131415161718192021222324252627282930313233343536373839404142434445package top.tobing.reflection;import java.lang.reflect.Constructor;import java.lang.reflect.InvocationTargetException;import java.lang.reflect.Method;/** * 反射之方法 * @author Tobing */public class Demo06ReflectMethod4 &#123;	public static void main(String[] args) throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, InstantiationException &#123;		// 方式一：使用newInstance()（不可以获取带参数）		C c = C.class.newInstance();		// 方式二：获取Constructor类（可以获取带参数）		// 不可以获取到非public		Constructor con1 = C.class.getConstructor();					Constructor con2 = C.class.getConstructor(Integer.class);		// 可以获取到非public构造方法		Constructor con3 = C.class.getDeclaredConstructor(String.class);			// 使用Constructor类的newInstance方法		C c1= (C)con1.newInstance();		//调用空参数构造方法		C c2 = (C)con2.newInstance(12);		//低氧		C c3 = (C)con3.newInstance(&quot;Tobing&quot;);			&#125;&#125;class C&#123;	private String name;	private int id;	public C() &#123;		System.out.println(&quot;空参数public构造方法被调用了！！！&quot;);	&#125;		public C(Integer id) &#123;		System.out.println(&quot;带参数public构造方法被调用了！！！&quot;);	&#125;		C (String name)&#123;		this.name = name;		System.out.println(&quot;带参数非public的构造方法执行了！！！&quot;);	&#125;	&#125;
-
-运行结果
-12345空参数public构造方法被调用了！！！空参数public构造方法被调用了！！！带参数public构造方法被调用了！！！带参数非public的构造方法执行了！！！
-
-
-
-
-
-3. 获取继承关系
-获取父类Class
-
-获取interface
-1234567891011121314151617181920212223242526272829package top.tobing.reflection;import java.lang.reflect.Constructor;import java.lang.reflect.InvocationTargetException;import java.lang.reflect.Method;/** * 反射之方法 * @author Tobing */public class Demo07ReflectInherit &#123;	public static void main(String[] args) throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, InstantiationException &#123;		Class cls1 = Integer.class;				// 获取相关父类		Class cls2 = cls1.getSuperclass();		Class cls3 = cls2.getSuperclass();				System.out.println(&quot;Integer&#x27;s super  class is :&quot;+cls2.getName());		System.out.println(&quot;Number&#x27;s super  class is :&quot;+cls3.getName());		System.out.println(&quot;Object&#x27;s super class is :&quot;+cls3.getSuperclass());				// 获取interface		Class[] interfaces = cls1.getInterfaces();		for(Class c:interfaces) &#123;			System.out.println(c.getName());		&#125;	&#125;&#125;
-
-
-
-输出
-12345Integer&#x27;s super  class is :java.lang.NumberNumber&#x27;s super  class is :java.lang.ObjectObject&#x27;s super class is :nulljava.lang.Comparable
-
-
-"
+          target="_blank" href="http://service.weibo.com/share/share.php?url=https://tobing.top/2019/10/19/Java%E5%8F%8D%E5%B0%84%EF%BC%88Reflection%EF%BC%89-%E4%B8%89/&title=Java反射（Reflection）(三) - tobing&summary=反射第三弹。"
           
           >
           
@@ -845,24 +627,29 @@ Method[] getMethods()
       
         <a class='prev' href='/2019/10/20/%E6%95%88%E7%8E%87%E4%BD%BF%E7%94%A8win10/'>
           <p class='title'><i class="fas fa-chevron-left" aria-hidden="true"></i>效率使用win10</p>
-          <p class='content'>效率使用win10
+          <p class='content'>电脑作为我们最常用的生产力工具，如何高效地使用它对提高工作和学习的效率非常重要。
+
+
+效率使用win10
 电脑作为我们最常用的生产力工具，如何高效地使用它对提高工作和学习的效率非常重要。
 
-1. 桌面
-桌面是我们在使用电脑的时候最常接触的界面，我们各种软件的访问都通过桌面的快捷方...</p>
+1....</p>
         </a>
       
       
         <a class='next' href='/2019/10/19/%E5%8D%95%E7%89%87%E6%9C%BA%E5%AE%9E%E9%AA%8C/'>
           <p class='title'>单片机实验<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
-          <p class='content'>单片机实验运行环境
+          <p class='content'>单片机时的实验。
+
+
+单片机实验运行环境
 单片机：STC89C52开发板，某宝有售
 KEIL：用于编写程序
 STC-ISP：程序写入
 
 1. LED灯循环点亮
 实现LED灯循环点亮
-12345678910111213...</p>
+123456...</p>
         </a>
       
     </div>

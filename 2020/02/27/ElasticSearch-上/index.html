@@ -21,7 +21,7 @@
   
   <title>ElasticSearch-上 - tobing</title>
   
-    <meta name="keywords" content="ElasticSearch">
+    <meta name="keywords" content="ElasticSearch,全文检索">
   
 
   
@@ -383,7 +383,7 @@
   <div class='new-meta-item category'>
     <a class='notlink'>
       <i class="fas fa-folder-open fa-fw" aria-hidden="true"></i>
-      <a class="category-link" href="/categories/Java/">Java</a>
+      <a class="category-link" href="/categories/%E7%90%86%E8%AE%BA%E5%AD%A6%E4%B9%A0/">理论学习</a>
     </a>
   </div>
 
@@ -422,7 +422,10 @@
 
 
   
-  <h1 id="ElasticSearch-上"><a href="#ElasticSearch-上" class="headerlink" title="ElasticSearch-上"></a>ElasticSearch-上</h1><p>Elaticsearch，简称为es， es是一个开源的高扩展的分布式全文检索引擎，它可以近乎实时的存储、检索数据；本 身扩展性很好，可以扩展到上百台服务器，处理PB级别的数据。es也使用Java开发并使用Lucene作为其核心来实 现所有索引和搜索的功能，但是它的目的是通过简单的RESTful API来隐藏Lucene的复杂性，从而让全文搜索变得 简单。</p>
+  <p>Elaticsearch，简称为es， es是一个开源的高扩展的分布式全文检索引擎，它可以近乎实时的存储、检索数据；本 身扩展性很好，可以扩展到上百台服务器，处理PB级别的数据。es也使用Java开发并使用Lucene作为其核心来实 现所有索引和搜索的功能，但是它的目的是通过简单的RESTful API来隐藏Lucene的复杂性，从而让全文搜索变得 简单。</p>
+<a id="more"></a>
+
+<h1 id="ElasticSearch-上"><a href="#ElasticSearch-上" class="headerlink" title="ElasticSearch-上"></a>ElasticSearch-上</h1><p>Elaticsearch，简称为es， es是一个开源的高扩展的分布式全文检索引擎，它可以近乎实时的存储、检索数据；本 身扩展性很好，可以扩展到上百台服务器，处理PB级别的数据。es也使用Java开发并使用Lucene作为其核心来实 现所有索引和搜索的功能，但是它的目的是通过简单的RESTful API来隐藏Lucene的复杂性，从而让全文搜索变得 简单。</p>
 <h2 id="1-使用ES"><a href="#1-使用ES" class="headerlink" title="1. 使用ES"></a>1. 使用ES</h2><ol>
 <li><p>官网 <a target="_blank" rel="noopener" href="https://www.elastic.co/products/elasticsearch">https://www.elastic.co/products/elasticsearch</a></p>
 </li>
@@ -790,10 +793,10 @@
     <div class='new-meta-box'>
       
         
-          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2020-12-05T14:07:44+08:00">
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-01-15T11:33:49+08:00">
   <a class='notlink'>
     <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
-    <p>更新于：Dec 5, 2020</p>
+    <p>更新于：Jan 15, 2021</p>
   </a>
 </div>
 
@@ -802,7 +805,7 @@
         
           
   
-  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/ElasticSearch/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>ElasticSearch</p></a></div>
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/ElasticSearch/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>ElasticSearch</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/%E5%85%A8%E6%96%87%E6%A3%80%E7%B4%A2/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>全文检索</p></a></div>
 
 
         
@@ -815,78 +818,7 @@
       
         <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer noopener"
           
-          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://tobing.top/2020/02/27/ElasticSearch-%E4%B8%8A/&title=ElasticSearch-上 - tobing&summary=ElasticSearch-上Elaticsearch，简称为es， es是一个开源的高扩展的分布式全文检索引擎，它可以近乎实时的存储、检索数据；本 身扩展性很好，可以扩展到上百台服务器，处理PB级别的数据。es也使用Java开发并使用Lucene作为其核心来实 现所有索引和搜索的功能，但是它的目的是通过简单的RESTful API来隐藏Lucene的复杂性，从而让全文搜索变得 简单。
-1. 使用ES
-官网 https://www.elastic.co/products/elasticsearch
-
-解压ES压缩包
-1234567bin		# 可执行二进制文件config	# 配置信息目录lib		# jar包存放目录logs	# 日志存放目录modules	# 模块存放目录plugins	# 插件安装目录.....
-
-启动ES访问
-Windows：elasticsearch.bat
-Linux：elasticsearch.sh
-
-启动ES之后
-9300端口：es的tcp通讯端口，集群间和TCPClient都执行该端口。
-9200端口：http协议的RESTful接口。
-
-打开ES之后，在浏览器中访问127.0.0.1:9200，出现下面结果即表示启动成功。
-
-12345678910111213&#123;  &quot;name&quot;: &quot;4R2QZyN&quot;,  &quot;cluster_name&quot;: &quot;elasticsearch&quot;,  &quot;cluster_uuid&quot;: &quot;YQsfD7T8TgmT4tQf2RkEhQ&quot;,  &quot;version&quot;: &#123;    &quot;number&quot;: &quot;5.6.8&quot;,    &quot;build_hash&quot;: &quot;688ecce&quot;,    &quot;build_date&quot;: &quot;2018-02-16T16:46:30.010Z&quot;,    &quot;build_snapshot&quot;: false,    &quot;lucene_version&quot;: &quot;6.6.1&quot;  &#125;,  &quot;tagline&quot;: &quot;You Know, for Search&quot;&#125;
-
-
-
-2. 使用ES可视化插件
-下载head插件
-https://github.com/mobz/elasticsearch-head
-
-解压缩软件
-
-下载安装nodejs
-https://nodejs.org/zh-cn/ 
-
-使用npm安装工具
-12345# 安装gruntnpm install -g grunt-cli# 在解压后的header根目录执行下面命令，启动headnpm installgrunt server
-
-访问测试
-浏览器中输入：http://localhost:9100测试
-
-配置es的config文件下yml配置文件配置跨域
-12http.cors.enabled: truehttp.cors.allow-origin: &quot;*&quot;
-
-
-重启ES
-
-
-
-3. ES中的术语
-概述
-ES是面向文档（Document）的，可以存储整个对象或者文档。然而他不仅存储，还可以索引每个文档的内容，使之可以被搜索。在ES中，你可以对文档进行索引、搜索、排序、过滤。
-123# ES对比传统关系型数据库关系型数据库  --&gt;Databases   ---&gt;Tables    ---&gt;Rows      ---&gt;Colums   ES       --&gt;Indices     ---&gt;Types     ---&gt;Documents ---&gt;Fields
-
-ES核心概念
-索引Index：
-​    一个索引就是一个拥有几分相似特征的文档的集合。比如说，你可以有一个客户数据的索引，另一个产品目录的索 引，还有一个订单数据的索引。一个索引由一个名字来标识（必须全部是小写字母的），并且当我们要对对应于这 个索引中的文档进行索引、搜索、更新和删除的时候，都要使用到这个名字。在一个集群中，可以定义任意多的索 引。 
-类型Type：
-​    在一个索引中，你可以定义一种或多种类型。一个类型是你的索引的一个逻辑上的分类/分区，其语义完全由你来 定。通常，会为具有一组共同字段的文档定义一个类型。比如说，我们假设你运营一个博客平台并且将你所有的数 据存储到一个索引中。在这个索引中，你可以为用户数据定义一个类型，为博客数据定义另一个类型，当然，也可 以为评论数据定义另一个类型。 
-字段Field：
-​    相当于是数据表的字段，对文档数据根据不同属性进行的分类标识 
-映射mapping：
-​    mapping是处理数据的方式和规则方面做一些限制，如某个字段的数据类型、默认值、分析器、是否被索引等等， 这些都是映射里面可以设置的，其它就是处理es里面数据的一些使用规则设置也叫做映射，按着最优规则处理数据 对性能提高很大，因此才需要建立映射，并且需要思考如何建立映射才能对性能更好。 
-文档document：
-​    一个文档是一个可被索引的基础信息单元。比如，你可以拥有某一个客户的文档，某一个产品的一个文档，当然， 也可以拥有某个订单的一个文档。文档以JSON（Javascript Object Notation）格式来表示，而JSON是一个到处存 在的互联网数据交互格式。​    在一个index/type里面，你可以存储任意多的文档。注意，尽管一个文档，物理上存在于一个索引之中，文档必须 被索引/赋予一个索引的type。 
-接近实时NRT：
-​    Elasticsearch是一个接近实时的搜索平台。这意味着，从索引一个文档直到这个文档能够被搜索到有一个轻微的延 迟（通常是1秒以内） 
-集群cluster：
-​    一个集群就是由一个或多个节点组织在一起，它们共同持有整个的数据，并一起提供索引和搜索功能。一个集群由 一个唯一的名字标识，这个名字默认就是“elasticsearch”。这个名字是重要的，因为一个节点只能通过指定某个集 群的名字，来加入这个集群 
-节点node：
-​    一个节点是集群中的一个服务器，作为集群的一部分，它存储数据，参与集群的索引和搜索功能。
-分片和复制 shards&amp;replicas：
-​    一个索引可以存储超出单个结点硬件限制的大量数据。比如，一个具有10亿文档的索引占据1TB的磁盘空间，而任 一节点都没有这样大的磁盘空间；或者单个节点处理搜索请求，响应太慢。为了解决这个问题，Elasticsearch提供 了将索引划分成多份的能力，这些份就叫做分片。当你创建一个索引的时候，你可以指定你想要的分片的数量。每 个分片本身也是一个功能完善并且独立的“索引”，这个“索引”可以被放置到集群中的任何节点上。分片很重要，主 要有两方面的原因： 1）允许你水平分割/扩展你的内容容量。 2）允许你在分片（潜在地，位于多个节点上）之上 进行分布式的、并行的操作，进而提高性能/吞吐量。 
-​    在一个网络/云的环境里，失败随时都可能发生，在某个分片/节点不知怎么的就处于离线状态，或者由于任何原因 消失了，这种情况下，有一个故障转移机制是非常有用并且是强烈推荐的。为此目的，Elasticsearch允许你创建分 片的一份或多份拷贝，这些拷贝叫做复制分片，或者直接叫复制。
-
-
-4. ES的客户端操作操作的三种方式【在postman下测试】"
+          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://tobing.top/2020/02/27/ElasticSearch-%E4%B8%8A/&title=ElasticSearch-上 - tobing&summary=Elaticsearch，简称为es， es是一个开源的高扩展的分布式全文检索引擎，它可以近乎实时的存储、检索数据；本 身扩展性很好，可以扩展到上百台服务器，处理PB级别的数据。es也使用Java开发并使用Lucene作为其核心来实 现所有索引和搜索的功能，但是它的目的是通过简单的RESTful API来隐藏Lucene的复杂性，从而让全文搜索变得 简单。"
           
           >
           
@@ -898,78 +830,7 @@ ES核心概念
       
         <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer noopener"
           
-          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://tobing.top/2020/02/27/ElasticSearch-%E4%B8%8A/&title=ElasticSearch-上 - tobing&summary=ElasticSearch-上Elaticsearch，简称为es， es是一个开源的高扩展的分布式全文检索引擎，它可以近乎实时的存储、检索数据；本 身扩展性很好，可以扩展到上百台服务器，处理PB级别的数据。es也使用Java开发并使用Lucene作为其核心来实 现所有索引和搜索的功能，但是它的目的是通过简单的RESTful API来隐藏Lucene的复杂性，从而让全文搜索变得 简单。
-1. 使用ES
-官网 https://www.elastic.co/products/elasticsearch
-
-解压ES压缩包
-1234567bin		# 可执行二进制文件config	# 配置信息目录lib		# jar包存放目录logs	# 日志存放目录modules	# 模块存放目录plugins	# 插件安装目录.....
-
-启动ES访问
-Windows：elasticsearch.bat
-Linux：elasticsearch.sh
-
-启动ES之后
-9300端口：es的tcp通讯端口，集群间和TCPClient都执行该端口。
-9200端口：http协议的RESTful接口。
-
-打开ES之后，在浏览器中访问127.0.0.1:9200，出现下面结果即表示启动成功。
-
-12345678910111213&#123;  &quot;name&quot;: &quot;4R2QZyN&quot;,  &quot;cluster_name&quot;: &quot;elasticsearch&quot;,  &quot;cluster_uuid&quot;: &quot;YQsfD7T8TgmT4tQf2RkEhQ&quot;,  &quot;version&quot;: &#123;    &quot;number&quot;: &quot;5.6.8&quot;,    &quot;build_hash&quot;: &quot;688ecce&quot;,    &quot;build_date&quot;: &quot;2018-02-16T16:46:30.010Z&quot;,    &quot;build_snapshot&quot;: false,    &quot;lucene_version&quot;: &quot;6.6.1&quot;  &#125;,  &quot;tagline&quot;: &quot;You Know, for Search&quot;&#125;
-
-
-
-2. 使用ES可视化插件
-下载head插件
-https://github.com/mobz/elasticsearch-head
-
-解压缩软件
-
-下载安装nodejs
-https://nodejs.org/zh-cn/ 
-
-使用npm安装工具
-12345# 安装gruntnpm install -g grunt-cli# 在解压后的header根目录执行下面命令，启动headnpm installgrunt server
-
-访问测试
-浏览器中输入：http://localhost:9100测试
-
-配置es的config文件下yml配置文件配置跨域
-12http.cors.enabled: truehttp.cors.allow-origin: &quot;*&quot;
-
-
-重启ES
-
-
-
-3. ES中的术语
-概述
-ES是面向文档（Document）的，可以存储整个对象或者文档。然而他不仅存储，还可以索引每个文档的内容，使之可以被搜索。在ES中，你可以对文档进行索引、搜索、排序、过滤。
-123# ES对比传统关系型数据库关系型数据库  --&gt;Databases   ---&gt;Tables    ---&gt;Rows      ---&gt;Colums   ES       --&gt;Indices     ---&gt;Types     ---&gt;Documents ---&gt;Fields
-
-ES核心概念
-索引Index：
-​    一个索引就是一个拥有几分相似特征的文档的集合。比如说，你可以有一个客户数据的索引，另一个产品目录的索 引，还有一个订单数据的索引。一个索引由一个名字来标识（必须全部是小写字母的），并且当我们要对对应于这 个索引中的文档进行索引、搜索、更新和删除的时候，都要使用到这个名字。在一个集群中，可以定义任意多的索 引。 
-类型Type：
-​    在一个索引中，你可以定义一种或多种类型。一个类型是你的索引的一个逻辑上的分类/分区，其语义完全由你来 定。通常，会为具有一组共同字段的文档定义一个类型。比如说，我们假设你运营一个博客平台并且将你所有的数 据存储到一个索引中。在这个索引中，你可以为用户数据定义一个类型，为博客数据定义另一个类型，当然，也可 以为评论数据定义另一个类型。 
-字段Field：
-​    相当于是数据表的字段，对文档数据根据不同属性进行的分类标识 
-映射mapping：
-​    mapping是处理数据的方式和规则方面做一些限制，如某个字段的数据类型、默认值、分析器、是否被索引等等， 这些都是映射里面可以设置的，其它就是处理es里面数据的一些使用规则设置也叫做映射，按着最优规则处理数据 对性能提高很大，因此才需要建立映射，并且需要思考如何建立映射才能对性能更好。 
-文档document：
-​    一个文档是一个可被索引的基础信息单元。比如，你可以拥有某一个客户的文档，某一个产品的一个文档，当然， 也可以拥有某个订单的一个文档。文档以JSON（Javascript Object Notation）格式来表示，而JSON是一个到处存 在的互联网数据交互格式。​    在一个index/type里面，你可以存储任意多的文档。注意，尽管一个文档，物理上存在于一个索引之中，文档必须 被索引/赋予一个索引的type。 
-接近实时NRT：
-​    Elasticsearch是一个接近实时的搜索平台。这意味着，从索引一个文档直到这个文档能够被搜索到有一个轻微的延 迟（通常是1秒以内） 
-集群cluster：
-​    一个集群就是由一个或多个节点组织在一起，它们共同持有整个的数据，并一起提供索引和搜索功能。一个集群由 一个唯一的名字标识，这个名字默认就是“elasticsearch”。这个名字是重要的，因为一个节点只能通过指定某个集 群的名字，来加入这个集群 
-节点node：
-​    一个节点是集群中的一个服务器，作为集群的一部分，它存储数据，参与集群的索引和搜索功能。
-分片和复制 shards&amp;replicas：
-​    一个索引可以存储超出单个结点硬件限制的大量数据。比如，一个具有10亿文档的索引占据1TB的磁盘空间，而任 一节点都没有这样大的磁盘空间；或者单个节点处理搜索请求，响应太慢。为了解决这个问题，Elasticsearch提供 了将索引划分成多份的能力，这些份就叫做分片。当你创建一个索引的时候，你可以指定你想要的分片的数量。每 个分片本身也是一个功能完善并且独立的“索引”，这个“索引”可以被放置到集群中的任何节点上。分片很重要，主 要有两方面的原因： 1）允许你水平分割/扩展你的内容容量。 2）允许你在分片（潜在地，位于多个节点上）之上 进行分布式的、并行的操作，进而提高性能/吞吐量。 
-​    在一个网络/云的环境里，失败随时都可能发生，在某个分片/节点不知怎么的就处于离线状态，或者由于任何原因 消失了，这种情况下，有一个故障转移机制是非常有用并且是强烈推荐的。为此目的，Elasticsearch允许你创建分 片的一份或多份拷贝，这些拷贝叫做复制分片，或者直接叫复制。
-
-
-4. ES的客户端操作操作的三种方式【在postman下测试】"
+          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://tobing.top/2020/02/27/ElasticSearch-%E4%B8%8A/&title=ElasticSearch-上 - tobing&summary=Elaticsearch，简称为es， es是一个开源的高扩展的分布式全文检索引擎，它可以近乎实时的存储、检索数据；本 身扩展性很好，可以扩展到上百台服务器，处理PB级别的数据。es也使用Java开发并使用Lucene作为其核心来实 现所有索引和搜索的功能，但是它的目的是通过简单的RESTful API来隐藏Lucene的复杂性，从而让全文搜索变得 简单。"
           
           >
           
@@ -981,78 +842,7 @@ ES核心概念
       
         <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer noopener"
           
-          target="_blank" href="http://service.weibo.com/share/share.php?url=https://tobing.top/2020/02/27/ElasticSearch-%E4%B8%8A/&title=ElasticSearch-上 - tobing&summary=ElasticSearch-上Elaticsearch，简称为es， es是一个开源的高扩展的分布式全文检索引擎，它可以近乎实时的存储、检索数据；本 身扩展性很好，可以扩展到上百台服务器，处理PB级别的数据。es也使用Java开发并使用Lucene作为其核心来实 现所有索引和搜索的功能，但是它的目的是通过简单的RESTful API来隐藏Lucene的复杂性，从而让全文搜索变得 简单。
-1. 使用ES
-官网 https://www.elastic.co/products/elasticsearch
-
-解压ES压缩包
-1234567bin		# 可执行二进制文件config	# 配置信息目录lib		# jar包存放目录logs	# 日志存放目录modules	# 模块存放目录plugins	# 插件安装目录.....
-
-启动ES访问
-Windows：elasticsearch.bat
-Linux：elasticsearch.sh
-
-启动ES之后
-9300端口：es的tcp通讯端口，集群间和TCPClient都执行该端口。
-9200端口：http协议的RESTful接口。
-
-打开ES之后，在浏览器中访问127.0.0.1:9200，出现下面结果即表示启动成功。
-
-12345678910111213&#123;  &quot;name&quot;: &quot;4R2QZyN&quot;,  &quot;cluster_name&quot;: &quot;elasticsearch&quot;,  &quot;cluster_uuid&quot;: &quot;YQsfD7T8TgmT4tQf2RkEhQ&quot;,  &quot;version&quot;: &#123;    &quot;number&quot;: &quot;5.6.8&quot;,    &quot;build_hash&quot;: &quot;688ecce&quot;,    &quot;build_date&quot;: &quot;2018-02-16T16:46:30.010Z&quot;,    &quot;build_snapshot&quot;: false,    &quot;lucene_version&quot;: &quot;6.6.1&quot;  &#125;,  &quot;tagline&quot;: &quot;You Know, for Search&quot;&#125;
-
-
-
-2. 使用ES可视化插件
-下载head插件
-https://github.com/mobz/elasticsearch-head
-
-解压缩软件
-
-下载安装nodejs
-https://nodejs.org/zh-cn/ 
-
-使用npm安装工具
-12345# 安装gruntnpm install -g grunt-cli# 在解压后的header根目录执行下面命令，启动headnpm installgrunt server
-
-访问测试
-浏览器中输入：http://localhost:9100测试
-
-配置es的config文件下yml配置文件配置跨域
-12http.cors.enabled: truehttp.cors.allow-origin: &quot;*&quot;
-
-
-重启ES
-
-
-
-3. ES中的术语
-概述
-ES是面向文档（Document）的，可以存储整个对象或者文档。然而他不仅存储，还可以索引每个文档的内容，使之可以被搜索。在ES中，你可以对文档进行索引、搜索、排序、过滤。
-123# ES对比传统关系型数据库关系型数据库  --&gt;Databases   ---&gt;Tables    ---&gt;Rows      ---&gt;Colums   ES       --&gt;Indices     ---&gt;Types     ---&gt;Documents ---&gt;Fields
-
-ES核心概念
-索引Index：
-​    一个索引就是一个拥有几分相似特征的文档的集合。比如说，你可以有一个客户数据的索引，另一个产品目录的索 引，还有一个订单数据的索引。一个索引由一个名字来标识（必须全部是小写字母的），并且当我们要对对应于这 个索引中的文档进行索引、搜索、更新和删除的时候，都要使用到这个名字。在一个集群中，可以定义任意多的索 引。 
-类型Type：
-​    在一个索引中，你可以定义一种或多种类型。一个类型是你的索引的一个逻辑上的分类/分区，其语义完全由你来 定。通常，会为具有一组共同字段的文档定义一个类型。比如说，我们假设你运营一个博客平台并且将你所有的数 据存储到一个索引中。在这个索引中，你可以为用户数据定义一个类型，为博客数据定义另一个类型，当然，也可 以为评论数据定义另一个类型。 
-字段Field：
-​    相当于是数据表的字段，对文档数据根据不同属性进行的分类标识 
-映射mapping：
-​    mapping是处理数据的方式和规则方面做一些限制，如某个字段的数据类型、默认值、分析器、是否被索引等等， 这些都是映射里面可以设置的，其它就是处理es里面数据的一些使用规则设置也叫做映射，按着最优规则处理数据 对性能提高很大，因此才需要建立映射，并且需要思考如何建立映射才能对性能更好。 
-文档document：
-​    一个文档是一个可被索引的基础信息单元。比如，你可以拥有某一个客户的文档，某一个产品的一个文档，当然， 也可以拥有某个订单的一个文档。文档以JSON（Javascript Object Notation）格式来表示，而JSON是一个到处存 在的互联网数据交互格式。​    在一个index/type里面，你可以存储任意多的文档。注意，尽管一个文档，物理上存在于一个索引之中，文档必须 被索引/赋予一个索引的type。 
-接近实时NRT：
-​    Elasticsearch是一个接近实时的搜索平台。这意味着，从索引一个文档直到这个文档能够被搜索到有一个轻微的延 迟（通常是1秒以内） 
-集群cluster：
-​    一个集群就是由一个或多个节点组织在一起，它们共同持有整个的数据，并一起提供索引和搜索功能。一个集群由 一个唯一的名字标识，这个名字默认就是“elasticsearch”。这个名字是重要的，因为一个节点只能通过指定某个集 群的名字，来加入这个集群 
-节点node：
-​    一个节点是集群中的一个服务器，作为集群的一部分，它存储数据，参与集群的索引和搜索功能。
-分片和复制 shards&amp;replicas：
-​    一个索引可以存储超出单个结点硬件限制的大量数据。比如，一个具有10亿文档的索引占据1TB的磁盘空间，而任 一节点都没有这样大的磁盘空间；或者单个节点处理搜索请求，响应太慢。为了解决这个问题，Elasticsearch提供 了将索引划分成多份的能力，这些份就叫做分片。当你创建一个索引的时候，你可以指定你想要的分片的数量。每 个分片本身也是一个功能完善并且独立的“索引”，这个“索引”可以被放置到集群中的任何节点上。分片很重要，主 要有两方面的原因： 1）允许你水平分割/扩展你的内容容量。 2）允许你在分片（潜在地，位于多个节点上）之上 进行分布式的、并行的操作，进而提高性能/吞吐量。 
-​    在一个网络/云的环境里，失败随时都可能发生，在某个分片/节点不知怎么的就处于离线状态，或者由于任何原因 消失了，这种情况下，有一个故障转移机制是非常有用并且是强烈推荐的。为此目的，Elasticsearch允许你创建分 片的一份或多份拷贝，这些拷贝叫做复制分片，或者直接叫复制。
-
-
-4. ES的客户端操作操作的三种方式【在postman下测试】"
+          target="_blank" href="http://service.weibo.com/share/share.php?url=https://tobing.top/2020/02/27/ElasticSearch-%E4%B8%8A/&title=ElasticSearch-上 - tobing&summary=Elaticsearch，简称为es， es是一个开源的高扩展的分布式全文检索引擎，它可以近乎实时的存储、检索数据；本 身扩展性很好，可以扩展到上百台服务器，处理PB级别的数据。es也使用Java开发并使用Lucene作为其核心来实 现所有索引和搜索的功能，但是它的目的是通过简单的RESTful API来隐藏Lucene的复杂性，从而让全文搜索变得 简单。"
           
           >
           
@@ -1084,23 +874,29 @@ ES核心概念
       
         <a class='prev' href='/2020/03/25/%E7%9C%9F%E7%9B%B8/'>
           <p class='title'><i class="fas fa-chevron-left" aria-hidden="true"></i>真相?</p>
-          <p class='content'>真相是什么？
+          <p class='content'>一则视频。
+
+
+真相是什么？
 真相是什么？我们应该相信谁？
 
  
-> 原地址：https://www.bilibili.com/video/BV1e741177xT/
 
+
+原地址：https://www.bilibili.com/video/BV1e741177xT/
 
 当然是相信自己人
 
-凡事不要随波逐流，...</p>
+凡事...</p>
         </a>
       
       
         <a class='next' href='/2020/02/16/Spring-Security%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/'>
           <p class='title'>Spring-Security简单使用<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
-          <p class='content'>Spring-Security简单使用1.简介Spring Security是一个功能强大且高度可定制的身份验证和访问控制框架。它是保护基于spring的应用程序的实际标准。
-Spring Se...</p>
+          <p class='content'>Spring-Security是Spring家族的重要一员。
+
+
+Spring-Security简单使用1.简介Spring Security是一个功能强大且高度可定制的身份验证和访问控制框架。...</p>
         </a>
       
     </div>

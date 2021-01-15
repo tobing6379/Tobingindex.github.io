@@ -25,10 +25,7 @@
   
 
   
-    <meta name="description" content="MySQL进阶-1-架构介绍1. MySQL简介1.1 概述
-MySQL是一个关系型数据库管理系统（RDBMS），由瑞典MySQL AB 公司开放，目前属于ORACLE公司。
-MySQL是一种关系数据库管理系统，将数据保存在不同的表中，而不是将所有数据放在一个大仓库内，这样增加了速度并提高了灵活性。
-MySQL是...">
+    <meta name="description" content="MySQL进阶学习笔记。">
   
 
   <!-- feed -->
@@ -383,6 +380,13 @@ MySQL是...">
         
           
             
+  <div class='new-meta-item category'>
+    <a class='notlink'>
+      <i class="fas fa-folder-open fa-fw" aria-hidden="true"></i>
+      <a class="category-link" href="/categories/%E7%90%86%E8%AE%BA%E5%AD%A6%E4%B9%A0/">理论学习</a>
+    </a>
+  </div>
+
 
           
         
@@ -418,7 +422,10 @@ MySQL是...">
 
 
   
-  <h1 id="MySQL进阶-1-架构介绍"><a href="#MySQL进阶-1-架构介绍" class="headerlink" title="MySQL进阶-1-架构介绍"></a>MySQL进阶-1-架构介绍</h1><h2 id="1-MySQL简介"><a href="#1-MySQL简介" class="headerlink" title="1. MySQL简介"></a>1. MySQL简介</h2><h3 id="1-1-概述"><a href="#1-1-概述" class="headerlink" title="1.1 概述"></a>1.1 概述</h3><ol>
+  <p>MySQL进阶学习笔记。</p>
+<a id="more"></a>
+
+<h1 id="MySQL进阶-1-架构介绍"><a href="#MySQL进阶-1-架构介绍" class="headerlink" title="MySQL进阶-1-架构介绍"></a>MySQL进阶-1-架构介绍</h1><h2 id="1-MySQL简介"><a href="#1-MySQL简介" class="headerlink" title="1. MySQL简介"></a>1. MySQL简介</h2><h3 id="1-1-概述"><a href="#1-1-概述" class="headerlink" title="1.1 概述"></a>1.1 概述</h3><ol>
 <li>MySQL是一个关系型数据库管理系统（RDBMS），由瑞典MySQL AB 公司开放，目前属于ORACLE公司。</li>
 <li>MySQL是一种关系数据库管理系统，将数据保存在不同的表中，而不是将所有数据放在一个大仓库内，这样增加了速度并提高了灵活性。</li>
 <li>MySQL是开源的，所以不需要支付额外的费用。</li>
@@ -557,7 +564,7 @@ MySQL是...">
 </blockquote>
 <h2 id="3-MySQl逻辑架构介绍"><a href="#3-MySQl逻辑架构介绍" class="headerlink" title="3. MySQl逻辑架构介绍"></a>3. MySQl逻辑架构介绍</h2><h3 id="3-1-总体概述"><a href="#3-1-总体概述" class="headerlink" title="3.1 总体概述"></a>3.1 总体概述</h3><p>​    和其他数据库相比，MySQL有点与众不同，他的架构可以在多种不同场景中应用并发挥良好作用。主要体现在存储引擎的架构上<strong>。插件式的存储引擎架构将查询处理和其他的系统任务以及数据的存储提取分离</strong>。这种架构可以根据业务的需求和实际需要选择合适的引擎。</p>
 <p>​    下图展示了MySQL的框架图，包含了：<strong>连接层、服务层、引擎层、存储层</strong>。</p>
-<p><img src="/images/1596985484052.png" class="lazyload" data-srcset="/images/1596985484052.png" srcset="data:image/png;base64,666" alt="1596985484052"></p>
+<p><img src="https://gitee.com/tobing/imagebed/raw/master/1596985484052.png" class="lazyload" data-srcset="https://gitee.com/tobing/imagebed/raw/master/1596985484052.png" srcset="data:image/png;base64,666" alt="1596985484052"></p>
 <ol>
 <li><p><strong>连接层</strong></p>
 <p>​    最上层是一些客户端和连接服务，包含本地sock通信和大多数基于客户端/服务器端工具实现的类似于TCP/IP的通信。<strong>主要完成</strong>一些类似于<strong>连接处理、授权认证、以及相关的安全方案</strong>。在该层上引入了线程池的概念，为通过认证安全接入的客户端提供了线程。同样在该层上可以实现基于SSL的安全连接。服务器也会为安全接入的每个客户端验证它所具有的操作权限。</p>
@@ -690,10 +697,10 @@ MySQL是...">
     <div class='new-meta-box'>
       
         
-          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2020-08-09T23:48:53+08:00">
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-01-15T12:12:39+08:00">
   <a class='notlink'>
     <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
-    <p>更新于：Aug 9, 2020</p>
+    <p>更新于：Jan 15, 2021</p>
   </a>
 </div>
 
@@ -715,89 +722,7 @@ MySQL是...">
       
         <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer noopener"
           
-          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://tobing.top/2020/08/09/MySQL%E8%BF%9B%E9%98%B6-1-%E6%9E%B6%E6%9E%84%E4%BB%8B%E7%BB%8D/&title=MySQL进阶-1-架构介绍 - tobing&summary=MySQL进阶-1-架构介绍1. MySQL简介1.1 概述
-MySQL是一个关系型数据库管理系统（RDBMS），由瑞典MySQL AB 公司开放，目前属于ORACLE公司。
-MySQL是一种关系数据库管理系统，将数据保存在不同的表中，而不是将所有数据放在一个大仓库内，这样增加了速度并提高了灵活性。
-MySQL是开源的，所以不需要支付额外的费用。
-MySQL支持大型的数据库，可以出来拥有成千上万条记录的大型数据库。32位系统表文件最大支持4GB、64位系统最大表文件支持8TB。
-MySQL使用标准的SQL数据语言形式。
-MySQL可以运行于多个系统，并支持多语言。包括：C、C++、Java、Python、Perl、PHP、Ruby等等。
-MySQL是可以定制的，采用了GPL协议，你可以修改源码来开发自己的系统。
-
-1.2 MySQL进阶
-内核
-SQL优化
-服务器的优化
-查询语句优化
-主从复制
-软硬件升级
-容灾备份
-SQL编程
-
-2. Linux下MySQL使用2.1 MySQL5.5安装
-下载地址：https://dev.mysql.com/downloads/mysql/
-
-检查是否安装过MySQL
-
-安装MySQL客户端、服务器端
-1234# 安装服务器端rpm -ivh --nodeps MySQL-server-5.5.54-1.linux2.6.x86_64.rpm# 安装客户端rpm -ivh --nodeps MySQL-client-5.5.54-1.linux2.6.x86_64.rpm
-
-启动MySQL服务
-1service mysql start
-
-设置root密码
-1sqladmin -u root password 123456
-
-设置MySQL自启动
-1234# 设置自启动chkconfig mysql on# 检验是否设置成功ntsysv
-
-修改配置文件位置
-1cp /usr/share/mysql/my-huge.cnf /etc/my.cnf
-
-
-将share下单my-huge.cnf配置文件复制到etc目录下，并且注意文件名。
-不同版本的配置文件名可能不一样，如5.6的为my-defalut.cnf
-
-
-设置字符集编码
-1234567891011121314151617181920# 查看字符集 [默认客户端和服务端动用了Latin1，使用中文会乱码]show variales like &#x27;%char%&#x27;# 修改配置文件vim /etc/my.cnf# 添加下面内容[client]default-character-set=utf8 # 设置编码[mysqld]lower_case_table_names=1   # 设置大小写区分情况character_set_server=utf8character_set_client=utf8collation-server=utf8_general_cimax_connections=1000       # 设置最大连接数[mysql]default-character-set=utf8
-
-MySQL一些目录
-linux下查看
-1ps -ef | grep mysql
-
-
-
-
-路径
-解析
-备注
-
-
-
-/var/lib/mysql
-mysql数据库文件的存放路径
-/var/lib/mysql/xxx.pid
-
-
-/usr/share/mysql
-配置文件目录
-mysql.server命令及配置
-
-
-/usr/bin
-相关命令目录
-mysqladmin mysqldump等命令
-
-
-/etc/init.d/mysql
-启停脚本目录
-
-
-
-
-
-2.2 MySQL配置文件"
+          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://tobing.top/2020/08/09/MySQL%E8%BF%9B%E9%98%B6-1-%E6%9E%B6%E6%9E%84%E4%BB%8B%E7%BB%8D/&title=MySQL进阶-1-架构介绍 - tobing&summary=MySQL进阶学习笔记。"
           
           >
           
@@ -809,89 +734,7 @@ mysqladmin mysqldump等命令
       
         <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer noopener"
           
-          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://tobing.top/2020/08/09/MySQL%E8%BF%9B%E9%98%B6-1-%E6%9E%B6%E6%9E%84%E4%BB%8B%E7%BB%8D/&title=MySQL进阶-1-架构介绍 - tobing&summary=MySQL进阶-1-架构介绍1. MySQL简介1.1 概述
-MySQL是一个关系型数据库管理系统（RDBMS），由瑞典MySQL AB 公司开放，目前属于ORACLE公司。
-MySQL是一种关系数据库管理系统，将数据保存在不同的表中，而不是将所有数据放在一个大仓库内，这样增加了速度并提高了灵活性。
-MySQL是开源的，所以不需要支付额外的费用。
-MySQL支持大型的数据库，可以出来拥有成千上万条记录的大型数据库。32位系统表文件最大支持4GB、64位系统最大表文件支持8TB。
-MySQL使用标准的SQL数据语言形式。
-MySQL可以运行于多个系统，并支持多语言。包括：C、C++、Java、Python、Perl、PHP、Ruby等等。
-MySQL是可以定制的，采用了GPL协议，你可以修改源码来开发自己的系统。
-
-1.2 MySQL进阶
-内核
-SQL优化
-服务器的优化
-查询语句优化
-主从复制
-软硬件升级
-容灾备份
-SQL编程
-
-2. Linux下MySQL使用2.1 MySQL5.5安装
-下载地址：https://dev.mysql.com/downloads/mysql/
-
-检查是否安装过MySQL
-
-安装MySQL客户端、服务器端
-1234# 安装服务器端rpm -ivh --nodeps MySQL-server-5.5.54-1.linux2.6.x86_64.rpm# 安装客户端rpm -ivh --nodeps MySQL-client-5.5.54-1.linux2.6.x86_64.rpm
-
-启动MySQL服务
-1service mysql start
-
-设置root密码
-1sqladmin -u root password 123456
-
-设置MySQL自启动
-1234# 设置自启动chkconfig mysql on# 检验是否设置成功ntsysv
-
-修改配置文件位置
-1cp /usr/share/mysql/my-huge.cnf /etc/my.cnf
-
-
-将share下单my-huge.cnf配置文件复制到etc目录下，并且注意文件名。
-不同版本的配置文件名可能不一样，如5.6的为my-defalut.cnf
-
-
-设置字符集编码
-1234567891011121314151617181920# 查看字符集 [默认客户端和服务端动用了Latin1，使用中文会乱码]show variales like &#x27;%char%&#x27;# 修改配置文件vim /etc/my.cnf# 添加下面内容[client]default-character-set=utf8 # 设置编码[mysqld]lower_case_table_names=1   # 设置大小写区分情况character_set_server=utf8character_set_client=utf8collation-server=utf8_general_cimax_connections=1000       # 设置最大连接数[mysql]default-character-set=utf8
-
-MySQL一些目录
-linux下查看
-1ps -ef | grep mysql
-
-
-
-
-路径
-解析
-备注
-
-
-
-/var/lib/mysql
-mysql数据库文件的存放路径
-/var/lib/mysql/xxx.pid
-
-
-/usr/share/mysql
-配置文件目录
-mysql.server命令及配置
-
-
-/usr/bin
-相关命令目录
-mysqladmin mysqldump等命令
-
-
-/etc/init.d/mysql
-启停脚本目录
-
-
-
-
-
-2.2 MySQL配置文件"
+          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://tobing.top/2020/08/09/MySQL%E8%BF%9B%E9%98%B6-1-%E6%9E%B6%E6%9E%84%E4%BB%8B%E7%BB%8D/&title=MySQL进阶-1-架构介绍 - tobing&summary=MySQL进阶学习笔记。"
           
           >
           
@@ -903,89 +746,7 @@ mysqladmin mysqldump等命令
       
         <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer noopener"
           
-          target="_blank" href="http://service.weibo.com/share/share.php?url=https://tobing.top/2020/08/09/MySQL%E8%BF%9B%E9%98%B6-1-%E6%9E%B6%E6%9E%84%E4%BB%8B%E7%BB%8D/&title=MySQL进阶-1-架构介绍 - tobing&summary=MySQL进阶-1-架构介绍1. MySQL简介1.1 概述
-MySQL是一个关系型数据库管理系统（RDBMS），由瑞典MySQL AB 公司开放，目前属于ORACLE公司。
-MySQL是一种关系数据库管理系统，将数据保存在不同的表中，而不是将所有数据放在一个大仓库内，这样增加了速度并提高了灵活性。
-MySQL是开源的，所以不需要支付额外的费用。
-MySQL支持大型的数据库，可以出来拥有成千上万条记录的大型数据库。32位系统表文件最大支持4GB、64位系统最大表文件支持8TB。
-MySQL使用标准的SQL数据语言形式。
-MySQL可以运行于多个系统，并支持多语言。包括：C、C++、Java、Python、Perl、PHP、Ruby等等。
-MySQL是可以定制的，采用了GPL协议，你可以修改源码来开发自己的系统。
-
-1.2 MySQL进阶
-内核
-SQL优化
-服务器的优化
-查询语句优化
-主从复制
-软硬件升级
-容灾备份
-SQL编程
-
-2. Linux下MySQL使用2.1 MySQL5.5安装
-下载地址：https://dev.mysql.com/downloads/mysql/
-
-检查是否安装过MySQL
-
-安装MySQL客户端、服务器端
-1234# 安装服务器端rpm -ivh --nodeps MySQL-server-5.5.54-1.linux2.6.x86_64.rpm# 安装客户端rpm -ivh --nodeps MySQL-client-5.5.54-1.linux2.6.x86_64.rpm
-
-启动MySQL服务
-1service mysql start
-
-设置root密码
-1sqladmin -u root password 123456
-
-设置MySQL自启动
-1234# 设置自启动chkconfig mysql on# 检验是否设置成功ntsysv
-
-修改配置文件位置
-1cp /usr/share/mysql/my-huge.cnf /etc/my.cnf
-
-
-将share下单my-huge.cnf配置文件复制到etc目录下，并且注意文件名。
-不同版本的配置文件名可能不一样，如5.6的为my-defalut.cnf
-
-
-设置字符集编码
-1234567891011121314151617181920# 查看字符集 [默认客户端和服务端动用了Latin1，使用中文会乱码]show variales like &#x27;%char%&#x27;# 修改配置文件vim /etc/my.cnf# 添加下面内容[client]default-character-set=utf8 # 设置编码[mysqld]lower_case_table_names=1   # 设置大小写区分情况character_set_server=utf8character_set_client=utf8collation-server=utf8_general_cimax_connections=1000       # 设置最大连接数[mysql]default-character-set=utf8
-
-MySQL一些目录
-linux下查看
-1ps -ef | grep mysql
-
-
-
-
-路径
-解析
-备注
-
-
-
-/var/lib/mysql
-mysql数据库文件的存放路径
-/var/lib/mysql/xxx.pid
-
-
-/usr/share/mysql
-配置文件目录
-mysql.server命令及配置
-
-
-/usr/bin
-相关命令目录
-mysqladmin mysqldump等命令
-
-
-/etc/init.d/mysql
-启停脚本目录
-
-
-
-
-
-2.2 MySQL配置文件"
+          target="_blank" href="http://service.weibo.com/share/share.php?url=https://tobing.top/2020/08/09/MySQL%E8%BF%9B%E9%98%B6-1-%E6%9E%B6%E6%9E%84%E4%BB%8B%E7%BB%8D/&title=MySQL进阶-1-架构介绍 - tobing&summary=MySQL进阶学习笔记。"
           
           >
           
@@ -1017,19 +778,22 @@ mysqladmin mysqldump等命令
       
         <a class='prev' href='/2020/08/22/MySQL%E8%BF%9B%E9%98%B6-2-%E7%B4%A2%E5%BC%95%E4%BC%98%E5%8C%96%E5%88%86%E6%9E%90/'>
           <p class='title'><i class="fas fa-chevron-left" aria-hidden="true"></i>MySQL进阶-2-索引优化分析</p>
-          <p class='content'>MySQL进阶-2-索引优化分析1. 导致SQL慢的原因
+          <p class='content'>MySQL进阶第二弹。
+
+
+MySQL进阶-2-索引优化分析1. 导致SQL慢的原因
 查询语句写的烂
 （单值、复合）索引实现
 关联查询太多join
 服务器调优以及各参数的设置
 
-2. 常见通用的join查询2.1 SQL执...</p>
+2. 常见通用的...</p>
         </a>
       
       
         <a class='next' href='/2020/08/08/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E8%AE%A4%E8%AF%81/'>
           <p class='title'>微信小程序认证<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
-          <p class='content'>微信小程序认证1. 问题引入​    使用Java后台作为微信小程序开发的时候，我们通常需要前后端分离开发。这时候，我们通常编写开发的RESTful风格的后端接口，从而使得微信小程序可以进行远程...</p>
+          <p class='content'>​    使用Java后台作为微信小程序开发的时候，我们通常需要前后端分离开发。这时候，我们通常编写开发的RESTful风格的后端接口，从而使得微信小程序可以进行远程调用、获取数据。这时候就涉及...</p>
         </a>
       
     </div>

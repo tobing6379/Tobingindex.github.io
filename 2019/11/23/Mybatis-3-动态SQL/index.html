@@ -25,10 +25,7 @@
   
 
   
-    <meta name="description" content="Mybatis-3-动态SQLif标签
-当我们传入的条件是多个，且不同条件查询语句不同的时候常常使用if
-
-12345678910&lt;select id=&quot;findByUser&quot; resultType=&quot;top.tobing.domain.User&quot;&gt;      ...">
+    <meta name="description" content="Mybatis学习第三弹。">
   
 
   <!-- feed -->
@@ -386,7 +383,7 @@
   <div class='new-meta-item category'>
     <a class='notlink'>
       <i class="fas fa-folder-open fa-fw" aria-hidden="true"></i>
-      <a class="category-link" href="/categories/Java/">Java</a>
+      <a class="category-link" href="/categories/%E7%90%86%E8%AE%BA%E5%AD%A6%E4%B9%A0/">理论学习</a>
     </a>
   </div>
 
@@ -425,7 +422,10 @@
 
 
   
-  <h1 id="Mybatis-3-动态SQL"><a href="#Mybatis-3-动态SQL" class="headerlink" title="Mybatis-3-动态SQL"></a>Mybatis-3-动态SQL</h1><h3 id="if标签"><a href="#if标签" class="headerlink" title="if标签"></a>if标签</h3><blockquote>
+  <p>Mybatis学习第三弹。</p>
+<a id="more"></a>
+
+<h1 id="Mybatis-3-动态SQL"><a href="#Mybatis-3-动态SQL" class="headerlink" title="Mybatis-3-动态SQL"></a>Mybatis-3-动态SQL</h1><h3 id="if标签"><a href="#if标签" class="headerlink" title="if标签"></a>if标签</h3><blockquote>
 <p>当我们传入的条件是多个，且不同条件查询语句不同的时候常常使用if</p>
 </blockquote>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">&quot;findByUser&quot;</span> <span class="attr">resultType</span>=<span class="string">&quot;top.tobing.domain.User&quot;</span>&gt;</span></span><br><span class="line">        select * from user where 1=1 </span><br><span class="line">        <span class="tag">&lt;<span class="name">if</span> <span class="attr">test</span>=<span class="string">&quot;username !=null and username!=&#x27;&#x27;&quot;</span>&gt;</span></span><br><span class="line">            and username = #&#123;username&#125;</span><br><span class="line">        <span class="tag">&lt;/<span class="name">if</span>&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="tag">&lt;<span class="name">if</span> <span class="attr">test</span>=<span class="string">&quot;address!=null and address!=&#x27;&#x27;&quot;</span>&gt;</span></span><br><span class="line">            and address like #&#123;address&#125;</span><br><span class="line">        <span class="tag">&lt;/<span class="name">if</span>&gt;</span>	</span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></figure>
@@ -505,10 +505,10 @@
     <div class='new-meta-box'>
       
         
-          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2019-11-23T10:19:14+08:00">
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-01-15T11:12:59+08:00">
   <a class='notlink'>
     <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
-    <p>更新于：Nov 23, 2019</p>
+    <p>更新于：Jan 15, 2021</p>
   </a>
 </div>
 
@@ -530,20 +530,7 @@
       
         <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer noopener"
           
-          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://tobing.top/2019/11/23/Mybatis-3-%E5%8A%A8%E6%80%81SQL/&title=Mybatis-3-动态SQL - tobing&summary=Mybatis-3-动态SQLif标签
-当我们传入的条件是多个，且不同条件查询语句不同的时候常常使用if
-
-12345678910&lt;select id=&quot;findByUser&quot; resultType=&quot;top.tobing.domain.User&quot;&gt;        select * from user where 1=1         &lt;if test=&quot;username !=null and username!=&#x27;&#x27;&quot;&gt;            and username = #&#123;username&#125;        &lt;/if&gt;        &lt;if test=&quot;address!=null and address!=&#x27;&#x27;&quot;&gt;            and address like #&#123;address&#125;        &lt;/if&gt;	&lt;/select&gt;
-
-where标签
- 简化了 1 = 1
-
-123456789101112&lt;select id=&quot;findByUser&quot; resultType=&quot;top.tobing.domain.User&quot;&gt;        select * from user        &lt;where&gt;            &lt;if test=&quot;username !=null and username!=&#x27;&#x27;&quot;&gt;                and username = #&#123;username&#125;            &lt;/if&gt;            &lt;if test=&quot;address!=null and address!=&#x27;&#x27;&quot;&gt;                and address like #&#123;address&#125;            &lt;/if&gt;        &lt;/where&gt; &lt;/select&gt;
-
-foreach标签
-诸如：select * from user id in（1,2,….） …..的语句
-
-12345678910&lt;select id=&quot;findByIds&quot; resultType=&quot;top.tobing.domain.User&quot; parameterType=&quot;top.tobing.domain.QueryVo&quot;&gt;    select * from user    &lt;where&gt;        &lt;if test=&quot;ids!=null and ids.size()&gt;0&quot;&gt;            &lt;foreach collection=&quot;ids&quot; open=&quot; id in (&quot; close=&quot;)&quot; item=&quot;id&quot; separator=&quot;,&quot;&gt;                #&#123;id&#125;            &lt;/foreach&gt;        &lt;/if&gt;    &lt;/where&gt;&lt;/select&gt;"
+          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://tobing.top/2019/11/23/Mybatis-3-%E5%8A%A8%E6%80%81SQL/&title=Mybatis-3-动态SQL - tobing&summary=Mybatis学习第三弹。"
           
           >
           
@@ -555,20 +542,7 @@ foreach标签
       
         <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer noopener"
           
-          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://tobing.top/2019/11/23/Mybatis-3-%E5%8A%A8%E6%80%81SQL/&title=Mybatis-3-动态SQL - tobing&summary=Mybatis-3-动态SQLif标签
-当我们传入的条件是多个，且不同条件查询语句不同的时候常常使用if
-
-12345678910&lt;select id=&quot;findByUser&quot; resultType=&quot;top.tobing.domain.User&quot;&gt;        select * from user where 1=1         &lt;if test=&quot;username !=null and username!=&#x27;&#x27;&quot;&gt;            and username = #&#123;username&#125;        &lt;/if&gt;        &lt;if test=&quot;address!=null and address!=&#x27;&#x27;&quot;&gt;            and address like #&#123;address&#125;        &lt;/if&gt;	&lt;/select&gt;
-
-where标签
- 简化了 1 = 1
-
-123456789101112&lt;select id=&quot;findByUser&quot; resultType=&quot;top.tobing.domain.User&quot;&gt;        select * from user        &lt;where&gt;            &lt;if test=&quot;username !=null and username!=&#x27;&#x27;&quot;&gt;                and username = #&#123;username&#125;            &lt;/if&gt;            &lt;if test=&quot;address!=null and address!=&#x27;&#x27;&quot;&gt;                and address like #&#123;address&#125;            &lt;/if&gt;        &lt;/where&gt; &lt;/select&gt;
-
-foreach标签
-诸如：select * from user id in（1,2,….） …..的语句
-
-12345678910&lt;select id=&quot;findByIds&quot; resultType=&quot;top.tobing.domain.User&quot; parameterType=&quot;top.tobing.domain.QueryVo&quot;&gt;    select * from user    &lt;where&gt;        &lt;if test=&quot;ids!=null and ids.size()&gt;0&quot;&gt;            &lt;foreach collection=&quot;ids&quot; open=&quot; id in (&quot; close=&quot;)&quot; item=&quot;id&quot; separator=&quot;,&quot;&gt;                #&#123;id&#125;            &lt;/foreach&gt;        &lt;/if&gt;    &lt;/where&gt;&lt;/select&gt;"
+          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://tobing.top/2019/11/23/Mybatis-3-%E5%8A%A8%E6%80%81SQL/&title=Mybatis-3-动态SQL - tobing&summary=Mybatis学习第三弹。"
           
           >
           
@@ -580,20 +554,7 @@ foreach标签
       
         <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer noopener"
           
-          target="_blank" href="http://service.weibo.com/share/share.php?url=https://tobing.top/2019/11/23/Mybatis-3-%E5%8A%A8%E6%80%81SQL/&title=Mybatis-3-动态SQL - tobing&summary=Mybatis-3-动态SQLif标签
-当我们传入的条件是多个，且不同条件查询语句不同的时候常常使用if
-
-12345678910&lt;select id=&quot;findByUser&quot; resultType=&quot;top.tobing.domain.User&quot;&gt;        select * from user where 1=1         &lt;if test=&quot;username !=null and username!=&#x27;&#x27;&quot;&gt;            and username = #&#123;username&#125;        &lt;/if&gt;        &lt;if test=&quot;address!=null and address!=&#x27;&#x27;&quot;&gt;            and address like #&#123;address&#125;        &lt;/if&gt;	&lt;/select&gt;
-
-where标签
- 简化了 1 = 1
-
-123456789101112&lt;select id=&quot;findByUser&quot; resultType=&quot;top.tobing.domain.User&quot;&gt;        select * from user        &lt;where&gt;            &lt;if test=&quot;username !=null and username!=&#x27;&#x27;&quot;&gt;                and username = #&#123;username&#125;            &lt;/if&gt;            &lt;if test=&quot;address!=null and address!=&#x27;&#x27;&quot;&gt;                and address like #&#123;address&#125;            &lt;/if&gt;        &lt;/where&gt; &lt;/select&gt;
-
-foreach标签
-诸如：select * from user id in（1,2,….） …..的语句
-
-12345678910&lt;select id=&quot;findByIds&quot; resultType=&quot;top.tobing.domain.User&quot; parameterType=&quot;top.tobing.domain.QueryVo&quot;&gt;    select * from user    &lt;where&gt;        &lt;if test=&quot;ids!=null and ids.size()&gt;0&quot;&gt;            &lt;foreach collection=&quot;ids&quot; open=&quot; id in (&quot; close=&quot;)&quot; item=&quot;id&quot; separator=&quot;,&quot;&gt;                #&#123;id&#125;            &lt;/foreach&gt;        &lt;/if&gt;    &lt;/where&gt;&lt;/select&gt;"
+          target="_blank" href="http://service.weibo.com/share/share.php?url=https://tobing.top/2019/11/23/Mybatis-3-%E5%8A%A8%E6%80%81SQL/&title=Mybatis-3-动态SQL - tobing&summary=Mybatis学习第三弹。"
           
           >
           
@@ -625,7 +586,10 @@ foreach标签
       
         <a class='prev' href='/2019/11/23/Mybatis-4-%E5%A4%9A%E8%A1%A8%E6%9F%A5%E8%AF%A21/'>
           <p class='title'><i class="fas fa-chevron-left" aria-hidden="true"></i>Mybatis-4-多表查询1</p>
-          <p class='content'>Mybatis-4-多表查询1
+          <p class='content'>Mybatis学习第四弹。
+
+
+Mybatis-4-多表查询1
  表之间的关系：多对一、一对多、多对多。
 
 Mybatis中多表查询的步骤
@@ -635,13 +599,16 @@ Mybatis中多表查询的步骤
 
 建立对应的配置文件
 
-实现配置：查询A表时可以得到A中包含...</p>
+实现...</p>
         </a>
       
       
         <a class='next' href='/2019/11/23/Mybatis-2-CRUD/'>
           <p class='title'>Mybatis-2-CRUD<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
-          <p class='content'>Mybatis-2-简单CRUD
+          <p class='content'>Mybatis学习第二弹。
+
+
+Mybatis-2-简单CRUD
 步骤
 
 创建Maven工程
@@ -649,11 +616,7 @@ Mybatis中多表查询的步骤
 编写实体类和持久层接口
 编写SqlMapConfig.xml
 编写映射配置文件
-编写测试类
-添加其他查询功能
-
-
-使用要求...</p>
+编写测试类...</p>
         </a>
       
     </div>

@@ -25,15 +25,7 @@
   
 
   
-    <meta name="description" content="SpringMVC-3-响应数据与文件上传1. 响应数据
-在使用SpringMVC响应数据时，控制器（controller）的返回值可以有三种。
-
-
-字符串
-
-controller方法返回字符串可以指定逻辑视图名，通过视图解析器解析为物理视图地址。
-
-12345678910@RequestMapping(&quo...">
+    <meta name="description" content="SpringMVC第三弹。">
   
 
   <!-- feed -->
@@ -423,7 +415,10 @@ controller方法返回字符串可以指定逻辑视图名，通过视图解析�
 
 
   
-  <h1 id="SpringMVC-3-响应数据与文件上传"><a href="#SpringMVC-3-响应数据与文件上传" class="headerlink" title="SpringMVC-3-响应数据与文件上传"></a>SpringMVC-3-响应数据与文件上传</h1><h2 id="1-响应数据"><a href="#1-响应数据" class="headerlink" title="1. 响应数据"></a>1. 响应数据</h2><blockquote>
+  <p>SpringMVC第三弹。</p>
+<a id="more"></a>
+
+<h1 id="SpringMVC-3-响应数据与文件上传"><a href="#SpringMVC-3-响应数据与文件上传" class="headerlink" title="SpringMVC-3-响应数据与文件上传"></a>SpringMVC-3-响应数据与文件上传</h1><h2 id="1-响应数据"><a href="#1-响应数据" class="headerlink" title="1. 响应数据"></a>1. 响应数据</h2><blockquote>
 <p>在使用SpringMVC响应数据时，控制器（controller）的返回值可以有三种。</p>
 </blockquote>
 <ol>
@@ -436,7 +431,7 @@ controller方法返回字符串可以指定逻辑视图名，通过视图解析�
 <blockquote>
 <p>执行原理</p>
 </blockquote>
-<p><img src="/images/SpringMVC/%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%93%8D%E5%BA%94.png" class="lazyload" data-srcset="/images/SpringMVC/%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%93%8D%E5%BA%94.png" srcset="data:image/png;base64,666" alt="字符串响应"></p>
+<p><img src="https://i.loli.net/2021/01/15/YXzq7gKiW96tcGf.png" class="lazyload" data-srcset="https://i.loli.net/2021/01/15/YXzq7gKiW96tcGf.png" srcset="data:image/png;base64,666" alt="字符串响应"></p>
 </li>
 <li><p>void</p>
 <blockquote>
@@ -506,10 +501,10 @@ controller方法返回字符串可以指定逻辑视图名，通过视图解析�
     <div class='new-meta-box'>
       
         
-          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2020-01-07T19:39:08+08:00">
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-01-15T11:54:24+08:00">
   <a class='notlink'>
     <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
-    <p>更新于：Jan 7, 2020</p>
+    <p>更新于：Jan 15, 2021</p>
   </a>
 </div>
 
@@ -531,56 +526,7 @@ controller方法返回字符串可以指定逻辑视图名，通过视图解析�
       
         <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer noopener"
           
-          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://tobing.top/2020/01/07/SpringMVC-3-%E5%93%8D%E5%BA%94%E6%95%B0%E6%8D%AE%E4%B8%8E%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/&title=SpringMVC-3-响应数据与文件上传 - tobing&summary=SpringMVC-3-响应数据与文件上传1. 响应数据
-在使用SpringMVC响应数据时，控制器（controller）的返回值可以有三种。
-
-
-字符串
-
-controller方法返回字符串可以指定逻辑视图名，通过视图解析器解析为物理视图地址。
-
-12345678910@RequestMapping(&quot;/sayHello&quot;)   public String sayHello(HttpServletRequest request, HttpServletResponse response)&#123;       System.out.println(&quot;sayHello方法执行了&quot;);       User user = new User();       user.setUsername(&quot;Tobing&quot;);       user.setPassword(&quot;root&quot;);       user.setAge(19);       request.setAttribute(&quot;user&quot;,user);       return &quot;success&quot;;			// 此处转发到success.jsp   &#125;
-
-
-执行原理
-
-
-
-void
-
-可以使用Servlet原生的API作为控制器参数，通过request和response对象进行转发或重定向
-
-123456789101112@RequestMapping(&quot;/sayVoid&quot;)public void sayVoid(HttpServletRequest request, HttpServletResponse response) throws Exception &#123;    System.out.println(&quot;sayVoid方法执行了&quot;);    //1.使用request转向页面    //request.getRequestDispatcher(&quot;/WEB-INF/pages/success.jsp&quot;).forward(request,response);    //2.通过Response页面重定向    //response.sendRedirect(&quot;sayHello&quot;);    //3.通过request直接写入响应结果    response.setCharacterEncoding(&quot;utf-8&quot;);    response.setContentType(&quot;application/json;charset=utf-8&quot;);    response.getWriter().write(&quot;Hello World!!!&quot;);&#125;
-
-ModelAndView
-
-SpringMVC还提供ModelAndView对象可以用作控制器返回值。
-
-123456789101112@RequestMapping(&quot;/testReturnModelAndView&quot;)public ModelAndView testReturnModelAndView()&#123;    System.out.println(&quot;testReturnModelAndView方法执行了&quot;);    ModelAndView mv =  new ModelAndView();    User user = new User();    user.setUsername(&quot;Tobing&quot;);    user.setPassword(&quot;root&quot;);    user.setAge(19);    mv.addObject(&quot;user&quot;,user);    mv.setViewName(&quot;success&quot;);	// 设置逻辑视图名称，视图解析器会根据名称前往指定视图    return mv;&#125;
-
-
-ModelAndView对象提供addObject方法可以将Object类型的对象封装到request域中。同时提供setViewName方法设置逻辑视图名称，这时视图解析器就可以根据名前往指定视图。
-
-
-转发和重定向
-
-controller方法在使用String返回值时，支持使用forward（转发）和redirect（重定向）关键字进行响应。
-
-123456789@RequestMapping(&quot;testForwardOrRedirect&quot;)public String testForwardOrRedirect(HttpServletRequest request)&#123;    User user = new User();    user.setUsername(&quot;actogo&quot;);    user.setPassword(&quot;root&quot;);    user.setAge(19);	//return &quot;forward:/WEB-INF/pages/success.jsp&quot;; // 相当于request.getRequestDispatchet(&quot;url&quot;).forward(request,response);    return &quot;redirect:sayHello&quot;;&#125;
-
-
-
-2. 响应json数据
-前端页面的ajax请求，发送json数据
-
-12345678910111213141516171819202122232425&lt;body&gt;    &lt;script&gt;        $(function()&#123;            $(&quot;#btn&quot;).click(function()&#123;	// 点击按钮发送ajax请求                $.ajax(&#123;                    url:&quot;user/testJson&quot;,	// 设置请求url                    //设置数据类型                    contentType:&quot;application/json;charset=UTF-8&quot;,                    //设置数据                    data:&#x27;&#123;&quot;username&quot;:&quot;hehe&quot;,&quot;password&quot;:&quot;123&quot;,&quot;age&quot;:30&#125;&#x27;,                    dataType:&quot;json&quot;,	// 数据封装类型                    type:&quot;post&quot;,		// 数据提交方式                    success:function(data)&#123;                        // data:服务器端响应的json的数据，进行解析                        alert(data.username);                        alert(data.password);                        alert(data.age);                    &#125;                &#125;);            &#125;);        &#125;);    &lt;/script&gt;    &lt;button id=&quot;btn&quot;&gt;提交&lt;/button&gt;&lt;/body&gt;
-
-
-后端控制器使用RequestBody注解将json数据封装到指定JavaBean，使用ResponseBody注解将返回的JavaBean封装为json返回。
-
-1234567891011@RequestMapping(&quot;testJson&quot;)public @ResponseBody User testJson(@RequestBody User user) &#123;	// 输出RequestBody封装的JavaBean    System.out.println(user);    // 处理数据    user.setUsername(&quot;actogo&quot;);    user.setAge(20);    user.setPassword(&quot;root&quot;);    // 返回数据    return user;&#125;
-
-3. SpringMVC实现文件上传"
+          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://tobing.top/2020/01/07/SpringMVC-3-%E5%93%8D%E5%BA%94%E6%95%B0%E6%8D%AE%E4%B8%8E%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/&title=SpringMVC-3-响应数据与文件上传 - tobing&summary=SpringMVC第三弹。"
           
           >
           
@@ -592,56 +538,7 @@ controller方法在使用String返回值时，支持使用forward（转发）和
       
         <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer noopener"
           
-          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://tobing.top/2020/01/07/SpringMVC-3-%E5%93%8D%E5%BA%94%E6%95%B0%E6%8D%AE%E4%B8%8E%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/&title=SpringMVC-3-响应数据与文件上传 - tobing&summary=SpringMVC-3-响应数据与文件上传1. 响应数据
-在使用SpringMVC响应数据时，控制器（controller）的返回值可以有三种。
-
-
-字符串
-
-controller方法返回字符串可以指定逻辑视图名，通过视图解析器解析为物理视图地址。
-
-12345678910@RequestMapping(&quot;/sayHello&quot;)   public String sayHello(HttpServletRequest request, HttpServletResponse response)&#123;       System.out.println(&quot;sayHello方法执行了&quot;);       User user = new User();       user.setUsername(&quot;Tobing&quot;);       user.setPassword(&quot;root&quot;);       user.setAge(19);       request.setAttribute(&quot;user&quot;,user);       return &quot;success&quot;;			// 此处转发到success.jsp   &#125;
-
-
-执行原理
-
-
-
-void
-
-可以使用Servlet原生的API作为控制器参数，通过request和response对象进行转发或重定向
-
-123456789101112@RequestMapping(&quot;/sayVoid&quot;)public void sayVoid(HttpServletRequest request, HttpServletResponse response) throws Exception &#123;    System.out.println(&quot;sayVoid方法执行了&quot;);    //1.使用request转向页面    //request.getRequestDispatcher(&quot;/WEB-INF/pages/success.jsp&quot;).forward(request,response);    //2.通过Response页面重定向    //response.sendRedirect(&quot;sayHello&quot;);    //3.通过request直接写入响应结果    response.setCharacterEncoding(&quot;utf-8&quot;);    response.setContentType(&quot;application/json;charset=utf-8&quot;);    response.getWriter().write(&quot;Hello World!!!&quot;);&#125;
-
-ModelAndView
-
-SpringMVC还提供ModelAndView对象可以用作控制器返回值。
-
-123456789101112@RequestMapping(&quot;/testReturnModelAndView&quot;)public ModelAndView testReturnModelAndView()&#123;    System.out.println(&quot;testReturnModelAndView方法执行了&quot;);    ModelAndView mv =  new ModelAndView();    User user = new User();    user.setUsername(&quot;Tobing&quot;);    user.setPassword(&quot;root&quot;);    user.setAge(19);    mv.addObject(&quot;user&quot;,user);    mv.setViewName(&quot;success&quot;);	// 设置逻辑视图名称，视图解析器会根据名称前往指定视图    return mv;&#125;
-
-
-ModelAndView对象提供addObject方法可以将Object类型的对象封装到request域中。同时提供setViewName方法设置逻辑视图名称，这时视图解析器就可以根据名前往指定视图。
-
-
-转发和重定向
-
-controller方法在使用String返回值时，支持使用forward（转发）和redirect（重定向）关键字进行响应。
-
-123456789@RequestMapping(&quot;testForwardOrRedirect&quot;)public String testForwardOrRedirect(HttpServletRequest request)&#123;    User user = new User();    user.setUsername(&quot;actogo&quot;);    user.setPassword(&quot;root&quot;);    user.setAge(19);	//return &quot;forward:/WEB-INF/pages/success.jsp&quot;; // 相当于request.getRequestDispatchet(&quot;url&quot;).forward(request,response);    return &quot;redirect:sayHello&quot;;&#125;
-
-
-
-2. 响应json数据
-前端页面的ajax请求，发送json数据
-
-12345678910111213141516171819202122232425&lt;body&gt;    &lt;script&gt;        $(function()&#123;            $(&quot;#btn&quot;).click(function()&#123;	// 点击按钮发送ajax请求                $.ajax(&#123;                    url:&quot;user/testJson&quot;,	// 设置请求url                    //设置数据类型                    contentType:&quot;application/json;charset=UTF-8&quot;,                    //设置数据                    data:&#x27;&#123;&quot;username&quot;:&quot;hehe&quot;,&quot;password&quot;:&quot;123&quot;,&quot;age&quot;:30&#125;&#x27;,                    dataType:&quot;json&quot;,	// 数据封装类型                    type:&quot;post&quot;,		// 数据提交方式                    success:function(data)&#123;                        // data:服务器端响应的json的数据，进行解析                        alert(data.username);                        alert(data.password);                        alert(data.age);                    &#125;                &#125;);            &#125;);        &#125;);    &lt;/script&gt;    &lt;button id=&quot;btn&quot;&gt;提交&lt;/button&gt;&lt;/body&gt;
-
-
-后端控制器使用RequestBody注解将json数据封装到指定JavaBean，使用ResponseBody注解将返回的JavaBean封装为json返回。
-
-1234567891011@RequestMapping(&quot;testJson&quot;)public @ResponseBody User testJson(@RequestBody User user) &#123;	// 输出RequestBody封装的JavaBean    System.out.println(user);    // 处理数据    user.setUsername(&quot;actogo&quot;);    user.setAge(20);    user.setPassword(&quot;root&quot;);    // 返回数据    return user;&#125;
-
-3. SpringMVC实现文件上传"
+          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://tobing.top/2020/01/07/SpringMVC-3-%E5%93%8D%E5%BA%94%E6%95%B0%E6%8D%AE%E4%B8%8E%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/&title=SpringMVC-3-响应数据与文件上传 - tobing&summary=SpringMVC第三弹。"
           
           >
           
@@ -653,56 +550,7 @@ controller方法在使用String返回值时，支持使用forward（转发）和
       
         <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer noopener"
           
-          target="_blank" href="http://service.weibo.com/share/share.php?url=https://tobing.top/2020/01/07/SpringMVC-3-%E5%93%8D%E5%BA%94%E6%95%B0%E6%8D%AE%E4%B8%8E%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/&title=SpringMVC-3-响应数据与文件上传 - tobing&summary=SpringMVC-3-响应数据与文件上传1. 响应数据
-在使用SpringMVC响应数据时，控制器（controller）的返回值可以有三种。
-
-
-字符串
-
-controller方法返回字符串可以指定逻辑视图名，通过视图解析器解析为物理视图地址。
-
-12345678910@RequestMapping(&quot;/sayHello&quot;)   public String sayHello(HttpServletRequest request, HttpServletResponse response)&#123;       System.out.println(&quot;sayHello方法执行了&quot;);       User user = new User();       user.setUsername(&quot;Tobing&quot;);       user.setPassword(&quot;root&quot;);       user.setAge(19);       request.setAttribute(&quot;user&quot;,user);       return &quot;success&quot;;			// 此处转发到success.jsp   &#125;
-
-
-执行原理
-
-
-
-void
-
-可以使用Servlet原生的API作为控制器参数，通过request和response对象进行转发或重定向
-
-123456789101112@RequestMapping(&quot;/sayVoid&quot;)public void sayVoid(HttpServletRequest request, HttpServletResponse response) throws Exception &#123;    System.out.println(&quot;sayVoid方法执行了&quot;);    //1.使用request转向页面    //request.getRequestDispatcher(&quot;/WEB-INF/pages/success.jsp&quot;).forward(request,response);    //2.通过Response页面重定向    //response.sendRedirect(&quot;sayHello&quot;);    //3.通过request直接写入响应结果    response.setCharacterEncoding(&quot;utf-8&quot;);    response.setContentType(&quot;application/json;charset=utf-8&quot;);    response.getWriter().write(&quot;Hello World!!!&quot;);&#125;
-
-ModelAndView
-
-SpringMVC还提供ModelAndView对象可以用作控制器返回值。
-
-123456789101112@RequestMapping(&quot;/testReturnModelAndView&quot;)public ModelAndView testReturnModelAndView()&#123;    System.out.println(&quot;testReturnModelAndView方法执行了&quot;);    ModelAndView mv =  new ModelAndView();    User user = new User();    user.setUsername(&quot;Tobing&quot;);    user.setPassword(&quot;root&quot;);    user.setAge(19);    mv.addObject(&quot;user&quot;,user);    mv.setViewName(&quot;success&quot;);	// 设置逻辑视图名称，视图解析器会根据名称前往指定视图    return mv;&#125;
-
-
-ModelAndView对象提供addObject方法可以将Object类型的对象封装到request域中。同时提供setViewName方法设置逻辑视图名称，这时视图解析器就可以根据名前往指定视图。
-
-
-转发和重定向
-
-controller方法在使用String返回值时，支持使用forward（转发）和redirect（重定向）关键字进行响应。
-
-123456789@RequestMapping(&quot;testForwardOrRedirect&quot;)public String testForwardOrRedirect(HttpServletRequest request)&#123;    User user = new User();    user.setUsername(&quot;actogo&quot;);    user.setPassword(&quot;root&quot;);    user.setAge(19);	//return &quot;forward:/WEB-INF/pages/success.jsp&quot;; // 相当于request.getRequestDispatchet(&quot;url&quot;).forward(request,response);    return &quot;redirect:sayHello&quot;;&#125;
-
-
-
-2. 响应json数据
-前端页面的ajax请求，发送json数据
-
-12345678910111213141516171819202122232425&lt;body&gt;    &lt;script&gt;        $(function()&#123;            $(&quot;#btn&quot;).click(function()&#123;	// 点击按钮发送ajax请求                $.ajax(&#123;                    url:&quot;user/testJson&quot;,	// 设置请求url                    //设置数据类型                    contentType:&quot;application/json;charset=UTF-8&quot;,                    //设置数据                    data:&#x27;&#123;&quot;username&quot;:&quot;hehe&quot;,&quot;password&quot;:&quot;123&quot;,&quot;age&quot;:30&#125;&#x27;,                    dataType:&quot;json&quot;,	// 数据封装类型                    type:&quot;post&quot;,		// 数据提交方式                    success:function(data)&#123;                        // data:服务器端响应的json的数据，进行解析                        alert(data.username);                        alert(data.password);                        alert(data.age);                    &#125;                &#125;);            &#125;);        &#125;);    &lt;/script&gt;    &lt;button id=&quot;btn&quot;&gt;提交&lt;/button&gt;&lt;/body&gt;
-
-
-后端控制器使用RequestBody注解将json数据封装到指定JavaBean，使用ResponseBody注解将返回的JavaBean封装为json返回。
-
-1234567891011@RequestMapping(&quot;testJson&quot;)public @ResponseBody User testJson(@RequestBody User user) &#123;	// 输出RequestBody封装的JavaBean    System.out.println(user);    // 处理数据    user.setUsername(&quot;actogo&quot;);    user.setAge(20);    user.setPassword(&quot;root&quot;);    // 返回数据    return user;&#125;
-
-3. SpringMVC实现文件上传"
+          target="_blank" href="http://service.weibo.com/share/share.php?url=https://tobing.top/2020/01/07/SpringMVC-3-%E5%93%8D%E5%BA%94%E6%95%B0%E6%8D%AE%E4%B8%8E%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/&title=SpringMVC-3-响应数据与文件上传 - tobing&summary=SpringMVC第三弹。"
           
           >
           
@@ -734,17 +582,22 @@ controller方法在使用String返回值时，支持使用forward（转发）和
       
         <a class='prev' href='/2020/01/19/Oracle-%E4%B8%8A/'>
           <p class='title'><i class="fas fa-chevron-left" aria-hidden="true"></i>Oracle-上</p>
-          <p class='content'>Oracle-上1. 基本使用
+          <p class='content'>Oracle学习第一弹。
+
+
+Oracle-上1. 基本使用
 创建表空间，并给表空间指定用户
-123456789101112131415161718--创建表空间create tablespace tbspace	--指定表...</p>
+123456789101112131415161718--创建表空间create tablespac...</p>
         </a>
       
       
         <a class='next' href='/2020/01/07/SpringMVC-2-%E5%8F%82%E6%95%B0%E7%BB%91%E5%AE%9A%E4%B8%8E%E5%B8%B8%E7%94%A8%E6%B3%A8%E8%A7%A3/'>
           <p class='title'>SpringMVC-2-参数绑定与常用注解<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
-          <p class='content'>SpringMVC-2-参数绑定与常用注解1. 参数绑定
-表单中的请求参数都是基于键值对的。SpringMVC绑定请求参数的过程是：把表单的请求参数作为控制器中方法的参数进行绑定。
-SpingM...</p>
+          <p class='content'>SpringMVC第二弹。
+
+
+SpringMVC-2-参数绑定与常用注解1. 参数绑定
+表单中的请求参数都是基于键值对的。SpringMVC绑定请求参数的过程是：把表单的请求参数作为控制器中方...</p>
         </a>
       
     </div>

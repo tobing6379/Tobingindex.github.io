@@ -373,91 +373,7 @@
   
   <div class='md'>
     
-      <h1 id="JDBC的封装"><a href="#JDBC的封装" class="headerlink" title="JDBC的封装"></a>JDBC的封装</h1><h3 id="1-引入"><a href="#1-引入" class="headerlink" title="1. 引入"></a>1. 引入</h3><ul>
-<li>即是使用了获取连接的工具类，简化了获取连接的操作。但是在编写程序查询数据库的时候，仍然需要编写较为繁杂的语句，封装结果，释放资源等。因此就有人将这些流程封装为工具包，提供给别人使用。让我们编写代码的时候，只需要关注SQL语句的执行。</li>
-</ul>
-<h3 id="2-Spring-JDBC"><a href="#2-Spring-JDBC" class="headerlink" title="2. Spring JDBC"></a>2. Spring JDBC</h3><ul>
-<li><p>Spring框架对JDBC的简单封装，提供了JDBCTemplate对象简化JDBC的开发。</p>
-</li>
-<li><p>开发步骤</p>
-<blockquote>
-<ol>
-<li><p>导入jar包</p>
-</li>
-<li><p>创建依赖于DataSource的JdbcTemplate对象。</p>
-</li>
-<li><p>调用JdbcTemplate的方法完成CRUD</p>
-</li>
-</ol>
-</blockquote>
-</li>
-<li><p>JDBCTemplate提供的方法</p>
-<blockquote>
-<ul>
-<li><p>update()：执行DML。增、删、改。</p>
-</li>
-<li><p>queryForMap()：查询结果集，封装为map集合。列名为key，值为value</p>
-<ul>
-<li>此方法的返回值长度只能是1。</li>
-</ul>
-</li>
-<li><p>queryForList()：将查询的结果封装为List。</p>
-<ul>
-<li>此方法将每条记录封装为Map，然后将Map封装到List中。</li>
-</ul>
-</li>
-<li><p>query()：查询结果，将结果封装为JavaBean</p>
-<ul>
-<li>RowMapper参数（一个接口）<ul>
-<li>可以直接自己实现。</li>
-<li>一般我们使用BeanPropertyRowMapper实现类。可以完成数据到JavaBean的自动封装</li>
-<li>new BeanPropertyRowMapper&lt;类型&gt;(类型.class)</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>queryForObject()：查询结果，将结果封装为对象</p>
-<ul>
-<li>一般用于聚合函数的查询。例如：求和函数</li>
-</ul>
-</li>
-</ul>
-</blockquote>
-</li>
-<li><p>案例：</p>
-<blockquote>
-<ol>
-<li>导包（连接池，数据库驱动，JdbcTemplate包等）</li>
-<li>创建Template对象</li>
-<li>CRUD（以account为例）<ol>
-<li>修改1号数据的 balance 为 200000</li>
-<li>添加一条记录</li>
-<li>删除刚才添加的记录</li>
-<li>查询id为1的记录，将其封装为Map集合</li>
-<li>查询所有记录，将其封装为List</li>
-<li>查询所有记录，将其封装为Emp对象的List集合</li>
-<li>查询总记录数</li>
-</ol>
-</li>
-</ol>
-</blockquote>
-<ul>
-<li><p>account表</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">| id | name   | balance |</span><br><span class="line">+----+--------+---------+</span><br><span class="line">|  1 | tobing |   99600 |</span><br><span class="line">|  2 | acto   |  100400 |</span><br><span class="line">|  6 | rongon |  199900 |</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>account对应的Account类</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> top.tobing.domain;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Account</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> Integer id;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="keyword">private</span> Double balance;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//getter and setter</span></span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>JdbcTemplate测试类</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> top.tobing.jdbctemplate;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.junit.Test;</span><br><span class="line"><span class="keyword">import</span> org.springframework.jdbc.core.BeanPropertyRowMapper;</span><br><span class="line"><span class="keyword">import</span> org.springframework.jdbc.core.JdbcTemplate;</span><br><span class="line"><span class="keyword">import</span> org.springframework.jdbc.core.RowMapper;</span><br><span class="line"><span class="keyword">import</span> top.tobing.domain.Account;</span><br><span class="line"><span class="keyword">import</span> top.tobing.utils.JDBCUtils;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.sql.ResultSet;</span><br><span class="line"><span class="keyword">import</span> java.sql.SQLException;</span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"><span class="keyword">import</span> java.util.Map;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">采用测试类的方式完成CRUD任务</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">JdbcTemplateDemo01</span> </span>&#123;</span><br><span class="line">    <span class="comment">//1. 修改1号数据的 balance 为 200000</span></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test01</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="comment">// 获取JdbcTemplate</span></span><br><span class="line">        JdbcTemplate template = <span class="keyword">new</span> JdbcTemplate(JDBCUtils.getDataSource());</span><br><span class="line">        <span class="comment">// 编写SQL语句</span></span><br><span class="line">        String sql = <span class="string">&quot;update account set balance = ? where id = 1&quot;</span>;</span><br><span class="line">        <span class="keyword">int</span> i = template.update(sql, <span class="number">300000</span>);</span><br><span class="line">        System.out.println(i);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//2. 添加一条记录</span></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test02</span><span class="params">()</span></span>&#123;</span><br><span class="line">        JdbcTemplate template = <span class="keyword">new</span> JdbcTemplate(JDBCUtils.getDataSource());</span><br><span class="line">        String sql = <span class="string">&quot;insert into account values(null,?,?)&quot;</span>;</span><br><span class="line">        <span class="keyword">int</span> i = template.update(sql, <span class="string">&quot;ggo&quot;</span>, <span class="number">200000</span>);</span><br><span class="line">        System.out.println(i);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//3. 删除刚才添加的记录</span></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test03</span><span class="params">()</span></span>&#123;</span><br><span class="line">        JdbcTemplate template = <span class="keyword">new</span> JdbcTemplate(JDBCUtils.getDataSource());</span><br><span class="line">        String sql = <span class="string">&quot;delete from account where id = ?&quot;</span>;</span><br><span class="line">        <span class="keyword">int</span> i = template.update(sql, <span class="number">8</span>);</span><br><span class="line">        System.out.println(i);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//4. 查询id为1的记录，将其封装为Map集合</span></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test04</span><span class="params">()</span></span>&#123;</span><br><span class="line">        JdbcTemplate template = <span class="keyword">new</span> JdbcTemplate(JDBCUtils.getDataSource());</span><br><span class="line">        String sql = <span class="string">&quot;select * from account where id = 1&quot;</span>;</span><br><span class="line">        Map&lt;String, Object&gt; map = template.queryForMap(sql);</span><br><span class="line">        System.out.println(map);</span><br><span class="line">        <span class="comment">// &#123;id=1, name=tobing, balance=300000.0&#125;</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//5. 查询所有记录，将其封装为List</span></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test05</span><span class="params">()</span></span>&#123;</span><br><span class="line">        JdbcTemplate template = <span class="keyword">new</span> JdbcTemplate(JDBCUtils.getDataSource());</span><br><span class="line">        String sql = <span class="string">&quot;select * from account&quot;</span>;</span><br><span class="line">        List&lt;Map&lt;String, Object&gt;&gt; maps = template.queryForList(sql);</span><br><span class="line">        <span class="keyword">for</span> (Map&lt;String, Object&gt; map : maps) &#123;</span><br><span class="line">            System.out.println(map);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//6. 查询所有记录，将其封装为Emp对象的List集合</span></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test06</span><span class="params">()</span></span>&#123;</span><br><span class="line">        JdbcTemplate template = <span class="keyword">new</span> JdbcTemplate(JDBCUtils.getDataSource());</span><br><span class="line">        String sql = <span class="string">&quot;select * from account&quot;</span>;</span><br><span class="line">        List&lt;Account&gt; list = template.query(sql, <span class="keyword">new</span> RowMapper&lt;Account&gt;() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> Account <span class="title">mapRow</span><span class="params">(ResultSet rs, <span class="keyword">int</span> i)</span> <span class="keyword">throws</span> SQLException </span>&#123;</span><br><span class="line">                Account a = <span class="keyword">new</span> Account();</span><br><span class="line">                <span class="keyword">int</span> id = rs.getInt(<span class="string">&quot;id&quot;</span>);</span><br><span class="line">                String name = rs.getString(<span class="string">&quot;name&quot;</span>);</span><br><span class="line">                <span class="keyword">double</span> balance = rs.getDouble(<span class="string">&quot;balance&quot;</span>);</span><br><span class="line">                a.setId(id);</span><br><span class="line">                a.setBalance(balance);</span><br><span class="line">                a.setName(name);</span><br><span class="line">                <span class="keyword">return</span> a;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">        <span class="keyword">for</span> (Account a : list) &#123;</span><br><span class="line">            System.out.println(a);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//6_1. 查询所有记录，将其封装为Emp对象的List集合</span></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test0601</span><span class="params">()</span></span>&#123;</span><br><span class="line">        JdbcTemplate template = <span class="keyword">new</span> JdbcTemplate(JDBCUtils.getDataSource());</span><br><span class="line">        String sql = <span class="string">&quot;select * from account&quot;</span>;</span><br><span class="line">        List&lt;Account&gt; accounts = template.query(sql, <span class="keyword">new</span> BeanPropertyRowMapper&lt;Account&gt;(Account.class));</span><br><span class="line">        <span class="keyword">for</span> (Account account : accounts) &#123;</span><br><span class="line">            System.out.println(account);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//7. 查询总记录数</span></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test07</span><span class="params">()</span></span>&#123;</span><br><span class="line">        JdbcTemplate template = <span class="keyword">new</span> JdbcTemplate(JDBCUtils.getDataSource());</span><br><span class="line">        String sql = <span class="string">&quot;select count(id) from account&quot;</span>;</span><br><span class="line">        Long sum = template.queryForObject(sql, Long.class);</span><br><span class="line">        System.out.println(sum);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-
-</li>
-</ul>
-</li>
-</ul>
-
+      <p>本文对JDBC进行介绍。</p>
     
   </div>
   
@@ -467,7 +383,7 @@
         <time>2019-11-04</time>
         
           <span class="dot"></span>
-          <a class="category-link" href="/categories/Java/">Java</a>
+          <a class="category-link" href="/categories/%E7%90%86%E8%AE%BA%E5%AD%A6%E4%B9%A0/">理论学习</a>
         
       </div>
       
@@ -501,31 +417,7 @@
   
   <div class='md'>
     
-      <h1 id="数据库连接池技术"><a href="#数据库连接池技术" class="headerlink" title="数据库连接池技术"></a>数据库连接池技术</h1><h3 id="1-引入"><a href="#1-引入" class="headerlink" title="1. 引入"></a>1. 引入</h3><ul>
-<li>在对数据库进行操作的时候，每次执行不同操作，都要去申请连接对象，这样频繁地向系统申请资源会花费大量时间。因此人们引入了池子的概念：一开始就申请多个连接对象，并把这些连接对象放在池子中（容器），每次用的时候就从池子中拿，用完就放回池子中。</li>
-</ul>
-<h3 id="2-概念"><a href="#2-概念" class="headerlink" title="2. 概念"></a>2. 概念</h3><ul>
-<li>本质上就是一个存放了多个<code>连接对象</code>的容器（集合）。</li>
-</ul>
-<h3 id="3-好处"><a href="#3-好处" class="headerlink" title="3. 好处"></a>3. 好处</h3><ol>
-<li>节约系统资源</li>
-<li>用户获取连接对象更加高效</li>
-</ol>
-<h3 id="4-标准"><a href="#4-标准" class="headerlink" title="4. 标准"></a>4. 标准</h3><ul>
-<li><p>Java对连接池定义了规范（即是接口），那就是<code>javax.sql.DataSource接口</code>。</p>
-</li>
-<li><p><code>DataSource</code>：A factory for connections to the physical data source that this  <code>DataSource</code> object represents. An alternative to the  <code>DriverManager</code> facility, a <code>DataSource</code> object is the  preferred means of getting a connection. An object that implements the  <code>DataSource</code> interface will typically be registered with a naming  service based on the Java™ Naming and Directory (JNDI) API.</p>
-</li>
-<li><p>连接池：一个<code>DataSource</code>对象代表了一个物理的连接数据库的连接的生产工厂。除了<code>DriverManager</code>功能外，<code>DataSource</code>是首选。</p>
-<blockquote>
-<ul>
-<li>Connection getConnection()：Attempts to establish a connection with the data source that  this <code>DataSource</code> object represents.</li>
-<li>Connection.close()：从连接池中获取到的Connection对象在调用close方法的时候会把该对象归还到连接池中。</li>
-</ul>
-</blockquote>
-</li>
-</ul>
-<h3 id="5-实现"><a href="#5-实现" class="headerlink" title="5. 实现"></a>5. 实现</h3>
+      <p>池化技术是提供系统资源利用率必不可少的，接下来接受数据库连接池。</p>
     
   </div>
   
@@ -535,7 +427,7 @@
         <time>2019-11-04</time>
         
           <span class="dot"></span>
-          <a class="category-link" href="/categories/Java/">Java</a>
+          <a class="category-link" href="/categories/%E7%90%86%E8%AE%BA%E5%AD%A6%E4%B9%A0/">理论学习</a>
         
       </div>
       
@@ -569,74 +461,7 @@
   
   <div class='md'>
     
-      <h1 id="JDBC复习"><a href="#JDBC复习" class="headerlink" title="JDBC复习"></a>JDBC复习</h1><h4 id="1-引入"><a href="#1-引入" class="headerlink" title="1. 引入"></a>1. 引入</h4><ul>
-<li>回顾操作数据库（MySQL）的常用方式<ul>
-<li>第三方客户端：SQLyog等</li>
-<li>MySQL自带命令行</li>
-<li>Java访问（JDBC）</li>
-</ul>
-</li>
-</ul>
-<h4 id="2-JDBC"><a href="#2-JDBC" class="headerlink" title="2. JDBC"></a>2. JDBC</h4><ul>
-<li><p>JDBC（ Java Database Connectivity ）： 是Java语言中用来规范客户端程序如何来访问数据库的应用程序接口，提供了诸如查询和更新数据库中数据的方法。 每个<code> 数据库厂商</code>根据自家数据库的通信格式编写好自己数据库的驱动。所以我们只需要会调用 <code>JDBC 接口中的方法</code>即可，<code>数据库驱动由数据库厂商提供</code>。 </p>
-</li>
-<li><p>JDBC的好处：</p>
-<ol>
-<li><p>开发访问数据库的程序，只需要会调用 JDBC 接口中的方法即可，不用关注类是如何实现的。</p>
-</li>
-<li><p>用同一套 Java 代码，进行少量的修改就可以访问其他 JDBC 支持的数据库 </p>
-<p><img src="/images/JDBC%E6%8E%A5%E5%8F%A3.png" class="lazyload" data-srcset="/images/JDBC%E6%8E%A5%E5%8F%A3.png" srcset="data:image/png;base64,666" alt="JDBC接口"></p>
-</li>
-</ol>
-</li>
-<li><p>JDBC常用的的包</p>
-<ul>
-<li><code>java.sql</code>：所有与JDBC访问数据相关的接口和类</li>
-<li><code>javax.sql</code>：数据库拓展包，提供数据库额外功。比如：连接池</li>
-<li><code>数据库驱动jar</code>：数据库厂商基于JDBC接口的实现类。使用哪个就下载哪个。</li>
-</ul>
-</li>
-<li><p>JDBC核心API</p>
-<ul>
-<li>DriverManager：The basic service for managing a set of JDBC drivers.<ul>
-<li>管理和注册数据库驱动</li>
-<li>得到数据库连接对象</li>
-</ul>
-</li>
-<li>Connection接口：A connection (session) with a specific database.<ul>
-<li>一个连接对象，可以用于创建Statement和PrepareStatement对象</li>
-</ul>
-</li>
-<li>Statement接口：The object used for executing a static SQL statement and  returning the results it produces.</li>
-<li>PreparedStatement接口：An object that represents a precompiled SQL statement.</li>
-<li>ResultSet接口：A table of data representing a database result set, which is  usually generated by executing a statement that queries the database.</li>
-</ul>
-</li>
-</ul>
-<h4 id="3-Connection接口"><a href="#3-Connection接口" class="headerlink" title="3. Connection接口"></a>3. Connection接口</h4><ul>
-<li><p>Connection 接口，具体的实现类由数据库的厂商实现，代表一个连接对象。</p>
-</li>
-<li><p>提供了获取Statement的方法</p>
-<blockquote>
-<ul>
-<li>Statement createStatement()：Creates a Statement object for sending SQL statements to the database.</li>
-</ul>
-</blockquote>
-</li>
-</ul>
-<h4 id="4-Statement接口"><a href="#4-Statement接口" class="headerlink" title="4. Statement接口"></a>4. Statement接口</h4><ul>
-<li><p>Statement接口，The object used for executing a static SQL statement and  returning the results it produces.</p>
-<blockquote>
-<ul>
-<li>int executeUpdate(String sql)  ：Executes the given SQL statement, which may be an INSERT, UPDATE, or DELETE statement or an SQL statement that returns nothing, such as an SQL DDL statement.</li>
-</ul>
-<ul>
-<li>ResultSet executeQuery(String sql)  ：Executes the given SQL statement, which returns a single ResultSet object.</li>
-</ul>
-</blockquote>
-</li>
-</ul>
-<h4 id="5-ResultSet接口"><a href="#5-ResultSet接口" class="headerlink" title="5. ResultSet接口"></a>5. ResultSet接口</h4>
+      <p>本文是对JDBC复习的笔记</p>
     
   </div>
   
@@ -646,7 +471,7 @@
         <time>2019-11-02</time>
         
           <span class="dot"></span>
-          <a class="category-link" href="/categories/Java/">Java</a>
+          <a class="category-link" href="/categories/%E7%90%86%E8%AE%BA%E5%AD%A6%E4%B9%A0/">理论学习</a>
         
       </div>
       
@@ -777,64 +602,24 @@
       <ul class="entry navigation">
         
           <li><a class="flat-box"
-            title="/categories/Hexo/" href="/categories/Hexo/"
-            id="categoriesHexo"
-            ><div class='name'>Hexo</div><div class='badge'>(2)</div></a></li>
+            title="/categories/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/" href="/categories/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/"
+            id="categoriesE5B7A5E585B7E4BDBFE794A8"
+            ><div class='name'>工具使用</div><div class='badge'>(5)</div></a></li>
         
           <li><a class="flat-box"
-            title="/categories/Intellij-Idea/" href="/categories/Intellij-Idea/"
-            id="categoriesIntellij-Idea"
-            ><div class='name'>Intellij Idea</div><div class='badge'>(1)</div></a></li>
+            title="/categories/%E6%8A%80%E6%9C%AF%E5%BA%94%E7%94%A8/" href="/categories/%E6%8A%80%E6%9C%AF%E5%BA%94%E7%94%A8/"
+            id="categoriesE68A80E69CAFE5BA94E794A8"
+            ><div class='name'>技术应用</div><div class='badge'>(3)</div></a></li>
         
           <li><a class="flat-box"
-            title="/categories/Java/" href="/categories/Java/"
-            id="categoriesJava"
-            ><div class='name'>Java</div><div class='badge'>(24)</div></a></li>
+            title="/categories/%E6%9D%82%E4%B8%83%E6%9D%82%E5%85%AB/" href="/categories/%E6%9D%82%E4%B8%83%E6%9D%82%E5%85%AB/"
+            id="categoriesE69D82E4B883E69D82E585AB"
+            ><div class='name'>杂七杂八</div><div class='badge'>(4)</div></a></li>
         
           <li><a class="flat-box"
-            title="/categories/Linux/" href="/categories/Linux/"
-            id="categoriesLinux"
-            ><div class='name'>Linux</div><div class='badge'>(1)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/git/" href="/categories/git/"
-            id="categoriesgit"
-            ><div class='name'>git</div><div class='badge'>(1)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/windows%E4%BD%BF%E7%94%A8/" href="/categories/windows%E4%BD%BF%E7%94%A8/"
-            id="categorieswindowsE4BDBFE794A8"
-            ><div class='name'>windows使用</div><div class='badge'>(1)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/%E6%89%8B%E6%9C%BA/" href="/categories/%E6%89%8B%E6%9C%BA/"
-            id="categoriesE6898BE69CBA"
-            ><div class='name'>手机</div><div class='badge'>(1)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/%E6%8A%80%E5%B7%A7/" href="/categories/%E6%8A%80%E5%B7%A7/"
-            id="categoriesE68A80E5B7A7"
-            ><div class='name'>技巧</div><div class='badge'>(1)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/"
-            id="categoriesE695B0E68DAEE5BA93"
-            ><div class='name'>数据库</div><div class='badge'>(7)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/%E7%89%A9%E8%81%94%E7%BD%91/" href="/categories/%E7%89%A9%E8%81%94%E7%BD%91/"
-            id="categoriesE789A9E88194E7BD91"
-            ><div class='name'>物联网</div><div class='badge'>(2)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/%E7%9E%8E%E6%89%AF/" href="/categories/%E7%9E%8E%E6%89%AF/"
-            id="categoriesE79E8EE689AF"
-            ><div class='name'>瞎扯</div><div class='badge'>(1)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/%E8%B7%AF%E7%94%B1%E5%99%A8/" href="/categories/%E8%B7%AF%E7%94%B1%E5%99%A8/"
-            id="categoriesE8B7AFE794B1E599A8"
-            ><div class='name'>路由器</div><div class='badge'>(1)</div></a></li>
+            title="/categories/%E7%90%86%E8%AE%BA%E5%AD%A6%E4%B9%A0/" href="/categories/%E7%90%86%E8%AE%BA%E5%AD%A6%E4%B9%A0/"
+            id="categoriesE79086E8AEBAE5ADA6E4B9A0"
+            ><div class='name'>理论学习</div><div class='badge'>(36)</div></a></li>
         
       </ul>
     </div>
@@ -858,7 +643,7 @@
 
 
     <div class='content'>
-      <a href="/tags/2019/" style="font-size: 14px; color: #999">2019</a> <a href="/tags/DHT11/" style="font-size: 14px; color: #999">DHT11</a> <a href="/tags/ElasticSearch/" style="font-size: 14px; color: #999">ElasticSearch</a> <a href="/tags/JDBC/" style="font-size: 14px; color: #999">JDBC</a> <a href="/tags/Java/" style="font-size: 22.33px; color: #606060">Java</a> <a href="/tags/Linux/" style="font-size: 14px; color: #999">Linux</a> <a href="/tags/MongoDB/" style="font-size: 14px; color: #999">MongoDB</a> <a href="/tags/MySQL/" style="font-size: 20.67px; color: #6c6c6c">MySQL</a> <a href="/tags/Mybatis/" style="font-size: 24px; color: #555">Mybatis</a> <a href="/tags/Oracle/" style="font-size: 15.67px; color: #8e8e8e">Oracle</a> <a href="/tags/Spring/" style="font-size: 17.33px; color: #828282">Spring</a> <a href="/tags/Spring-Security/" style="font-size: 14px; color: #999">Spring-Security</a> <a href="/tags/SpringMVC/" style="font-size: 17.33px; color: #828282">SpringMVC</a> <a href="/tags/Spring%E5%85%A8%E5%AE%B6%E6%A1%B6/" style="font-size: 14px; color: #999">Spring全家桶</a> <a href="/tags/docker/" style="font-size: 14px; color: #999">docker</a> <a href="/tags/git/" style="font-size: 14px; color: #999">git</a> <a href="/tags/gitHub/" style="font-size: 14px; color: #999">gitHub</a> <a href="/tags/githubpage/" style="font-size: 14px; color: #999">githubpage</a> <a href="/tags/hexo/" style="font-size: 15.67px; color: #8e8e8e">hexo</a> <a href="/tags/idea/" style="font-size: 14px; color: #999">idea</a> <a href="/tags/java/" style="font-size: 14px; color: #999">java</a> <a href="/tags/jdbc/" style="font-size: 15.67px; color: #8e8e8e">jdbc</a> <a href="/tags/mysql/" style="font-size: 14px; color: #999">mysql</a> <a href="/tags/root/" style="font-size: 14px; color: #999">root</a> <a href="/tags/token/" style="font-size: 14px; color: #999">token</a> <a href="/tags/win10/" style="font-size: 14px; color: #999">win10</a> <a href="/tags/%E5%85%A5%E9%97%A8/" style="font-size: 14px; color: #999">入门</a> <a href="/tags/%E5%88%86%E9%A1%B5%E6%8F%92%E4%BB%B6/" style="font-size: 14px; color: #999">分页插件</a> <a href="/tags/%E5%8D%95%E7%89%87%E6%9C%BA/" style="font-size: 14px; color: #999">单片机</a> <a href="/tags/%E5%8F%8D%E5%B0%84/" style="font-size: 17.33px; color: #828282">反射</a> <a href="/tags/%E5%9F%9F%E5%90%8D%E7%BB%91%E5%AE%9A/" style="font-size: 14px; color: #999">域名绑定</a> <a href="/tags/%E5%A4%8D%E4%B9%A0/" style="font-size: 19px; color: #777">复习</a> <a href="/tags/%E5%AE%B9%E5%99%A8%E6%8A%80%E6%9C%AF/" style="font-size: 14px; color: #999">容器技术</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" style="font-size: 14px; color: #999">数据库</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" style="font-size: 15.67px; color: #8e8e8e">数据结构</a> <a href="/tags/%E6%95%B0%E7%BB%84/" style="font-size: 14px; color: #999">数组</a> <a href="/tags/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/" style="font-size: 14px; color: #999">文件上传</a> <a href="/tags/%E6%A0%88/" style="font-size: 14px; color: #999">栈</a> <a href="/tags/%E6%A0%91%E8%8E%93%E6%B4%BE/" style="font-size: 14px; color: #999">树莓派</a> <a href="/tags/%E6%A0%A1%E5%9B%AD%E5%AE%BD%E5%B8%A6/" style="font-size: 14px; color: #999">校园宽带</a> <a href="/tags/%E6%B3%A8%E8%A7%A3/" style="font-size: 14px; color: #999">注解</a> <a href="/tags/%E8%BF%9E%E6%8E%A5%E6%B1%A0/" style="font-size: 14px; color: #999">连接池</a> <a href="/tags/%E9%98%9F%E5%88%97/" style="font-size: 14px; color: #999">队列</a> <a href="/tags/%E9%9B%86%E5%90%88/" style="font-size: 14px; color: #999">集合</a> <a href="/tags/%E9%AD%85%E8%93%9DNote5/" style="font-size: 14px; color: #999">魅蓝Note5</a>
+      <a href="/tags/CentOS/" style="font-size: 14px; color: #999">CentOS</a> <a href="/tags/DHT11/" style="font-size: 14px; color: #999">DHT11</a> <a href="/tags/ElasticSearch/" style="font-size: 14px; color: #999">ElasticSearch</a> <a href="/tags/GitHub/" style="font-size: 14px; color: #999">GitHub</a> <a href="/tags/GithubPage/" style="font-size: 14px; color: #999">GithubPage</a> <a href="/tags/Hexo/" style="font-size: 15.67px; color: #8e8e8e">Hexo</a> <a href="/tags/Intellij-idea/" style="font-size: 14px; color: #999">Intellij idea</a> <a href="/tags/JDBC/" style="font-size: 17.33px; color: #828282">JDBC</a> <a href="/tags/Java/" style="font-size: 24px; color: #555">Java</a> <a href="/tags/Linux/" style="font-size: 14px; color: #999">Linux</a> <a href="/tags/MongoDB/" style="font-size: 14px; color: #999">MongoDB</a> <a href="/tags/MySQL/" style="font-size: 20.67px; color: #6c6c6c">MySQL</a> <a href="/tags/Mybatis/" style="font-size: 22.33px; color: #606060">Mybatis</a> <a href="/tags/Oracle/" style="font-size: 15.67px; color: #8e8e8e">Oracle</a> <a href="/tags/PageHelper/" style="font-size: 14px; color: #999">PageHelper</a> <a href="/tags/Spring/" style="font-size: 19px; color: #777">Spring</a> <a href="/tags/Spring-Security/" style="font-size: 14px; color: #999">Spring-Security</a> <a href="/tags/SpringBoot/" style="font-size: 14px; color: #999">SpringBoot</a> <a href="/tags/SpringMVC/" style="font-size: 17.33px; color: #828282">SpringMVC</a> <a href="/tags/Windows/" style="font-size: 14px; color: #999">Windows</a> <a href="/tags/docker/" style="font-size: 14px; color: #999">docker</a> <a href="/tags/git/" style="font-size: 14px; color: #999">git</a> <a href="/tags/jwt/" style="font-size: 14px; color: #999">jwt</a> <a href="/tags/root/" style="font-size: 14px; color: #999">root</a> <a href="/tags/%E5%85%A8%E6%96%87%E6%A3%80%E7%B4%A2/" style="font-size: 14px; color: #999">全文检索</a> <a href="/tags/%E5%88%86%E4%BA%AB/" style="font-size: 14px; color: #999">分享</a> <a href="/tags/%E5%8D%95%E7%89%87%E6%9C%BA/" style="font-size: 14px; color: #999">单片机</a> <a href="/tags/%E5%8F%8D%E5%B0%84/" style="font-size: 17.33px; color: #828282">反射</a> <a href="/tags/%E5%9F%9F%E5%90%8D%E7%BB%91%E5%AE%9A/" style="font-size: 14px; color: #999">域名绑定</a> <a href="/tags/%E5%AE%9E%E9%AA%8C/" style="font-size: 15.67px; color: #8e8e8e">实验</a> <a href="/tags/%E5%AE%B9%E5%99%A8%E6%8A%80%E6%9C%AF/" style="font-size: 14px; color: #999">容器技术</a> <a href="/tags/%E5%B0%8F%E7%A8%8B%E5%BA%8F/" style="font-size: 14px; color: #999">小程序</a> <a href="/tags/%E6%80%BB%E7%BB%93/" style="font-size: 14px; color: #999">总结</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93%E8%BF%9E%E6%8E%A5%E6%B1%A0/" style="font-size: 14px; color: #999">数据库连接池</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" style="font-size: 17.33px; color: #828282">数据结构</a> <a href="/tags/%E6%95%B0%E7%BB%84-Java/" style="font-size: 14px; color: #999">数组 - Java</a> <a href="/tags/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/" style="font-size: 14px; color: #999">文件上传</a> <a href="/tags/%E6%A0%88/" style="font-size: 14px; color: #999">栈</a> <a href="/tags/%E6%A0%91%E8%8E%93%E6%B4%BE/" style="font-size: 14px; color: #999">树莓派</a> <a href="/tags/%E6%A0%A1%E5%9B%AD%E5%AE%BD%E5%B8%A6/" style="font-size: 14px; color: #999">校园宽带</a> <a href="/tags/%E6%B3%A8%E8%A7%A3/" style="font-size: 14px; color: #999">注解</a> <a href="/tags/%E7%89%A9%E8%81%94%E7%BD%91/" style="font-size: 15.67px; color: #8e8e8e">物联网</a> <a href="/tags/%E8%AE%A4%E8%AF%81%E6%9C%BA%E5%88%B6/" style="font-size: 14px; color: #999">认证机制</a> <a href="/tags/%E8%B7%AF%E7%94%B1%E5%99%A8/" style="font-size: 14px; color: #999">路由器</a> <a href="/tags/%E9%98%9F%E5%88%97/" style="font-size: 14px; color: #999">队列</a> <a href="/tags/%E9%9B%86%E5%90%88/" style="font-size: 14px; color: #999">集合</a> <a href="/tags/%E9%AD%85%E8%93%9DNote5/" style="font-size: 14px; color: #999">魅蓝Note5</a>
     </div>
   </section>
 

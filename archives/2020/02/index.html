@@ -385,78 +385,7 @@
   
   <div class='md'>
     
-      <h1 id="ElasticSearch-上"><a href="#ElasticSearch-上" class="headerlink" title="ElasticSearch-上"></a>ElasticSearch-上</h1><p>Elaticsearch，简称为es， es是一个开源的高扩展的分布式全文检索引擎，它可以近乎实时的存储、检索数据；本 身扩展性很好，可以扩展到上百台服务器，处理PB级别的数据。es也使用Java开发并使用Lucene作为其核心来实 现所有索引和搜索的功能，但是它的目的是通过简单的RESTful API来隐藏Lucene的复杂性，从而让全文搜索变得 简单。</p>
-<h2 id="1-使用ES"><a href="#1-使用ES" class="headerlink" title="1. 使用ES"></a>1. 使用ES</h2><ol>
-<li><p>官网 <a target="_blank" rel="noopener" href="https://www.elastic.co/products/elasticsearch">https://www.elastic.co/products/elasticsearch</a></p>
-</li>
-<li><p>解压ES压缩包</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">bin		<span class="comment"># 可执行二进制文件</span></span><br><span class="line">config	<span class="comment"># 配置信息目录</span></span><br><span class="line">lib		<span class="comment"># jar包存放目录</span></span><br><span class="line">logs	<span class="comment"># 日志存放目录</span></span><br><span class="line">modules	<span class="comment"># 模块存放目录</span></span><br><span class="line">plugins	<span class="comment"># 插件安装目录</span></span><br><span class="line">.....</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>启动ES访问</p>
-<p>Windows：elasticsearch.bat</p>
-<p>Linux：elasticsearch.sh</p>
-</li>
-<li><p>启动ES之后</p>
-<p>9300端口：es的tcp通讯端口，集群间和TCPClient都执行该端口。</p>
-<p>9200端口：http协议的RESTful接口。</p>
-<blockquote>
-<p>打开ES之后，在浏览器中访问127.0.0.1:9200，出现下面结果即表示启动成功。</p>
-</blockquote>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">&quot;name&quot;</span>: <span class="string">&quot;4R2QZyN&quot;</span>,</span><br><span class="line">  <span class="attr">&quot;cluster_name&quot;</span>: <span class="string">&quot;elasticsearch&quot;</span>,</span><br><span class="line">  <span class="attr">&quot;cluster_uuid&quot;</span>: <span class="string">&quot;YQsfD7T8TgmT4tQf2RkEhQ&quot;</span>,</span><br><span class="line">  <span class="attr">&quot;version&quot;</span>: &#123;</span><br><span class="line">    <span class="attr">&quot;number&quot;</span>: <span class="string">&quot;5.6.8&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;build_hash&quot;</span>: <span class="string">&quot;688ecce&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;build_date&quot;</span>: <span class="string">&quot;2018-02-16T16:46:30.010Z&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;build_snapshot&quot;</span>: <span class="literal">false</span>,</span><br><span class="line">    <span class="attr">&quot;lucene_version&quot;</span>: <span class="string">&quot;6.6.1&quot;</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">&quot;tagline&quot;</span>: <span class="string">&quot;You Know, for Search&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-</li>
-</ol>
-<h2 id="2-使用ES可视化插件"><a href="#2-使用ES可视化插件" class="headerlink" title="2. 使用ES可视化插件"></a>2. 使用ES可视化插件</h2><ol>
-<li><p>下载head插件</p>
-<p><a target="_blank" rel="noopener" href="https://github.com/mobz/elasticsearch-head">https://github.com/mobz/elasticsearch-head</a></p>
-</li>
-<li><p>解压缩软件</p>
-</li>
-<li><p>下载安装nodejs</p>
-<p><a target="_blank" rel="noopener" href="https://nodejs.org/zh-cn/">https://nodejs.org/zh-cn/</a> </p>
-</li>
-<li><p>使用npm安装工具</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 安装grunt</span></span><br><span class="line">npm install -g grunt-cli</span><br><span class="line"><span class="meta">#</span><span class="bash"> 在解压后的header根目录执行下面命令，启动head</span></span><br><span class="line">npm install</span><br><span class="line">grunt server</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>访问测试</p>
-<p>浏览器中输入：<a href="http://localhost:9100测试">http://localhost:9100测试</a></p>
-</li>
-<li><p>配置es的config文件下yml配置文件配置跨域</p>
-<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">http.cors.enabled:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">http.cors.allow-origin:</span> <span class="string">&quot;*&quot;</span></span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>重启ES</p>
-</blockquote>
-</li>
-</ol>
-<h2 id="3-ES中的术语"><a href="#3-ES中的术语" class="headerlink" title="3. ES中的术语"></a>3. ES中的术语</h2><ol>
-<li><p>概述</p>
-<p>ES是面向文档（Document）的，可以存储整个对象或者文档。然而他不仅存储，还可以索引每个文档的内容，使之可以被搜索。在ES中，你可以对文档进行索引、搜索、排序、过滤。</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> ES对比传统关系型数据库</span></span><br><span class="line">关系型数据库  --&gt;Databases   ---&gt;Tables    ---&gt;Rows      ---&gt;Colums</span><br><span class="line">   ES       --&gt;Indices     ---&gt;Types     ---&gt;Documents ---&gt;Fields</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>ES核心概念</p>
-<p><strong>索引Index</strong>：</p>
-<p>​    一个索引就是一个拥有几分相似特征的文档的集合。比如说，你可以有一个客户数据的索引，另一个产品目录的索 引，还有一个订单数据的索引。一个索引由一个名字来标识（必须全部是小写字母的），并且当我们要对对应于这 个索引中的文档进行索引、搜索、更新和删除的时候，都要使用到这个名字。在一个集群中，可以定义任意多的索 引。 </p>
-<p><strong>类型Type</strong>：</p>
-<p>​    在一个索引中，你可以定义一种或多种类型。一个类型是你的索引的一个逻辑上的分类/分区，其语义完全由你来 定。通常，会为具有一组共同字段的文档定义一个类型。比如说，我们假设你运营一个博客平台并且将你所有的数 据存储到一个索引中。在这个索引中，你可以为用户数据定义一个类型，为博客数据定义另一个类型，当然，也可 以为评论数据定义另一个类型。 </p>
-<p><strong>字段Field</strong>：</p>
-<p>​    相当于是数据表的字段，对文档数据根据不同属性进行的分类标识 </p>
-<p><strong>映射mapping</strong>：</p>
-<p>​    mapping是处理数据的方式和规则方面做一些限制，如某个字段的数据类型、默认值、分析器、是否被索引等等， 这些都是映射里面可以设置的，其它就是处理es里面数据的一些使用规则设置也叫做映射，按着最优规则处理数据 对性能提高很大，因此才需要建立映射，并且需要思考如何建立映射才能对性能更好。 </p>
-<p><strong>文档document</strong>：</p>
-<p>​    一个文档是一个可被索引的基础信息单元。比如，你可以拥有某一个客户的文档，某一个产品的一个文档，当然， 也可以拥有某个订单的一个文档。文档以JSON（Javascript Object Notation）格式来表示，而JSON是一个到处存 在的互联网数据交互格式。<br>​    在一个index/type里面，你可以存储任意多的文档。注意，尽管一个文档，物理上存在于一个索引之中，文档必须 被索引/赋予一个索引的type。 </p>
-<p><strong>接近实时NRT</strong>：</p>
-<p>​    Elasticsearch是一个接近实时的搜索平台。这意味着，从索引一个文档直到这个文档能够被搜索到有一个轻微的延 迟（通常是1秒以内） </p>
-<p><strong>集群cluster</strong>：</p>
-<p>​    一个集群就是由一个或多个节点组织在一起，它们共同持有整个的数据，并一起提供索引和搜索功能。一个集群由 一个唯一的名字标识，这个名字默认就是“elasticsearch”。这个名字是重要的，因为一个节点只能通过指定某个集 群的名字，来加入这个集群 </p>
-<p><strong>节点node</strong>：</p>
-<p>​    一个节点是集群中的一个服务器，作为集群的一部分，它存储数据，参与集群的索引和搜索功能。</p>
-<p><strong>分片和复制 shards&amp;replicas</strong>：</p>
-<p>​    一个索引可以存储超出单个结点硬件限制的大量数据。比如，一个具有10亿文档的索引占据1TB的磁盘空间，而任 一节点都没有这样大的磁盘空间；或者单个节点处理搜索请求，响应太慢。为了解决这个问题，Elasticsearch提供 了将索引划分成多份的能力，这些份就叫做分片。当你创建一个索引的时候，你可以指定你想要的分片的数量。每 个分片本身也是一个功能完善并且独立的“索引”，这个“索引”可以被放置到集群中的任何节点上。分片很重要，主 要有两方面的原因： 1）允许你水平分割/扩展你的内容容量。 2）允许你在分片（潜在地，位于多个节点上）之上 进行分布式的、并行的操作，进而提高性能/吞吐量。 </p>
-<p>​    在一个网络/云的环境里，失败随时都可能发生，在某个分片/节点不知怎么的就处于离线状态，或者由于任何原因 消失了，这种情况下，有一个故障转移机制是非常有用并且是强烈推荐的。为此目的，Elasticsearch允许你创建分 片的一份或多份拷贝，这些拷贝叫做复制分片，或者直接叫复制。</p>
-</li>
-</ol>
-<h2 id="4-ES的客户端操作"><a href="#4-ES的客户端操作" class="headerlink" title="4. ES的客户端操作"></a>4. ES的客户端操作</h2><p>操作的三种方式【在postman下测试】</p>
+      <p>Elaticsearch，简称为es， es是一个开源的高扩展的分布式全文检索引擎，它可以近乎实时的存储、检索数据；本 身扩展性很好，可以扩展到上百台服务器，处理PB级别的数据。es也使用Java开发并使用Lucene作为其核心来实 现所有索引和搜索的功能，但是它的目的是通过简单的RESTful API来隐藏Lucene的复杂性，从而让全文搜索变得 简单。</p>
     
   </div>
   
@@ -466,7 +395,7 @@
         <time>2020-02-27</time>
         
           <span class="dot"></span>
-          <a class="category-link" href="/categories/Java/">Java</a>
+          <a class="category-link" href="/categories/%E7%90%86%E8%AE%BA%E5%AD%A6%E4%B9%A0/">理论学习</a>
         
       </div>
       
@@ -500,61 +429,7 @@
   
   <div class='md'>
     
-      <h1 id="Spring-Security简单使用"><a href="#Spring-Security简单使用" class="headerlink" title="Spring-Security简单使用"></a>Spring-Security简单使用</h1><h2 id="1-简介"><a href="#1-简介" class="headerlink" title="1.简介"></a>1.简介</h2><p>Spring Security是一个功能强大且高度可定制的身份验证和访问控制框架。它是保护基于spring的应用程序的实际标准。</p>
-<p>Spring Security是一个框架，侧重于为Java应用程序提供身份验证和授权。与所有Spring项目一样，Spring安全性的真正强大之处在于它很容易扩展以满足定制需求</p>
-<h2 id="2-快速入门"><a href="#2-快速入门" class="headerlink" title="2. 快速入门"></a>2. 快速入门</h2><ol>
-<li><p>导入SpringSecurity依赖</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--其他所需依赖--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.security<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-security-web<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;spring.security.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.security<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-security-config<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;spring.security.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>在web配置文件中添加过滤器</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">	<span class="comment">&lt;!--.........--&gt;</span></span><br><span class="line">	<span class="comment">&lt;!--添加spring-security配置文件的解析--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">context-param</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">param-name</span>&gt;</span>contextConfigLocation<span class="tag">&lt;/<span class="name">param-name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">param-value</span>&gt;</span>classpath:spring-security.xml<span class="tag">&lt;/<span class="name">param-value</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">context-param</span>&gt;</span></span><br><span class="line"> 	<span class="comment">&lt;!--.........--&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--添加spring-security所需的过滤器--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">filter</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">filter-name</span>&gt;</span>springSecurityFilterChain<span class="tag">&lt;/<span class="name">filter-name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">filter-class</span>&gt;</span>org.springframework.web.filter.DelegatingFilterProxy<span class="tag">&lt;/<span class="name">filter-class</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">filter</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">filter-mapping</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">filter-name</span>&gt;</span>springSecurityFilterChain<span class="tag">&lt;/<span class="name">filter-name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">url-pattern</span>&gt;</span>/*<span class="tag">&lt;/<span class="name">url-pattern</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">filter-mapping</span>&gt;</span></span><br><span class="line">   <span class="comment">&lt;!--.........--&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">web-app</span>&gt;</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>配置spring-security</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">beans</span> <span class="attr">xmlns</span>=<span class="string">&quot;http://www.springframework.org/schema/beans&quot;</span></span></span><br><span class="line"><span class="tag">       <span class="attr">xmlns:security</span>=<span class="string">&quot;http://www.springframework.org/schema/security&quot;</span></span></span><br><span class="line"><span class="tag">       <span class="attr">xmlns:xsi</span>=<span class="string">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span></span></span><br><span class="line"><span class="tag">       <span class="attr">xsi:schemaLocation</span>=<span class="string">&quot;http://www.springframework.org/schema/beans</span></span></span><br><span class="line"><span class="tag"><span class="string">          http://www.springframework.org/schema/beans/spring-beans.xsd</span></span></span><br><span class="line"><span class="tag"><span class="string">          http://www.springframework.org/schema/security</span></span></span><br><span class="line"><span class="tag"><span class="string">          http://www.springframework.org/schema/security/spring-security.xsd&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- 配置不过滤的资源（静态资源及登录相关） --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">security:http</span> <span class="attr">security</span>=<span class="string">&quot;none&quot;</span> <span class="attr">pattern</span>=<span class="string">&quot;/login.html&quot;</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">security:http</span> <span class="attr">security</span>=<span class="string">&quot;none&quot;</span> <span class="attr">pattern</span>=<span class="string">&quot;/failer.html&quot;</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">security:http</span> <span class="attr">auto-config</span>=<span class="string">&quot;true&quot;</span> <span class="attr">use-expressions</span>=<span class="string">&quot;false&quot;</span> &gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- 对所有的路径进行权限控制，只允许ROLE_USER可以访问 --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">security:intercept-url</span> <span class="attr">pattern</span>=<span class="string">&quot;/**&quot;</span> <span class="attr">access</span>=<span class="string">&quot;ROLE_USER&quot;</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">security:logout</span> <span class="attr">invalidate-session</span>=<span class="string">&quot;true&quot;</span> <span class="attr">logout-url</span>=<span class="string">&quot;/logout&quot;</span></span></span><br><span class="line"><span class="tag">                         <span class="attr">logout-success-url</span>=<span class="string">&quot;/login.jsp&quot;</span> /&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- 关闭CSRF,默认是开启的 --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">security:csrf</span> <span class="attr">disabled</span>=<span class="string">&quot;true&quot;</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">security:http</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--静态配置认证的用户及密码--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">security:authentication-manager</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">security:authentication-provider</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">security:user-service</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">security:user</span> <span class="attr">name</span>=<span class="string">&quot;user&quot;</span> <span class="attr">password</span>=<span class="string">&quot;&#123;noop&#125;user&quot;</span></span></span><br><span class="line"><span class="tag">                               <span class="attr">authorities</span>=<span class="string">&quot;ROLE_USER&quot;</span> /&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">security:user</span> <span class="attr">name</span>=<span class="string">&quot;admin&quot;</span> <span class="attr">password</span>=<span class="string">&quot;&#123;noop&#125;admin&quot;</span></span></span><br><span class="line"><span class="tag">                               <span class="attr">authorities</span>=<span class="string">&quot;ROLE_ADMIN&quot;</span> /&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">security:user-service</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">security:authentication-provider</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">security:authentication-manager</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">beans</span>&gt;</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>运行Maven工程</p>
-<p>运行工程时，首先会弹出一个要求输入用户名和密码的页面，这是spring-security为我们提供的默认的登录页面，当我们没有指定登录页面时会使用该页面。</p>
-<p>输入用户名：admin，密码：admin时，会提示403，表示权限不足，这是因为上面配置的access角色需要是ROLE_USER</p>
-<p>输入用户名：user，密码：user时，可以正常登录。</p>
-<p>输入错误的用户名或者密码时，会提示账号或者密码错误信息。</p>
-</li>
-</ol>
-<h2 id="3-实战【ssm权限管理系统】"><a href="#3-实战【ssm权限管理系统】" class="headerlink" title="3. 实战【ssm权限管理系统】"></a>3. 实战【ssm权限管理系统】</h2><ol>
-<li><p>导入依赖</p>
-</li>
-<li><p>web配置文件中配置过滤器、spring-security的配置文件解析</p>
-</li>
-<li><p>配置spring-security</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">beans</span> <span class="attr">xmlns</span>=<span class="string">&quot;http://www.springframework.org/schema/beans&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">xmlns:security</span>=<span class="string">&quot;http://www.springframework.org/schema/security&quot;</span></span></span><br><span class="line"><span class="tag">       <span class="attr">xmlns:xsi</span>=<span class="string">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span></span></span><br><span class="line"><span class="tag">       <span class="attr">xsi:schemaLocation</span>=<span class="string">&quot;http://www.springframework.org/schema/beans</span></span></span><br><span class="line"><span class="tag"><span class="string">          http://www.springframework.org/schema/beans/spring-beans.xsd</span></span></span><br><span class="line"><span class="tag"><span class="string">          http://www.springframework.org/schema/security</span></span></span><br><span class="line"><span class="tag"><span class="string">          http://www.springframework.org/schema/security/spring-security.xsd&quot;</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--配置不拦截的资源--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">security:http</span> <span class="attr">pattern</span>=<span class="string">&quot;/login.jsp&quot;</span> <span class="attr">security</span>=<span class="string">&quot;none&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">security:http</span> <span class="attr">pattern</span>=<span class="string">&quot;/failer.jsp&quot;</span> <span class="attr">security</span>=<span class="string">&quot;none&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">security:http</span> <span class="attr">pattern</span>=<span class="string">&quot;/css/**&quot;</span> <span class="attr">security</span>=<span class="string">&quot;none&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">security:http</span> <span class="attr">pattern</span>=<span class="string">&quot;/img/**&quot;</span> <span class="attr">security</span>=<span class="string">&quot;none&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">security:http</span> <span class="attr">pattern</span>=<span class="string">&quot;/plugins/**&quot;</span> <span class="attr">security</span>=<span class="string">&quot;none&quot;</span>/&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!--配置具体--&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--配值是否使用默认登录页面、不使用sepl表达式--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">security:http</span> <span class="attr">auto-config</span>=<span class="string">&quot;true&quot;</span> <span class="attr">use-expressions</span>=<span class="string">&quot;false&quot;</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!--配置拦截地址、可访问的角色--&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">security:intercept-url</span> <span class="attr">pattern</span>=<span class="string">&quot;/**&quot;</span> <span class="attr">access</span>=<span class="string">&quot;ROLE_USER,ROLE_ADMIN&quot;</span>/&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">&lt;!--定义跳转页面--&gt;</span></span><br><span class="line">        <span class="comment">&lt;!--</span></span><br><span class="line"><span class="comment">            login-page=&quot;/login.jsp&quot;    指定默认的登录页面</span></span><br><span class="line"><span class="comment">            login-processing-url=&quot;/login&quot;   指定登录页面登录的处理方法</span></span><br><span class="line"><span class="comment">            default-target-url=&quot;index.jsp&quot;</span></span><br><span class="line"><span class="comment">            authentication-failure-url=&quot;/failer.jsp&quot;    指定失败跳转页面</span></span><br><span class="line"><span class="comment">            authentication-success-forward-url=&quot;/pages/main.jsp&quot;    指定成功跳转页面</span></span><br><span class="line"><span class="comment">        --&gt;</span></span><br><span class="line">        &lt;security:form-login</span><br><span class="line">                login-page=&quot;/login.jsp&quot;</span><br><span class="line">                login-processing-url=&quot;/login&quot;</span><br><span class="line">                default-target-url=&quot;/index.jsp&quot;</span><br><span class="line">                authentication-failure-url=&quot;/failer.jsp&quot;</span><br><span class="line">                authentication-success-forward-url=&quot;/pages/main.jsp&quot;</span><br><span class="line">        /&gt;</span><br><span class="line"></span><br><span class="line">        <span class="comment">&lt;!--关闭跨越请求--&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">security:csrf</span> <span class="attr">disabled</span>=<span class="string">&quot;true&quot;</span>/&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- 指定退出 --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">security:logout</span> <span class="attr">invalidate-session</span>=<span class="string">&quot;true&quot;</span> <span class="attr">logout-url</span>=<span class="string">&quot;/logout&quot;</span> <span class="attr">logout-success-url</span>=<span class="string">&quot;/login.jsp&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">security:http</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!--数据库方式验证--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">security:authentication-manager</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">security:authentication-provider</span> <span class="attr">user-service-ref</span>=<span class="string">&quot;userLoginServiceImpl&quot;</span>&gt;</span></span><br><span class="line">            <span class="comment">&lt;!--配置加密方式--&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">security:authentication-provider</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">security:authentication-manager</span>&gt;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">beans</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>配置不过滤的元素</p>
-<p>配置可以访问的角色</p>
-<p>配置登录页面、处理登录请求的方法，处理登录成功、登录失败跳转的页面等</p>
-<p>配置处理请求的服务</p>
-</blockquote>
-</li>
-<li><p>将登陆请求的url指向前面定义的<code> login-processing-url</code>参数</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">form</span> <span class="attr">action</span>=<span class="string">&quot;/login&quot;</span> <span class="attr">method</span>=<span class="string">&quot;post&quot;</span>&gt;</span></span><br><span class="line">     <span class="comment">&lt;!--省略....--&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>创建处理登录请求的接口</p>
-<blockquote>
-<p>创建UserLoginService继承继承自UserDtailsService接口</p>
-</blockquote>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">UserLoginService</span> <span class="keyword">extends</span> <span class="title">UserDetailsService</span> </span>&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>创建UserLoginService的实体类并重写方法</p>
-</blockquote>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Service(&quot;userLoginServiceImpl&quot;)</span></span><br><span class="line"><span class="meta">@Transactional</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserLoginServiceImpl</span> <span class="keyword">implements</span> <span class="title">UserLoginService</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> UserDao userDao;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> UserDetails <span class="title">loadUserByUsername</span><span class="params">(String username)</span> <span class="keyword">throws</span> UsernameNotFoundException </span>&#123;</span><br><span class="line">        System.out.println(username);</span><br><span class="line">        UserInfo userInfo = userDao.findUserByUsername(username);</span><br><span class="line">        System.out.println(userInfo);</span><br><span class="line">        List&lt;Role&gt; roles = userInfo.getRoles();</span><br><span class="line">        System.out.println(userInfo);</span><br><span class="line">        List&lt;SimpleGrantedAuthority&gt; authorities = getAuthority(roles);</span><br><span class="line">        User user = <span class="keyword">new</span> User(userInfo.getUsername(),<span class="string">&quot;&#123;noop&#125;&quot;</span>+userInfo.getPassword(),<span class="keyword">true</span>,<span class="keyword">true</span>,<span class="keyword">true</span>,<span class="keyword">true</span>,authorities);</span><br><span class="line">        <span class="keyword">return</span> user;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">private</span> List&lt;SimpleGrantedAuthority&gt; <span class="title">getAuthority</span><span class="params">(List&lt;Role&gt; roles)</span></span>&#123;</span><br><span class="line">        List&lt;SimpleGrantedAuthority&gt; authorities = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        <span class="keyword">for</span> (Role role : roles) &#123;</span><br><span class="line">            authorities.add(<span class="keyword">new</span> SimpleGrantedAuthority(<span class="string">&quot;ROLE_&quot;</span>+role.getRoleName()));</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> authorities;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>实战总结</p>
-<p>【依赖以及web配置文件的配置】较为固定没有什么难度，不过给过滤器定义名称时要注意。</p>
-<p>【Spring-security配置文件配置】根据需求定义访问的角色、结束登录请求的地址，登录的挑战等。</p>
-<p>【接口的继承以及实现】记住要实现的接口，以及实现类实现方法的含义。</p>
-</li>
-</ol>
-
+      <p>Spring-Security是Spring家族的重要一员。</p>
     
   </div>
   
@@ -564,7 +439,7 @@
         <time>2020-02-16</time>
         
           <span class="dot"></span>
-          <a class="category-link" href="/categories/Java/">Java</a>
+          <a class="category-link" href="/categories/%E7%90%86%E8%AE%BA%E5%AD%A6%E4%B9%A0/">理论学习</a>
         
       </div>
       
@@ -598,59 +473,7 @@
   
   <div class='md'>
     
-      <h1 id="PageHelper"><a href="#PageHelper" class="headerlink" title="PageHelper"></a>PageHelper</h1><h2 id="1-简介"><a href="#1-简介" class="headerlink" title="1. 简介"></a>1. 简介</h2><p>PageHelper是国内优秀的开源的mybatis分页插件，支持主流常用的数据库。</p>
-<p>【官网】<a target="_blank" rel="noopener" href="https://pagehelper.github.io/">https://pagehelper.github.io/</a></p>
-<h2 id="2-使用方法【Maven】"><a href="#2-使用方法【Maven】" class="headerlink" title="2. 使用方法【Maven】"></a>2. 使用方法【Maven】</h2><ol>
-<li><p>导入依赖</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.github.pagehelper<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>pagehelper<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>最新版本<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-
-
-</li>
-</ol>
-<ol start="2">
-<li><p>配置拦截器插件</p>
-<p>特别注意，新版拦截器是 <code>com.github.pagehelper.PageInterceptor</code>。 <code>com.github.pagehelper.PageHelper</code> 现在是一个特殊的 <code>dialect</code> 实现类，是分页插件的默认实现类，提供了和以前相同的用法。</p>
-</li>
-<li><p>mybatis中xml配置</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--</span></span><br><span class="line"><span class="comment">    plugins在配置文件中的位置必须符合要求，否则会报错，顺序如下:</span></span><br><span class="line"><span class="comment">    properties?, settings?,</span></span><br><span class="line"><span class="comment">    typeAliases?, typeHandlers?,</span></span><br><span class="line"><span class="comment">    objectFactory?,objectWrapperFactory?,</span></span><br><span class="line"><span class="comment">    plugins?,</span></span><br><span class="line"><span class="comment">    environments?, databaseIdProvider?, mappers?</span></span><br><span class="line"><span class="comment">--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">plugins</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- com.github.pagehelper为PageHelper类所在包名 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">plugin</span> <span class="attr">interceptor</span>=<span class="string">&quot;com.github.pagehelper.PageInterceptor&quot;</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- 使用下面的方式配置参数，后面会有所有的参数介绍 --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;param1&quot;</span> <span class="attr">value</span>=<span class="string">&quot;value1&quot;</span>/&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">plugins</span>&gt;</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>spring配置文件中配置拦截器插件</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">&quot;sqlSessionFactory&quot;</span> <span class="attr">class</span>=<span class="string">&quot;org.mybatis.spring.SqlSessionFactoryBean&quot;</span>&gt;</span></span><br><span class="line">  <span class="comment">&lt;!-- 注意其他配置 --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;plugins&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">array</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">bean</span> <span class="attr">class</span>=<span class="string">&quot;com.github.pagehelper.PageInterceptor&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;properties&quot;</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">value</span>&gt;</span></span><br><span class="line">            params=value1</span><br><span class="line">          <span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">array</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>常用的配置：</p>
-<ul>
-<li>helperDialect：指定数据库，例如MySQL、db2、oracle</li>
-<li>reasonable：分页合理化参数，默认值为 false 。当该参数设置为 true 时， pageNum&lt;=0 时会查询第一 页， pageNum&gt;pages （超过总数时），会查询最后一页。</li>
-</ul>
-</li>
-<li><p>常用方法</p>
-<p><strong>RowBounds方式的调用</strong></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">List&lt;Country&gt; list = sqlSession.selectList(<span class="string">&quot;x.y.selectIf&quot;</span>, <span class="keyword">null</span>, <span class="keyword">new</span> RowBounds(<span class="number">0</span>, <span class="number">10</span>));</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><p>使用这种调用方式时，你可以使用RowBounds参数进行分页，这种方式侵入性最小，我们可以看到，通过RowBounds方式调用只是使用了这个参数，并没有增加其他任何内容。</p>
-</li>
-<li><p>分页插件检测到使用了RowBounds参数时，就会对该查询进行<strong>物理分页</strong>。</p>
-</li>
-<li><p>关于这种方式的调用，有两个特殊的参数是针对 <code>RowBounds</code> 的，你可以参看上面的 <strong>场景一</strong> 和 <strong>场景二</strong></p>
-</li>
-<li><p><strong>注：</strong>不只有命名空间方式可以用RowBounds，使用接口的时候也可以增加RowBounds参数，例如： </p>
-</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//这种情况下也会进行物理分页查询</span></span><br><span class="line"><span class="function">List&lt;Country&gt; <span class="title">selectAll</span><span class="params">(RowBounds rowBounds)</span></span>;  </span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><strong>注意：</strong> 由于默认情况下的 <code>RowBounds</code> 无法获取查询总数，分页插件提供了一个继承自 <code>RowBounds</code> 的 <code>PageRowBounds</code>，这个对象中增加了 <code>total</code> 属性，执行分页查询后，可以从该属性得到查询总数。</li>
-</ul>
-</li>
-</ol>
-<p>   <strong>PageHelper.startPage静态方法调用【重点】</strong></p>
-   <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//获取第1页，10条内容，默认查询总数</span></span><br><span class="line">count PageHelper.startPage(<span class="number">1</span>, <span class="number">10</span>); </span><br><span class="line"><span class="comment">//紧跟着的第一个select方法会被分页</span></span><br><span class="line">List&lt;Country&gt; list = countryMapper.selectIf(<span class="number">1</span>);</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>在你需要进行分页的 MyBatis 查询方法前调用 <code>PageHelper.startPage</code> 静态方法即可，紧跟在这个方法后的第一个<strong>MyBatis 查询方法</strong>会被进行分页。</li>
-</ul>
+      <p>分页插件，可以帮助我们简化分页的逻辑。</p>
     
   </div>
   
@@ -660,7 +483,7 @@
         <time>2020-02-13</time>
         
           <span class="dot"></span>
-          <a class="category-link" href="/categories/Java/">Java</a>
+          <a class="category-link" href="/categories/%E7%90%86%E8%AE%BA%E5%AD%A6%E4%B9%A0/">理论学习</a>
         
       </div>
       
@@ -694,14 +517,7 @@
   
   <div class='md'>
     
-      <h1 id="2019"><a href="#2019" class="headerlink" title="2019"></a>2019</h1><h2 id="迟到的2019总结"><a href="#迟到的2019总结" class="headerlink" title="迟到的2019总结"></a>迟到的2019总结</h2><p>​    正月初九是家乡的年例，但是因为肺炎的原因，本应该是一年中最热闹的一天，在今年却显得格外冷清，希望国家早日战胜这场无硝烟的战役。</p>
-<p>​    年总结很早就想写了，但是身患重度拖延症的我通过一次一次的借口，成功骗了自己一次又一次，由于今年年例格外冷清（写代码写腻了），趁此机会回顾一下这一年自己发生的事。</p>
-<p>​    首先，在2019年中对我自己大学、乃至接下来的人生轨迹影响最大的莫过于<strong>转专业</strong>成功了。2019.1.25日，我通转专业查询，确认了自己转入了目标的专业，而我的故事也由材料院转到了计科院。作为一个重度的计算机爱好者，从初一有了人生中第一台amd的512MB内存的台式机，我便于计算机接下了梁子。而在初二时，更是无意中搞坏了当时的xp系统，懵懂的我通过wb了解到了可以通过启动盘修复。从此，我与计算机结下了更深的梁子【期间还手欠把CPU针脚弄坏】。也许正因为当时对计算机的喜爱，把学习的注意力转移了，我考大学时被调剂到了材料院。但也是因为对计算机的热爱，成为了我从成功转到计科院的动力。在大一上学期，和寝室的三个志同道合的老哥：基佬，腰缠万贯，大表哥，一起都顺利的转入了计科院。而有幸的是，现在我们仍然在一个寝室。</p>
-<p>​    【大一下】在转入计科院之后，我遇到了很多的新同学，也学习到了很多的新知识。受益于大一上学期的学习习惯，我和寝室的另外两位老哥组成的三剑客从一开始便包揽了教室的第一排，这使得我很快便可以跟上计科院的课程。也得益于在初中高中的计算机知识，我在转专业之后的一个学期内，基本把课程的跟上，即使可能很多专业知识于他们还相差甚远。在大一下期间，对我影响最大的莫过于：了解到别人的强大、认识到了自己的弱点。这个学期，随着对计算机专业知识的学习，发现自己在初中高中学习到的根本就是皮毛，人家通过大一的一学期，早已经远超出了我初中高中几个寒暑假的学习。于是，在大一下结束，我便开始了自己的留校计划。</p>
-<p>​    【暑假】大一下的程序设计综合实践做完后，我又搬起了自己曾无数次徘徊于基础中的基础–Java。得益于教程的优良以及寝室环境的优美，我利用暑假在校的一个月，成功超越了之前初高中无法逾越的壕沟。也这是这一个月，我也开始对自己的学习方式逐渐有了固定套路。在回家之后暑假，尽管经常要带带孩子、打打游戏，但还是保留了学习的习惯，而且效率也不算很低。总体来说，这是一个比较充实的暑假。</p>
-<p>​    【大二上】得益于暑假的学习，大二上的专业课并没有太大困难，这使得我可以花更多的时间在非专业课上，加上自己比较努力，学习上没有遇到很多问题。硬要说学习上有什么问题，那便是物理实验：课时占用多、上课时间反人类、选课反人类、考核反人类。但是总的来说大二上的学习并没有对我造成很大的困扰。</p>
-<p>​    然而，虽然学习上没有遇到很大问题，但在非学习上，我做出了很大的改变。首先就是我鼓起了勇气踏出了那一步，虽然以失败告终，而且也是意料之中，但这样我仍然花了大量时间才走出阴霾。再者，我加入了网信中心，在那里面，除了认识更多的朋友，最重要的便是可以锻炼我的语言表达能力。总之、大二下对我非学习的影响是很大的。</p>
-<p>​    【最后】纵观这一年，也许是运气好，我在学习上没有很多的困扰，最起码没有挂科。在学习之外，我也收获到了很多，认识了自己的不足，也想着要改变。</p>
+      <p>​    正月初九是家乡的年例，但是因为肺炎的原因，本应该是一年中最热闹的一天，在今年却显得格外冷清，希望国家早日战胜这场无硝烟的战役。</p>
     
   </div>
   
@@ -711,7 +527,7 @@
         <time>2020-02-03</time>
         
           <span class="dot"></span>
-          <a class="category-link" href="/categories/%E7%9E%8E%E6%89%AF/">瞎扯</a>
+          <a class="category-link" href="/categories/%E6%9D%82%E4%B8%83%E6%9D%82%E5%85%AB/">杂七杂八</a>
         
       </div>
       
@@ -827,64 +643,24 @@
       <ul class="entry navigation">
         
           <li><a class="flat-box"
-            title="/categories/Hexo/" href="/categories/Hexo/"
-            id="categoriesHexo"
-            ><div class='name'>Hexo</div><div class='badge'>(2)</div></a></li>
+            title="/categories/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/" href="/categories/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/"
+            id="categoriesE5B7A5E585B7E4BDBFE794A8"
+            ><div class='name'>工具使用</div><div class='badge'>(5)</div></a></li>
         
           <li><a class="flat-box"
-            title="/categories/Intellij-Idea/" href="/categories/Intellij-Idea/"
-            id="categoriesIntellij-Idea"
-            ><div class='name'>Intellij Idea</div><div class='badge'>(1)</div></a></li>
+            title="/categories/%E6%8A%80%E6%9C%AF%E5%BA%94%E7%94%A8/" href="/categories/%E6%8A%80%E6%9C%AF%E5%BA%94%E7%94%A8/"
+            id="categoriesE68A80E69CAFE5BA94E794A8"
+            ><div class='name'>技术应用</div><div class='badge'>(3)</div></a></li>
         
           <li><a class="flat-box"
-            title="/categories/Java/" href="/categories/Java/"
-            id="categoriesJava"
-            ><div class='name'>Java</div><div class='badge'>(24)</div></a></li>
+            title="/categories/%E6%9D%82%E4%B8%83%E6%9D%82%E5%85%AB/" href="/categories/%E6%9D%82%E4%B8%83%E6%9D%82%E5%85%AB/"
+            id="categoriesE69D82E4B883E69D82E585AB"
+            ><div class='name'>杂七杂八</div><div class='badge'>(4)</div></a></li>
         
           <li><a class="flat-box"
-            title="/categories/Linux/" href="/categories/Linux/"
-            id="categoriesLinux"
-            ><div class='name'>Linux</div><div class='badge'>(1)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/git/" href="/categories/git/"
-            id="categoriesgit"
-            ><div class='name'>git</div><div class='badge'>(1)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/windows%E4%BD%BF%E7%94%A8/" href="/categories/windows%E4%BD%BF%E7%94%A8/"
-            id="categorieswindowsE4BDBFE794A8"
-            ><div class='name'>windows使用</div><div class='badge'>(1)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/%E6%89%8B%E6%9C%BA/" href="/categories/%E6%89%8B%E6%9C%BA/"
-            id="categoriesE6898BE69CBA"
-            ><div class='name'>手机</div><div class='badge'>(1)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/%E6%8A%80%E5%B7%A7/" href="/categories/%E6%8A%80%E5%B7%A7/"
-            id="categoriesE68A80E5B7A7"
-            ><div class='name'>技巧</div><div class='badge'>(1)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/"
-            id="categoriesE695B0E68DAEE5BA93"
-            ><div class='name'>数据库</div><div class='badge'>(7)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/%E7%89%A9%E8%81%94%E7%BD%91/" href="/categories/%E7%89%A9%E8%81%94%E7%BD%91/"
-            id="categoriesE789A9E88194E7BD91"
-            ><div class='name'>物联网</div><div class='badge'>(2)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/%E7%9E%8E%E6%89%AF/" href="/categories/%E7%9E%8E%E6%89%AF/"
-            id="categoriesE79E8EE689AF"
-            ><div class='name'>瞎扯</div><div class='badge'>(1)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/%E8%B7%AF%E7%94%B1%E5%99%A8/" href="/categories/%E8%B7%AF%E7%94%B1%E5%99%A8/"
-            id="categoriesE8B7AFE794B1E599A8"
-            ><div class='name'>路由器</div><div class='badge'>(1)</div></a></li>
+            title="/categories/%E7%90%86%E8%AE%BA%E5%AD%A6%E4%B9%A0/" href="/categories/%E7%90%86%E8%AE%BA%E5%AD%A6%E4%B9%A0/"
+            id="categoriesE79086E8AEBAE5ADA6E4B9A0"
+            ><div class='name'>理论学习</div><div class='badge'>(36)</div></a></li>
         
       </ul>
     </div>
@@ -908,7 +684,7 @@
 
 
     <div class='content'>
-      <a href="/tags/2019/" style="font-size: 14px; color: #999">2019</a> <a href="/tags/DHT11/" style="font-size: 14px; color: #999">DHT11</a> <a href="/tags/ElasticSearch/" style="font-size: 14px; color: #999">ElasticSearch</a> <a href="/tags/JDBC/" style="font-size: 14px; color: #999">JDBC</a> <a href="/tags/Java/" style="font-size: 22.33px; color: #606060">Java</a> <a href="/tags/Linux/" style="font-size: 14px; color: #999">Linux</a> <a href="/tags/MongoDB/" style="font-size: 14px; color: #999">MongoDB</a> <a href="/tags/MySQL/" style="font-size: 20.67px; color: #6c6c6c">MySQL</a> <a href="/tags/Mybatis/" style="font-size: 24px; color: #555">Mybatis</a> <a href="/tags/Oracle/" style="font-size: 15.67px; color: #8e8e8e">Oracle</a> <a href="/tags/Spring/" style="font-size: 17.33px; color: #828282">Spring</a> <a href="/tags/Spring-Security/" style="font-size: 14px; color: #999">Spring-Security</a> <a href="/tags/SpringMVC/" style="font-size: 17.33px; color: #828282">SpringMVC</a> <a href="/tags/Spring%E5%85%A8%E5%AE%B6%E6%A1%B6/" style="font-size: 14px; color: #999">Spring全家桶</a> <a href="/tags/docker/" style="font-size: 14px; color: #999">docker</a> <a href="/tags/git/" style="font-size: 14px; color: #999">git</a> <a href="/tags/gitHub/" style="font-size: 14px; color: #999">gitHub</a> <a href="/tags/githubpage/" style="font-size: 14px; color: #999">githubpage</a> <a href="/tags/hexo/" style="font-size: 15.67px; color: #8e8e8e">hexo</a> <a href="/tags/idea/" style="font-size: 14px; color: #999">idea</a> <a href="/tags/java/" style="font-size: 14px; color: #999">java</a> <a href="/tags/jdbc/" style="font-size: 15.67px; color: #8e8e8e">jdbc</a> <a href="/tags/mysql/" style="font-size: 14px; color: #999">mysql</a> <a href="/tags/root/" style="font-size: 14px; color: #999">root</a> <a href="/tags/token/" style="font-size: 14px; color: #999">token</a> <a href="/tags/win10/" style="font-size: 14px; color: #999">win10</a> <a href="/tags/%E5%85%A5%E9%97%A8/" style="font-size: 14px; color: #999">入门</a> <a href="/tags/%E5%88%86%E9%A1%B5%E6%8F%92%E4%BB%B6/" style="font-size: 14px; color: #999">分页插件</a> <a href="/tags/%E5%8D%95%E7%89%87%E6%9C%BA/" style="font-size: 14px; color: #999">单片机</a> <a href="/tags/%E5%8F%8D%E5%B0%84/" style="font-size: 17.33px; color: #828282">反射</a> <a href="/tags/%E5%9F%9F%E5%90%8D%E7%BB%91%E5%AE%9A/" style="font-size: 14px; color: #999">域名绑定</a> <a href="/tags/%E5%A4%8D%E4%B9%A0/" style="font-size: 19px; color: #777">复习</a> <a href="/tags/%E5%AE%B9%E5%99%A8%E6%8A%80%E6%9C%AF/" style="font-size: 14px; color: #999">容器技术</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" style="font-size: 14px; color: #999">数据库</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" style="font-size: 15.67px; color: #8e8e8e">数据结构</a> <a href="/tags/%E6%95%B0%E7%BB%84/" style="font-size: 14px; color: #999">数组</a> <a href="/tags/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/" style="font-size: 14px; color: #999">文件上传</a> <a href="/tags/%E6%A0%88/" style="font-size: 14px; color: #999">栈</a> <a href="/tags/%E6%A0%91%E8%8E%93%E6%B4%BE/" style="font-size: 14px; color: #999">树莓派</a> <a href="/tags/%E6%A0%A1%E5%9B%AD%E5%AE%BD%E5%B8%A6/" style="font-size: 14px; color: #999">校园宽带</a> <a href="/tags/%E6%B3%A8%E8%A7%A3/" style="font-size: 14px; color: #999">注解</a> <a href="/tags/%E8%BF%9E%E6%8E%A5%E6%B1%A0/" style="font-size: 14px; color: #999">连接池</a> <a href="/tags/%E9%98%9F%E5%88%97/" style="font-size: 14px; color: #999">队列</a> <a href="/tags/%E9%9B%86%E5%90%88/" style="font-size: 14px; color: #999">集合</a> <a href="/tags/%E9%AD%85%E8%93%9DNote5/" style="font-size: 14px; color: #999">魅蓝Note5</a>
+      <a href="/tags/CentOS/" style="font-size: 14px; color: #999">CentOS</a> <a href="/tags/DHT11/" style="font-size: 14px; color: #999">DHT11</a> <a href="/tags/ElasticSearch/" style="font-size: 14px; color: #999">ElasticSearch</a> <a href="/tags/GitHub/" style="font-size: 14px; color: #999">GitHub</a> <a href="/tags/GithubPage/" style="font-size: 14px; color: #999">GithubPage</a> <a href="/tags/Hexo/" style="font-size: 15.67px; color: #8e8e8e">Hexo</a> <a href="/tags/Intellij-idea/" style="font-size: 14px; color: #999">Intellij idea</a> <a href="/tags/JDBC/" style="font-size: 17.33px; color: #828282">JDBC</a> <a href="/tags/Java/" style="font-size: 24px; color: #555">Java</a> <a href="/tags/Linux/" style="font-size: 14px; color: #999">Linux</a> <a href="/tags/MongoDB/" style="font-size: 14px; color: #999">MongoDB</a> <a href="/tags/MySQL/" style="font-size: 20.67px; color: #6c6c6c">MySQL</a> <a href="/tags/Mybatis/" style="font-size: 22.33px; color: #606060">Mybatis</a> <a href="/tags/Oracle/" style="font-size: 15.67px; color: #8e8e8e">Oracle</a> <a href="/tags/PageHelper/" style="font-size: 14px; color: #999">PageHelper</a> <a href="/tags/Spring/" style="font-size: 19px; color: #777">Spring</a> <a href="/tags/Spring-Security/" style="font-size: 14px; color: #999">Spring-Security</a> <a href="/tags/SpringBoot/" style="font-size: 14px; color: #999">SpringBoot</a> <a href="/tags/SpringMVC/" style="font-size: 17.33px; color: #828282">SpringMVC</a> <a href="/tags/Windows/" style="font-size: 14px; color: #999">Windows</a> <a href="/tags/docker/" style="font-size: 14px; color: #999">docker</a> <a href="/tags/git/" style="font-size: 14px; color: #999">git</a> <a href="/tags/jwt/" style="font-size: 14px; color: #999">jwt</a> <a href="/tags/root/" style="font-size: 14px; color: #999">root</a> <a href="/tags/%E5%85%A8%E6%96%87%E6%A3%80%E7%B4%A2/" style="font-size: 14px; color: #999">全文检索</a> <a href="/tags/%E5%88%86%E4%BA%AB/" style="font-size: 14px; color: #999">分享</a> <a href="/tags/%E5%8D%95%E7%89%87%E6%9C%BA/" style="font-size: 14px; color: #999">单片机</a> <a href="/tags/%E5%8F%8D%E5%B0%84/" style="font-size: 17.33px; color: #828282">反射</a> <a href="/tags/%E5%9F%9F%E5%90%8D%E7%BB%91%E5%AE%9A/" style="font-size: 14px; color: #999">域名绑定</a> <a href="/tags/%E5%AE%9E%E9%AA%8C/" style="font-size: 15.67px; color: #8e8e8e">实验</a> <a href="/tags/%E5%AE%B9%E5%99%A8%E6%8A%80%E6%9C%AF/" style="font-size: 14px; color: #999">容器技术</a> <a href="/tags/%E5%B0%8F%E7%A8%8B%E5%BA%8F/" style="font-size: 14px; color: #999">小程序</a> <a href="/tags/%E6%80%BB%E7%BB%93/" style="font-size: 14px; color: #999">总结</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93%E8%BF%9E%E6%8E%A5%E6%B1%A0/" style="font-size: 14px; color: #999">数据库连接池</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" style="font-size: 17.33px; color: #828282">数据结构</a> <a href="/tags/%E6%95%B0%E7%BB%84-Java/" style="font-size: 14px; color: #999">数组 - Java</a> <a href="/tags/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/" style="font-size: 14px; color: #999">文件上传</a> <a href="/tags/%E6%A0%88/" style="font-size: 14px; color: #999">栈</a> <a href="/tags/%E6%A0%91%E8%8E%93%E6%B4%BE/" style="font-size: 14px; color: #999">树莓派</a> <a href="/tags/%E6%A0%A1%E5%9B%AD%E5%AE%BD%E5%B8%A6/" style="font-size: 14px; color: #999">校园宽带</a> <a href="/tags/%E6%B3%A8%E8%A7%A3/" style="font-size: 14px; color: #999">注解</a> <a href="/tags/%E7%89%A9%E8%81%94%E7%BD%91/" style="font-size: 15.67px; color: #8e8e8e">物联网</a> <a href="/tags/%E8%AE%A4%E8%AF%81%E6%9C%BA%E5%88%B6/" style="font-size: 14px; color: #999">认证机制</a> <a href="/tags/%E8%B7%AF%E7%94%B1%E5%99%A8/" style="font-size: 14px; color: #999">路由器</a> <a href="/tags/%E9%98%9F%E5%88%97/" style="font-size: 14px; color: #999">队列</a> <a href="/tags/%E9%9B%86%E5%90%88/" style="font-size: 14px; color: #999">集合</a> <a href="/tags/%E9%AD%85%E8%93%9DNote5/" style="font-size: 14px; color: #999">魅蓝Note5</a>
     </div>
   </section>
 

@@ -21,17 +21,11 @@
   
   <title>GithubPage绑定域名问题 - tobing</title>
   
-    <meta name="keywords" content="hexo,githubpage,域名绑定">
+    <meta name="keywords" content="Hexo,GithubPage,域名绑定">
   
 
   
-    <meta name="description" content="1. 问题描述
-在每次使用hexo d推送文章到githubPage的时候，如果不配置，直接输入绑定的域名将无法访问。（404Error）
-
-2. 问题原因
-在每次hexo d 推送文章的时候。GithubPage仓库的CNAME文件都会被刷掉，导致githubpage认不出指定域名，不允许访问。
-
-3. 解决办...">
+    <meta name="description" content="在每次使用hexo d推送文章到githubPage的时候，如果不配置，直接输入绑定的域名将无法访问，本文将介绍如何解决这个问题。">
   
 
   <!-- feed -->
@@ -389,7 +383,7 @@
   <div class='new-meta-item category'>
     <a class='notlink'>
       <i class="fas fa-folder-open fa-fw" aria-hidden="true"></i>
-      <a class="category-link" href="/categories/Hexo/">Hexo</a>
+      <a class="category-link" href="/categories/%E6%9D%82%E4%B8%83%E6%9D%82%E5%85%AB/">杂七杂八</a>
     </a>
   </div>
 
@@ -428,7 +422,10 @@
 
 
   
-  <h3 id="1-问题描述"><a href="#1-问题描述" class="headerlink" title="1. 问题描述"></a>1. 问题描述</h3><ul>
+  <p>在每次使用<code>hexo d</code>推送文章到<code>githubPage</code>的时候，如果不配置，直接输入绑定的域名将无法访问，本文将介绍如何解决这个问题。</p>
+<a id="more"></a>
+
+<h3 id="1-问题描述"><a href="#1-问题描述" class="headerlink" title="1. 问题描述"></a>1. 问题描述</h3><ul>
 <li>在每次使用<code>hexo d</code>推送文章到<code>githubPage</code>的时候，如果不配置，直接输入绑定的域名将无法访问。（404Error）</li>
 </ul>
 <h3 id="2-问题原因"><a href="#2-问题原因" class="headerlink" title="2. 问题原因"></a>2. 问题原因</h3><ul>
@@ -476,10 +473,10 @@
     <div class='new-meta-box'>
       
         
-          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2019-10-03T11:04:00+08:00">
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-01-15T11:03:16+08:00">
   <a class='notlink'>
     <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
-    <p>更新于：Oct 3, 2019</p>
+    <p>更新于：Jan 15, 2021</p>
   </a>
 </div>
 
@@ -488,7 +485,7 @@
         
           
   
-  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/hexo/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>hexo</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/githubpage/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>githubpage</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/%E5%9F%9F%E5%90%8D%E7%BB%91%E5%AE%9A/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>域名绑定</p></a></div>
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/Hexo/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>Hexo</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/GithubPage/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>GithubPage</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/%E5%9F%9F%E5%90%8D%E7%BB%91%E5%AE%9A/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>域名绑定</p></a></div>
 
 
         
@@ -501,21 +498,7 @@
       
         <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer noopener"
           
-          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://tobing.top/2019/10/03/GithubPage%E7%BB%91%E5%AE%9A%E5%9F%9F%E5%90%8D%E9%97%AE%E9%A2%98/&title=GithubPage绑定域名问题 - tobing&summary=1. 问题描述
-在每次使用hexo d推送文章到githubPage的时候，如果不配置，直接输入绑定的域名将无法访问。（404Error）
-
-2. 问题原因
-在每次hexo d 推送文章的时候。GithubPage仓库的CNAME文件都会被刷掉，导致githubpage认不出指定域名，不允许访问。
-
-3. 解决办法
-在本地的source目录中添加CNAME，并且在其中输入你的域名（例如本站域名是tobing.top），不需要添加http协议前缀。（推荐使用该方法，一劳永逸）
-每次推送完毕之后，登录github到githubpage仓库的Settings中修改Github Pages的Custom domain为指定域名（格式同上）。（该方法每次推送都要设置，麻烦）
-
-
-总结
-在source目录添加CNAME文件，注意无后缀。编辑其内容为你的域名。
-
-"
+          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://tobing.top/2019/10/03/GithubPage%E7%BB%91%E5%AE%9A%E5%9F%9F%E5%90%8D%E9%97%AE%E9%A2%98/&title=GithubPage绑定域名问题 - tobing&summary=在每次使用hexo d推送文章到githubPage的时候，如果不配置，直接输入绑定的域名将无法访问，本文将介绍如何解决这个问题。"
           
           >
           
@@ -527,21 +510,7 @@
       
         <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer noopener"
           
-          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://tobing.top/2019/10/03/GithubPage%E7%BB%91%E5%AE%9A%E5%9F%9F%E5%90%8D%E9%97%AE%E9%A2%98/&title=GithubPage绑定域名问题 - tobing&summary=1. 问题描述
-在每次使用hexo d推送文章到githubPage的时候，如果不配置，直接输入绑定的域名将无法访问。（404Error）
-
-2. 问题原因
-在每次hexo d 推送文章的时候。GithubPage仓库的CNAME文件都会被刷掉，导致githubpage认不出指定域名，不允许访问。
-
-3. 解决办法
-在本地的source目录中添加CNAME，并且在其中输入你的域名（例如本站域名是tobing.top），不需要添加http协议前缀。（推荐使用该方法，一劳永逸）
-每次推送完毕之后，登录github到githubpage仓库的Settings中修改Github Pages的Custom domain为指定域名（格式同上）。（该方法每次推送都要设置，麻烦）
-
-
-总结
-在source目录添加CNAME文件，注意无后缀。编辑其内容为你的域名。
-
-"
+          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://tobing.top/2019/10/03/GithubPage%E7%BB%91%E5%AE%9A%E5%9F%9F%E5%90%8D%E9%97%AE%E9%A2%98/&title=GithubPage绑定域名问题 - tobing&summary=在每次使用hexo d推送文章到githubPage的时候，如果不配置，直接输入绑定的域名将无法访问，本文将介绍如何解决这个问题。"
           
           >
           
@@ -553,21 +522,7 @@
       
         <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer noopener"
           
-          target="_blank" href="http://service.weibo.com/share/share.php?url=https://tobing.top/2019/10/03/GithubPage%E7%BB%91%E5%AE%9A%E5%9F%9F%E5%90%8D%E9%97%AE%E9%A2%98/&title=GithubPage绑定域名问题 - tobing&summary=1. 问题描述
-在每次使用hexo d推送文章到githubPage的时候，如果不配置，直接输入绑定的域名将无法访问。（404Error）
-
-2. 问题原因
-在每次hexo d 推送文章的时候。GithubPage仓库的CNAME文件都会被刷掉，导致githubpage认不出指定域名，不允许访问。
-
-3. 解决办法
-在本地的source目录中添加CNAME，并且在其中输入你的域名（例如本站域名是tobing.top），不需要添加http协议前缀。（推荐使用该方法，一劳永逸）
-每次推送完毕之后，登录github到githubpage仓库的Settings中修改Github Pages的Custom domain为指定域名（格式同上）。（该方法每次推送都要设置，麻烦）
-
-
-总结
-在source目录添加CNAME文件，注意无后缀。编辑其内容为你的域名。
-
-"
+          target="_blank" href="http://service.weibo.com/share/share.php?url=https://tobing.top/2019/10/03/GithubPage%E7%BB%91%E5%AE%9A%E5%9F%9F%E5%90%8D%E9%97%AE%E9%A2%98/&title=GithubPage绑定域名问题 - tobing&summary=在每次使用hexo d推送文章到githubPage的时候，如果不配置，直接输入绑定的域名将无法访问，本文将介绍如何解决这个问题。"
           
           >
           
@@ -599,18 +554,21 @@
       
         <a class='prev' href='/2019/10/03/Idea-java-%E4%B8%8D%E6%94%AF%E6%8C%81%E5%8F%91%E8%A1%8C%E7%89%88%E6%9C%AC5/'>
           <p class='title'><i class="fas fa-chevron-left" aria-hidden="true"></i>Idea:java 不支持发行版本5</p>
-          <p class='content'>Intellij idea : java 不支持发行版本51. 问题描述
-在使用Intellij idea构建Maven工程的时候，运行报错Error : java 不支持发行版本5。
+          <p class='content'>在使用Intellij idea构建Maven工程的时候，运行报错Error : java 不支持发行版本5。本文针对该问题提出了几个解决方法。
 
-2. ...</p>
+
+Intellij idea : java 不...</p>
         </a>
       
       
         <a class='next' href='/2019/10/02/git%E7%9A%84%E5%85%A5%E9%97%A8%E4%BD%BF%E7%94%A8/'>
           <p class='title'>git的常用命令<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
-          <p class='content'>Git的常用命令1. 初始化仓库1$ git init # 初始化仓库
+          <p class='content'>git在日常开发必不可少，本文介绍了git常用命令。
 
-2. 添加修改到暂存区12$ git add [文件名] # 添加指定文件到暂存区$ git add *       #...</p>
+
+Git的常用命令1. 初始化仓库1$ git init # 初始化仓库
+
+2. 添加修改到暂存区12$ git add [文件名] # ...</p>
         </a>
       
     </div>

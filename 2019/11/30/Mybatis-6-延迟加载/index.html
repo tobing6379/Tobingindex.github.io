@@ -25,15 +25,7 @@
   
 
   
-    <meta name="description" content="Mybatis-6-延迟加载与缓存1. 延迟加载1. 什么是延迟加载
-
-延迟加载机制是为了避免一些无谓的性能开销而提出来的，所谓延迟加载就是当在真正需要数据的时候，才真正执行数据加载操作。
-延迟加载(lazy load)是(也称为懒加载)。
-
-
-2. 为什么要使用延迟加载
-
-实际开发中一张表往往关联着其他表，但每...">
+    <meta name="description" content="Mybatis学习第六弹。">
   
 
   <!-- feed -->
@@ -391,7 +383,7 @@
   <div class='new-meta-item category'>
     <a class='notlink'>
       <i class="fas fa-folder-open fa-fw" aria-hidden="true"></i>
-      <a class="category-link" href="/categories/Java/">Java</a>
+      <a class="category-link" href="/categories/%E7%90%86%E8%AE%BA%E5%AD%A6%E4%B9%A0/">理论学习</a>
     </a>
   </div>
 
@@ -430,7 +422,10 @@
 
 
   
-  <h1 id="Mybatis-6-延迟加载与缓存"><a href="#Mybatis-6-延迟加载与缓存" class="headerlink" title="Mybatis-6-延迟加载与缓存"></a>Mybatis-6-延迟加载与缓存</h1><h2 id="1-延迟加载"><a href="#1-延迟加载" class="headerlink" title="1. 延迟加载"></a>1. 延迟加载</h2><h3 id="1-什么是延迟加载"><a href="#1-什么是延迟加载" class="headerlink" title="1. 什么是延迟加载"></a>1. 什么是延迟加载</h3><blockquote>
+  <p>Mybatis学习第六弹。</p>
+<a id="more"></a>
+
+<h1 id="Mybatis-6-延迟加载与缓存"><a href="#Mybatis-6-延迟加载与缓存" class="headerlink" title="Mybatis-6-延迟加载与缓存"></a>Mybatis-6-延迟加载与缓存</h1><h2 id="1-延迟加载"><a href="#1-延迟加载" class="headerlink" title="1. 延迟加载"></a>1. 延迟加载</h2><h3 id="1-什么是延迟加载"><a href="#1-什么是延迟加载" class="headerlink" title="1. 什么是延迟加载"></a>1. 什么是延迟加载</h3><blockquote>
 <ol>
 <li>延迟加载机制是为了避免一些无谓的性能开销而提出来的，所谓延迟加载就是当在真正需要数据的时候，才真正执行数据加载操作。</li>
 <li>延迟加载(lazy load)是(也称为懒加载)。</li>
@@ -504,7 +499,7 @@
 <li>在Account的dao.xml配置返回值的时候将resultMap中的association添加select明确是使用延迟加载来查询User属性。</li>
 </ol>
 </blockquote>
-<p><img src="/images/Mybatis/my-6-1.png" class="lazyload" data-srcset="/images/Mybatis/my-6-1.png" srcset="data:image/png;base64,666" alt="延迟加载"></p>
+<p><img src="https://gitee.com/tobing/imagebed/raw/master/my-6-1.png" class="lazyload" data-srcset="https://gitee.com/tobing/imagebed/raw/master/my-6-1.png" srcset="data:image/png;base64,666" alt="延迟加载"></p>
 </li>
 <li><p>编码</p>
 <ol>
@@ -658,7 +653,7 @@
 </li>
 </ol>
 </blockquote>
-<p><img src="/images/Mybatis/my-6-2.png" class="lazyload" data-srcset="/images/Mybatis/my-6-2.png" srcset="data:image/png;base64,666" alt="缓存机制"></p>
+<p><img src="https://gitee.com/tobing/imagebed/raw/master/my-6-2.png" class="lazyload" data-srcset="https://gitee.com/tobing/imagebed/raw/master/my-6-2.png" srcset="data:image/png;base64,666" alt="缓存机制"></p>
 <h3 id="3-一级缓存"><a href="#3-一级缓存" class="headerlink" title="3. 一级缓存"></a>3. 一级缓存</h3><blockquote>
 <ul>
 <li><p>Mybatis中默认开启一级缓存</p>
@@ -790,10 +785,10 @@
     <div class='new-meta-box'>
       
         
-          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2019-11-30T21:22:22+08:00">
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-01-15T12:16:37+08:00">
   <a class='notlink'>
     <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
-    <p>更新于：Nov 30, 2019</p>
+    <p>更新于：Jan 15, 2021</p>
   </a>
 </div>
 
@@ -815,93 +810,7 @@
       
         <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer noopener"
           
-          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://tobing.top/2019/11/30/Mybatis-6-%E5%BB%B6%E8%BF%9F%E5%8A%A0%E8%BD%BD/&title=Mybatis-6-延迟加载 - tobing&summary=Mybatis-6-延迟加载与缓存1. 延迟加载1. 什么是延迟加载
-
-延迟加载机制是为了避免一些无谓的性能开销而提出来的，所谓延迟加载就是当在真正需要数据的时候，才真正执行数据加载操作。
-延迟加载(lazy load)是(也称为懒加载)。
-
-
-2. 为什么要使用延迟加载
-
-实际开发中一张表往往关联着其他表，但每次查询不一定要用到其他表。
-查询一张表比查询多张表速度要快，可以大大提高查询速度。
-
-
-3. 延迟加载存在的问题
-由于是用到了数据才去加载，所以在用户大量使用查询的时候，会导致查询结果较慢。
-
-4. 延迟加载应用示例
-场景
-
-Account和User表
-
-
-
-表名
-列名1
-列名2
-列名3
-列名4
-列名5
-
-
-
-Account
-id
-uid
-money
-
-
-
-
-User
-id
-username
-birthday
-sex
-address
-
-
-
-
-User可以有多个Account（即是一对多）。
-
-Account通过uid与唯一的User关联。
-
-
-
-
-需求
-
-
-在通过查询Account时，不直接查询出其中的User。
-在需要使用User信息部分（例如：调用getUser模拟使用User信息）时，才实行加载。
-
-
-
-
-
-分析
-
-
-Account中有User的属性用于关联User表查询的信息。
-不调用其中的getUser方法的时候不查询User的数据（延迟加载）。
-在Account的dao.xml配置返回值的时候将resultMap中的association添加select明确是使用延迟加载来查询User属性。
-
-
-
-
-编码
-
-给Account实体类中添加唯一User属性
-123456public class Account implements Serializable &#123;    private int id;    private int uid;    private double money;    private User user; // 唯一user&#125;
-
-
-
-
-
-
-"
+          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://tobing.top/2019/11/30/Mybatis-6-%E5%BB%B6%E8%BF%9F%E5%8A%A0%E8%BD%BD/&title=Mybatis-6-延迟加载 - tobing&summary=Mybatis学习第六弹。"
           
           >
           
@@ -913,93 +822,7 @@ Account中有User的属性用于关联User表查询的信息。
       
         <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer noopener"
           
-          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://tobing.top/2019/11/30/Mybatis-6-%E5%BB%B6%E8%BF%9F%E5%8A%A0%E8%BD%BD/&title=Mybatis-6-延迟加载 - tobing&summary=Mybatis-6-延迟加载与缓存1. 延迟加载1. 什么是延迟加载
-
-延迟加载机制是为了避免一些无谓的性能开销而提出来的，所谓延迟加载就是当在真正需要数据的时候，才真正执行数据加载操作。
-延迟加载(lazy load)是(也称为懒加载)。
-
-
-2. 为什么要使用延迟加载
-
-实际开发中一张表往往关联着其他表，但每次查询不一定要用到其他表。
-查询一张表比查询多张表速度要快，可以大大提高查询速度。
-
-
-3. 延迟加载存在的问题
-由于是用到了数据才去加载，所以在用户大量使用查询的时候，会导致查询结果较慢。
-
-4. 延迟加载应用示例
-场景
-
-Account和User表
-
-
-
-表名
-列名1
-列名2
-列名3
-列名4
-列名5
-
-
-
-Account
-id
-uid
-money
-
-
-
-
-User
-id
-username
-birthday
-sex
-address
-
-
-
-
-User可以有多个Account（即是一对多）。
-
-Account通过uid与唯一的User关联。
-
-
-
-
-需求
-
-
-在通过查询Account时，不直接查询出其中的User。
-在需要使用User信息部分（例如：调用getUser模拟使用User信息）时，才实行加载。
-
-
-
-
-
-分析
-
-
-Account中有User的属性用于关联User表查询的信息。
-不调用其中的getUser方法的时候不查询User的数据（延迟加载）。
-在Account的dao.xml配置返回值的时候将resultMap中的association添加select明确是使用延迟加载来查询User属性。
-
-
-
-
-编码
-
-给Account实体类中添加唯一User属性
-123456public class Account implements Serializable &#123;    private int id;    private int uid;    private double money;    private User user; // 唯一user&#125;
-
-
-
-
-
-
-"
+          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://tobing.top/2019/11/30/Mybatis-6-%E5%BB%B6%E8%BF%9F%E5%8A%A0%E8%BD%BD/&title=Mybatis-6-延迟加载 - tobing&summary=Mybatis学习第六弹。"
           
           >
           
@@ -1011,93 +834,7 @@ Account中有User的属性用于关联User表查询的信息。
       
         <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer noopener"
           
-          target="_blank" href="http://service.weibo.com/share/share.php?url=https://tobing.top/2019/11/30/Mybatis-6-%E5%BB%B6%E8%BF%9F%E5%8A%A0%E8%BD%BD/&title=Mybatis-6-延迟加载 - tobing&summary=Mybatis-6-延迟加载与缓存1. 延迟加载1. 什么是延迟加载
-
-延迟加载机制是为了避免一些无谓的性能开销而提出来的，所谓延迟加载就是当在真正需要数据的时候，才真正执行数据加载操作。
-延迟加载(lazy load)是(也称为懒加载)。
-
-
-2. 为什么要使用延迟加载
-
-实际开发中一张表往往关联着其他表，但每次查询不一定要用到其他表。
-查询一张表比查询多张表速度要快，可以大大提高查询速度。
-
-
-3. 延迟加载存在的问题
-由于是用到了数据才去加载，所以在用户大量使用查询的时候，会导致查询结果较慢。
-
-4. 延迟加载应用示例
-场景
-
-Account和User表
-
-
-
-表名
-列名1
-列名2
-列名3
-列名4
-列名5
-
-
-
-Account
-id
-uid
-money
-
-
-
-
-User
-id
-username
-birthday
-sex
-address
-
-
-
-
-User可以有多个Account（即是一对多）。
-
-Account通过uid与唯一的User关联。
-
-
-
-
-需求
-
-
-在通过查询Account时，不直接查询出其中的User。
-在需要使用User信息部分（例如：调用getUser模拟使用User信息）时，才实行加载。
-
-
-
-
-
-分析
-
-
-Account中有User的属性用于关联User表查询的信息。
-不调用其中的getUser方法的时候不查询User的数据（延迟加载）。
-在Account的dao.xml配置返回值的时候将resultMap中的association添加select明确是使用延迟加载来查询User属性。
-
-
-
-
-编码
-
-给Account实体类中添加唯一User属性
-123456public class Account implements Serializable &#123;    private int id;    private int uid;    private double money;    private User user; // 唯一user&#125;
-
-
-
-
-
-
-"
+          target="_blank" href="http://service.weibo.com/share/share.php?url=https://tobing.top/2019/11/30/Mybatis-6-%E5%BB%B6%E8%BF%9F%E5%8A%A0%E8%BD%BD/&title=Mybatis-6-延迟加载 - tobing&summary=Mybatis学习第六弹。"
           
           >
           
@@ -1129,28 +866,32 @@ Account中有User的属性用于关联User表查询的信息。
       
         <a class='prev' href='/2019/11/30/Mybatis-7-%E6%B3%A8%E8%A7%A3%E5%BC%80%E5%8F%91/'>
           <p class='title'><i class="fas fa-chevron-left" aria-hidden="true"></i>Mybatis-7-注解开发</p>
-          <p class='content'>Mybatis-7-注解开发
+          <p class='content'>Mybatis学习第七弹。
+
+
+Mybatis-7-注解开发
 注解开发可以减少xml配置文件的编写。
 
 1. Mybatis中常用的注解
 @Insert：新增操作
 @Update：更新操作
-@Delete：删除操作
-@Sele...</p>
+@D...</p>
         </a>
       
       
         <a class='next' href='/2019/11/23/Mybatis-5-%E5%A4%9A%E8%A1%A8%E6%9F%A5%E8%AF%A22/'>
           <p class='title'>Mybatis-5-多表查询2<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
-          <p class='content'>Mybatis-5-多表查询21. 多对多1. 开发步骤
+          <p class='content'>Mybatis学习第五弹。
+
+
+Mybatis-5-多表查询21. 多对多1. 开发步骤
 
 建表
 创建Maven工程
 添加坐标文件
 编写SqlMapConfig文件
 创建实体类
-创建实体类对应的Dao
-创建Dao对应的配置文件...</p>
+创建实体类对应的...</p>
         </a>
       
     </div>

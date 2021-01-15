@@ -21,12 +21,11 @@
   
   <title>Spring-Security简单使用 - tobing</title>
   
-    <meta name="keywords" content="Spring全家桶,Spring-Security">
+    <meta name="keywords" content="Spring,Spring-Security">
   
 
   
-    <meta name="description" content="Spring-Security简单使用1.简介Spring Security是一个功能强大且高度可定制的身份验证和访问控制框架。它是保护基于spring的应用程序的实际标准。
-Spring Security是一个框架，侧重于为Java应用程序提供身份验证和授权。与所有Spring项目一样，Spring安全性的真正...">
+    <meta name="description" content="Spring-Security是Spring家族的重要一员。">
   
 
   <!-- feed -->
@@ -384,7 +383,7 @@ Spring Security是一个框架，侧重于为Java应用程序提供身份验证�
   <div class='new-meta-item category'>
     <a class='notlink'>
       <i class="fas fa-folder-open fa-fw" aria-hidden="true"></i>
-      <a class="category-link" href="/categories/Java/">Java</a>
+      <a class="category-link" href="/categories/%E7%90%86%E8%AE%BA%E5%AD%A6%E4%B9%A0/">理论学习</a>
     </a>
   </div>
 
@@ -423,7 +422,10 @@ Spring Security是一个框架，侧重于为Java应用程序提供身份验证�
 
 
   
-  <h1 id="Spring-Security简单使用"><a href="#Spring-Security简单使用" class="headerlink" title="Spring-Security简单使用"></a>Spring-Security简单使用</h1><h2 id="1-简介"><a href="#1-简介" class="headerlink" title="1.简介"></a>1.简介</h2><p>Spring Security是一个功能强大且高度可定制的身份验证和访问控制框架。它是保护基于spring的应用程序的实际标准。</p>
+  <p>Spring-Security是Spring家族的重要一员。</p>
+<a id="more"></a>
+
+<h1 id="Spring-Security简单使用"><a href="#Spring-Security简单使用" class="headerlink" title="Spring-Security简单使用"></a>Spring-Security简单使用</h1><h2 id="1-简介"><a href="#1-简介" class="headerlink" title="1.简介"></a>1.简介</h2><p>Spring Security是一个功能强大且高度可定制的身份验证和访问控制框架。它是保护基于spring的应用程序的实际标准。</p>
 <p>Spring Security是一个框架，侧重于为Java应用程序提供身份验证和授权。与所有Spring项目一样，Spring安全性的真正强大之处在于它很容易扩展以满足定制需求</p>
 <h2 id="2-快速入门"><a href="#2-快速入门" class="headerlink" title="2. 快速入门"></a>2. 快速入门</h2><ol>
 <li><p>导入SpringSecurity依赖</p>
@@ -511,10 +513,10 @@ Spring Security是一个框架，侧重于为Java应用程序提供身份验证�
     <div class='new-meta-box'>
       
         
-          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2020-02-16T23:27:22+08:00">
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-01-15T11:21:46+08:00">
   <a class='notlink'>
     <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
-    <p>更新于：Feb 16, 2020</p>
+    <p>更新于：Jan 15, 2021</p>
   </a>
 </div>
 
@@ -523,7 +525,7 @@ Spring Security是一个框架，侧重于为Java应用程序提供身份验证�
         
           
   
-  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/Spring%E5%85%A8%E5%AE%B6%E6%A1%B6/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>Spring全家桶</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/Spring-Security/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>Spring-Security</p></a></div>
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/Spring/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>Spring</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/Spring-Security/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>Spring-Security</p></a></div>
 
 
         
@@ -536,61 +538,7 @@ Spring Security是一个框架，侧重于为Java应用程序提供身份验证�
       
         <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer noopener"
           
-          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://tobing.top/2020/02/16/Spring-Security%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/&title=Spring-Security简单使用 - tobing&summary=Spring-Security简单使用1.简介Spring Security是一个功能强大且高度可定制的身份验证和访问控制框架。它是保护基于spring的应用程序的实际标准。
-Spring Security是一个框架，侧重于为Java应用程序提供身份验证和授权。与所有Spring项目一样，Spring安全性的真正强大之处在于它很容易扩展以满足定制需求
-2. 快速入门
-导入SpringSecurity依赖
-1234567891011&lt;!--其他所需依赖--&gt;&lt;dependency&gt;    &lt;groupId&gt;org.springframework.security&lt;/groupId&gt;    &lt;artifactId&gt;spring-security-web&lt;/artifactId&gt;    &lt;version&gt;$&#123;spring.security.version&#125;&lt;/version&gt;&lt;/dependency&gt;&lt;dependency&gt;    &lt;groupId&gt;org.springframework.security&lt;/groupId&gt;    &lt;artifactId&gt;spring-security-config&lt;/artifactId&gt;    &lt;version&gt;$&#123;spring.security.version&#125;&lt;/version&gt;&lt;/dependency&gt;
-
-在web配置文件中添加过滤器
-123456789101112131415161718	&lt;!--.........--&gt;	&lt;!--添加spring-security配置文件的解析--&gt;    &lt;context-param&gt;        &lt;param-name&gt;contextConfigLocation&lt;/param-name&gt;        &lt;param-value&gt;classpath:spring-security.xml&lt;/param-value&gt;    &lt;/context-param&gt; 	&lt;!--.........--&gt;    &lt;!--添加spring-security所需的过滤器--&gt;    &lt;filter&gt;        &lt;filter-name&gt;springSecurityFilterChain&lt;/filter-name&gt;        &lt;filter-class&gt;org.springframework.web.filter.DelegatingFilterProxy&lt;/filter-class&gt;    &lt;/filter&gt;    &lt;filter-mapping&gt;        &lt;filter-name&gt;springSecurityFilterChain&lt;/filter-name&gt;        &lt;url-pattern&gt;/*&lt;/url-pattern&gt;    &lt;/filter-mapping&gt;   &lt;!--.........--&gt;&lt;/web-app&gt;
-
-配置spring-security
-1234567891011121314151617181920212223242526272829303132&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot;       xmlns:security=&quot;http://www.springframework.org/schema/security&quot;       xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;       xsi:schemaLocation=&quot;http://www.springframework.org/schema/beans          http://www.springframework.org/schema/beans/spring-beans.xsd          http://www.springframework.org/schema/security          http://www.springframework.org/schema/security/spring-security.xsd&quot;&gt;    &lt;!-- 配置不过滤的资源（静态资源及登录相关） --&gt;    &lt;security:http security=&quot;none&quot; pattern=&quot;/login.html&quot; /&gt;    &lt;security:http security=&quot;none&quot; pattern=&quot;/failer.html&quot; /&gt;    &lt;security:http auto-config=&quot;true&quot; use-expressions=&quot;false&quot; &gt;        &lt;!-- 对所有的路径进行权限控制，只允许ROLE_USER可以访问 --&gt;        &lt;security:intercept-url pattern=&quot;/**&quot; access=&quot;ROLE_USER&quot; /&gt;        &lt;security:logout invalidate-session=&quot;true&quot; logout-url=&quot;/logout&quot;                         logout-success-url=&quot;/login.jsp&quot; /&gt;        &lt;!-- 关闭CSRF,默认是开启的 --&gt;        &lt;security:csrf disabled=&quot;true&quot; /&gt;    &lt;/security:http&gt;    &lt;!--静态配置认证的用户及密码--&gt;    &lt;security:authentication-manager&gt;        &lt;security:authentication-provider&gt;            &lt;security:user-service&gt;                &lt;security:user name=&quot;user&quot; password=&quot;&#123;noop&#125;user&quot;                               authorities=&quot;ROLE_USER&quot; /&gt;                &lt;security:user name=&quot;admin&quot; password=&quot;&#123;noop&#125;admin&quot;                               authorities=&quot;ROLE_ADMIN&quot; /&gt;            &lt;/security:user-service&gt;        &lt;/security:authentication-provider&gt;    &lt;/security:authentication-manager&gt;&lt;/beans&gt;
-
-运行Maven工程
-运行工程时，首先会弹出一个要求输入用户名和密码的页面，这是spring-security为我们提供的默认的登录页面，当我们没有指定登录页面时会使用该页面。
-输入用户名：admin，密码：admin时，会提示403，表示权限不足，这是因为上面配置的access角色需要是ROLE_USER
-输入用户名：user，密码：user时，可以正常登录。
-输入错误的用户名或者密码时，会提示账号或者密码错误信息。
-
-
-3. 实战【ssm权限管理系统】
-导入依赖
-
-web配置文件中配置过滤器、spring-security的配置文件解析
-
-配置spring-security
-12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot;    xmlns:security=&quot;http://www.springframework.org/schema/security&quot;       xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;       xsi:schemaLocation=&quot;http://www.springframework.org/schema/beans          http://www.springframework.org/schema/beans/spring-beans.xsd          http://www.springframework.org/schema/security          http://www.springframework.org/schema/security/spring-security.xsd&quot;&gt;    &lt;!--配置不拦截的资源--&gt;    &lt;security:http pattern=&quot;/login.jsp&quot; security=&quot;none&quot;/&gt;    &lt;security:http pattern=&quot;/failer.jsp&quot; security=&quot;none&quot;/&gt;    &lt;security:http pattern=&quot;/css/**&quot; security=&quot;none&quot;/&gt;    &lt;security:http pattern=&quot;/img/**&quot; security=&quot;none&quot;/&gt;    &lt;security:http pattern=&quot;/plugins/**&quot; security=&quot;none&quot;/&gt;    &lt;!--配置具体--&gt;    &lt;!--配值是否使用默认登录页面、不使用sepl表达式--&gt;    &lt;security:http auto-config=&quot;true&quot; use-expressions=&quot;false&quot;&gt;        &lt;!--配置拦截地址、可访问的角色--&gt;        &lt;security:intercept-url pattern=&quot;/**&quot; access=&quot;ROLE_USER,ROLE_ADMIN&quot;/&gt;        &lt;!--定义跳转页面--&gt;        &lt;!--            login-page=&quot;/login.jsp&quot;    指定默认的登录页面            login-processing-url=&quot;/login&quot;   指定登录页面登录的处理方法            default-target-url=&quot;index.jsp&quot;            authentication-failure-url=&quot;/failer.jsp&quot;    指定失败跳转页面            authentication-success-forward-url=&quot;/pages/main.jsp&quot;    指定成功跳转页面        --&gt;        &lt;security:form-login                login-page=&quot;/login.jsp&quot;                login-processing-url=&quot;/login&quot;                default-target-url=&quot;/index.jsp&quot;                authentication-failure-url=&quot;/failer.jsp&quot;                authentication-success-forward-url=&quot;/pages/main.jsp&quot;        /&gt;        &lt;!--关闭跨越请求--&gt;        &lt;security:csrf disabled=&quot;true&quot;/&gt;        &lt;!-- 指定退出 --&gt;        &lt;security:logout invalidate-session=&quot;true&quot; logout-url=&quot;/logout&quot; logout-success-url=&quot;/login.jsp&quot;/&gt;    &lt;/security:http&gt;    &lt;!--数据库方式验证--&gt;    &lt;security:authentication-manager&gt;        &lt;security:authentication-provider user-service-ref=&quot;userLoginServiceImpl&quot;&gt;            &lt;!--配置加密方式--&gt;        &lt;/security:authentication-provider&gt;    &lt;/security:authentication-manager&gt;&lt;/beans&gt;
-
-
-配置不过滤的元素
-配置可以访问的角色
-配置登录页面、处理登录请求的方法，处理登录成功、登录失败跳转的页面等
-配置处理请求的服务
-
-
-将登陆请求的url指向前面定义的 login-processing-url参数
-123&lt;form action=&quot;/login&quot; method=&quot;post&quot;&gt;     &lt;!--省略....--&gt;&lt;/form&gt;
-
-创建处理登录请求的接口
-
-创建UserLoginService继承继承自UserDtailsService接口
-
-12public interface UserLoginService extends UserDetailsService &#123;&#125;
-
-
-创建UserLoginService的实体类并重写方法
-
-1234567891011121314151617181920212223242526@Service(&quot;userLoginServiceImpl&quot;)@Transactionalpublic class UserLoginServiceImpl implements UserLoginService &#123;    @Autowired    private UserDao userDao;    @Override    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException &#123;        System.out.println(username);        UserInfo userInfo = userDao.findUserByUsername(username);        System.out.println(userInfo);        List&lt;Role&gt; roles = userInfo.getRoles();        System.out.println(userInfo);        List&lt;SimpleGrantedAuthority&gt; authorities = getAuthority(roles);        User user = new User(userInfo.getUsername(),&quot;&#123;noop&#125;&quot;+userInfo.getPassword(),true,true,true,true,authorities);        return user;    &#125;    private List&lt;SimpleGrantedAuthority&gt; getAuthority(List&lt;Role&gt; roles)&#123;        List&lt;SimpleGrantedAuthority&gt; authorities = new ArrayList&lt;&gt;();        for (Role role : roles) &#123;            authorities.add(new SimpleGrantedAuthority(&quot;ROLE_&quot;+role.getRoleName()));        &#125;        return authorities;    &#125;&#125;
-
-实战总结
-【依赖以及web配置文件的配置】较为固定没有什么难度，不过给过滤器定义名称时要注意。
-【Spring-security配置文件配置】根据需求定义访问的角色、结束登录请求的地址，登录的挑战等。
-【接口的继承以及实现】记住要实现的接口，以及实现类实现方法的含义。
-
-
-"
+          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://tobing.top/2020/02/16/Spring-Security%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/&title=Spring-Security简单使用 - tobing&summary=Spring-Security是Spring家族的重要一员。"
           
           >
           
@@ -602,61 +550,7 @@ web配置文件中配置过滤器、spring-security的配置文件解析
       
         <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer noopener"
           
-          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://tobing.top/2020/02/16/Spring-Security%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/&title=Spring-Security简单使用 - tobing&summary=Spring-Security简单使用1.简介Spring Security是一个功能强大且高度可定制的身份验证和访问控制框架。它是保护基于spring的应用程序的实际标准。
-Spring Security是一个框架，侧重于为Java应用程序提供身份验证和授权。与所有Spring项目一样，Spring安全性的真正强大之处在于它很容易扩展以满足定制需求
-2. 快速入门
-导入SpringSecurity依赖
-1234567891011&lt;!--其他所需依赖--&gt;&lt;dependency&gt;    &lt;groupId&gt;org.springframework.security&lt;/groupId&gt;    &lt;artifactId&gt;spring-security-web&lt;/artifactId&gt;    &lt;version&gt;$&#123;spring.security.version&#125;&lt;/version&gt;&lt;/dependency&gt;&lt;dependency&gt;    &lt;groupId&gt;org.springframework.security&lt;/groupId&gt;    &lt;artifactId&gt;spring-security-config&lt;/artifactId&gt;    &lt;version&gt;$&#123;spring.security.version&#125;&lt;/version&gt;&lt;/dependency&gt;
-
-在web配置文件中添加过滤器
-123456789101112131415161718	&lt;!--.........--&gt;	&lt;!--添加spring-security配置文件的解析--&gt;    &lt;context-param&gt;        &lt;param-name&gt;contextConfigLocation&lt;/param-name&gt;        &lt;param-value&gt;classpath:spring-security.xml&lt;/param-value&gt;    &lt;/context-param&gt; 	&lt;!--.........--&gt;    &lt;!--添加spring-security所需的过滤器--&gt;    &lt;filter&gt;        &lt;filter-name&gt;springSecurityFilterChain&lt;/filter-name&gt;        &lt;filter-class&gt;org.springframework.web.filter.DelegatingFilterProxy&lt;/filter-class&gt;    &lt;/filter&gt;    &lt;filter-mapping&gt;        &lt;filter-name&gt;springSecurityFilterChain&lt;/filter-name&gt;        &lt;url-pattern&gt;/*&lt;/url-pattern&gt;    &lt;/filter-mapping&gt;   &lt;!--.........--&gt;&lt;/web-app&gt;
-
-配置spring-security
-1234567891011121314151617181920212223242526272829303132&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot;       xmlns:security=&quot;http://www.springframework.org/schema/security&quot;       xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;       xsi:schemaLocation=&quot;http://www.springframework.org/schema/beans          http://www.springframework.org/schema/beans/spring-beans.xsd          http://www.springframework.org/schema/security          http://www.springframework.org/schema/security/spring-security.xsd&quot;&gt;    &lt;!-- 配置不过滤的资源（静态资源及登录相关） --&gt;    &lt;security:http security=&quot;none&quot; pattern=&quot;/login.html&quot; /&gt;    &lt;security:http security=&quot;none&quot; pattern=&quot;/failer.html&quot; /&gt;    &lt;security:http auto-config=&quot;true&quot; use-expressions=&quot;false&quot; &gt;        &lt;!-- 对所有的路径进行权限控制，只允许ROLE_USER可以访问 --&gt;        &lt;security:intercept-url pattern=&quot;/**&quot; access=&quot;ROLE_USER&quot; /&gt;        &lt;security:logout invalidate-session=&quot;true&quot; logout-url=&quot;/logout&quot;                         logout-success-url=&quot;/login.jsp&quot; /&gt;        &lt;!-- 关闭CSRF,默认是开启的 --&gt;        &lt;security:csrf disabled=&quot;true&quot; /&gt;    &lt;/security:http&gt;    &lt;!--静态配置认证的用户及密码--&gt;    &lt;security:authentication-manager&gt;        &lt;security:authentication-provider&gt;            &lt;security:user-service&gt;                &lt;security:user name=&quot;user&quot; password=&quot;&#123;noop&#125;user&quot;                               authorities=&quot;ROLE_USER&quot; /&gt;                &lt;security:user name=&quot;admin&quot; password=&quot;&#123;noop&#125;admin&quot;                               authorities=&quot;ROLE_ADMIN&quot; /&gt;            &lt;/security:user-service&gt;        &lt;/security:authentication-provider&gt;    &lt;/security:authentication-manager&gt;&lt;/beans&gt;
-
-运行Maven工程
-运行工程时，首先会弹出一个要求输入用户名和密码的页面，这是spring-security为我们提供的默认的登录页面，当我们没有指定登录页面时会使用该页面。
-输入用户名：admin，密码：admin时，会提示403，表示权限不足，这是因为上面配置的access角色需要是ROLE_USER
-输入用户名：user，密码：user时，可以正常登录。
-输入错误的用户名或者密码时，会提示账号或者密码错误信息。
-
-
-3. 实战【ssm权限管理系统】
-导入依赖
-
-web配置文件中配置过滤器、spring-security的配置文件解析
-
-配置spring-security
-12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot;    xmlns:security=&quot;http://www.springframework.org/schema/security&quot;       xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;       xsi:schemaLocation=&quot;http://www.springframework.org/schema/beans          http://www.springframework.org/schema/beans/spring-beans.xsd          http://www.springframework.org/schema/security          http://www.springframework.org/schema/security/spring-security.xsd&quot;&gt;    &lt;!--配置不拦截的资源--&gt;    &lt;security:http pattern=&quot;/login.jsp&quot; security=&quot;none&quot;/&gt;    &lt;security:http pattern=&quot;/failer.jsp&quot; security=&quot;none&quot;/&gt;    &lt;security:http pattern=&quot;/css/**&quot; security=&quot;none&quot;/&gt;    &lt;security:http pattern=&quot;/img/**&quot; security=&quot;none&quot;/&gt;    &lt;security:http pattern=&quot;/plugins/**&quot; security=&quot;none&quot;/&gt;    &lt;!--配置具体--&gt;    &lt;!--配值是否使用默认登录页面、不使用sepl表达式--&gt;    &lt;security:http auto-config=&quot;true&quot; use-expressions=&quot;false&quot;&gt;        &lt;!--配置拦截地址、可访问的角色--&gt;        &lt;security:intercept-url pattern=&quot;/**&quot; access=&quot;ROLE_USER,ROLE_ADMIN&quot;/&gt;        &lt;!--定义跳转页面--&gt;        &lt;!--            login-page=&quot;/login.jsp&quot;    指定默认的登录页面            login-processing-url=&quot;/login&quot;   指定登录页面登录的处理方法            default-target-url=&quot;index.jsp&quot;            authentication-failure-url=&quot;/failer.jsp&quot;    指定失败跳转页面            authentication-success-forward-url=&quot;/pages/main.jsp&quot;    指定成功跳转页面        --&gt;        &lt;security:form-login                login-page=&quot;/login.jsp&quot;                login-processing-url=&quot;/login&quot;                default-target-url=&quot;/index.jsp&quot;                authentication-failure-url=&quot;/failer.jsp&quot;                authentication-success-forward-url=&quot;/pages/main.jsp&quot;        /&gt;        &lt;!--关闭跨越请求--&gt;        &lt;security:csrf disabled=&quot;true&quot;/&gt;        &lt;!-- 指定退出 --&gt;        &lt;security:logout invalidate-session=&quot;true&quot; logout-url=&quot;/logout&quot; logout-success-url=&quot;/login.jsp&quot;/&gt;    &lt;/security:http&gt;    &lt;!--数据库方式验证--&gt;    &lt;security:authentication-manager&gt;        &lt;security:authentication-provider user-service-ref=&quot;userLoginServiceImpl&quot;&gt;            &lt;!--配置加密方式--&gt;        &lt;/security:authentication-provider&gt;    &lt;/security:authentication-manager&gt;&lt;/beans&gt;
-
-
-配置不过滤的元素
-配置可以访问的角色
-配置登录页面、处理登录请求的方法，处理登录成功、登录失败跳转的页面等
-配置处理请求的服务
-
-
-将登陆请求的url指向前面定义的 login-processing-url参数
-123&lt;form action=&quot;/login&quot; method=&quot;post&quot;&gt;     &lt;!--省略....--&gt;&lt;/form&gt;
-
-创建处理登录请求的接口
-
-创建UserLoginService继承继承自UserDtailsService接口
-
-12public interface UserLoginService extends UserDetailsService &#123;&#125;
-
-
-创建UserLoginService的实体类并重写方法
-
-1234567891011121314151617181920212223242526@Service(&quot;userLoginServiceImpl&quot;)@Transactionalpublic class UserLoginServiceImpl implements UserLoginService &#123;    @Autowired    private UserDao userDao;    @Override    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException &#123;        System.out.println(username);        UserInfo userInfo = userDao.findUserByUsername(username);        System.out.println(userInfo);        List&lt;Role&gt; roles = userInfo.getRoles();        System.out.println(userInfo);        List&lt;SimpleGrantedAuthority&gt; authorities = getAuthority(roles);        User user = new User(userInfo.getUsername(),&quot;&#123;noop&#125;&quot;+userInfo.getPassword(),true,true,true,true,authorities);        return user;    &#125;    private List&lt;SimpleGrantedAuthority&gt; getAuthority(List&lt;Role&gt; roles)&#123;        List&lt;SimpleGrantedAuthority&gt; authorities = new ArrayList&lt;&gt;();        for (Role role : roles) &#123;            authorities.add(new SimpleGrantedAuthority(&quot;ROLE_&quot;+role.getRoleName()));        &#125;        return authorities;    &#125;&#125;
-
-实战总结
-【依赖以及web配置文件的配置】较为固定没有什么难度，不过给过滤器定义名称时要注意。
-【Spring-security配置文件配置】根据需求定义访问的角色、结束登录请求的地址，登录的挑战等。
-【接口的继承以及实现】记住要实现的接口，以及实现类实现方法的含义。
-
-
-"
+          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://tobing.top/2020/02/16/Spring-Security%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/&title=Spring-Security简单使用 - tobing&summary=Spring-Security是Spring家族的重要一员。"
           
           >
           
@@ -668,61 +562,7 @@ web配置文件中配置过滤器、spring-security的配置文件解析
       
         <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer noopener"
           
-          target="_blank" href="http://service.weibo.com/share/share.php?url=https://tobing.top/2020/02/16/Spring-Security%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/&title=Spring-Security简单使用 - tobing&summary=Spring-Security简单使用1.简介Spring Security是一个功能强大且高度可定制的身份验证和访问控制框架。它是保护基于spring的应用程序的实际标准。
-Spring Security是一个框架，侧重于为Java应用程序提供身份验证和授权。与所有Spring项目一样，Spring安全性的真正强大之处在于它很容易扩展以满足定制需求
-2. 快速入门
-导入SpringSecurity依赖
-1234567891011&lt;!--其他所需依赖--&gt;&lt;dependency&gt;    &lt;groupId&gt;org.springframework.security&lt;/groupId&gt;    &lt;artifactId&gt;spring-security-web&lt;/artifactId&gt;    &lt;version&gt;$&#123;spring.security.version&#125;&lt;/version&gt;&lt;/dependency&gt;&lt;dependency&gt;    &lt;groupId&gt;org.springframework.security&lt;/groupId&gt;    &lt;artifactId&gt;spring-security-config&lt;/artifactId&gt;    &lt;version&gt;$&#123;spring.security.version&#125;&lt;/version&gt;&lt;/dependency&gt;
-
-在web配置文件中添加过滤器
-123456789101112131415161718	&lt;!--.........--&gt;	&lt;!--添加spring-security配置文件的解析--&gt;    &lt;context-param&gt;        &lt;param-name&gt;contextConfigLocation&lt;/param-name&gt;        &lt;param-value&gt;classpath:spring-security.xml&lt;/param-value&gt;    &lt;/context-param&gt; 	&lt;!--.........--&gt;    &lt;!--添加spring-security所需的过滤器--&gt;    &lt;filter&gt;        &lt;filter-name&gt;springSecurityFilterChain&lt;/filter-name&gt;        &lt;filter-class&gt;org.springframework.web.filter.DelegatingFilterProxy&lt;/filter-class&gt;    &lt;/filter&gt;    &lt;filter-mapping&gt;        &lt;filter-name&gt;springSecurityFilterChain&lt;/filter-name&gt;        &lt;url-pattern&gt;/*&lt;/url-pattern&gt;    &lt;/filter-mapping&gt;   &lt;!--.........--&gt;&lt;/web-app&gt;
-
-配置spring-security
-1234567891011121314151617181920212223242526272829303132&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot;       xmlns:security=&quot;http://www.springframework.org/schema/security&quot;       xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;       xsi:schemaLocation=&quot;http://www.springframework.org/schema/beans          http://www.springframework.org/schema/beans/spring-beans.xsd          http://www.springframework.org/schema/security          http://www.springframework.org/schema/security/spring-security.xsd&quot;&gt;    &lt;!-- 配置不过滤的资源（静态资源及登录相关） --&gt;    &lt;security:http security=&quot;none&quot; pattern=&quot;/login.html&quot; /&gt;    &lt;security:http security=&quot;none&quot; pattern=&quot;/failer.html&quot; /&gt;    &lt;security:http auto-config=&quot;true&quot; use-expressions=&quot;false&quot; &gt;        &lt;!-- 对所有的路径进行权限控制，只允许ROLE_USER可以访问 --&gt;        &lt;security:intercept-url pattern=&quot;/**&quot; access=&quot;ROLE_USER&quot; /&gt;        &lt;security:logout invalidate-session=&quot;true&quot; logout-url=&quot;/logout&quot;                         logout-success-url=&quot;/login.jsp&quot; /&gt;        &lt;!-- 关闭CSRF,默认是开启的 --&gt;        &lt;security:csrf disabled=&quot;true&quot; /&gt;    &lt;/security:http&gt;    &lt;!--静态配置认证的用户及密码--&gt;    &lt;security:authentication-manager&gt;        &lt;security:authentication-provider&gt;            &lt;security:user-service&gt;                &lt;security:user name=&quot;user&quot; password=&quot;&#123;noop&#125;user&quot;                               authorities=&quot;ROLE_USER&quot; /&gt;                &lt;security:user name=&quot;admin&quot; password=&quot;&#123;noop&#125;admin&quot;                               authorities=&quot;ROLE_ADMIN&quot; /&gt;            &lt;/security:user-service&gt;        &lt;/security:authentication-provider&gt;    &lt;/security:authentication-manager&gt;&lt;/beans&gt;
-
-运行Maven工程
-运行工程时，首先会弹出一个要求输入用户名和密码的页面，这是spring-security为我们提供的默认的登录页面，当我们没有指定登录页面时会使用该页面。
-输入用户名：admin，密码：admin时，会提示403，表示权限不足，这是因为上面配置的access角色需要是ROLE_USER
-输入用户名：user，密码：user时，可以正常登录。
-输入错误的用户名或者密码时，会提示账号或者密码错误信息。
-
-
-3. 实战【ssm权限管理系统】
-导入依赖
-
-web配置文件中配置过滤器、spring-security的配置文件解析
-
-配置spring-security
-12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot;    xmlns:security=&quot;http://www.springframework.org/schema/security&quot;       xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;       xsi:schemaLocation=&quot;http://www.springframework.org/schema/beans          http://www.springframework.org/schema/beans/spring-beans.xsd          http://www.springframework.org/schema/security          http://www.springframework.org/schema/security/spring-security.xsd&quot;&gt;    &lt;!--配置不拦截的资源--&gt;    &lt;security:http pattern=&quot;/login.jsp&quot; security=&quot;none&quot;/&gt;    &lt;security:http pattern=&quot;/failer.jsp&quot; security=&quot;none&quot;/&gt;    &lt;security:http pattern=&quot;/css/**&quot; security=&quot;none&quot;/&gt;    &lt;security:http pattern=&quot;/img/**&quot; security=&quot;none&quot;/&gt;    &lt;security:http pattern=&quot;/plugins/**&quot; security=&quot;none&quot;/&gt;    &lt;!--配置具体--&gt;    &lt;!--配值是否使用默认登录页面、不使用sepl表达式--&gt;    &lt;security:http auto-config=&quot;true&quot; use-expressions=&quot;false&quot;&gt;        &lt;!--配置拦截地址、可访问的角色--&gt;        &lt;security:intercept-url pattern=&quot;/**&quot; access=&quot;ROLE_USER,ROLE_ADMIN&quot;/&gt;        &lt;!--定义跳转页面--&gt;        &lt;!--            login-page=&quot;/login.jsp&quot;    指定默认的登录页面            login-processing-url=&quot;/login&quot;   指定登录页面登录的处理方法            default-target-url=&quot;index.jsp&quot;            authentication-failure-url=&quot;/failer.jsp&quot;    指定失败跳转页面            authentication-success-forward-url=&quot;/pages/main.jsp&quot;    指定成功跳转页面        --&gt;        &lt;security:form-login                login-page=&quot;/login.jsp&quot;                login-processing-url=&quot;/login&quot;                default-target-url=&quot;/index.jsp&quot;                authentication-failure-url=&quot;/failer.jsp&quot;                authentication-success-forward-url=&quot;/pages/main.jsp&quot;        /&gt;        &lt;!--关闭跨越请求--&gt;        &lt;security:csrf disabled=&quot;true&quot;/&gt;        &lt;!-- 指定退出 --&gt;        &lt;security:logout invalidate-session=&quot;true&quot; logout-url=&quot;/logout&quot; logout-success-url=&quot;/login.jsp&quot;/&gt;    &lt;/security:http&gt;    &lt;!--数据库方式验证--&gt;    &lt;security:authentication-manager&gt;        &lt;security:authentication-provider user-service-ref=&quot;userLoginServiceImpl&quot;&gt;            &lt;!--配置加密方式--&gt;        &lt;/security:authentication-provider&gt;    &lt;/security:authentication-manager&gt;&lt;/beans&gt;
-
-
-配置不过滤的元素
-配置可以访问的角色
-配置登录页面、处理登录请求的方法，处理登录成功、登录失败跳转的页面等
-配置处理请求的服务
-
-
-将登陆请求的url指向前面定义的 login-processing-url参数
-123&lt;form action=&quot;/login&quot; method=&quot;post&quot;&gt;     &lt;!--省略....--&gt;&lt;/form&gt;
-
-创建处理登录请求的接口
-
-创建UserLoginService继承继承自UserDtailsService接口
-
-12public interface UserLoginService extends UserDetailsService &#123;&#125;
-
-
-创建UserLoginService的实体类并重写方法
-
-1234567891011121314151617181920212223242526@Service(&quot;userLoginServiceImpl&quot;)@Transactionalpublic class UserLoginServiceImpl implements UserLoginService &#123;    @Autowired    private UserDao userDao;    @Override    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException &#123;        System.out.println(username);        UserInfo userInfo = userDao.findUserByUsername(username);        System.out.println(userInfo);        List&lt;Role&gt; roles = userInfo.getRoles();        System.out.println(userInfo);        List&lt;SimpleGrantedAuthority&gt; authorities = getAuthority(roles);        User user = new User(userInfo.getUsername(),&quot;&#123;noop&#125;&quot;+userInfo.getPassword(),true,true,true,true,authorities);        return user;    &#125;    private List&lt;SimpleGrantedAuthority&gt; getAuthority(List&lt;Role&gt; roles)&#123;        List&lt;SimpleGrantedAuthority&gt; authorities = new ArrayList&lt;&gt;();        for (Role role : roles) &#123;            authorities.add(new SimpleGrantedAuthority(&quot;ROLE_&quot;+role.getRoleName()));        &#125;        return authorities;    &#125;&#125;
-
-实战总结
-【依赖以及web配置文件的配置】较为固定没有什么难度，不过给过滤器定义名称时要注意。
-【Spring-security配置文件配置】根据需求定义访问的角色、结束登录请求的地址，登录的挑战等。
-【接口的继承以及实现】记住要实现的接口，以及实现类实现方法的含义。
-
-
-"
+          target="_blank" href="http://service.weibo.com/share/share.php?url=https://tobing.top/2020/02/16/Spring-Security%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/&title=Spring-Security简单使用 - tobing&summary=Spring-Security是Spring家族的重要一员。"
           
           >
           
@@ -754,15 +594,17 @@ web配置文件中配置过滤器、spring-security的配置文件解析
       
         <a class='prev' href='/2020/02/27/ElasticSearch-%E4%B8%8A/'>
           <p class='title'><i class="fas fa-chevron-left" aria-hidden="true"></i>ElasticSearch-上</p>
-          <p class='content'>ElasticSearch-上Elaticsearch，简称为es， es是一个开源的高扩展的分布式全文检索引擎，它可以近乎实时的存储、检索数据；本 身扩展性很好，可以扩展到上百台服务器，处理P...</p>
+          <p class='content'>Elaticsearch，简称为es， es是一个开源的高扩展的分布式全文检索引擎，它可以近乎实时的存储、检索数据；本 身扩展性很好，可以扩展到上百台服务器，处理PB级别的数据。es也使用Jav...</p>
         </a>
       
       
         <a class='next' href='/2020/02/13/PageHelper/'>
           <p class='title'>PageHelper<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
-          <p class='content'>PageHelper1. 简介PageHelper是国内优秀的开源的mybatis分页插件，支持主流常用的数据库。
-【官网】https://pagehelper.github.io/
-2. 使用...</p>
+          <p class='content'>分页插件，可以帮助我们简化分页的逻辑。
+
+
+PageHelper1. 简介PageHelper是国内优秀的开源的mybatis分页插件，支持主流常用的数据库。
+【官网】https://pageh...</p>
         </a>
       
     </div>

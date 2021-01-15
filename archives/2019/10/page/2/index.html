@@ -373,21 +373,7 @@
   
   <div class='md'>
     
-      <h3 id="1-问题描述"><a href="#1-问题描述" class="headerlink" title="1. 问题描述"></a>1. 问题描述</h3><ul>
-<li>在每次使用<code>hexo d</code>推送文章到<code>githubPage</code>的时候，如果不配置，直接输入绑定的域名将无法访问。（404Error）</li>
-</ul>
-<h3 id="2-问题原因"><a href="#2-问题原因" class="headerlink" title="2. 问题原因"></a>2. 问题原因</h3><ul>
-<li>在每次<code>hexo d</code> 推送文章的时候。<code>GithubPage</code>仓库的CNAME文件都会被刷掉，导致<code>githubpage</code>认不出指定域名，不允许访问。</li>
-</ul>
-<h3 id="3-解决办法"><a href="#3-解决办法" class="headerlink" title="3. 解决办法"></a>3. 解决办法</h3><ol>
-<li>在本地的source目录中添加<code>CNAME</code>，并且在其中输入你的域名（例如本站域名是<code>tobing.top</code>），不需要添加http协议前缀。（推荐使用该方法，一劳永逸）</li>
-<li>每次推送完毕之后，登录<code>github</code>到<code>githubpage仓库</code>的<code>Settings</code>中修改<code>Github Pages</code>的<code>Custom domain</code>为指定域名（格式同上）。（该方法每次推送都要设置，麻烦）</li>
-</ol>
-<hr>
-<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><ul>
-<li>在<code>source</code>目录添加<code>CNAME</code>文件，注意无后缀。编辑其内容为你的域名。</li>
-</ul>
-
+      <p>在每次使用<code>hexo d</code>推送文章到<code>githubPage</code>的时候，如果不配置，直接输入绑定的域名将无法访问，本文将介绍如何解决这个问题。</p>
     
   </div>
   
@@ -397,7 +383,7 @@
         <time>2019-10-03</time>
         
           <span class="dot"></span>
-          <a class="category-link" href="/categories/Hexo/">Hexo</a>
+          <a class="category-link" href="/categories/%E6%9D%82%E4%B8%83%E6%9D%82%E5%85%AB/">杂七杂八</a>
         
       </div>
       
@@ -431,17 +417,7 @@
   
   <div class='md'>
     
-      <h1 id="Git的常用命令"><a href="#Git的常用命令" class="headerlink" title="Git的常用命令"></a>Git的常用命令</h1><h3 id="1-初始化仓库"><a href="#1-初始化仓库" class="headerlink" title="1. 初始化仓库"></a>1. 初始化仓库</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git init <span class="comment"># 初始化仓库</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="2-添加修改到暂存区"><a href="#2-添加修改到暂存区" class="headerlink" title="2. 添加修改到暂存区"></a>2. 添加修改到暂存区</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git add [文件名] <span class="comment"># 添加指定文件到暂存区</span></span><br><span class="line">$ git add *       <span class="comment"># 添加所有文件到暂存区</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="3-添加修改到工作区"><a href="#3-添加修改到工作区" class="headerlink" title="3. 添加修改到工作区"></a>3. 添加修改到工作区</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git commit -m <span class="string">&quot;修改了什么&quot;</span>   <span class="comment"># 提交修改并指定修改说明</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="4-推送修改到远程服务器"><a href="#4-推送修改到远程服务器" class="headerlink" title="4. 推送修改到远程服务器"></a>4. 推送修改到远程服务器</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ git remote add [shortname] [url]</span><br><span class="line">$ git remote add origin git@github.com:[username]/[respName].git <span class="comment"># 添加指定仓库</span></span><br><span class="line">$ git push -u origin master            <span class="comment"># 推送修改</span></span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><h4 id="可能存在的问题"><a href="#可能存在的问题" class="headerlink" title="可能存在的问题"></a>可能存在的问题</h4></li>
-</ul>
+      <p>git在日常开发必不可少，本文介绍了git常用命令。</p>
     
   </div>
   
@@ -451,7 +427,7 @@
         <time>2019-10-02</time>
         
           <span class="dot"></span>
-          <a class="category-link" href="/categories/git/">git</a>
+          <a class="category-link" href="/categories/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/">工具使用</a>
         
       </div>
       
@@ -485,23 +461,7 @@
   
   <div class='md'>
     
-      <h1 id="Java集合"><a href="#Java集合" class="headerlink" title="Java集合"></a>Java集合</h1><h3 id="1-背景"><a href="#1-背景" class="headerlink" title="1. 背景"></a>1. 背景</h3><ul>
-<li>没有集合之前，Java已经可以存储对象，那就是<code>数组</code> 。数组既可以存基本数据类型，也可以存同一种引用数据类型。对数组查找是高效的，但是数组一旦定义长度就不可变，而且只能存放同一种类型。</li>
-<li>在程序设计的过程中，我们经常用到：队列、链接表、树和散列表等数据结构。没有集合前，如果我们需要用的，必须每次都自己定义非常麻烦，因此Java设计者就将这些数据结构封装起来提供给程序员使用。</li>
-</ul>
-<h3 id="2-Java集合的特点"><a href="#2-Java集合的特点" class="headerlink" title="2. Java集合的特点"></a>2. Java集合的特点</h3><ul>
-<li><code>高性能</code>。对于集合中的类，Java开发人员对其实现是高效的。一般很少人去改动这些已经很成熟其高效的API</li>
-<li><code>抽象性</code>。集合类允许不同类型的集合以相同的方式和高度互操作方式工作；</li>
-<li><code>扩展性</code>。集合类容易扩展和修改，程序员可以很容易地稍加改造就能满足自己的数据结构需求。</li>
-</ul>
-<h3 id="3-集合的好处"><a href="#3-集合的好处" class="headerlink" title="3. 集合的好处"></a>3. 集合的好处</h3><ul>
-<li><code>降低了开发难度</code>。不必要再自己实现数据结构。</li>
-<li><code>提高了运行速度</code>。集合类的内部实现是高效的</li>
-<li><code>高抽象性</code>。借助泛型，只要了解了这些类的使用方法，就可以将它们应用到很多数据类型中。如果知道了<code>LinkedList&lt;String&gt;</code>的使用方法，也会知道<code>LinkedList&lt;Double&gt;</code>怎么用，则无需为每一种数据类型学习不同的API</li>
-<li><code>高重用性</code>。借助泛型，就算对集合类中的元素类型进行了修改，集合类相关的代码也几乎不用修改。</li>
-</ul>
-<h3 id="4-Java集合框架"><a href="#4-Java集合框架" class="headerlink" title="4. Java集合框架"></a>4. Java集合框架</h3><p><img src="/images/Java%E9%9B%86%E5%90%88%E6%A1%86%E6%9E%B6%E5%9B%BE.png" class="lazyload" data-srcset="/images/Java%E9%9B%86%E5%90%88%E6%A1%86%E6%9E%B6%E5%9B%BE.png" srcset="data:image/png;base64,666" alt="Java集合框架图"></p>
-<p><img src="/images/java-coll.png" class="lazyload" data-srcset="/images/java-coll.png" srcset="data:image/png;base64,666" alt="java-coll"></p>
+      <p>Java集合在Java语言生态的重要地位不可忽视，接下来让我们一探究竟。</p>
     
   </div>
   
@@ -511,7 +471,7 @@
         <time>2019-10-02</time>
         
           <span class="dot"></span>
-          <a class="category-link" href="/categories/Java/">Java</a>
+          <a class="category-link" href="/categories/%E7%90%86%E8%AE%BA%E5%AD%A6%E4%B9%A0/">理论学习</a>
         
       </div>
       
@@ -545,19 +505,7 @@
   
   <div class='md'>
     
-      <h1 id="魅蓝note5获取完整root"><a href="#魅蓝note5获取完整root" class="headerlink" title="魅蓝note5获取完整root"></a>魅蓝note5获取完整root</h1><ol>
-<li>确认手机的系统版本是否为<a target="_blank" rel="noopener" href="https://www.flyme.cn/firmwarelist-99.html#3">6.7.7.1 beta</a>,如果不是则点击页面中链接下载。</li>
-<li>备份数据，开始刷机</li>
-<li>进入系统之后，联网登录账户，只有登录账户才可以打开root权限，其他东西先别动。</li>
-<li>重启之后，安装<a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1iEzyP9avnDv7PhhlAOU5rA">supersu</a>，点击更新二进制文件，重启。 <br><br><strong>注意:版本一定要是这个本页面链接下的版本。</strong><br><strong>而且在软件获取root权限的时候，supersu是无法操作的，解决办法是直接进入supersu授权</strong></li>
-<li>获取root权限可以干什么<ul>
-<li>装框架</li>
-<li>装<code>linux</code></li>
-<li><code>linux</code>+内网穿透 = 服务器</li>
-</ul>
-</li>
-</ol>
-
+      <p>介绍如何获取魅蓝note5的root权限</p>
     
   </div>
   
@@ -567,7 +515,7 @@
         <time>2019-10-02</time>
         
           <span class="dot"></span>
-          <a class="category-link" href="/categories/%E6%89%8B%E6%9C%BA/">手机</a>
+          <a class="category-link" href="/categories/%E6%9D%82%E4%B8%83%E6%9D%82%E5%85%AB/">杂七杂八</a>
         
       </div>
       
@@ -601,81 +549,7 @@
   
   <div class='md'>
     
-      <h1 id="CentOS学习"><a href="#CentOS学习" class="headerlink" title="CentOS学习"></a>CentOS学习</h1><hr>
-<h3 id="1-背景历史"><a href="#1-背景历史" class="headerlink" title="1. 背景历史"></a>1. 背景历史</h3><p>​    Linux最初是由芬兰赫尔辛基大学学生Linus Torvalds由于自己不满意教学中使用的MINIX操作系统， 所以在1990年底由于个人爱好设计出了LINUX系统核心。后来发布于芬兰最大的ftp服务器上，用户可以免费下载，所以它的周边的程序越来越多，Linux本身也逐渐发展壮大起来，之后Linux在不到三年的时间里成为了一个功能完善，稳定可靠的操作系统.</p>
-<h3 id="2-应用"><a href="#2-应用" class="headerlink" title="2. 应用"></a>2. 应用</h3><ul>
-<li>服务器系统Web应用服务器、数据库服务器、接口服务器、DNS、FTP等等； </li>
-<li>嵌入式系统路由器、防火墙、手机、PDA、IP 分享器、交换器、家电用品的微电脑控制器等等，</li>
-<li>高性能运算、计算密集型应用Linux有强大的运算能力。</li>
-<li>桌面应用系统</li>
-<li>移动手持系统</li>
-</ul>
-<h3 id="3-版本"><a href="#3-版本" class="headerlink" title="3. 版本"></a>3. 版本</h3><ul>
-<li>内核版本：Linus领导下的内核小组开发维护的系统内核的版本号</li>
-<li>发行版本：</li>
-</ul>
-<h3 id="4-目录结构"><a href="#4-目录结构" class="headerlink" title="4.目录结构"></a>4.目录结构</h3><ul>
-<li><p>/ ：根目录</p>
-<table>
-<thead>
-<tr>
-<th align="center">目录名称</th>
-<th align="center">全名</th>
-<th align="center">描述</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">bin</td>
-<td align="center">binaries</td>
-<td align="center">二进制可执行文件</td>
-</tr>
-<tr>
-<td align="center">boot</td>
-<td align="center"></td>
-<td align="center">系统引导时使用的各种文件</td>
-</tr>
-<tr>
-<td align="center">dev</td>
-<td align="center">devices</td>
-<td align="center">设备文件</td>
-</tr>
-<tr>
-<td align="center">etc</td>
-<td align="center">ectetera</td>
-<td align="center">系统配置文件</td>
-</tr>
-<tr>
-<td align="center">home</td>
-<td align="center"></td>
-<td align="center">用户文件根目录</td>
-</tr>
-<tr>
-<td align="center">lib</td>
-<td align="center">library</td>
-<td align="center">跟文件系统中的程序运行需要的共享库以及内核模块</td>
-</tr>
-<tr>
-<td align="center">sbin</td>
-<td align="center">super user binaries</td>
-<td align="center">root才能访问的二进制可执行文件</td>
-</tr>
-<tr>
-<td align="center">usr</td>
-<td align="center">Unix shared resources</td>
-<td align="center">存放共享的系统资源</td>
-</tr>
-<tr>
-<td align="center">var</td>
-<td align="center">variable</td>
-<td align="center">用于存放运行时需要改变数据的文件</td>
-</tr>
-</tbody></table>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">lrwxrwxrwx.  1 root root     7 Aug 18  2017 bin -&gt; usr/bin             <span class="comment"># bin目录</span></span><br><span class="line">dr-xr-xr-x.  4 root root  4096 Sep 12  2017 boot                       <span class="comment"># boot目录</span></span><br><span class="line">drwxr-xr-x  19 root root  2960 Sep 27 22:01 dev                        <span class="comment"># dev目录</span></span><br><span class="line">drwxr-xr-x. 82 root root  4096 Sep 28 06:01 etc                        <span class="comment"># etc目录</span></span><br><span class="line">drwxr-xr-x.  3 root root  4096 Sep 27 16:12 home                       <span class="comment"># home目录</span></span><br><span class="line">lrwxrwxrwx.  1 root root     7 Aug 18  2017 lib -&gt; usr/lib             <span class="comment"># lib目录</span></span><br><span class="line">lrwxrwxrwx.  1 root root     9 Aug 18  2017 lib64 -&gt; usr/lib64         <span class="comment"># lib64</span></span><br><span class="line">drwx------.  2 root root 16384 Aug 18  2017 lost+found           </span><br><span class="line">drwxr-xr-x.  2 root root  4096 Nov  5  2016 media </span><br><span class="line">drwxr-xr-x.  2 root root  4096 Nov  5  2016 mnt</span><br><span class="line">drwxr-xr-x.  2 root root  4096 Nov  5  2016 opt</span><br><span class="line">dr-xr-xr-x  74 root root     0 Sep 27 22:01 proc</span><br><span class="line">dr-xr-x---.  6 root root  4096 Sep  5  2017 root</span><br><span class="line">drwxr-xr-x  21 root root   580 Sep 27 22:01 run</span><br><span class="line">lrwxrwxrwx.  1 root root     8 Aug 18  2017 sbin -&gt; usr/sbin           <span class="comment"># root的bin目录</span></span><br><span class="line">drwxr-xr-x.  2 root root  4096 Nov  5  2016 srv </span><br><span class="line">dr-xr-xr-x  13 root root     0 Sep 28 06:01 sys</span><br><span class="line">drwxrwxrwt. 11 root root  4096 Sep 29 03:40 tmp                        <span class="comment"># 临时文件</span></span><br><span class="line">drwxr-xr-x. 13 root root  4096 Aug 18  2017 usr                        <span class="comment"># 存放共享的系统资源</span></span><br><span class="line">drwxr-xr-x. 19 root root  4096 Sep 28 06:01 var               <span class="comment"># 用于存放运行时需要改变数据的文件</span></span><br></pre></td></tr></table></figure>
-
-
-
-</li>
-</ul>
+      <p>Linux最初是由芬兰赫尔辛基大学学生Linus Torvalds由于自己不满意教学中使用的MINIX操作系统， 所以在1990年底由于个人爱好设计出了LINUX系统核心。后来发布于芬兰最大的ftp服务器上，用户可以免费下载，所以它的周边的程序越来越多，Linux本身也逐渐发展壮大起来，之后Linux在不到三年的时间里成为了一个功能完善，稳定可靠的操作系统.</p>
     
   </div>
   
@@ -685,7 +559,7 @@
         <time>2019-10-02</time>
         
           <span class="dot"></span>
-          <a class="category-link" href="/categories/Linux/">Linux</a>
+          <a class="category-link" href="/categories/%E7%90%86%E8%AE%BA%E5%AD%A6%E4%B9%A0/">理论学习</a>
         
       </div>
       
@@ -719,37 +593,7 @@
   
   <div class='md'>
     
-      <h1 id="Java数据结构"><a href="#Java数据结构" class="headerlink" title="Java数据结构"></a>Java数据结构</h1><h3 id="1-枚举（Enumeration）"><a href="#1-枚举（Enumeration）" class="headerlink" title="1. 枚举（Enumeration）"></a>1. 枚举（Enumeration）</h3><ul>
-<li>接口，本身不属于数据结构,但它在其他数据结构的范畴里应用很广。枚举（The Enumeration）接口定义了一种从数据结构中取回连续元素的方式。</li>
-<li>注：此接口的功能与 Iterator 接口的功能是重复的。此外，Iterator 接口添加了一个可选的移除操作，并使用较短的方法名。新的实现应该优先考虑使用<br>Iterator 接口而不是 Enumeration 接口。</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">boolean</span> <span class="title">hasMoreElements</span><span class="params">()</span> 	<span class="comment">//测试此枚举是否包含更多的元素。 </span></span></span><br><span class="line"><span class="function">E <span class="title">nextElement</span><span class="params">()</span> 			<span class="comment">//如果此枚举对象至少还有一个可提供的元素，则返回此枚举的下一个元素。</span></span></span><br><span class="line"><span class="function">    </span></span><br><span class="line"><span class="function"><span class="keyword">package</span> top.tobing.datastruct</span>;</span><br><span class="line"><span class="keyword">import</span> java.util.Enumeration;</span><br><span class="line"><span class="keyword">import</span> java.util.Vector;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 枚举接口</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> Tobing</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Demo02DSEnum</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		Vector&lt;String&gt; dayNums = <span class="keyword">new</span> Vector&lt;String&gt;();</span><br><span class="line">		dayNums.add(<span class="string">&quot;Sunday&quot;</span>);</span><br><span class="line">		dayNums.add(<span class="string">&quot;Monday&quot;</span>);</span><br><span class="line">		dayNums.add(<span class="string">&quot;Tuesday&quot;</span>);</span><br><span class="line">		dayNums.add(<span class="string">&quot;Wednesday&quot;</span>);</span><br><span class="line">		dayNums.add(<span class="string">&quot;Thurday&quot;</span>);</span><br><span class="line">		dayNums.add(<span class="string">&quot;Firday&quot;</span>);</span><br><span class="line">		dayNums.add(<span class="string">&quot;Saturday&quot;</span>);</span><br><span class="line">		<span class="comment">// 将向量dayNums中的元素放到days中，以方便变量（类似于Iterator接口）</span></span><br><span class="line">		Enumeration&lt;String&gt; days;</span><br><span class="line">		days = dayNums.elements();</span><br><span class="line">		<span class="keyword">while</span>(days.hasMoreElements()) &#123;</span><br><span class="line">			System.out.println(days.nextElement());</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="2-位集合（BitSet）-少用"><a href="#2-位集合（BitSet）-少用" class="headerlink" title="2. 位集合（BitSet） 少用"></a>2. 位集合（BitSet） 少用</h3><ul>
-<li><p>位集合类实现了一组可以单独设置和清除的位或标志。</p>
-<p>该类在处理一组布尔值的时候非常有用，你只需要给每个值赋值一”位”，然后对位进行适当的设置或清除，就可以对布尔值进行操作了。</p>
-</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> top.tobing.datastruct;</span><br><span class="line"><span class="keyword">import</span> java.util.BitSet;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * BitSet测速（源码摘自菜鸟教程）</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> Tobing</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Demo03DSBitSet</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		BitSet bits1 = <span class="keyword">new</span> BitSet(<span class="number">16</span>);</span><br><span class="line">		BitSet bits2 = <span class="keyword">new</span> BitSet(<span class="number">16</span>);</span><br><span class="line">		<span class="comment">// 存储元素</span></span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;<span class="number">16</span>; i++) &#123;</span><br><span class="line">		   <span class="keyword">if</span>((i%<span class="number">2</span>) == <span class="number">0</span>) bits1.set(i);	<span class="comment">// 存放偶数</span></span><br><span class="line">		   <span class="keyword">if</span>((i%<span class="number">5</span>) != <span class="number">0</span>) bits2.set(i);	<span class="comment">// 存放非5倍数</span></span><br><span class="line">		&#125;</span><br><span class="line">		System.out.println(<span class="string">&quot;bit1的内容是：&quot;</span>);</span><br><span class="line">		System.out.println(bits1);</span><br><span class="line">		System.out.println(<span class="string">&quot;bit2的内容是：&quot;</span>);</span><br><span class="line">		System.out.println(bits2);</span><br><span class="line">		<span class="comment">// AND bits</span></span><br><span class="line">		bits2.and(bits1);</span><br><span class="line">		System.out.println(<span class="string">&quot;\nbits2 AND bits1: &quot;</span>);</span><br><span class="line">		System.out.println(bits2);</span><br><span class="line">		<span class="comment">// OR bits</span></span><br><span class="line">		bits2.or(bits1);</span><br><span class="line">		System.out.println(<span class="string">&quot;\nbits2 OR bits1: &quot;</span>);</span><br><span class="line">		System.out.println(bits2);</span><br><span class="line">		<span class="comment">// XOR bits</span></span><br><span class="line">		bits2.xor(bits1);</span><br><span class="line">		System.out.println(<span class="string">&quot;\nbits2 XOR bits1: &quot;</span>);</span><br><span class="line">		System.out.println(bits2);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="3-向量（Vector）"><a href="#3-向量（Vector）" class="headerlink" title="3. 向量（Vector）"></a>3. 向量（Vector）</h3><ul>
-<li><p>向量（Vector）类和传统数组非常相似，但是Vector的大小能根据需要动态的变化。</p>
-</li>
-<li><pre><code class="java">java.lang.Object    // 继承关系
-- java.util.AbstractCollection&lt;E&gt;
-- - java.util.AbstractList&lt;E&gt;
-- - - java.util.Vector&lt;E&gt;
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&#96;&#96;&#96;java</span><br><span class="line">&#x2F;&#x2F; 字段列表</span><br><span class="line">protected  int capacityIncrement 	&#x2F;&#x2F;向量的大小大于其容量时，容量自动增加的量。 </span><br><span class="line">protected  int elementCount			&#x2F;&#x2F;Vector 对象中的有效组件数。 </span><br><span class="line">protected  Object[] elementData 	&#x2F;&#x2F;存储向量组件的数组缓冲区。</span><br><span class="line">&#x2F;&#x2F; 使用演示</span><br><span class="line">package top.tobing.datastruct;</span><br><span class="line">import java.util.Enumeration;</span><br><span class="line">import java.util.Vector;</span><br><span class="line">&#x2F;**</span><br><span class="line"> * Vector</span><br><span class="line"> * @author Tobing</span><br><span class="line"> *&#x2F;</span><br><span class="line">public class Demo04DSVector &#123;</span><br><span class="line">	public static void main(String[] args) &#123;</span><br><span class="line">		&#x2F;&#x2F; 初始容量为3，增长长度为2</span><br><span class="line">		Vector v &#x3D; new Vector(3,2);</span><br><span class="line">		v.addElement(&quot;Hello&quot;);</span><br><span class="line">		v.addElement(&quot; , &quot;);</span><br><span class="line">		System.out.println(&quot;Size:&quot;+v.size());</span><br><span class="line">		v.addElement(&quot;World！&quot;);</span><br><span class="line">		v.addElement(&quot;!&quot;);</span><br><span class="line">		System.out.println(&quot;Size:&quot;+v.size());		&#x2F;&#x2F; 大小</span><br><span class="line">		System.out.println(&quot;Cap:&quot;+v.capacity());	&#x2F;&#x2F; 容量</span><br><span class="line">		&#x2F;&#x2F; 遍历</span><br><span class="line">		Enumeration enum1 &#x3D; v.elements();</span><br><span class="line">		while(enum1.hasMoreElements()) &#123;</span><br><span class="line">			System.out.print(enum1.nextElement());</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-</code></pre>
-</li>
-</ul>
-<h3 id="4-栈（Stack）"><a href="#4-栈（Stack）" class="headerlink" title="4. 栈（Stack）"></a>4. 栈（Stack）</h3>
+      <p>有人说：程序=算法+数据结构，接下来就让我们看一下Java中常用的数据结构吧。</p>
     
   </div>
   
@@ -759,7 +603,7 @@
         <time>2019-10-02</time>
         
           <span class="dot"></span>
-          <a class="category-link" href="/categories/Java/">Java</a>
+          <a class="category-link" href="/categories/%E7%90%86%E8%AE%BA%E5%AD%A6%E4%B9%A0/">理论学习</a>
         
       </div>
       
@@ -804,7 +648,7 @@
         <time>2019-10-02</time>
         
           <span class="dot"></span>
-          <a class="category-link" href="/categories/Hexo/">Hexo</a>
+          <a class="category-link" href="/categories/%E6%8A%80%E6%9C%AF%E5%BA%94%E7%94%A8/">技术应用</a>
         
       </div>
       
@@ -935,64 +779,24 @@
       <ul class="entry navigation">
         
           <li><a class="flat-box"
-            title="/categories/Hexo/" href="/categories/Hexo/"
-            id="categoriesHexo"
-            ><div class='name'>Hexo</div><div class='badge'>(2)</div></a></li>
+            title="/categories/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/" href="/categories/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/"
+            id="categoriesE5B7A5E585B7E4BDBFE794A8"
+            ><div class='name'>工具使用</div><div class='badge'>(5)</div></a></li>
         
           <li><a class="flat-box"
-            title="/categories/Intellij-Idea/" href="/categories/Intellij-Idea/"
-            id="categoriesIntellij-Idea"
-            ><div class='name'>Intellij Idea</div><div class='badge'>(1)</div></a></li>
+            title="/categories/%E6%8A%80%E6%9C%AF%E5%BA%94%E7%94%A8/" href="/categories/%E6%8A%80%E6%9C%AF%E5%BA%94%E7%94%A8/"
+            id="categoriesE68A80E69CAFE5BA94E794A8"
+            ><div class='name'>技术应用</div><div class='badge'>(3)</div></a></li>
         
           <li><a class="flat-box"
-            title="/categories/Java/" href="/categories/Java/"
-            id="categoriesJava"
-            ><div class='name'>Java</div><div class='badge'>(24)</div></a></li>
+            title="/categories/%E6%9D%82%E4%B8%83%E6%9D%82%E5%85%AB/" href="/categories/%E6%9D%82%E4%B8%83%E6%9D%82%E5%85%AB/"
+            id="categoriesE69D82E4B883E69D82E585AB"
+            ><div class='name'>杂七杂八</div><div class='badge'>(4)</div></a></li>
         
           <li><a class="flat-box"
-            title="/categories/Linux/" href="/categories/Linux/"
-            id="categoriesLinux"
-            ><div class='name'>Linux</div><div class='badge'>(1)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/git/" href="/categories/git/"
-            id="categoriesgit"
-            ><div class='name'>git</div><div class='badge'>(1)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/windows%E4%BD%BF%E7%94%A8/" href="/categories/windows%E4%BD%BF%E7%94%A8/"
-            id="categorieswindowsE4BDBFE794A8"
-            ><div class='name'>windows使用</div><div class='badge'>(1)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/%E6%89%8B%E6%9C%BA/" href="/categories/%E6%89%8B%E6%9C%BA/"
-            id="categoriesE6898BE69CBA"
-            ><div class='name'>手机</div><div class='badge'>(1)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/%E6%8A%80%E5%B7%A7/" href="/categories/%E6%8A%80%E5%B7%A7/"
-            id="categoriesE68A80E5B7A7"
-            ><div class='name'>技巧</div><div class='badge'>(1)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/"
-            id="categoriesE695B0E68DAEE5BA93"
-            ><div class='name'>数据库</div><div class='badge'>(7)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/%E7%89%A9%E8%81%94%E7%BD%91/" href="/categories/%E7%89%A9%E8%81%94%E7%BD%91/"
-            id="categoriesE789A9E88194E7BD91"
-            ><div class='name'>物联网</div><div class='badge'>(2)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/%E7%9E%8E%E6%89%AF/" href="/categories/%E7%9E%8E%E6%89%AF/"
-            id="categoriesE79E8EE689AF"
-            ><div class='name'>瞎扯</div><div class='badge'>(1)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/%E8%B7%AF%E7%94%B1%E5%99%A8/" href="/categories/%E8%B7%AF%E7%94%B1%E5%99%A8/"
-            id="categoriesE8B7AFE794B1E599A8"
-            ><div class='name'>路由器</div><div class='badge'>(1)</div></a></li>
+            title="/categories/%E7%90%86%E8%AE%BA%E5%AD%A6%E4%B9%A0/" href="/categories/%E7%90%86%E8%AE%BA%E5%AD%A6%E4%B9%A0/"
+            id="categoriesE79086E8AEBAE5ADA6E4B9A0"
+            ><div class='name'>理论学习</div><div class='badge'>(36)</div></a></li>
         
       </ul>
     </div>
@@ -1016,7 +820,7 @@
 
 
     <div class='content'>
-      <a href="/tags/2019/" style="font-size: 14px; color: #999">2019</a> <a href="/tags/DHT11/" style="font-size: 14px; color: #999">DHT11</a> <a href="/tags/ElasticSearch/" style="font-size: 14px; color: #999">ElasticSearch</a> <a href="/tags/JDBC/" style="font-size: 14px; color: #999">JDBC</a> <a href="/tags/Java/" style="font-size: 22.33px; color: #606060">Java</a> <a href="/tags/Linux/" style="font-size: 14px; color: #999">Linux</a> <a href="/tags/MongoDB/" style="font-size: 14px; color: #999">MongoDB</a> <a href="/tags/MySQL/" style="font-size: 20.67px; color: #6c6c6c">MySQL</a> <a href="/tags/Mybatis/" style="font-size: 24px; color: #555">Mybatis</a> <a href="/tags/Oracle/" style="font-size: 15.67px; color: #8e8e8e">Oracle</a> <a href="/tags/Spring/" style="font-size: 17.33px; color: #828282">Spring</a> <a href="/tags/Spring-Security/" style="font-size: 14px; color: #999">Spring-Security</a> <a href="/tags/SpringMVC/" style="font-size: 17.33px; color: #828282">SpringMVC</a> <a href="/tags/Spring%E5%85%A8%E5%AE%B6%E6%A1%B6/" style="font-size: 14px; color: #999">Spring全家桶</a> <a href="/tags/docker/" style="font-size: 14px; color: #999">docker</a> <a href="/tags/git/" style="font-size: 14px; color: #999">git</a> <a href="/tags/gitHub/" style="font-size: 14px; color: #999">gitHub</a> <a href="/tags/githubpage/" style="font-size: 14px; color: #999">githubpage</a> <a href="/tags/hexo/" style="font-size: 15.67px; color: #8e8e8e">hexo</a> <a href="/tags/idea/" style="font-size: 14px; color: #999">idea</a> <a href="/tags/java/" style="font-size: 14px; color: #999">java</a> <a href="/tags/jdbc/" style="font-size: 15.67px; color: #8e8e8e">jdbc</a> <a href="/tags/mysql/" style="font-size: 14px; color: #999">mysql</a> <a href="/tags/root/" style="font-size: 14px; color: #999">root</a> <a href="/tags/token/" style="font-size: 14px; color: #999">token</a> <a href="/tags/win10/" style="font-size: 14px; color: #999">win10</a> <a href="/tags/%E5%85%A5%E9%97%A8/" style="font-size: 14px; color: #999">入门</a> <a href="/tags/%E5%88%86%E9%A1%B5%E6%8F%92%E4%BB%B6/" style="font-size: 14px; color: #999">分页插件</a> <a href="/tags/%E5%8D%95%E7%89%87%E6%9C%BA/" style="font-size: 14px; color: #999">单片机</a> <a href="/tags/%E5%8F%8D%E5%B0%84/" style="font-size: 17.33px; color: #828282">反射</a> <a href="/tags/%E5%9F%9F%E5%90%8D%E7%BB%91%E5%AE%9A/" style="font-size: 14px; color: #999">域名绑定</a> <a href="/tags/%E5%A4%8D%E4%B9%A0/" style="font-size: 19px; color: #777">复习</a> <a href="/tags/%E5%AE%B9%E5%99%A8%E6%8A%80%E6%9C%AF/" style="font-size: 14px; color: #999">容器技术</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" style="font-size: 14px; color: #999">数据库</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" style="font-size: 15.67px; color: #8e8e8e">数据结构</a> <a href="/tags/%E6%95%B0%E7%BB%84/" style="font-size: 14px; color: #999">数组</a> <a href="/tags/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/" style="font-size: 14px; color: #999">文件上传</a> <a href="/tags/%E6%A0%88/" style="font-size: 14px; color: #999">栈</a> <a href="/tags/%E6%A0%91%E8%8E%93%E6%B4%BE/" style="font-size: 14px; color: #999">树莓派</a> <a href="/tags/%E6%A0%A1%E5%9B%AD%E5%AE%BD%E5%B8%A6/" style="font-size: 14px; color: #999">校园宽带</a> <a href="/tags/%E6%B3%A8%E8%A7%A3/" style="font-size: 14px; color: #999">注解</a> <a href="/tags/%E8%BF%9E%E6%8E%A5%E6%B1%A0/" style="font-size: 14px; color: #999">连接池</a> <a href="/tags/%E9%98%9F%E5%88%97/" style="font-size: 14px; color: #999">队列</a> <a href="/tags/%E9%9B%86%E5%90%88/" style="font-size: 14px; color: #999">集合</a> <a href="/tags/%E9%AD%85%E8%93%9DNote5/" style="font-size: 14px; color: #999">魅蓝Note5</a>
+      <a href="/tags/CentOS/" style="font-size: 14px; color: #999">CentOS</a> <a href="/tags/DHT11/" style="font-size: 14px; color: #999">DHT11</a> <a href="/tags/ElasticSearch/" style="font-size: 14px; color: #999">ElasticSearch</a> <a href="/tags/GitHub/" style="font-size: 14px; color: #999">GitHub</a> <a href="/tags/GithubPage/" style="font-size: 14px; color: #999">GithubPage</a> <a href="/tags/Hexo/" style="font-size: 15.67px; color: #8e8e8e">Hexo</a> <a href="/tags/Intellij-idea/" style="font-size: 14px; color: #999">Intellij idea</a> <a href="/tags/JDBC/" style="font-size: 17.33px; color: #828282">JDBC</a> <a href="/tags/Java/" style="font-size: 24px; color: #555">Java</a> <a href="/tags/Linux/" style="font-size: 14px; color: #999">Linux</a> <a href="/tags/MongoDB/" style="font-size: 14px; color: #999">MongoDB</a> <a href="/tags/MySQL/" style="font-size: 20.67px; color: #6c6c6c">MySQL</a> <a href="/tags/Mybatis/" style="font-size: 22.33px; color: #606060">Mybatis</a> <a href="/tags/Oracle/" style="font-size: 15.67px; color: #8e8e8e">Oracle</a> <a href="/tags/PageHelper/" style="font-size: 14px; color: #999">PageHelper</a> <a href="/tags/Spring/" style="font-size: 19px; color: #777">Spring</a> <a href="/tags/Spring-Security/" style="font-size: 14px; color: #999">Spring-Security</a> <a href="/tags/SpringBoot/" style="font-size: 14px; color: #999">SpringBoot</a> <a href="/tags/SpringMVC/" style="font-size: 17.33px; color: #828282">SpringMVC</a> <a href="/tags/Windows/" style="font-size: 14px; color: #999">Windows</a> <a href="/tags/docker/" style="font-size: 14px; color: #999">docker</a> <a href="/tags/git/" style="font-size: 14px; color: #999">git</a> <a href="/tags/jwt/" style="font-size: 14px; color: #999">jwt</a> <a href="/tags/root/" style="font-size: 14px; color: #999">root</a> <a href="/tags/%E5%85%A8%E6%96%87%E6%A3%80%E7%B4%A2/" style="font-size: 14px; color: #999">全文检索</a> <a href="/tags/%E5%88%86%E4%BA%AB/" style="font-size: 14px; color: #999">分享</a> <a href="/tags/%E5%8D%95%E7%89%87%E6%9C%BA/" style="font-size: 14px; color: #999">单片机</a> <a href="/tags/%E5%8F%8D%E5%B0%84/" style="font-size: 17.33px; color: #828282">反射</a> <a href="/tags/%E5%9F%9F%E5%90%8D%E7%BB%91%E5%AE%9A/" style="font-size: 14px; color: #999">域名绑定</a> <a href="/tags/%E5%AE%9E%E9%AA%8C/" style="font-size: 15.67px; color: #8e8e8e">实验</a> <a href="/tags/%E5%AE%B9%E5%99%A8%E6%8A%80%E6%9C%AF/" style="font-size: 14px; color: #999">容器技术</a> <a href="/tags/%E5%B0%8F%E7%A8%8B%E5%BA%8F/" style="font-size: 14px; color: #999">小程序</a> <a href="/tags/%E6%80%BB%E7%BB%93/" style="font-size: 14px; color: #999">总结</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93%E8%BF%9E%E6%8E%A5%E6%B1%A0/" style="font-size: 14px; color: #999">数据库连接池</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" style="font-size: 17.33px; color: #828282">数据结构</a> <a href="/tags/%E6%95%B0%E7%BB%84-Java/" style="font-size: 14px; color: #999">数组 - Java</a> <a href="/tags/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/" style="font-size: 14px; color: #999">文件上传</a> <a href="/tags/%E6%A0%88/" style="font-size: 14px; color: #999">栈</a> <a href="/tags/%E6%A0%91%E8%8E%93%E6%B4%BE/" style="font-size: 14px; color: #999">树莓派</a> <a href="/tags/%E6%A0%A1%E5%9B%AD%E5%AE%BD%E5%B8%A6/" style="font-size: 14px; color: #999">校园宽带</a> <a href="/tags/%E6%B3%A8%E8%A7%A3/" style="font-size: 14px; color: #999">注解</a> <a href="/tags/%E7%89%A9%E8%81%94%E7%BD%91/" style="font-size: 15.67px; color: #8e8e8e">物联网</a> <a href="/tags/%E8%AE%A4%E8%AF%81%E6%9C%BA%E5%88%B6/" style="font-size: 14px; color: #999">认证机制</a> <a href="/tags/%E8%B7%AF%E7%94%B1%E5%99%A8/" style="font-size: 14px; color: #999">路由器</a> <a href="/tags/%E9%98%9F%E5%88%97/" style="font-size: 14px; color: #999">队列</a> <a href="/tags/%E9%9B%86%E5%90%88/" style="font-size: 14px; color: #999">集合</a> <a href="/tags/%E9%AD%85%E8%93%9DNote5/" style="font-size: 14px; color: #999">魅蓝Note5</a>
     </div>
   </section>
 

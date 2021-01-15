@@ -385,80 +385,7 @@
   
   <div class='md'>
     
-      <h1 id="Java反射（Reflection）-三"><a href="#Java反射（Reflection）-三" class="headerlink" title="Java反射（Reflection）(三)"></a>Java反射（Reflection）(三)</h1><h4 id="1-通过Class获取Method的几个方法"><a href="#1-通过Class获取Method的几个方法" class="headerlink" title="1. 通过Class获取Method的几个方法"></a>1. 通过Class获取Method的几个方法</h4><ul>
-<li><p>Method getDeclaredMethod(String name, Class&lt;?&gt;… parameterTypes) </p>
-<pre><code>返回一个 Method 对象，该对象反映此 Class 对象所表示的类或接口的指定已声明方法。 </code></pre>
-</li>
-<li><p>Method[] getDeclaredMethods() </p>
-<pre><code>返回 Method 对象的一个数组，这些对象反映此 Class 对象表示的类或接口声明的所有方法，包括公共、保护、默认（包）访问和私有方法，但`不包括继承`的方法。 </code></pre>
-</li>
-<li><p>Method getMethod(String name, Class&lt;?&gt;… parameterTypes) </p>
-<pre><code>返回一个 Method 对象，它反映此 Class 对象所表示的类或接口的指定公共成员方法。 </code></pre>
-</li>
-<li><p>Method[] getMethods() </p>
-<pre><code>返回一个包含某些 Method 对象的数组，这些对象反映此 Class 对象所表示的类或接口（`包括那些由该类或接口声明的以及从超类和超接口继承的那些的类或接口`）的公共 member 方法 </code></pre>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> top.tobing.reflection;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Method;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 反射之方法</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> Tobing</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Demo05ReflectMethod1</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> NoSuchMethodException, SecurityException </span>&#123;</span><br><span class="line">		Class cls = Boy.class;</span><br><span class="line">		<span class="comment">//Method methodA = cls.getMethod(&quot;privateMethod&quot;);//  java.lang.NoSuchMethodException</span></span><br><span class="line">		<span class="comment">//Method methodD = cls.getDeclaredMethod(&quot;eat&quot;);  // java.lang.NoSuchMethodException</span></span><br><span class="line">		Method methodB = cls.getDeclaredMethod(<span class="string">&quot;privateMethod&quot;</span>);   <span class="comment">// 可以获取私有方法，但不可以获取父类方法</span></span><br><span class="line">		Method methodC = cls.getDeclaredMethod(<span class="string">&quot;publicMethodA&quot;</span>);  </span><br><span class="line">		Method methodE = cls.getMethod(<span class="string">&quot;eat&quot;</span>);			<span class="comment">// 可以获取父类私有方法，但不可以获取私有方法</span></span><br><span class="line">		System.out.println(methodB.getName());</span><br><span class="line">		System.out.println(methodC.getName());</span><br><span class="line">		System.out.println(methodE.getName());</span><br><span class="line">		Method methods[] = cls.getMethods(); </span><br><span class="line">		</span><br><span class="line">		System.out.println(<span class="string">&quot;======================================&quot;</span>);</span><br><span class="line">		System.out.println(<span class="string">&quot;Boy的所有方法(包含父类继承的)：&quot;</span>);</span><br><span class="line">		<span class="keyword">for</span>(Method m:methods) &#123;</span><br><span class="line">			System.out.println(<span class="string">&quot;getMethods:&quot;</span>+m.getName());</span><br><span class="line">		&#125;</span><br><span class="line">		System.out.println(<span class="string">&quot;======================================&quot;</span>);</span><br><span class="line">		Method methods1[] = cls.getDeclaredMethods();</span><br><span class="line">		<span class="keyword">for</span>(Method m:methods1) &#123;</span><br><span class="line">			System.out.println(<span class="string">&quot;getDeclaredMethods:&quot;</span>+m.getName());</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">	Method getMethod(name, Class...)：获取某个public的Method（包括父类）</span></span><br><span class="line"><span class="comment">	Method getDeclaredMethod(name, Class...)：获取当前类的某个Method（不包括父类）</span></span><br><span class="line"><span class="comment">	Method[] getMethods()：获取所有public的Method（包括父类）</span></span><br><span class="line"><span class="comment">	Method[] getDeclaredMethods()：获取当前类的所有Method（不包括父类）</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">P</span></span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">eat</span><span class="params">()</span></span>&#123;</span><br><span class="line">		System.out.println(<span class="string">&quot;This is p&#x27;s eat!&quot;</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Boy</span> <span class="keyword">extends</span> <span class="title">P</span></span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">publicMethodA</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		System.out.println(<span class="string">&quot;This is a public method A !&quot;</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">publicMethodB</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		System.out.println(<span class="string">&quot;This is a public method B !&quot;</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">privateMethod</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		System.out.println(<span class="string">&quot;This is a privateMethod!&quot;</span>);</span><br><span class="line">	&#125;	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>运行结果</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">privateMethod</span><br><span class="line">publicMethodA</span><br><span class="line">eat</span><br><span class="line">======================================</span><br><span class="line">Boy的所有方法(包含父类继承的)：</span><br><span class="line">getMethods:publicMethodB</span><br><span class="line">getMethods:publicMethodA</span><br><span class="line">getMethods:eat</span><br><span class="line">getMethods:<span class="built_in">wait</span></span><br><span class="line">getMethods:<span class="built_in">wait</span></span><br><span class="line">getMethods:<span class="built_in">wait</span></span><br><span class="line">getMethods:equals</span><br><span class="line">getMethods:toString</span><br><span class="line">getMethods:hashCode</span><br><span class="line">getMethods:getClass</span><br><span class="line">getMethods:notify</span><br><span class="line">getMethods:notifyAll</span><br><span class="line">======================================</span><br><span class="line">getDeclaredMethods:privateMethod</span><br><span class="line">getDeclaredMethods:publicMethodB</span><br><span class="line">getDeclaredMethods:publicMethodA</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-
-</li>
-</ul>
-<ul>
-<li><p>执行指定对象的方法</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> top.tobing.reflection;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.InvocationTargetException;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Method;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 反射之方法</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> Tobing</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Demo05ReflectMethod2</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException </span>&#123;</span><br><span class="line">		Class cls = Boy.class;</span><br><span class="line">		Method methodB = cls.getDeclaredMethod(<span class="string">&quot;privateMethod&quot;</span>);   <span class="comment">// 可以获取私有方法，但不可以获取父类方法</span></span><br><span class="line">		Method methodC = cls.getDeclaredMethod(<span class="string">&quot;publicMethodA&quot;</span>);  </span><br><span class="line">		Method methodE = cls.getMethod(<span class="string">&quot;eat&quot;</span>);	 </span><br><span class="line">		Boy b = <span class="keyword">new</span> Boy();</span><br><span class="line">		<span class="comment">//methodB.invoke(b); // cannot access a member of class top.tobing.reflection.Boy with modifiers &quot;private&quot;</span></span><br><span class="line">		methodE.invoke(b);</span><br><span class="line">		methodC.invoke(b); </span><br><span class="line">	</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>运行结果</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">This is p<span class="string">&#x27;s eat!</span></span><br><span class="line"><span class="string">This is a public method A !</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>要想执行对象中的private方法，可以使用<code>methodObj.setAccessible(true);</code>来设置其是否可被访问</p>
-</li>
-<li><p>注意：<code>setAccessible(true)</code>可能会失败。如果JVM运行期存在<code>SecurityManager</code>，那么它会根据规则进行检查，有可能阻止<code>setAccessible(true)</code>。例如，某个<code>SecurityManager</code>可能不允许对<code>java</code>和<code>javax</code>开头的<code>package</code>的类调用<code>setAccessible(true)</code>，这样可以保证JVM核心库的安全。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">methodB.setAccessible(<span class="keyword">true</span>);  <span class="comment">// 设置private方法的访问属性</span></span><br><span class="line">methodB.invoke(b);			  <span class="comment">// 执行方法</span></span><br></pre></td></tr></table></figure>
-
-
-
-</li>
-</ul>
-<ul>
-<li><p>使用invoke调用静态方法</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 使用invoke调用静态方法</span></span><br><span class="line"><span class="keyword">int</span> temp = Integer.parseInt(<span class="string">&quot;123&quot;</span>);	<span class="comment">// 以下代码等同于这一句话</span></span><br><span class="line"><span class="comment">//1.获取Integer的字节码对象，通过字节码对象获取到方法 getMethod（方法名称，方法的参数列表）</span></span><br><span class="line">Method methodA = Integer.class.getMethod(<span class="string">&quot;parseInt&quot;</span>,String.class);	</span><br><span class="line"><span class="comment">//2.通过invoke执行方法  invoke(执行方法所在的对象，执行方法需要的参数（不限个数）)</span></span><br><span class="line">Object obj = methodA.invoke(<span class="keyword">null</span>,<span class="string">&quot;123&quot;</span>);</span><br><span class="line">System.out.println(obj);</span><br></pre></td></tr></table></figure>
-
-</li>
-</ul>
-<h4 id="2-调用构造方法（创建实例）"><a href="#2-调用构造方法（创建实例）" class="headerlink" title="2. 调用构造方法（创建实例）"></a>2. 调用构造方法（创建实例）</h4><ul>
-<li><p>在Class类中提供了一个<code>newInstance</code>方法用来创建对象的实例</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Person p = <span class="keyword">new</span> Person();	<span class="comment">// 这两件代码都可以用于新建对象实例</span></span><br><span class="line">Person p = Person.class.newInstance();</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>但是<code>newInstance</code>方法也有弊端：只能实例化带<code>public</code>修饰的空参数构造方法</li>
-</ul>
-</li>
-<li><p>为了解决以上缺陷，java的reflect的API提供Constructor对象，包含了构造方法的所有信息，可用于创建实例。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> top.tobing.reflection;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Constructor;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.InvocationTargetException;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Method;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 反射之方法</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> Tobing</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Demo06ReflectMethod4</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, InstantiationException </span>&#123;</span><br><span class="line">		<span class="comment">// 方式一：使用newInstance()（不可以获取带参数）</span></span><br><span class="line">		C c = C.class.newInstance();</span><br><span class="line">		<span class="comment">// 方式二：获取Constructor类（可以获取带参数）</span></span><br><span class="line">		<span class="comment">// 不可以获取到非public</span></span><br><span class="line">		Constructor con1 = C.class.getConstructor();			</span><br><span class="line">		Constructor con2 = C.class.getConstructor(Integer.class);</span><br><span class="line">		<span class="comment">// 可以获取到非public构造方法</span></span><br><span class="line">		Constructor con3 = C.class.getDeclaredConstructor(String.class);	</span><br><span class="line">		<span class="comment">// 使用Constructor类的newInstance方法</span></span><br><span class="line">		C c1= (C)con1.newInstance();		<span class="comment">//调用空参数构造方法</span></span><br><span class="line">		C c2 = (C)con2.newInstance(<span class="number">12</span>);		<span class="comment">//低氧</span></span><br><span class="line">		C c3 = (C)con3.newInstance(<span class="string">&quot;Tobing&quot;</span>);</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">C</span></span>&#123;</span><br><span class="line">	<span class="keyword">private</span> String name;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">int</span> id;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">C</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		System.out.println(<span class="string">&quot;空参数public构造方法被调用了！！！&quot;</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">C</span><span class="params">(Integer id)</span> </span>&#123;</span><br><span class="line">		System.out.println(<span class="string">&quot;带参数public构造方法被调用了！！！&quot;</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	C (String name)&#123;</span><br><span class="line">		<span class="keyword">this</span>.name = name;</span><br><span class="line">		System.out.println(<span class="string">&quot;带参数非public的构造方法执行了！！！&quot;</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>运行结果</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">空参数<span class="keyword">public</span>构造方法被调用了！！！</span><br><span class="line">空参数<span class="keyword">public</span>构造方法被调用了！！！</span><br><span class="line">带参数<span class="keyword">public</span>构造方法被调用了！！！</span><br><span class="line">带参数非<span class="keyword">public</span>的构造方法执行了！！！</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-
-</li>
-</ul>
-<h4 id="3-获取继承关系"><a href="#3-获取继承关系" class="headerlink" title="3. 获取继承关系"></a>3. 获取继承关系</h4><ol>
-<li><p>获取父类Class</p>
-</li>
-<li><p>获取interface</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> top.tobing.reflection;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Constructor;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.InvocationTargetException;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Method;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 反射之方法</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> Tobing</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Demo07ReflectInherit</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, InstantiationException </span>&#123;</span><br><span class="line">		Class cls1 = Integer.class;</span><br><span class="line">		</span><br><span class="line">		<span class="comment">// 获取相关父类</span></span><br><span class="line">		Class cls2 = cls1.getSuperclass();</span><br><span class="line">		Class cls3 = cls2.getSuperclass();</span><br><span class="line">		</span><br><span class="line">		System.out.println(<span class="string">&quot;Integer&#x27;s super  class is :&quot;</span>+cls2.getName());</span><br><span class="line">		System.out.println(<span class="string">&quot;Number&#x27;s super  class is :&quot;</span>+cls3.getName());</span><br><span class="line">		System.out.println(<span class="string">&quot;Object&#x27;s super class is :&quot;</span>+cls3.getSuperclass());</span><br><span class="line">		</span><br><span class="line">		<span class="comment">// 获取interface</span></span><br><span class="line">		Class[] interfaces = cls1.getInterfaces();</span><br><span class="line">		<span class="keyword">for</span>(Class c:interfaces) &#123;</span><br><span class="line">			System.out.println(c.getName());</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<ul>
-<li><p>输出</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Integer<span class="string">&#x27;s super  class is :java.lang.Number</span></span><br><span class="line"><span class="string">Number&#x27;</span>s super  class is :java.lang.Object</span><br><span class="line">Object<span class="string">&#x27;s super class is :null</span></span><br><span class="line"><span class="string">java.lang.Comparable</span></span><br><span class="line"><span class="string"></span></span><br></pre></td></tr></table></figure>
-
-</li>
-</ul>
+      <p>反射第三弹。</p>
     
   </div>
   
@@ -468,7 +395,7 @@
         <time>2019-10-19</time>
         
           <span class="dot"></span>
-          <a class="category-link" href="/categories/Java/">Java</a>
+          <a class="category-link" href="/categories/%E7%90%86%E8%AE%BA%E5%AD%A6%E4%B9%A0/">理论学习</a>
         
       </div>
       
@@ -502,59 +429,7 @@
   
   <div class='md'>
     
-      <h1 id="Java反射（Reflection）-二"><a href="#Java反射（Reflection）-二" class="headerlink" title="Java反射（Reflection）(二)"></a>Java反射（Reflection）(二)</h1><ul>
-<li>获取了某个Object实例对应的Class，我们就可以通过反射获取他的一切信息。</li>
-</ul>
-<h3 id="1-访问字段-Filed"><a href="#1-访问字段-Filed" class="headerlink" title="1. 访问字段(Filed)"></a>1. 访问字段(Filed)</h3><ul>
-<li><h4 id="通过Class访问字段（Field）信息的几个方法"><a href="#通过Class访问字段（Field）信息的几个方法" class="headerlink" title="通过Class访问字段（Field）信息的几个方法"></a>通过Class访问字段（Field）信息的几个方法</h4><ul>
-<li><p>Field getField(String name) ：获取指定名称的Field（包含父类，子类的public的Field）</p>
-</li>
-<li><p>Filed getDeclaredField(String name) ：获取指定名称的Filed（包含子类的所有Field）</p>
-</li>
-<li><p>Field[] getFields() ：获取所有Field（包含父类，子类的public的Field）</p>
-</li>
-<li><p>Filed[] getDeclaredFields() ：获取所有Filed（包含子类的所有Field）</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> top.tobing.reflection;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Field;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 获取实例的字段信息</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> Tobing</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Demo02ReflectField</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> NoSuchFieldException, SecurityException </span>&#123;</span><br><span class="line">		Student stu = <span class="keyword">new</span> Student();</span><br><span class="line">		<span class="comment">// 获取Student名称为id的Field</span></span><br><span class="line">		System.out.println(stu.getClass().getField(<span class="string">&quot;name&quot;</span>));</span><br><span class="line">		System.out.println(stu.getClass().getField(<span class="string">&quot;id&quot;</span>));</span><br><span class="line">		System.out.println(stu.getClass().getDeclaredField(<span class="string">&quot;score&quot;</span>));</span><br><span class="line">		<span class="comment">// 以下语句会抛出:java.lang.NoSuchFieldException 该方法不能找到父类的public方法</span></span><br><span class="line">		<span class="comment">//System.out.println(stu.getClass().getDeclaredField(&quot;name&quot;));</span></span><br><span class="line">		Field[] fields1 = stu.getClass().getFields();	<span class="comment">// 获取stu的使用public修饰的方法</span></span><br><span class="line">		System.out.println(<span class="string">&quot;stu的public修饰Field（包含父类）：&quot;</span>);</span><br><span class="line">		<span class="keyword">for</span>(Field f:fields1) &#123;</span><br><span class="line">			System.out.println(f.getName());</span><br><span class="line">		&#125;</span><br><span class="line">		Field[] fields2 = stu.getClass().getDeclaredFields();</span><br><span class="line">		System.out.println(<span class="string">&quot;本类中的所有属性（包含private）：&quot;</span>);</span><br><span class="line">		<span class="keyword">for</span>(Field f:fields2) &#123;</span><br><span class="line">			System.out.println(f.getName());</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Human</span></span>&#123;</span><br><span class="line">	<span class="keyword">public</span> String name;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Student</span> <span class="keyword">extends</span> <span class="title">Human</span> </span>&#123;</span><br><span class="line">	<span class="keyword">public</span> String id;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">double</span> score;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 输出结果</span></span><br><span class="line">public java.lang.String top.tobing.reflection.Human.name</span><br><span class="line">public java.lang.String top.tobing.reflection.Student.id</span><br><span class="line">private double top.tobing.reflection.Student.score</span><br><span class="line">stu的public修饰Field（包含父类）：</span><br><span class="line">id</span><br><span class="line">name</span><br><span class="line">本类中的所有属性（包含private）：</span><br><span class="line">id</span><br><span class="line">score</span><br></pre></td></tr></table></figure>
-
-
-
-</li>
-</ul>
-</li>
-</ul>
-<ul>
-<li><h4 id="Field的常用操作"><a href="#Field的常用操作" class="headerlink" title="Field的常用操作"></a>Field的常用操作</h4><ul>
-<li>String getName() <pre><code>      返回此 Field 对象表示的字段的`名称 `</code></pre>
-</li>
-<li>Class&lt;?&gt; getType() <pre><code>      返回一个 Class 对象，它标识了此 Field 对象所表示字段的`声明类型`。 </code></pre>
-</li>
-<li>int getModifiers() <pre><code>      以整数形式返回由此 Field 对象表示的字段的` Java 语言修饰符`。 </code></pre>
-</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> top.tobing.reflection;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Field;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Modifier;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 字段的常用方法</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> Tobing</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Demo03ReflectField2</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> NoSuchFieldException, SecurityException </span>&#123;</span><br><span class="line">		Teacher t = <span class="keyword">new</span> Teacher();</span><br><span class="line">		Field f2 = t.getClass().getDeclaredField(<span class="string">&quot;age&quot;</span>);</span><br><span class="line">		Field f1 = t.getClass().getDeclaredField(<span class="string">&quot;name&quot;</span>);</span><br><span class="line">		System.out.println(<span class="string">&quot;-----------------------------------------------------&quot;</span>);</span><br><span class="line">		System.out.println(<span class="string">&quot;名称：&quot;</span>+f1.getName());</span><br><span class="line">		System.out.println(<span class="string">&quot;返回值类型：&quot;</span>+f1.getType());</span><br><span class="line">		System.out.println(<span class="string">&quot;Java语言修饰符int形式：&quot;</span>+f1.getModifiers());</span><br><span class="line">		System.out.println(<span class="string">&quot;isPrivate：&quot;</span>+Modifier.isPrivate(f1.getModifiers()));</span><br><span class="line">		</span><br><span class="line">		System.out.println(<span class="string">&quot;-----------------------------------------------------&quot;</span>);</span><br><span class="line">		System.out.println(<span class="string">&quot;名称：&quot;</span>+f2.getName());</span><br><span class="line">		System.out.println(<span class="string">&quot;返回值类型：&quot;</span>+f2.getType());</span><br><span class="line">		System.out.println(<span class="string">&quot;Java语言修饰符int形式：&quot;</span>+f2.getModifiers());</span><br><span class="line">		System.out.println(<span class="string">&quot;isPublic：&quot;</span>+Modifier.isPublic(f2.getModifiers()));		</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Teacher</span></span>&#123;</span><br><span class="line">	<span class="keyword">private</span> String name;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">int</span> age;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 输出结果</span></span><br><span class="line">-----------------------------------------------------</span><br><span class="line">名称：name</span><br><span class="line">返回值类型：class java.lang.String</span><br><span class="line">Java语言修饰符int形式：2</span><br><span class="line">isPrivate：<span class="literal">true</span></span><br><span class="line">-----------------------------------------------------</span><br><span class="line">名称：age</span><br><span class="line">返回值类型：int</span><br><span class="line">Java语言修饰符int形式：1</span><br><span class="line">isPublic：<span class="literal">true</span></span><br></pre></td></tr></table></figure>
-
-</li>
-</ul>
-<h3 id="2-访问字段的值"><a href="#2-访问字段的值" class="headerlink" title="2. 访问字段的值"></a>2. 访问字段的值</h3><ul>
-<li><p>Object get(Object obj) ：返回指定实例对应字段的值</p>
-<pre><code>Returns the value of the field represented by this Field, on the specified object. </code></pre>
-</li>
-<li><p>void setAccessible(boolean flag) ：设置是否可以范围（权限不够的时候）</p>
-<p>​    Set the accessible flag for this object to the indicated boolean value. </p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> top.tobing.reflection;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Field;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Modifier;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 字段的常用方法</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> Tobing</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Demo03ReflectField3</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception</span>&#123;</span><br><span class="line">		People p = <span class="keyword">new</span> People();</span><br><span class="line">		p.setName(<span class="string">&quot;张三丰&quot;</span>);</span><br><span class="line">		Field f1 = p.getClass().getDeclaredField(<span class="string">&quot;name&quot;</span>);</span><br><span class="line">		<span class="comment">// f1.get(p); //直接执行该语句会抛出异常java.lang.IllegalAccessException</span></span><br><span class="line">		<span class="comment">// cannot access a member of class top.tobing.reflection.People with modifiers &quot;private&quot; </span></span><br><span class="line">		<span class="comment">//不能访问修饰符为private的字段</span></span><br><span class="line">		<span class="comment">// 暴力反射，忽略修饰符 // 通常情况下，如果修饰符权限不够就考虑使用该方法（反射是非常规的用法）</span></span><br><span class="line">		f1.setAccessible(<span class="keyword">true</span>);	</span><br><span class="line">		Object obj = f1.get(p);</span><br><span class="line">		System.out.println(obj);  <span class="comment">// 输出： 张三丰</span></span><br><span class="line">		f1.set(p,<span class="string">&quot;张无忌&quot;</span>);</span><br><span class="line">		System.out.println(f1.get(p));	<span class="comment">// 修改后输出 张无忌</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">People</span></span>&#123;</span><br><span class="line">	<span class="keyword">private</span> String name;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">int</span> age;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setName</span><span class="params">(String name)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.name = name;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-</li>
-</ul>
-<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><ul>
-<li>理解还未深入，仍需学习。</li>
-</ul>
-
+      <p>反射介绍第二弹。</p>
     
   </div>
   
@@ -564,7 +439,7 @@
         <time>2019-10-05</time>
         
           <span class="dot"></span>
-          <a class="category-link" href="/categories/Java/">Java</a>
+          <a class="category-link" href="/categories/%E7%90%86%E8%AE%BA%E5%AD%A6%E4%B9%A0/">理论学习</a>
         
       </div>
       
@@ -598,49 +473,7 @@
   
   <div class='md'>
     
-      <h1 id="Java反射（Reflection）-一"><a href="#Java反射（Reflection）-一" class="headerlink" title="Java反射（Reflection）(一)"></a>Java反射（Reflection）(一)</h1><h3 id="1-什么是反射"><a href="#1-什么是反射" class="headerlink" title="1. 什么是反射"></a>1. 什么是反射</h3><ul>
-<li>通过<code>Class</code>实例获取<code>class</code>（包含类和接口）信息的方法称为反射（Reflection）。</li>
-</ul>
-<h3 id="2-Class类"><a href="#2-Class类" class="headerlink" title="2. Class类"></a>2. Class类</h3><ul>
-<li>除了基本数据类型:<code>int double long</code>等之外，其他的类型都是<code>class</code>，包括了<code>interface</code></li>
-<li>class 是由JVM动态加载的</li>
-<li>每加载一种class，JVM就为其创建一个Class类型的实例，并关联起来。</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">Class</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">Class</span><span class="params">()</span></span>&#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>以<code>String类</code>为例，当JVM加载<code>String类</code>时，它首先读取<code>String.class</code>文件到内存，然后为String类创建一个Class实例与之关联起来</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Class c1 = <span class="keyword">new</span> Class(String);</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><p>Class实例是JVM内部创建的，Class类的构造方法是private，<code>只能</code>由JVM能<code>创建Class实例</code>。</p>
-<blockquote>
-<ul>
-<li>JVM拥有的每一个Class实例都关联了一个数据类型（class 或者 interface）</li>
-<li>Class实例包含了class的所有信息：name，package，super，interface，field，method等</li>
-<li>因此我们可以通过Class实例来获取对应class的所有信息</li>
-</ul>
-</blockquote>
-</li>
-<li><h5 id="如何获取到Class实例（三种方法）"><a href="#如何获取到Class实例（三种方法）" class="headerlink" title="如何获取到Class实例（三种方法）"></a>如何获取到Class实例（三种方法）</h5><ol>
-<li><p>通过<code>类的静态变量</code></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Class strClass = String.class;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>通过类<code>实例</code>的<code>getClass()</code>方法</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Stirng s = <span class="string">&quot;Hello&quot;</span>;</span><br><span class="line">Class strClass = s.getClass()；</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>通过<code>Class.forName(&quot;全限定类名&quot;)</code>获取</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Class strClass = Class.forName(<span class="string">&quot;java.lang.String&quot;</span>);</span><br></pre></td></tr></table></figure>
-</li>
-<li><h5 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h5><ul>
-<li>因为Class实例在JVM中是唯一的，所以可以用<code>==</code>比较两个Class</li>
-</ul>
-</li>
-</ol>
-</li>
-</ul>
-<h3 id="3-反射的目的"><a href="#3-反射的目的" class="headerlink" title="3. 反射的目的"></a>3. 反射的目的</h3>
+      <p>在Java常用的框架中，反射被频繁的使用，本文介绍反射的简单使用。</p>
     
   </div>
   
@@ -650,7 +483,7 @@
         <time>2019-10-04</time>
         
           <span class="dot"></span>
-          <a class="category-link" href="/categories/Java/">Java</a>
+          <a class="category-link" href="/categories/%E7%90%86%E8%AE%BA%E5%AD%A6%E4%B9%A0/">理论学习</a>
         
       </div>
       
@@ -767,64 +600,24 @@
       <ul class="entry navigation">
         
           <li><a class="flat-box"
-            title="/categories/Hexo/" href="/categories/Hexo/"
-            id="categoriesHexo"
-            ><div class='name'>Hexo</div><div class='badge'>(2)</div></a></li>
+            title="/categories/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/" href="/categories/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/"
+            id="categoriesE5B7A5E585B7E4BDBFE794A8"
+            ><div class='name'>工具使用</div><div class='badge'>(5)</div></a></li>
         
           <li><a class="flat-box"
-            title="/categories/Intellij-Idea/" href="/categories/Intellij-Idea/"
-            id="categoriesIntellij-Idea"
-            ><div class='name'>Intellij Idea</div><div class='badge'>(1)</div></a></li>
+            title="/categories/%E6%8A%80%E6%9C%AF%E5%BA%94%E7%94%A8/" href="/categories/%E6%8A%80%E6%9C%AF%E5%BA%94%E7%94%A8/"
+            id="categoriesE68A80E69CAFE5BA94E794A8"
+            ><div class='name'>技术应用</div><div class='badge'>(3)</div></a></li>
         
           <li><a class="flat-box"
-            title="/categories/Java/" href="/categories/Java/"
-            id="categoriesJava"
-            ><div class='name'>Java</div><div class='badge'>(24)</div></a></li>
+            title="/categories/%E6%9D%82%E4%B8%83%E6%9D%82%E5%85%AB/" href="/categories/%E6%9D%82%E4%B8%83%E6%9D%82%E5%85%AB/"
+            id="categoriesE69D82E4B883E69D82E585AB"
+            ><div class='name'>杂七杂八</div><div class='badge'>(4)</div></a></li>
         
           <li><a class="flat-box"
-            title="/categories/Linux/" href="/categories/Linux/"
-            id="categoriesLinux"
-            ><div class='name'>Linux</div><div class='badge'>(1)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/git/" href="/categories/git/"
-            id="categoriesgit"
-            ><div class='name'>git</div><div class='badge'>(1)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/windows%E4%BD%BF%E7%94%A8/" href="/categories/windows%E4%BD%BF%E7%94%A8/"
-            id="categorieswindowsE4BDBFE794A8"
-            ><div class='name'>windows使用</div><div class='badge'>(1)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/%E6%89%8B%E6%9C%BA/" href="/categories/%E6%89%8B%E6%9C%BA/"
-            id="categoriesE6898BE69CBA"
-            ><div class='name'>手机</div><div class='badge'>(1)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/%E6%8A%80%E5%B7%A7/" href="/categories/%E6%8A%80%E5%B7%A7/"
-            id="categoriesE68A80E5B7A7"
-            ><div class='name'>技巧</div><div class='badge'>(1)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/"
-            id="categoriesE695B0E68DAEE5BA93"
-            ><div class='name'>数据库</div><div class='badge'>(7)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/%E7%89%A9%E8%81%94%E7%BD%91/" href="/categories/%E7%89%A9%E8%81%94%E7%BD%91/"
-            id="categoriesE789A9E88194E7BD91"
-            ><div class='name'>物联网</div><div class='badge'>(2)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/%E7%9E%8E%E6%89%AF/" href="/categories/%E7%9E%8E%E6%89%AF/"
-            id="categoriesE79E8EE689AF"
-            ><div class='name'>瞎扯</div><div class='badge'>(1)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/%E8%B7%AF%E7%94%B1%E5%99%A8/" href="/categories/%E8%B7%AF%E7%94%B1%E5%99%A8/"
-            id="categoriesE8B7AFE794B1E599A8"
-            ><div class='name'>路由器</div><div class='badge'>(1)</div></a></li>
+            title="/categories/%E7%90%86%E8%AE%BA%E5%AD%A6%E4%B9%A0/" href="/categories/%E7%90%86%E8%AE%BA%E5%AD%A6%E4%B9%A0/"
+            id="categoriesE79086E8AEBAE5ADA6E4B9A0"
+            ><div class='name'>理论学习</div><div class='badge'>(36)</div></a></li>
         
       </ul>
     </div>
@@ -848,7 +641,7 @@
 
 
     <div class='content'>
-      <a href="/tags/2019/" style="font-size: 14px; color: #999">2019</a> <a href="/tags/DHT11/" style="font-size: 14px; color: #999">DHT11</a> <a href="/tags/ElasticSearch/" style="font-size: 14px; color: #999">ElasticSearch</a> <a href="/tags/JDBC/" style="font-size: 14px; color: #999">JDBC</a> <a href="/tags/Java/" style="font-size: 22.33px; color: #606060">Java</a> <a href="/tags/Linux/" style="font-size: 14px; color: #999">Linux</a> <a href="/tags/MongoDB/" style="font-size: 14px; color: #999">MongoDB</a> <a href="/tags/MySQL/" style="font-size: 20.67px; color: #6c6c6c">MySQL</a> <a href="/tags/Mybatis/" style="font-size: 24px; color: #555">Mybatis</a> <a href="/tags/Oracle/" style="font-size: 15.67px; color: #8e8e8e">Oracle</a> <a href="/tags/Spring/" style="font-size: 17.33px; color: #828282">Spring</a> <a href="/tags/Spring-Security/" style="font-size: 14px; color: #999">Spring-Security</a> <a href="/tags/SpringMVC/" style="font-size: 17.33px; color: #828282">SpringMVC</a> <a href="/tags/Spring%E5%85%A8%E5%AE%B6%E6%A1%B6/" style="font-size: 14px; color: #999">Spring全家桶</a> <a href="/tags/docker/" style="font-size: 14px; color: #999">docker</a> <a href="/tags/git/" style="font-size: 14px; color: #999">git</a> <a href="/tags/gitHub/" style="font-size: 14px; color: #999">gitHub</a> <a href="/tags/githubpage/" style="font-size: 14px; color: #999">githubpage</a> <a href="/tags/hexo/" style="font-size: 15.67px; color: #8e8e8e">hexo</a> <a href="/tags/idea/" style="font-size: 14px; color: #999">idea</a> <a href="/tags/java/" style="font-size: 14px; color: #999">java</a> <a href="/tags/jdbc/" style="font-size: 15.67px; color: #8e8e8e">jdbc</a> <a href="/tags/mysql/" style="font-size: 14px; color: #999">mysql</a> <a href="/tags/root/" style="font-size: 14px; color: #999">root</a> <a href="/tags/token/" style="font-size: 14px; color: #999">token</a> <a href="/tags/win10/" style="font-size: 14px; color: #999">win10</a> <a href="/tags/%E5%85%A5%E9%97%A8/" style="font-size: 14px; color: #999">入门</a> <a href="/tags/%E5%88%86%E9%A1%B5%E6%8F%92%E4%BB%B6/" style="font-size: 14px; color: #999">分页插件</a> <a href="/tags/%E5%8D%95%E7%89%87%E6%9C%BA/" style="font-size: 14px; color: #999">单片机</a> <a href="/tags/%E5%8F%8D%E5%B0%84/" style="font-size: 17.33px; color: #828282">反射</a> <a href="/tags/%E5%9F%9F%E5%90%8D%E7%BB%91%E5%AE%9A/" style="font-size: 14px; color: #999">域名绑定</a> <a href="/tags/%E5%A4%8D%E4%B9%A0/" style="font-size: 19px; color: #777">复习</a> <a href="/tags/%E5%AE%B9%E5%99%A8%E6%8A%80%E6%9C%AF/" style="font-size: 14px; color: #999">容器技术</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" style="font-size: 14px; color: #999">数据库</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" style="font-size: 15.67px; color: #8e8e8e">数据结构</a> <a href="/tags/%E6%95%B0%E7%BB%84/" style="font-size: 14px; color: #999">数组</a> <a href="/tags/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/" style="font-size: 14px; color: #999">文件上传</a> <a href="/tags/%E6%A0%88/" style="font-size: 14px; color: #999">栈</a> <a href="/tags/%E6%A0%91%E8%8E%93%E6%B4%BE/" style="font-size: 14px; color: #999">树莓派</a> <a href="/tags/%E6%A0%A1%E5%9B%AD%E5%AE%BD%E5%B8%A6/" style="font-size: 14px; color: #999">校园宽带</a> <a href="/tags/%E6%B3%A8%E8%A7%A3/" style="font-size: 14px; color: #999">注解</a> <a href="/tags/%E8%BF%9E%E6%8E%A5%E6%B1%A0/" style="font-size: 14px; color: #999">连接池</a> <a href="/tags/%E9%98%9F%E5%88%97/" style="font-size: 14px; color: #999">队列</a> <a href="/tags/%E9%9B%86%E5%90%88/" style="font-size: 14px; color: #999">集合</a> <a href="/tags/%E9%AD%85%E8%93%9DNote5/" style="font-size: 14px; color: #999">魅蓝Note5</a>
+      <a href="/tags/CentOS/" style="font-size: 14px; color: #999">CentOS</a> <a href="/tags/DHT11/" style="font-size: 14px; color: #999">DHT11</a> <a href="/tags/ElasticSearch/" style="font-size: 14px; color: #999">ElasticSearch</a> <a href="/tags/GitHub/" style="font-size: 14px; color: #999">GitHub</a> <a href="/tags/GithubPage/" style="font-size: 14px; color: #999">GithubPage</a> <a href="/tags/Hexo/" style="font-size: 15.67px; color: #8e8e8e">Hexo</a> <a href="/tags/Intellij-idea/" style="font-size: 14px; color: #999">Intellij idea</a> <a href="/tags/JDBC/" style="font-size: 17.33px; color: #828282">JDBC</a> <a href="/tags/Java/" style="font-size: 24px; color: #555">Java</a> <a href="/tags/Linux/" style="font-size: 14px; color: #999">Linux</a> <a href="/tags/MongoDB/" style="font-size: 14px; color: #999">MongoDB</a> <a href="/tags/MySQL/" style="font-size: 20.67px; color: #6c6c6c">MySQL</a> <a href="/tags/Mybatis/" style="font-size: 22.33px; color: #606060">Mybatis</a> <a href="/tags/Oracle/" style="font-size: 15.67px; color: #8e8e8e">Oracle</a> <a href="/tags/PageHelper/" style="font-size: 14px; color: #999">PageHelper</a> <a href="/tags/Spring/" style="font-size: 19px; color: #777">Spring</a> <a href="/tags/Spring-Security/" style="font-size: 14px; color: #999">Spring-Security</a> <a href="/tags/SpringBoot/" style="font-size: 14px; color: #999">SpringBoot</a> <a href="/tags/SpringMVC/" style="font-size: 17.33px; color: #828282">SpringMVC</a> <a href="/tags/Windows/" style="font-size: 14px; color: #999">Windows</a> <a href="/tags/docker/" style="font-size: 14px; color: #999">docker</a> <a href="/tags/git/" style="font-size: 14px; color: #999">git</a> <a href="/tags/jwt/" style="font-size: 14px; color: #999">jwt</a> <a href="/tags/root/" style="font-size: 14px; color: #999">root</a> <a href="/tags/%E5%85%A8%E6%96%87%E6%A3%80%E7%B4%A2/" style="font-size: 14px; color: #999">全文检索</a> <a href="/tags/%E5%88%86%E4%BA%AB/" style="font-size: 14px; color: #999">分享</a> <a href="/tags/%E5%8D%95%E7%89%87%E6%9C%BA/" style="font-size: 14px; color: #999">单片机</a> <a href="/tags/%E5%8F%8D%E5%B0%84/" style="font-size: 17.33px; color: #828282">反射</a> <a href="/tags/%E5%9F%9F%E5%90%8D%E7%BB%91%E5%AE%9A/" style="font-size: 14px; color: #999">域名绑定</a> <a href="/tags/%E5%AE%9E%E9%AA%8C/" style="font-size: 15.67px; color: #8e8e8e">实验</a> <a href="/tags/%E5%AE%B9%E5%99%A8%E6%8A%80%E6%9C%AF/" style="font-size: 14px; color: #999">容器技术</a> <a href="/tags/%E5%B0%8F%E7%A8%8B%E5%BA%8F/" style="font-size: 14px; color: #999">小程序</a> <a href="/tags/%E6%80%BB%E7%BB%93/" style="font-size: 14px; color: #999">总结</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93%E8%BF%9E%E6%8E%A5%E6%B1%A0/" style="font-size: 14px; color: #999">数据库连接池</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" style="font-size: 17.33px; color: #828282">数据结构</a> <a href="/tags/%E6%95%B0%E7%BB%84-Java/" style="font-size: 14px; color: #999">数组 - Java</a> <a href="/tags/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/" style="font-size: 14px; color: #999">文件上传</a> <a href="/tags/%E6%A0%88/" style="font-size: 14px; color: #999">栈</a> <a href="/tags/%E6%A0%91%E8%8E%93%E6%B4%BE/" style="font-size: 14px; color: #999">树莓派</a> <a href="/tags/%E6%A0%A1%E5%9B%AD%E5%AE%BD%E5%B8%A6/" style="font-size: 14px; color: #999">校园宽带</a> <a href="/tags/%E6%B3%A8%E8%A7%A3/" style="font-size: 14px; color: #999">注解</a> <a href="/tags/%E7%89%A9%E8%81%94%E7%BD%91/" style="font-size: 15.67px; color: #8e8e8e">物联网</a> <a href="/tags/%E8%AE%A4%E8%AF%81%E6%9C%BA%E5%88%B6/" style="font-size: 14px; color: #999">认证机制</a> <a href="/tags/%E8%B7%AF%E7%94%B1%E5%99%A8/" style="font-size: 14px; color: #999">路由器</a> <a href="/tags/%E9%98%9F%E5%88%97/" style="font-size: 14px; color: #999">队列</a> <a href="/tags/%E9%9B%86%E5%90%88/" style="font-size: 14px; color: #999">集合</a> <a href="/tags/%E9%AD%85%E8%93%9DNote5/" style="font-size: 14px; color: #999">魅蓝Note5</a>
     </div>
   </section>
 

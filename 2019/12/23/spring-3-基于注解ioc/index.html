@@ -25,18 +25,7 @@
   
 
   
-    <meta name="description" content="spring-3-基于注解Ioc配置1. 基于注解的Ioc配置
-
-基于注解和xml的配置实现的功能都是一样的，都是要降低程序间耦合。
-
-xml和注解的配置方式都很常用
-
-
-
-1. 环境搭建
-在pom.xml中添加spring的依赖
-
-12345&lt;dependency&gt;    &lt;groupId&g...">
+    <meta name="description" content="Spring学习第三弹。">
   
 
   <!-- feed -->
@@ -426,7 +415,10 @@ xml和注解的配置方式都很常用
 
 
   
-  <h1 id="spring-3-基于注解Ioc配置"><a href="#spring-3-基于注解Ioc配置" class="headerlink" title="spring-3-基于注解Ioc配置"></a>spring-3-基于注解Ioc配置</h1><h2 id="1-基于注解的Ioc配置"><a href="#1-基于注解的Ioc配置" class="headerlink" title="1. 基于注解的Ioc配置"></a>1. 基于注解的Ioc配置</h2><blockquote>
+  <p>Spring学习第三弹。</p>
+<a id="more"></a>
+
+<h1 id="spring-3-基于注解Ioc配置"><a href="#spring-3-基于注解Ioc配置" class="headerlink" title="spring-3-基于注解Ioc配置"></a>spring-3-基于注解Ioc配置</h1><h2 id="1-基于注解的Ioc配置"><a href="#1-基于注解的Ioc配置" class="headerlink" title="1. 基于注解的Ioc配置"></a>1. 基于注解的Ioc配置</h2><blockquote>
 <ul>
 <li><p>基于注解和xml的配置实现的功能都是一样的，都是要降低程序间耦合。</p>
 </li>
@@ -575,7 +567,7 @@ xml和注解的配置方式都很常用
 </blockquote>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AccountServiceTest</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        ApplicationContext context = <span class="keyword">new</span> ClassPathXmlApplicationContext(<span class="string">&quot;bean.xml&quot;</span>);</span><br><span class="line">        AccountService accountService = context.getBean(<span class="string">&quot;accountService&quot;</span>,AccountService.class);</span><br><span class="line">        <span class="comment">// 1. 查询所有</span></span><br><span class="line"><span class="comment">//        List&lt;Account&gt; accounts = accountService.findAll();</span></span><br><span class="line"><span class="comment">//        for (Account account : accounts) &#123;</span></span><br><span class="line"><span class="comment">//            System.out.println(account);</span></span><br><span class="line"><span class="comment">//        &#125;</span></span><br><span class="line">        <span class="comment">// 2. 根据id查询</span></span><br><span class="line"><span class="comment">//        Account account = accountService.findById(1);</span></span><br><span class="line"><span class="comment">//        System.out.println(account);</span></span><br><span class="line">        <span class="comment">// 3. 保存用户</span></span><br><span class="line"><span class="comment">//        Account acc = new Account();</span></span><br><span class="line"><span class="comment">//        acc.setMoney(12345F);</span></span><br><span class="line"><span class="comment">//        acc.setName(&quot;Tobing&quot;);</span></span><br><span class="line"><span class="comment">//        accountService.save(acc);</span></span><br><span class="line">        <span class="comment">// 4. 更新用户</span></span><br><span class="line"><span class="comment">//        Account acc = new Account();</span></span><br><span class="line"><span class="comment">//        acc.setMoney(22345F);</span></span><br><span class="line"><span class="comment">//        acc.setName(&quot;Tobing&quot;);</span></span><br><span class="line"><span class="comment">//        acc.setId(4);</span></span><br><span class="line"><span class="comment">//        accountService.update(acc);</span></span><br><span class="line">        <span class="comment">// 5. 删除用户</span></span><br><span class="line">        accountService.delete(<span class="number">4</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
-<h3 id="6-原理图"><a href="#6-原理图" class="headerlink" title="6. 原理图"></a>6. 原理图</h3><p><img src="/images/Spring/spring-xml-ioc.png" class="lazyload" data-srcset="/images/Spring/spring-xml-ioc.png" srcset="data:image/png;base64,666" alt="spring-xml-ioc"></p>
+<h3 id="6-原理图"><a href="#6-原理图" class="headerlink" title="6. 原理图"></a>6. 原理图</h3><p><img src="https://gitee.com/tobing/imagebed/raw/master/spring-xml-ioc.png" class="lazyload" data-srcset="https://gitee.com/tobing/imagebed/raw/master/spring-xml-ioc.png" srcset="data:image/png;base64,666" alt="spring-xml-ioc"></p>
 <h2 id="3-对以上案例进行基于注解的改造"><a href="#3-对以上案例进行基于注解的改造" class="headerlink" title="3. 对以上案例进行基于注解的改造"></a>3. 对以上案例进行基于注解的改造</h2><h3 id="1-创建新工程"><a href="#1-创建新工程" class="headerlink" title="1. 创建新工程"></a>1. 创建新工程</h3><blockquote>
 <ol>
 <li>复制以上工程的所有代码：test，main，pom.xml</li>
@@ -723,10 +715,10 @@ xml和注解的配置方式都很常用
     <div class='new-meta-box'>
       
         
-          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2019-12-23T18:39:10+08:00">
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-01-15T12:09:02+08:00">
   <a class='notlink'>
     <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
-    <p>更新于：Dec 23, 2019</p>
+    <p>更新于：Jan 15, 2021</p>
   </a>
 </div>
 
@@ -748,26 +740,7 @@ xml和注解的配置方式都很常用
       
         <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer noopener"
           
-          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://tobing.top/2019/12/23/spring-3-%E5%9F%BA%E4%BA%8E%E6%B3%A8%E8%A7%A3ioc/&title=spring-3-基于注解ioc - tobing&summary=spring-3-基于注解Ioc配置1. 基于注解的Ioc配置
-
-基于注解和xml的配置实现的功能都是一样的，都是要降低程序间耦合。
-
-xml和注解的配置方式都很常用
-
-
-
-1. 环境搭建
-在pom.xml中添加spring的依赖
-
-12345&lt;dependency&gt;    &lt;groupId&gt;org.springframework&lt;/groupId&gt;    &lt;artifactId&gt;spring-context&lt;/artifactId&gt;    &lt;version&gt;5.0.2.RELEASE&lt;/version&gt;&lt;/dependency&gt;
-
-
-Maven添加依赖时默认把spring的aop导入。
-
-2. 创建service、dao、view类
-修改bean.xml要扫描的包
-
-123456789101112&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot;       xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;       xmlns:context=&quot;http://www.springframework.org/schema/context&quot;       xmlns:conetext=&quot;http://www.springframework.org/schema/context&quot;       xsi:schemaLocation=&quot;http://www.springframework.org/schema/beans        http://www.springframework.org/schema/beans/spring-beans.xsd        http://www.springframework.org/schema/context        http://www.springframework.org/schema/context/spring-context.xsd&quot;&gt;    &lt;!--告诉spring容器使用要扫描的包--&gt;    &lt;context:component-scan base-package=&quot;top.tobing&quot;&gt;&lt;/context:component-scan&gt;&lt;/beans&gt;"
+          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://tobing.top/2019/12/23/spring-3-%E5%9F%BA%E4%BA%8E%E6%B3%A8%E8%A7%A3ioc/&title=spring-3-基于注解ioc - tobing&summary=Spring学习第三弹。"
           
           >
           
@@ -779,26 +752,7 @@ Maven添加依赖时默认把spring的aop导入。
       
         <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer noopener"
           
-          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://tobing.top/2019/12/23/spring-3-%E5%9F%BA%E4%BA%8E%E6%B3%A8%E8%A7%A3ioc/&title=spring-3-基于注解ioc - tobing&summary=spring-3-基于注解Ioc配置1. 基于注解的Ioc配置
-
-基于注解和xml的配置实现的功能都是一样的，都是要降低程序间耦合。
-
-xml和注解的配置方式都很常用
-
-
-
-1. 环境搭建
-在pom.xml中添加spring的依赖
-
-12345&lt;dependency&gt;    &lt;groupId&gt;org.springframework&lt;/groupId&gt;    &lt;artifactId&gt;spring-context&lt;/artifactId&gt;    &lt;version&gt;5.0.2.RELEASE&lt;/version&gt;&lt;/dependency&gt;
-
-
-Maven添加依赖时默认把spring的aop导入。
-
-2. 创建service、dao、view类
-修改bean.xml要扫描的包
-
-123456789101112&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot;       xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;       xmlns:context=&quot;http://www.springframework.org/schema/context&quot;       xmlns:conetext=&quot;http://www.springframework.org/schema/context&quot;       xsi:schemaLocation=&quot;http://www.springframework.org/schema/beans        http://www.springframework.org/schema/beans/spring-beans.xsd        http://www.springframework.org/schema/context        http://www.springframework.org/schema/context/spring-context.xsd&quot;&gt;    &lt;!--告诉spring容器使用要扫描的包--&gt;    &lt;context:component-scan base-package=&quot;top.tobing&quot;&gt;&lt;/context:component-scan&gt;&lt;/beans&gt;"
+          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://tobing.top/2019/12/23/spring-3-%E5%9F%BA%E4%BA%8E%E6%B3%A8%E8%A7%A3ioc/&title=spring-3-基于注解ioc - tobing&summary=Spring学习第三弹。"
           
           >
           
@@ -810,26 +764,7 @@ Maven添加依赖时默认把spring的aop导入。
       
         <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer noopener"
           
-          target="_blank" href="http://service.weibo.com/share/share.php?url=https://tobing.top/2019/12/23/spring-3-%E5%9F%BA%E4%BA%8E%E6%B3%A8%E8%A7%A3ioc/&title=spring-3-基于注解ioc - tobing&summary=spring-3-基于注解Ioc配置1. 基于注解的Ioc配置
-
-基于注解和xml的配置实现的功能都是一样的，都是要降低程序间耦合。
-
-xml和注解的配置方式都很常用
-
-
-
-1. 环境搭建
-在pom.xml中添加spring的依赖
-
-12345&lt;dependency&gt;    &lt;groupId&gt;org.springframework&lt;/groupId&gt;    &lt;artifactId&gt;spring-context&lt;/artifactId&gt;    &lt;version&gt;5.0.2.RELEASE&lt;/version&gt;&lt;/dependency&gt;
-
-
-Maven添加依赖时默认把spring的aop导入。
-
-2. 创建service、dao、view类
-修改bean.xml要扫描的包
-
-123456789101112&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot;       xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;       xmlns:context=&quot;http://www.springframework.org/schema/context&quot;       xmlns:conetext=&quot;http://www.springframework.org/schema/context&quot;       xsi:schemaLocation=&quot;http://www.springframework.org/schema/beans        http://www.springframework.org/schema/beans/spring-beans.xsd        http://www.springframework.org/schema/context        http://www.springframework.org/schema/context/spring-context.xsd&quot;&gt;    &lt;!--告诉spring容器使用要扫描的包--&gt;    &lt;context:component-scan base-package=&quot;top.tobing&quot;&gt;&lt;/context:component-scan&gt;&lt;/beans&gt;"
+          target="_blank" href="http://service.weibo.com/share/share.php?url=https://tobing.top/2019/12/23/spring-3-%E5%9F%BA%E4%BA%8E%E6%B3%A8%E8%A7%A3ioc/&title=spring-3-基于注解ioc - tobing&summary=Spring学习第三弹。"
           
           >
           
@@ -861,21 +796,25 @@ Maven添加依赖时默认把spring的aop导入。
       
         <a class='prev' href='/2020/01/07/SpringMVC-1-%E5%85%A5%E9%97%A8/'>
           <p class='title'><i class="fas fa-chevron-left" aria-hidden="true"></i>SpringMVC-1-入门</p>
-          <p class='content'>SpringMVC-1-入门1. 三层架构和MVC1. 三层架构（了解）
+          <p class='content'>MVC框架，学习笔记第一弹。
 
-开发架构一般有两种形式：C/S架构和B/S架构。JavaEE开发中几乎都是C/S架构，在C/S架构中标准的三层架构包括...</p>
+
+SpringMVC-1-入门1. 三层架构和MVC1. 三层架构（了解）
+
+开发架构一般有两种形式：C/S架构和B/S架构。JavaEE开发中几乎都是C/S架构...</p>
         </a>
       
       
         <a class='next' href='/2019/12/11/spring-2-%E5%85%A5%E9%97%A8%E8%A1%A5%E5%85%85/'>
           <p class='title'>spring-2-入门补充<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
-          <p class='content'>Spring-2-入门补充
+          <p class='content'>Spring学习第二弹。
+
+
+Spring-2-入门补充
 基于XML的IOC的细节
 
 1. Spring中工厂的类结构图
-1. BeanFactory和ApplicationContext的区别
-
-BeanFactory才是...</p>
+1. BeanFactory和ApplicationContext的区别...</p>
         </a>
       
     </div>

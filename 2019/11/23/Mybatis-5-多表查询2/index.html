@@ -25,22 +25,7 @@
   
 
   
-    <meta name="description" content="Mybatis-5-多表查询21. 多对多1. 开发步骤
-
-建表
-创建Maven工程
-添加坐标文件
-编写SqlMapConfig文件
-创建实体类
-创建实体类对应的Dao
-创建Dao对应的配置文件
-编写测试类
-
-
-1. 建表
-
-模拟用户角色
-分析：一个用户有多个角色（一个人有学生、儿子、朋友等角色），一个角色可以赋...">
+    <meta name="description" content="Mybatis学习第五弹。">
   
 
   <!-- feed -->
@@ -398,7 +383,7 @@
   <div class='new-meta-item category'>
     <a class='notlink'>
       <i class="fas fa-folder-open fa-fw" aria-hidden="true"></i>
-      <a class="category-link" href="/categories/Java/">Java</a>
+      <a class="category-link" href="/categories/%E7%90%86%E8%AE%BA%E5%AD%A6%E4%B9%A0/">理论学习</a>
     </a>
   </div>
 
@@ -437,7 +422,10 @@
 
 
   
-  <h1 id="Mybatis-5-多表查询2"><a href="#Mybatis-5-多表查询2" class="headerlink" title="Mybatis-5-多表查询2"></a>Mybatis-5-多表查询2</h1><h2 id="1-多对多"><a href="#1-多对多" class="headerlink" title="1. 多对多"></a>1. 多对多</h2><h3 id="1-开发步骤"><a href="#1-开发步骤" class="headerlink" title="1. 开发步骤"></a>1. 开发步骤</h3><blockquote>
+  <p>Mybatis学习第五弹。</p>
+<a id="more"></a>
+
+<h1 id="Mybatis-5-多表查询2"><a href="#Mybatis-5-多表查询2" class="headerlink" title="Mybatis-5-多表查询2"></a>Mybatis-5-多表查询2</h1><h2 id="1-多对多"><a href="#1-多对多" class="headerlink" title="1. 多对多"></a>1. 多对多</h2><h3 id="1-开发步骤"><a href="#1-开发步骤" class="headerlink" title="1. 开发步骤"></a>1. 开发步骤</h3><blockquote>
 <ol>
 <li>建表</li>
 <li>创建Maven工程</li>
@@ -460,7 +448,7 @@
 <li>创建三张表：Role表、User表、用户角色管理表</li>
 </ol>
 </blockquote>
-<p><img src="/images/Mybatis/my-5-table.png" class="lazyload" data-srcset="/images/Mybatis/my-5-table.png" srcset="data:image/png;base64,666" alt="my-5-table"></p>
+<p><img src="https://gitee.com/tobing/imagebed/raw/master/my-5-table.png" class="lazyload" data-srcset="https://gitee.com/tobing/imagebed/raw/master/my-5-table.png" srcset="data:image/png;base64,666" alt="my-5-table"></p>
 <h3 id="2-创建Maven工程（略）"><a href="#2-创建Maven工程（略）" class="headerlink" title="2. 创建Maven工程（略）"></a>2. 创建Maven工程（略）</h3><h3 id="3-添加坐标文件"><a href="#3-添加坐标文件" class="headerlink" title="3. 添加坐标文件"></a>3. 添加坐标文件</h3><blockquote>
 <p>给pom文件添加：mysql，mybatis，dom4j，log4j，junit等坐标。</p>
 </blockquote>
@@ -489,7 +477,7 @@
 <ul>
 <li>注意：由于Role表与数据库的表名称不一致，因此需要通过建立resutlMap关联数据库表列名和实体类字段名称。</li>
 </ul>
-<p><img src="/images/Mybatis/my-5-resultMap%E5%AF%B9%E5%BA%94%E5%85%B3%E7%B3%BB.png" class="lazyload" data-srcset="/images/Mybatis/my-5-resultMap%E5%AF%B9%E5%BA%94%E5%85%B3%E7%B3%BB.png" srcset="data:image/png;base64,666" alt="resultMap对应关系"></p>
+<p><img src="https://gitee.com/tobing/imagebed/raw/master/my-5-resultMap%E5%AF%B9%E5%BA%94%E5%85%B3%E7%B3%BB.png" class="lazyload" data-srcset="https://gitee.com/tobing/imagebed/raw/master/my-5-resultMap%E5%AF%B9%E5%BA%94%E5%85%B3%E7%B3%BB.png" srcset="data:image/png;base64,666" alt="resultMap对应关系"></p>
 <h3 id="8-编写测试类测试"><a href="#8-编写测试类测试" class="headerlink" title="8. 编写测试类测试"></a>8. 编写测试类测试</h3><blockquote>
 <p>test目录下，创建top.tobing.test包，创建对应Dao的测试类</p>
 </blockquote>
@@ -603,10 +591,10 @@
     <div class='new-meta-box'>
       
         
-          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2019-11-23T10:42:59+08:00">
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-01-15T12:17:13+08:00">
   <a class='notlink'>
     <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
-    <p>更新于：Nov 23, 2019</p>
+    <p>更新于：Jan 15, 2021</p>
   </a>
 </div>
 
@@ -628,31 +616,7 @@
       
         <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer noopener"
           
-          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://tobing.top/2019/11/23/Mybatis-5-%E5%A4%9A%E8%A1%A8%E6%9F%A5%E8%AF%A22/&title=Mybatis-5-多表查询2 - tobing&summary=Mybatis-5-多表查询21. 多对多1. 开发步骤
-
-建表
-创建Maven工程
-添加坐标文件
-编写SqlMapConfig文件
-创建实体类
-创建实体类对应的Dao
-创建Dao对应的配置文件
-编写测试类
-
-
-1. 建表
-
-模拟用户角色
-分析：一个用户有多个角色（一个人有学生、儿子、朋友等角色），一个角色可以赋予给多个用户（学生可以是很多人等）
-
-
-
-
-创建三张表：Role表、User表、用户角色管理表
-
-
-
-2. 创建Maven工程（略）3. 添加坐标文件"
+          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://tobing.top/2019/11/23/Mybatis-5-%E5%A4%9A%E8%A1%A8%E6%9F%A5%E8%AF%A22/&title=Mybatis-5-多表查询2 - tobing&summary=Mybatis学习第五弹。"
           
           >
           
@@ -664,31 +628,7 @@
       
         <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer noopener"
           
-          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://tobing.top/2019/11/23/Mybatis-5-%E5%A4%9A%E8%A1%A8%E6%9F%A5%E8%AF%A22/&title=Mybatis-5-多表查询2 - tobing&summary=Mybatis-5-多表查询21. 多对多1. 开发步骤
-
-建表
-创建Maven工程
-添加坐标文件
-编写SqlMapConfig文件
-创建实体类
-创建实体类对应的Dao
-创建Dao对应的配置文件
-编写测试类
-
-
-1. 建表
-
-模拟用户角色
-分析：一个用户有多个角色（一个人有学生、儿子、朋友等角色），一个角色可以赋予给多个用户（学生可以是很多人等）
-
-
-
-
-创建三张表：Role表、User表、用户角色管理表
-
-
-
-2. 创建Maven工程（略）3. 添加坐标文件"
+          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://tobing.top/2019/11/23/Mybatis-5-%E5%A4%9A%E8%A1%A8%E6%9F%A5%E8%AF%A22/&title=Mybatis-5-多表查询2 - tobing&summary=Mybatis学习第五弹。"
           
           >
           
@@ -700,31 +640,7 @@
       
         <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer noopener"
           
-          target="_blank" href="http://service.weibo.com/share/share.php?url=https://tobing.top/2019/11/23/Mybatis-5-%E5%A4%9A%E8%A1%A8%E6%9F%A5%E8%AF%A22/&title=Mybatis-5-多表查询2 - tobing&summary=Mybatis-5-多表查询21. 多对多1. 开发步骤
-
-建表
-创建Maven工程
-添加坐标文件
-编写SqlMapConfig文件
-创建实体类
-创建实体类对应的Dao
-创建Dao对应的配置文件
-编写测试类
-
-
-1. 建表
-
-模拟用户角色
-分析：一个用户有多个角色（一个人有学生、儿子、朋友等角色），一个角色可以赋予给多个用户（学生可以是很多人等）
-
-
-
-
-创建三张表：Role表、User表、用户角色管理表
-
-
-
-2. 创建Maven工程（略）3. 添加坐标文件"
+          target="_blank" href="http://service.weibo.com/share/share.php?url=https://tobing.top/2019/11/23/Mybatis-5-%E5%A4%9A%E8%A1%A8%E6%9F%A5%E8%AF%A22/&title=Mybatis-5-多表查询2 - tobing&summary=Mybatis学习第五弹。"
           
           >
           
@@ -756,16 +672,21 @@
       
         <a class='prev' href='/2019/11/30/Mybatis-6-%E5%BB%B6%E8%BF%9F%E5%8A%A0%E8%BD%BD/'>
           <p class='title'><i class="fas fa-chevron-left" aria-hidden="true"></i>Mybatis-6-延迟加载</p>
-          <p class='content'>Mybatis-6-延迟加载与缓存1. 延迟加载1. 什么是延迟加载
+          <p class='content'>Mybatis学习第六弹。
 
-延迟加载机制是为了避免一些无谓的性能开销而提出来的，所谓延迟加载就是当在真正需要数据的时候，才真正执行数据加载操作。
-延迟...</p>
+
+Mybatis-6-延迟加载与缓存1. 延迟加载1. 什么是延迟加载
+
+延迟加载机制是为了避免一些无谓的性能开销而提出来的，所谓延迟加载就是当在真正需要数据的时候...</p>
         </a>
       
       
         <a class='next' href='/2019/11/23/Mybatis-4-%E5%A4%9A%E8%A1%A8%E6%9F%A5%E8%AF%A21/'>
           <p class='title'>Mybatis-4-多表查询1<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
-          <p class='content'>Mybatis-4-多表查询1
+          <p class='content'>Mybatis学习第四弹。
+
+
+Mybatis-4-多表查询1
  表之间的关系：多对一、一对多、多对多。
 
 Mybatis中多表查询的步骤
@@ -775,7 +696,7 @@ Mybatis中多表查询的步骤
 
 建立对应的配置文件
 
-实现配置：查询A表时可以得到A中包含...</p>
+实现...</p>
         </a>
       
     </div>

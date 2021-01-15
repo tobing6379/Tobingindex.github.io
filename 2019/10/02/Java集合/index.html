@@ -25,9 +25,7 @@
   
 
   
-    <meta name="description" content="Java集合1. 背景
-没有集合之前，Java已经可以存储对象，那就是数组 。数组既可以存基本数据类型，也可以存同一种引用数据类型。对数组查找是高效的，但是数组一旦定义长度就不可变，而且只能存放同一种类型。
-在程序设计的过程中，我们经常用到：队列、链接表、树和散列表等数据结构。没有集合前，如果我们需要用的，必须每...">
+    <meta name="description" content="Java集合在Java语言生态的重要地位不可忽视，接下来让我们一探究竟。">
   
 
   <!-- feed -->
@@ -385,7 +383,7 @@
   <div class='new-meta-item category'>
     <a class='notlink'>
       <i class="fas fa-folder-open fa-fw" aria-hidden="true"></i>
-      <a class="category-link" href="/categories/Java/">Java</a>
+      <a class="category-link" href="/categories/%E7%90%86%E8%AE%BA%E5%AD%A6%E4%B9%A0/">理论学习</a>
     </a>
   </div>
 
@@ -424,7 +422,10 @@
 
 
   
-  <h1 id="Java集合"><a href="#Java集合" class="headerlink" title="Java集合"></a>Java集合</h1><h3 id="1-背景"><a href="#1-背景" class="headerlink" title="1. 背景"></a>1. 背景</h3><ul>
+  <p>Java集合在Java语言生态的重要地位不可忽视，接下来让我们一探究竟。</p>
+<a id="more"></a>
+
+<h1 id="Java集合"><a href="#Java集合" class="headerlink" title="Java集合"></a>Java集合</h1><h3 id="1-背景"><a href="#1-背景" class="headerlink" title="1. 背景"></a>1. 背景</h3><ul>
 <li>没有集合之前，Java已经可以存储对象，那就是<code>数组</code> 。数组既可以存基本数据类型，也可以存同一种引用数据类型。对数组查找是高效的，但是数组一旦定义长度就不可变，而且只能存放同一种类型。</li>
 <li>在程序设计的过程中，我们经常用到：队列、链接表、树和散列表等数据结构。没有集合前，如果我们需要用的，必须每次都自己定义非常麻烦，因此Java设计者就将这些数据结构封装起来提供给程序员使用。</li>
 </ul>
@@ -439,13 +440,13 @@
 <li><code>高抽象性</code>。借助泛型，只要了解了这些类的使用方法，就可以将它们应用到很多数据类型中。如果知道了<code>LinkedList&lt;String&gt;</code>的使用方法，也会知道<code>LinkedList&lt;Double&gt;</code>怎么用，则无需为每一种数据类型学习不同的API</li>
 <li><code>高重用性</code>。借助泛型，就算对集合类中的元素类型进行了修改，集合类相关的代码也几乎不用修改。</li>
 </ul>
-<h3 id="4-Java集合框架"><a href="#4-Java集合框架" class="headerlink" title="4. Java集合框架"></a>4. Java集合框架</h3><p><img src="/images/Java%E9%9B%86%E5%90%88%E6%A1%86%E6%9E%B6%E5%9B%BE.png" class="lazyload" data-srcset="/images/Java%E9%9B%86%E5%90%88%E6%A1%86%E6%9E%B6%E5%9B%BE.png" srcset="data:image/png;base64,666" alt="Java集合框架图"></p>
-<p><img src="/images/java-coll.png" class="lazyload" data-srcset="/images/java-coll.png" srcset="data:image/png;base64,666" alt="java-coll"></p>
+<h3 id="4-Java集合框架"><a href="#4-Java集合框架" class="headerlink" title="4. Java集合框架"></a>4. Java集合框架</h3><p><img src="https://i.loli.net/2021/01/15/GWQp5yzrKbnvPIa.png" class="lazyload" data-srcset="https://i.loli.net/2021/01/15/GWQp5yzrKbnvPIa.png" srcset="data:image/png;base64,666" alt="Java集合框架图"></p>
+<p><img src="https://i.loli.net/2021/01/15/Kt4gQNTYFHDXmei.png" class="lazyload" data-srcset="https://i.loli.net/2021/01/15/Kt4gQNTYFHDXmei.png" srcset="data:image/png;base64,666" alt="java-coll"></p>
 <ul>
 <li>Java集合框架包含两大类：集合（Collection）和图（Map）。</li>
 <li>Collection存放一个元素集合；Map存放键值对映射</li>
 </ul>
-<p><img src="/images/java-coll2.gif" class="lazyload" data-srcset="/images/java-coll2.gif" srcset="data:image/png;base64,666" alt="java-coll2"></p>
+<p><img src="https://i.loli.net/2021/01/15/1TiP6cxBH9DhJSz.gif" class="lazyload" data-srcset="https://i.loli.net/2021/01/15/1TiP6cxBH9DhJSz.gif" srcset="data:image/png;base64,666" alt="java-coll2"></p>
 <h4 id="1-Collection接口："><a href="#1-Collection接口：" class="headerlink" title="1. Collection接口："></a>1. Collection接口：</h4><ul>
 <li>最基本的集合接口，存储一组不唯一，无序的对象。</li>
 <li>Java不提供直接继承自Collection的类，只提供继承于的子接口(如List和set)。</li>
@@ -557,10 +558,10 @@
     <div class='new-meta-box'>
       
         
-          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2019-10-02T20:42:26+08:00">
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-01-15T11:48:51+08:00">
   <a class='notlink'>
     <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
-    <p>更新于：Oct 2, 2019</p>
+    <p>更新于：Jan 15, 2021</p>
   </a>
 </div>
 
@@ -582,23 +583,7 @@
       
         <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer noopener"
           
-          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://tobing.top/2019/10/02/Java%E9%9B%86%E5%90%88/&title=Java集合 - tobing&summary=Java集合1. 背景
-没有集合之前，Java已经可以存储对象，那就是数组 。数组既可以存基本数据类型，也可以存同一种引用数据类型。对数组查找是高效的，但是数组一旦定义长度就不可变，而且只能存放同一种类型。
-在程序设计的过程中，我们经常用到：队列、链接表、树和散列表等数据结构。没有集合前，如果我们需要用的，必须每次都自己定义非常麻烦，因此Java设计者就将这些数据结构封装起来提供给程序员使用。
-
-2. Java集合的特点
-高性能。对于集合中的类，Java开发人员对其实现是高效的。一般很少人去改动这些已经很成熟其高效的API
-抽象性。集合类允许不同类型的集合以相同的方式和高度互操作方式工作；
-扩展性。集合类容易扩展和修改，程序员可以很容易地稍加改造就能满足自己的数据结构需求。
-
-3. 集合的好处
-降低了开发难度。不必要再自己实现数据结构。
-提高了运行速度。集合类的内部实现是高效的
-高抽象性。借助泛型，只要了解了这些类的使用方法，就可以将它们应用到很多数据类型中。如果知道了LinkedList&lt;String&gt;的使用方法，也会知道LinkedList&lt;Double&gt;怎么用，则无需为每一种数据类型学习不同的API
-高重用性。借助泛型，就算对集合类中的元素类型进行了修改，集合类相关的代码也几乎不用修改。
-
-4. Java集合框架
-"
+          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://tobing.top/2019/10/02/Java%E9%9B%86%E5%90%88/&title=Java集合 - tobing&summary=Java集合在Java语言生态的重要地位不可忽视，接下来让我们一探究竟。"
           
           >
           
@@ -610,23 +595,7 @@
       
         <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer noopener"
           
-          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://tobing.top/2019/10/02/Java%E9%9B%86%E5%90%88/&title=Java集合 - tobing&summary=Java集合1. 背景
-没有集合之前，Java已经可以存储对象，那就是数组 。数组既可以存基本数据类型，也可以存同一种引用数据类型。对数组查找是高效的，但是数组一旦定义长度就不可变，而且只能存放同一种类型。
-在程序设计的过程中，我们经常用到：队列、链接表、树和散列表等数据结构。没有集合前，如果我们需要用的，必须每次都自己定义非常麻烦，因此Java设计者就将这些数据结构封装起来提供给程序员使用。
-
-2. Java集合的特点
-高性能。对于集合中的类，Java开发人员对其实现是高效的。一般很少人去改动这些已经很成熟其高效的API
-抽象性。集合类允许不同类型的集合以相同的方式和高度互操作方式工作；
-扩展性。集合类容易扩展和修改，程序员可以很容易地稍加改造就能满足自己的数据结构需求。
-
-3. 集合的好处
-降低了开发难度。不必要再自己实现数据结构。
-提高了运行速度。集合类的内部实现是高效的
-高抽象性。借助泛型，只要了解了这些类的使用方法，就可以将它们应用到很多数据类型中。如果知道了LinkedList&lt;String&gt;的使用方法，也会知道LinkedList&lt;Double&gt;怎么用，则无需为每一种数据类型学习不同的API
-高重用性。借助泛型，就算对集合类中的元素类型进行了修改，集合类相关的代码也几乎不用修改。
-
-4. Java集合框架
-"
+          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://tobing.top/2019/10/02/Java%E9%9B%86%E5%90%88/&title=Java集合 - tobing&summary=Java集合在Java语言生态的重要地位不可忽视，接下来让我们一探究竟。"
           
           >
           
@@ -638,23 +607,7 @@
       
         <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer noopener"
           
-          target="_blank" href="http://service.weibo.com/share/share.php?url=https://tobing.top/2019/10/02/Java%E9%9B%86%E5%90%88/&title=Java集合 - tobing&summary=Java集合1. 背景
-没有集合之前，Java已经可以存储对象，那就是数组 。数组既可以存基本数据类型，也可以存同一种引用数据类型。对数组查找是高效的，但是数组一旦定义长度就不可变，而且只能存放同一种类型。
-在程序设计的过程中，我们经常用到：队列、链接表、树和散列表等数据结构。没有集合前，如果我们需要用的，必须每次都自己定义非常麻烦，因此Java设计者就将这些数据结构封装起来提供给程序员使用。
-
-2. Java集合的特点
-高性能。对于集合中的类，Java开发人员对其实现是高效的。一般很少人去改动这些已经很成熟其高效的API
-抽象性。集合类允许不同类型的集合以相同的方式和高度互操作方式工作；
-扩展性。集合类容易扩展和修改，程序员可以很容易地稍加改造就能满足自己的数据结构需求。
-
-3. 集合的好处
-降低了开发难度。不必要再自己实现数据结构。
-提高了运行速度。集合类的内部实现是高效的
-高抽象性。借助泛型，只要了解了这些类的使用方法，就可以将它们应用到很多数据类型中。如果知道了LinkedList&lt;String&gt;的使用方法，也会知道LinkedList&lt;Double&gt;怎么用，则无需为每一种数据类型学习不同的API
-高重用性。借助泛型，就算对集合类中的元素类型进行了修改，集合类相关的代码也几乎不用修改。
-
-4. Java集合框架
-"
+          target="_blank" href="http://service.weibo.com/share/share.php?url=https://tobing.top/2019/10/02/Java%E9%9B%86%E5%90%88/&title=Java集合 - tobing&summary=Java集合在Java语言生态的重要地位不可忽视，接下来让我们一探究竟。"
           
           >
           
@@ -686,18 +639,24 @@
       
         <a class='prev' href='/2019/10/02/git%E7%9A%84%E5%85%A5%E9%97%A8%E4%BD%BF%E7%94%A8/'>
           <p class='title'><i class="fas fa-chevron-left" aria-hidden="true"></i>git的常用命令</p>
-          <p class='content'>Git的常用命令1. 初始化仓库1$ git init # 初始化仓库
+          <p class='content'>git在日常开发必不可少，本文介绍了git常用命令。
 
-2. 添加修改到暂存区12$ git add [文件名] # 添加指定文件到暂存区$ git add *       #...</p>
+
+Git的常用命令1. 初始化仓库1$ git init # 初始化仓库
+
+2. 添加修改到暂存区12$ git add [文件名] # ...</p>
         </a>
       
       
         <a class='next' href='/2019/10/02/%E9%AD%85%E8%93%9DNote5%E8%8E%B7%E5%8F%96%E5%AE%8C%E6%95%B4Root%E6%9D%83%E9%99%90/'>
           <p class='title'>魅蓝Note5获取完整Root权限<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
-          <p class='content'>魅蓝note5获取完整root
+          <p class='content'>介绍如何获取魅蓝note5的root权限
+
+
+魅蓝note5获取完整root
 确认手机的系统版本是否为6.7.7.1 beta,如果不是则点击页面中链接下载。
 备份数据，开始刷机
-进入系统之后，联网登录账户，只有登录账户才可以打开root权...</p>
+进入系统之后，...</p>
         </a>
       
     </div>

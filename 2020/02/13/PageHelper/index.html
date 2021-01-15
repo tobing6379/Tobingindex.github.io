@@ -21,15 +21,11 @@
   
   <title>PageHelper - tobing</title>
   
-    <meta name="keywords" content="Mybatis,分页插件">
+    <meta name="keywords" content="Mybatis,PageHelper">
   
 
   
-    <meta name="description" content="PageHelper1. 简介PageHelper是国内优秀的开源的mybatis分页插件，支持主流常用的数据库。
-【官网】https://pagehelper.github.io/
-2. 使用方法【Maven】
-导入依赖
-12345&lt;dependency&gt;    &lt;groupId&gt;com...">
+    <meta name="description" content="分页插件，可以帮助我们简化分页的逻辑。">
   
 
   <!-- feed -->
@@ -387,7 +383,7 @@
   <div class='new-meta-item category'>
     <a class='notlink'>
       <i class="fas fa-folder-open fa-fw" aria-hidden="true"></i>
-      <a class="category-link" href="/categories/Java/">Java</a>
+      <a class="category-link" href="/categories/%E7%90%86%E8%AE%BA%E5%AD%A6%E4%B9%A0/">理论学习</a>
     </a>
   </div>
 
@@ -426,7 +422,10 @@
 
 
   
-  <h1 id="PageHelper"><a href="#PageHelper" class="headerlink" title="PageHelper"></a>PageHelper</h1><h2 id="1-简介"><a href="#1-简介" class="headerlink" title="1. 简介"></a>1. 简介</h2><p>PageHelper是国内优秀的开源的mybatis分页插件，支持主流常用的数据库。</p>
+  <p>分页插件，可以帮助我们简化分页的逻辑。</p>
+<a id="more"></a>
+
+<h1 id="PageHelper"><a href="#PageHelper" class="headerlink" title="PageHelper"></a>PageHelper</h1><h2 id="1-简介"><a href="#1-简介" class="headerlink" title="1. 简介"></a>1. 简介</h2><p>PageHelper是国内优秀的开源的mybatis分页插件，支持主流常用的数据库。</p>
 <p>【官网】<a target="_blank" rel="noopener" href="https://pagehelper.github.io/">https://pagehelper.github.io/</a></p>
 <h2 id="2-使用方法【Maven】"><a href="#2-使用方法【Maven】" class="headerlink" title="2. 使用方法【Maven】"></a>2. 使用方法【Maven】</h2><ol>
 <li><p>导入依赖</p>
@@ -545,10 +544,10 @@
     <div class='new-meta-box'>
       
         
-          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2020-02-13T11:42:23+08:00">
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-01-15T11:20:33+08:00">
   <a class='notlink'>
     <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
-    <p>更新于：Feb 13, 2020</p>
+    <p>更新于：Jan 15, 2021</p>
   </a>
 </div>
 
@@ -557,7 +556,7 @@
         
           
   
-  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/Mybatis/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>Mybatis</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/%E5%88%86%E9%A1%B5%E6%8F%92%E4%BB%B6/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>分页插件</p></a></div>
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/Mybatis/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>Mybatis</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/PageHelper/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>PageHelper</p></a></div>
 
 
         
@@ -570,59 +569,7 @@
       
         <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer noopener"
           
-          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://tobing.top/2020/02/13/PageHelper/&title=PageHelper - tobing&summary=PageHelper1. 简介PageHelper是国内优秀的开源的mybatis分页插件，支持主流常用的数据库。
-【官网】https://pagehelper.github.io/
-2. 使用方法【Maven】
-导入依赖
-12345&lt;dependency&gt;    &lt;groupId&gt;com.github.pagehelper&lt;/groupId&gt;    &lt;artifactId&gt;pagehelper&lt;/artifactId&gt;    &lt;version&gt;最新版本&lt;/version&gt;&lt;/dependency&gt;
-
-
-
-
-
-
-配置拦截器插件
-特别注意，新版拦截器是 com.github.pagehelper.PageInterceptor。 com.github.pagehelper.PageHelper 现在是一个特殊的 dialect 实现类，是分页插件的默认实现类，提供了和以前相同的用法。
-
-mybatis中xml配置
-123456789101112131415&lt;!--    plugins在配置文件中的位置必须符合要求，否则会报错，顺序如下:    properties?, settings?,    typeAliases?, typeHandlers?,    objectFactory?,objectWrapperFactory?,    plugins?,    environments?, databaseIdProvider?, mappers?--&gt;&lt;plugins&gt;    &lt;!-- com.github.pagehelper为PageHelper类所在包名 --&gt;    &lt;plugin interceptor=&quot;com.github.pagehelper.PageInterceptor&quot;&gt;        &lt;!-- 使用下面的方式配置参数，后面会有所有的参数介绍 --&gt;        &lt;property name=&quot;param1&quot; value=&quot;value1&quot;/&gt;	&lt;/plugin&gt;&lt;/plugins&gt;
-
-spring配置文件中配置拦截器插件
-1234567891011121314&lt;bean id=&quot;sqlSessionFactory&quot; class=&quot;org.mybatis.spring.SqlSessionFactoryBean&quot;&gt;  &lt;!-- 注意其他配置 --&gt;  &lt;property name=&quot;plugins&quot;&gt;    &lt;array&gt;      &lt;bean class=&quot;com.github.pagehelper.PageInterceptor&quot;&gt;        &lt;property name=&quot;properties&quot;&gt;          &lt;value&gt;            params=value1          &lt;/value&gt;        &lt;/property&gt;      &lt;/bean&gt;    &lt;/array&gt;  &lt;/property&gt;&lt;/bean&gt;
-
-常用的配置：
-
-helperDialect：指定数据库，例如MySQL、db2、oracle
-reasonable：分页合理化参数，默认值为 false 。当该参数设置为 true 时， pageNum&lt;=0 时会查询第一 页， pageNum&gt;pages （超过总数时），会查询最后一页。
-
-
-常用方法
-RowBounds方式的调用
-1List&lt;Country&gt; list = sqlSession.selectList(&quot;x.y.selectIf&quot;, null, new RowBounds(0, 10));
-
-
-使用这种调用方式时，你可以使用RowBounds参数进行分页，这种方式侵入性最小，我们可以看到，通过RowBounds方式调用只是使用了这个参数，并没有增加其他任何内容。
-
-分页插件检测到使用了RowBounds参数时，就会对该查询进行物理分页。
-
-关于这种方式的调用，有两个特殊的参数是针对 RowBounds 的，你可以参看上面的 场景一 和 场景二
-
-注：不只有命名空间方式可以用RowBounds，使用接口的时候也可以增加RowBounds参数，例如： 
-
-
-12//这种情况下也会进行物理分页查询List&lt;Country&gt; selectAll(RowBounds rowBounds);  
-
-
-注意： 由于默认情况下的 RowBounds 无法获取查询总数，分页插件提供了一个继承自 RowBounds 的 PageRowBounds，这个对象中增加了 total 属性，执行分页查询后，可以从该属性得到查询总数。
-
-
-
-   PageHelper.startPage静态方法调用【重点】
-   1234//获取第1页，10条内容，默认查询总数count PageHelper.startPage(1, 10); //紧跟着的第一个select方法会被分页List&lt;Country&gt; list = countryMapper.selectIf(1);
-
-
-在你需要进行分页的 MyBatis 查询方法前调用 PageHelper.startPage 静态方法即可，紧跟在这个方法后的第一个MyBatis 查询方法会被进行分页。
-"
+          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://tobing.top/2020/02/13/PageHelper/&title=PageHelper - tobing&summary=分页插件，可以帮助我们简化分页的逻辑。"
           
           >
           
@@ -634,59 +581,7 @@ RowBounds方式的调用
       
         <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer noopener"
           
-          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://tobing.top/2020/02/13/PageHelper/&title=PageHelper - tobing&summary=PageHelper1. 简介PageHelper是国内优秀的开源的mybatis分页插件，支持主流常用的数据库。
-【官网】https://pagehelper.github.io/
-2. 使用方法【Maven】
-导入依赖
-12345&lt;dependency&gt;    &lt;groupId&gt;com.github.pagehelper&lt;/groupId&gt;    &lt;artifactId&gt;pagehelper&lt;/artifactId&gt;    &lt;version&gt;最新版本&lt;/version&gt;&lt;/dependency&gt;
-
-
-
-
-
-
-配置拦截器插件
-特别注意，新版拦截器是 com.github.pagehelper.PageInterceptor。 com.github.pagehelper.PageHelper 现在是一个特殊的 dialect 实现类，是分页插件的默认实现类，提供了和以前相同的用法。
-
-mybatis中xml配置
-123456789101112131415&lt;!--    plugins在配置文件中的位置必须符合要求，否则会报错，顺序如下:    properties?, settings?,    typeAliases?, typeHandlers?,    objectFactory?,objectWrapperFactory?,    plugins?,    environments?, databaseIdProvider?, mappers?--&gt;&lt;plugins&gt;    &lt;!-- com.github.pagehelper为PageHelper类所在包名 --&gt;    &lt;plugin interceptor=&quot;com.github.pagehelper.PageInterceptor&quot;&gt;        &lt;!-- 使用下面的方式配置参数，后面会有所有的参数介绍 --&gt;        &lt;property name=&quot;param1&quot; value=&quot;value1&quot;/&gt;	&lt;/plugin&gt;&lt;/plugins&gt;
-
-spring配置文件中配置拦截器插件
-1234567891011121314&lt;bean id=&quot;sqlSessionFactory&quot; class=&quot;org.mybatis.spring.SqlSessionFactoryBean&quot;&gt;  &lt;!-- 注意其他配置 --&gt;  &lt;property name=&quot;plugins&quot;&gt;    &lt;array&gt;      &lt;bean class=&quot;com.github.pagehelper.PageInterceptor&quot;&gt;        &lt;property name=&quot;properties&quot;&gt;          &lt;value&gt;            params=value1          &lt;/value&gt;        &lt;/property&gt;      &lt;/bean&gt;    &lt;/array&gt;  &lt;/property&gt;&lt;/bean&gt;
-
-常用的配置：
-
-helperDialect：指定数据库，例如MySQL、db2、oracle
-reasonable：分页合理化参数，默认值为 false 。当该参数设置为 true 时， pageNum&lt;=0 时会查询第一 页， pageNum&gt;pages （超过总数时），会查询最后一页。
-
-
-常用方法
-RowBounds方式的调用
-1List&lt;Country&gt; list = sqlSession.selectList(&quot;x.y.selectIf&quot;, null, new RowBounds(0, 10));
-
-
-使用这种调用方式时，你可以使用RowBounds参数进行分页，这种方式侵入性最小，我们可以看到，通过RowBounds方式调用只是使用了这个参数，并没有增加其他任何内容。
-
-分页插件检测到使用了RowBounds参数时，就会对该查询进行物理分页。
-
-关于这种方式的调用，有两个特殊的参数是针对 RowBounds 的，你可以参看上面的 场景一 和 场景二
-
-注：不只有命名空间方式可以用RowBounds，使用接口的时候也可以增加RowBounds参数，例如： 
-
-
-12//这种情况下也会进行物理分页查询List&lt;Country&gt; selectAll(RowBounds rowBounds);  
-
-
-注意： 由于默认情况下的 RowBounds 无法获取查询总数，分页插件提供了一个继承自 RowBounds 的 PageRowBounds，这个对象中增加了 total 属性，执行分页查询后，可以从该属性得到查询总数。
-
-
-
-   PageHelper.startPage静态方法调用【重点】
-   1234//获取第1页，10条内容，默认查询总数count PageHelper.startPage(1, 10); //紧跟着的第一个select方法会被分页List&lt;Country&gt; list = countryMapper.selectIf(1);
-
-
-在你需要进行分页的 MyBatis 查询方法前调用 PageHelper.startPage 静态方法即可，紧跟在这个方法后的第一个MyBatis 查询方法会被进行分页。
-"
+          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://tobing.top/2020/02/13/PageHelper/&title=PageHelper - tobing&summary=分页插件，可以帮助我们简化分页的逻辑。"
           
           >
           
@@ -698,59 +593,7 @@ RowBounds方式的调用
       
         <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer noopener"
           
-          target="_blank" href="http://service.weibo.com/share/share.php?url=https://tobing.top/2020/02/13/PageHelper/&title=PageHelper - tobing&summary=PageHelper1. 简介PageHelper是国内优秀的开源的mybatis分页插件，支持主流常用的数据库。
-【官网】https://pagehelper.github.io/
-2. 使用方法【Maven】
-导入依赖
-12345&lt;dependency&gt;    &lt;groupId&gt;com.github.pagehelper&lt;/groupId&gt;    &lt;artifactId&gt;pagehelper&lt;/artifactId&gt;    &lt;version&gt;最新版本&lt;/version&gt;&lt;/dependency&gt;
-
-
-
-
-
-
-配置拦截器插件
-特别注意，新版拦截器是 com.github.pagehelper.PageInterceptor。 com.github.pagehelper.PageHelper 现在是一个特殊的 dialect 实现类，是分页插件的默认实现类，提供了和以前相同的用法。
-
-mybatis中xml配置
-123456789101112131415&lt;!--    plugins在配置文件中的位置必须符合要求，否则会报错，顺序如下:    properties?, settings?,    typeAliases?, typeHandlers?,    objectFactory?,objectWrapperFactory?,    plugins?,    environments?, databaseIdProvider?, mappers?--&gt;&lt;plugins&gt;    &lt;!-- com.github.pagehelper为PageHelper类所在包名 --&gt;    &lt;plugin interceptor=&quot;com.github.pagehelper.PageInterceptor&quot;&gt;        &lt;!-- 使用下面的方式配置参数，后面会有所有的参数介绍 --&gt;        &lt;property name=&quot;param1&quot; value=&quot;value1&quot;/&gt;	&lt;/plugin&gt;&lt;/plugins&gt;
-
-spring配置文件中配置拦截器插件
-1234567891011121314&lt;bean id=&quot;sqlSessionFactory&quot; class=&quot;org.mybatis.spring.SqlSessionFactoryBean&quot;&gt;  &lt;!-- 注意其他配置 --&gt;  &lt;property name=&quot;plugins&quot;&gt;    &lt;array&gt;      &lt;bean class=&quot;com.github.pagehelper.PageInterceptor&quot;&gt;        &lt;property name=&quot;properties&quot;&gt;          &lt;value&gt;            params=value1          &lt;/value&gt;        &lt;/property&gt;      &lt;/bean&gt;    &lt;/array&gt;  &lt;/property&gt;&lt;/bean&gt;
-
-常用的配置：
-
-helperDialect：指定数据库，例如MySQL、db2、oracle
-reasonable：分页合理化参数，默认值为 false 。当该参数设置为 true 时， pageNum&lt;=0 时会查询第一 页， pageNum&gt;pages （超过总数时），会查询最后一页。
-
-
-常用方法
-RowBounds方式的调用
-1List&lt;Country&gt; list = sqlSession.selectList(&quot;x.y.selectIf&quot;, null, new RowBounds(0, 10));
-
-
-使用这种调用方式时，你可以使用RowBounds参数进行分页，这种方式侵入性最小，我们可以看到，通过RowBounds方式调用只是使用了这个参数，并没有增加其他任何内容。
-
-分页插件检测到使用了RowBounds参数时，就会对该查询进行物理分页。
-
-关于这种方式的调用，有两个特殊的参数是针对 RowBounds 的，你可以参看上面的 场景一 和 场景二
-
-注：不只有命名空间方式可以用RowBounds，使用接口的时候也可以增加RowBounds参数，例如： 
-
-
-12//这种情况下也会进行物理分页查询List&lt;Country&gt; selectAll(RowBounds rowBounds);  
-
-
-注意： 由于默认情况下的 RowBounds 无法获取查询总数，分页插件提供了一个继承自 RowBounds 的 PageRowBounds，这个对象中增加了 total 属性，执行分页查询后，可以从该属性得到查询总数。
-
-
-
-   PageHelper.startPage静态方法调用【重点】
-   1234//获取第1页，10条内容，默认查询总数count PageHelper.startPage(1, 10); //紧跟着的第一个select方法会被分页List&lt;Country&gt; list = countryMapper.selectIf(1);
-
-
-在你需要进行分页的 MyBatis 查询方法前调用 PageHelper.startPage 静态方法即可，紧跟在这个方法后的第一个MyBatis 查询方法会被进行分页。
-"
+          target="_blank" href="http://service.weibo.com/share/share.php?url=https://tobing.top/2020/02/13/PageHelper/&title=PageHelper - tobing&summary=分页插件，可以帮助我们简化分页的逻辑。"
           
           >
           
@@ -782,15 +625,19 @@ RowBounds方式的调用
       
         <a class='prev' href='/2020/02/16/Spring-Security%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/'>
           <p class='title'><i class="fas fa-chevron-left" aria-hidden="true"></i>Spring-Security简单使用</p>
-          <p class='content'>Spring-Security简单使用1.简介Spring Security是一个功能强大且高度可定制的身份验证和访问控制框架。它是保护基于spring的应用程序的实际标准。
-Spring Se...</p>
+          <p class='content'>Spring-Security是Spring家族的重要一员。
+
+
+Spring-Security简单使用1.简介Spring Security是一个功能强大且高度可定制的身份验证和访问控制框架。...</p>
         </a>
       
       
         <a class='next' href='/2020/02/03/2019/'>
           <p class='title'>2019<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
-          <p class='content'>2019迟到的2019总结​    正月初九是家乡的年例，但是因为肺炎的原因，本应该是一年中最热闹的一天，在今年却显得格外冷清，希望国家早日战胜这场无硝烟的战役。
-​    年总结很早就想写了，...</p>
+          <p class='content'>​    正月初九是家乡的年例，但是因为肺炎的原因，本应该是一年中最热闹的一天，在今年却显得格外冷清，希望国家早日战胜这场无硝烟的战役。
+
+
+2019迟到的2019总结​    正月初九是家乡的...</p>
         </a>
       
     </div>

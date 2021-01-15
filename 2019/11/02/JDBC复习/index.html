@@ -21,20 +21,11 @@
   
   <title>JDBC复习 - tobing</title>
   
-    <meta name="keywords" content="jdbc">
+    <meta name="keywords" content="JDBC">
   
 
   
-    <meta name="description" content="JDBC复习1. 引入
-回顾操作数据库（MySQL）的常用方式
-第三方客户端：SQLyog等
-MySQL自带命令行
-Java访问（JDBC）
-
-
-
-2. JDBC
-JDBC（ Java Database Connectivity ）： 是Java语言中用来规范客户端程序如何来访问数据库的应用程序接口，提供了诸如查...">
+    <meta name="description" content="本文是对JDBC复习的笔记">
   
 
   <!-- feed -->
@@ -392,7 +383,7 @@ JDBC（ Java Database Connectivity ）： 是Java语言中用来规范客户端�
   <div class='new-meta-item category'>
     <a class='notlink'>
       <i class="fas fa-folder-open fa-fw" aria-hidden="true"></i>
-      <a class="category-link" href="/categories/Java/">Java</a>
+      <a class="category-link" href="/categories/%E7%90%86%E8%AE%BA%E5%AD%A6%E4%B9%A0/">理论学习</a>
     </a>
   </div>
 
@@ -431,7 +422,10 @@ JDBC（ Java Database Connectivity ）： 是Java语言中用来规范客户端�
 
 
   
-  <h1 id="JDBC复习"><a href="#JDBC复习" class="headerlink" title="JDBC复习"></a>JDBC复习</h1><h4 id="1-引入"><a href="#1-引入" class="headerlink" title="1. 引入"></a>1. 引入</h4><ul>
+  <p>本文是对JDBC复习的笔记</p>
+<a id="more"></a>
+
+<h1 id="JDBC复习"><a href="#JDBC复习" class="headerlink" title="JDBC复习"></a>JDBC复习</h1><h4 id="1-引入"><a href="#1-引入" class="headerlink" title="1. 引入"></a>1. 引入</h4><ul>
 <li>回顾操作数据库（MySQL）的常用方式<ul>
 <li>第三方客户端：SQLyog等</li>
 <li>MySQL自带命令行</li>
@@ -447,7 +441,7 @@ JDBC（ Java Database Connectivity ）： 是Java语言中用来规范客户端�
 <li><p>开发访问数据库的程序，只需要会调用 JDBC 接口中的方法即可，不用关注类是如何实现的。</p>
 </li>
 <li><p>用同一套 Java 代码，进行少量的修改就可以访问其他 JDBC 支持的数据库 </p>
-<p><img src="/images/JDBC%E6%8E%A5%E5%8F%A3.png" class="lazyload" data-srcset="/images/JDBC%E6%8E%A5%E5%8F%A3.png" srcset="data:image/png;base64,666" alt="JDBC接口"></p>
+<p><img src="https://gitee.com/tobing/imagebed/raw/master/JDBC%E6%8E%A5%E5%8F%A3.png" class="lazyload" data-srcset="https://gitee.com/tobing/imagebed/raw/master/JDBC%E6%8E%A5%E5%8F%A3.png" srcset="data:image/png;base64,666" alt="JDBC接口"></p>
 </li>
 </ol>
 </li>
@@ -596,7 +590,7 @@ JDBC（ Java Database Connectivity ）： 是Java语言中用来规范客户端�
 <li><p>创建Java项目</p>
 </li>
 <li><p>导入jar</p>
-<p><img src="/images/image-20191101220159197.png" class="lazyload" data-srcset="/images/image-20191101220159197.png" srcset="data:image/png;base64,666" alt="image-20191101220159197"></p>
+<p><img src="../images../image-20191101220159197.png" class="lazyload" data-srcset="../images../image-20191101220159197.png" srcset="data:image/png;base64,666" alt="image-20191101220159197"></p>
 </li>
 </ol>
 </li>
@@ -620,7 +614,7 @@ JDBC（ Java Database Connectivity ）： 是Java语言中用来规范客户端�
 </ol>
 <h4 id="7-执行DDL操作"><a href="#7-执行DDL操作" class="headerlink" title="7. 执行DDL操作"></a>7. 执行DDL操作</h4><ul>
 <li><p>访问数据库通用步骤</p>
-<p><img src="/images/db.png" class="lazyload" data-srcset="/images/db.png" srcset="data:image/png;base64,666" alt="db"></p>
+<p><img src="https://gitee.com/tobing/imagebed/raw/master/db.png" class="lazyload" data-srcset="https://gitee.com/tobing/imagebed/raw/master/db.png" srcset="data:image/png;base64,666" alt="db"></p>
 </li>
 <li><p>要创建的表</p>
 <table>
@@ -808,7 +802,7 @@ JDBC（ Java Database Connectivity ）： 是Java语言中用来规范客户端�
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">请输入用户名：</span><br><span class="line">tobing</span><br><span class="line">请输入密码：</span><br><span class="line">root</span><br><span class="line">登录成功，欢迎你：tobing</span><br><span class="line">-------------------------------------------</span><br><span class="line">请输入用户名：</span><br><span class="line">tobing</span><br><span class="line">请输入密码：</span><br><span class="line">rot<span class="string">&#x27; or &#x27;</span>1<span class="string">&#x27; = &#x27;</span>1</span><br><span class="line">登录失败！</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>PreparedStatement执行原理(不是很理解SQL底层预编译的原理)</p>
-<p><img src="/images/%E9%A2%84%E7%BC%96%E8%AF%91.png" class="lazyload" data-srcset="/images/%E9%A2%84%E7%BC%96%E8%AF%91.png" srcset="data:image/png;base64,666" alt="预编译"></p>
+<p><img src="https://gitee.com/tobing/imagebed/raw/master/%E9%A2%84%E7%BC%96%E8%AF%91.png" class="lazyload" data-srcset="https://gitee.com/tobing/imagebed/raw/master/%E9%A2%84%E7%BC%96%E8%AF%91.png" srcset="data:image/png;base64,666" alt="预编译"></p>
 </li>
 <li><p>使用PreparedStatement的好处</p>
 <blockquote>
@@ -943,10 +937,10 @@ JDBC（ Java Database Connectivity ）： 是Java语言中用来规范客户端�
     <div class='new-meta-box'>
       
         
-          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2019-11-04T11:15:10+08:00">
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-01-15T12:19:10+08:00">
   <a class='notlink'>
     <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
-    <p>更新于：Nov 4, 2019</p>
+    <p>更新于：Jan 15, 2021</p>
   </a>
 </div>
 
@@ -955,7 +949,7 @@ JDBC（ Java Database Connectivity ）： 是Java语言中用来规范客户端�
         
           
   
-  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/jdbc/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>jdbc</p></a></div>
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/JDBC/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>JDBC</p></a></div>
 
 
         
@@ -968,74 +962,7 @@ JDBC（ Java Database Connectivity ）： 是Java语言中用来规范客户端�
       
         <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer noopener"
           
-          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://tobing.top/2019/11/02/JDBC%E5%A4%8D%E4%B9%A0/&title=JDBC复习 - tobing&summary=JDBC复习1. 引入
-回顾操作数据库（MySQL）的常用方式
-第三方客户端：SQLyog等
-MySQL自带命令行
-Java访问（JDBC）
-
-
-
-2. JDBC
-JDBC（ Java Database Connectivity ）： 是Java语言中用来规范客户端程序如何来访问数据库的应用程序接口，提供了诸如查询和更新数据库中数据的方法。 每个 数据库厂商根据自家数据库的通信格式编写好自己数据库的驱动。所以我们只需要会调用 JDBC 接口中的方法即可，数据库驱动由数据库厂商提供。 
-
-JDBC的好处：
-
-开发访问数据库的程序，只需要会调用 JDBC 接口中的方法即可，不用关注类是如何实现的。
-
-用同一套 Java 代码，进行少量的修改就可以访问其他 JDBC 支持的数据库 
-
-
-
-
-JDBC常用的的包
-
-java.sql：所有与JDBC访问数据相关的接口和类
-javax.sql：数据库拓展包，提供数据库额外功。比如：连接池
-数据库驱动jar：数据库厂商基于JDBC接口的实现类。使用哪个就下载哪个。
-
-
-JDBC核心API
-
-DriverManager：The basic service for managing a set of JDBC drivers.
-管理和注册数据库驱动
-得到数据库连接对象
-
-
-Connection接口：A connection (session) with a specific database.
-一个连接对象，可以用于创建Statement和PrepareStatement对象
-
-
-Statement接口：The object used for executing a static SQL statement and  returning the results it produces.
-PreparedStatement接口：An object that represents a precompiled SQL statement.
-ResultSet接口：A table of data representing a database result set, which is  usually generated by executing a statement that queries the database.
-
-
-
-3. Connection接口
-Connection 接口，具体的实现类由数据库的厂商实现，代表一个连接对象。
-
-提供了获取Statement的方法
-
-
-Statement createStatement()：Creates a Statement object for sending SQL statements to the database.
-
-
-
-
-4. Statement接口
-Statement接口，The object used for executing a static SQL statement and  returning the results it produces.
-
-
-int executeUpdate(String sql)  ：Executes the given SQL statement, which may be an INSERT, UPDATE, or DELETE statement or an SQL statement that returns nothing, such as an SQL DDL statement.
-
-
-ResultSet executeQuery(String sql)  ：Executes the given SQL statement, which returns a single ResultSet object.
-
-
-
-
-5. ResultSet接口"
+          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://tobing.top/2019/11/02/JDBC%E5%A4%8D%E4%B9%A0/&title=JDBC复习 - tobing&summary=本文是对JDBC复习的笔记"
           
           >
           
@@ -1047,74 +974,7 @@ ResultSet executeQuery(String sql)  ：Executes the given SQL statement, which r
       
         <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer noopener"
           
-          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://tobing.top/2019/11/02/JDBC%E5%A4%8D%E4%B9%A0/&title=JDBC复习 - tobing&summary=JDBC复习1. 引入
-回顾操作数据库（MySQL）的常用方式
-第三方客户端：SQLyog等
-MySQL自带命令行
-Java访问（JDBC）
-
-
-
-2. JDBC
-JDBC（ Java Database Connectivity ）： 是Java语言中用来规范客户端程序如何来访问数据库的应用程序接口，提供了诸如查询和更新数据库中数据的方法。 每个 数据库厂商根据自家数据库的通信格式编写好自己数据库的驱动。所以我们只需要会调用 JDBC 接口中的方法即可，数据库驱动由数据库厂商提供。 
-
-JDBC的好处：
-
-开发访问数据库的程序，只需要会调用 JDBC 接口中的方法即可，不用关注类是如何实现的。
-
-用同一套 Java 代码，进行少量的修改就可以访问其他 JDBC 支持的数据库 
-
-
-
-
-JDBC常用的的包
-
-java.sql：所有与JDBC访问数据相关的接口和类
-javax.sql：数据库拓展包，提供数据库额外功。比如：连接池
-数据库驱动jar：数据库厂商基于JDBC接口的实现类。使用哪个就下载哪个。
-
-
-JDBC核心API
-
-DriverManager：The basic service for managing a set of JDBC drivers.
-管理和注册数据库驱动
-得到数据库连接对象
-
-
-Connection接口：A connection (session) with a specific database.
-一个连接对象，可以用于创建Statement和PrepareStatement对象
-
-
-Statement接口：The object used for executing a static SQL statement and  returning the results it produces.
-PreparedStatement接口：An object that represents a precompiled SQL statement.
-ResultSet接口：A table of data representing a database result set, which is  usually generated by executing a statement that queries the database.
-
-
-
-3. Connection接口
-Connection 接口，具体的实现类由数据库的厂商实现，代表一个连接对象。
-
-提供了获取Statement的方法
-
-
-Statement createStatement()：Creates a Statement object for sending SQL statements to the database.
-
-
-
-
-4. Statement接口
-Statement接口，The object used for executing a static SQL statement and  returning the results it produces.
-
-
-int executeUpdate(String sql)  ：Executes the given SQL statement, which may be an INSERT, UPDATE, or DELETE statement or an SQL statement that returns nothing, such as an SQL DDL statement.
-
-
-ResultSet executeQuery(String sql)  ：Executes the given SQL statement, which returns a single ResultSet object.
-
-
-
-
-5. ResultSet接口"
+          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://tobing.top/2019/11/02/JDBC%E5%A4%8D%E4%B9%A0/&title=JDBC复习 - tobing&summary=本文是对JDBC复习的笔记"
           
           >
           
@@ -1126,74 +986,7 @@ ResultSet executeQuery(String sql)  ：Executes the given SQL statement, which r
       
         <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer noopener"
           
-          target="_blank" href="http://service.weibo.com/share/share.php?url=https://tobing.top/2019/11/02/JDBC%E5%A4%8D%E4%B9%A0/&title=JDBC复习 - tobing&summary=JDBC复习1. 引入
-回顾操作数据库（MySQL）的常用方式
-第三方客户端：SQLyog等
-MySQL自带命令行
-Java访问（JDBC）
-
-
-
-2. JDBC
-JDBC（ Java Database Connectivity ）： 是Java语言中用来规范客户端程序如何来访问数据库的应用程序接口，提供了诸如查询和更新数据库中数据的方法。 每个 数据库厂商根据自家数据库的通信格式编写好自己数据库的驱动。所以我们只需要会调用 JDBC 接口中的方法即可，数据库驱动由数据库厂商提供。 
-
-JDBC的好处：
-
-开发访问数据库的程序，只需要会调用 JDBC 接口中的方法即可，不用关注类是如何实现的。
-
-用同一套 Java 代码，进行少量的修改就可以访问其他 JDBC 支持的数据库 
-
-
-
-
-JDBC常用的的包
-
-java.sql：所有与JDBC访问数据相关的接口和类
-javax.sql：数据库拓展包，提供数据库额外功。比如：连接池
-数据库驱动jar：数据库厂商基于JDBC接口的实现类。使用哪个就下载哪个。
-
-
-JDBC核心API
-
-DriverManager：The basic service for managing a set of JDBC drivers.
-管理和注册数据库驱动
-得到数据库连接对象
-
-
-Connection接口：A connection (session) with a specific database.
-一个连接对象，可以用于创建Statement和PrepareStatement对象
-
-
-Statement接口：The object used for executing a static SQL statement and  returning the results it produces.
-PreparedStatement接口：An object that represents a precompiled SQL statement.
-ResultSet接口：A table of data representing a database result set, which is  usually generated by executing a statement that queries the database.
-
-
-
-3. Connection接口
-Connection 接口，具体的实现类由数据库的厂商实现，代表一个连接对象。
-
-提供了获取Statement的方法
-
-
-Statement createStatement()：Creates a Statement object for sending SQL statements to the database.
-
-
-
-
-4. Statement接口
-Statement接口，The object used for executing a static SQL statement and  returning the results it produces.
-
-
-int executeUpdate(String sql)  ：Executes the given SQL statement, which may be an INSERT, UPDATE, or DELETE statement or an SQL statement that returns nothing, such as an SQL DDL statement.
-
-
-ResultSet executeQuery(String sql)  ：Executes the given SQL statement, which returns a single ResultSet object.
-
-
-
-
-5. ResultSet接口"
+          target="_blank" href="http://service.weibo.com/share/share.php?url=https://tobing.top/2019/11/02/JDBC%E5%A4%8D%E4%B9%A0/&title=JDBC复习 - tobing&summary=本文是对JDBC复习的笔记"
           
           >
           
@@ -1225,29 +1018,27 @@ ResultSet executeQuery(String sql)  ：Executes the given SQL statement, which r
       
         <a class='prev' href='/2019/11/04/%E6%95%B0%E6%8D%AE%E5%BA%93%E8%BF%9E%E6%8E%A5%E6%B1%A0%E6%8A%80%E6%9C%AF/'>
           <p class='title'><i class="fas fa-chevron-left" aria-hidden="true"></i>数据库连接池技术</p>
-          <p class='content'>数据库连接池技术1. 引入
-在对数据库进行操作的时候，每次执行不同操作，都要去申请连接对象，这样频繁地向系统申请资源会花费大量时间。因此人们引入了池子的概念：一开始就申请多个连接对象，并把这些连...</p>
+          <p class='content'>池化技术是提供系统资源利用率必不可少的，接下来接受数据库连接池。
+
+
+数据库连接池技术1. 引入
+在对数据库进行操作的时候，每次执行不同操作，都要去申请连接对象，这样频繁地向系统申请资源会花费大...</p>
         </a>
       
       
         <a class='next' href='/2019/10/26/%E7%94%B5%E4%BF%A1%E6%A0%A1%E5%9B%AD%E5%AE%BD%E5%B8%A6%E5%AE%89%E8%A3%85%E8%B7%AF%E7%94%B1%E5%99%A8/'>
           <p class='title'>电信校园宽带安装路由器<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
-          <p class='content'>电信校园宽带安装路由器（SWPU）1. 拿到电信号码，绑定学号
+          <p class='content'>本文介绍本校电信校园网如何使用路由器拨号。
+
+
+电信校园宽带安装路由器（SWPU）1. 拿到电信号码，绑定学号
 连接cmcc-edu
 
 自动弹出网页选自服务
 
 密码：
 多运营商绑定
-绑定号码密码
-
-
-顺便在此界面下载拨号客户端
-
-
-
-
-2. ...</p>
+绑定号码密码...</p>
         </a>
       
     </div>

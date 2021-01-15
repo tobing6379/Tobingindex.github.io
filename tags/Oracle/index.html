@@ -383,83 +383,7 @@
   
   <div class='md'>
     
-      <h1 id="Oracle-下"><a href="#Oracle-下" class="headerlink" title="Oracle-下"></a>Oracle-下</h1><h2 id="1-视图"><a href="#1-视图" class="headerlink" title="1. 视图"></a>1. 视图</h2><blockquote>
-<p>视图就是提供一个查询的窗口，所有数据来自于原表</p>
-</blockquote>
-<ol>
-<li><p>数据准备</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 查询语句创建表</span></span><br><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> emp <span class="keyword">as</span> <span class="keyword">select</span> * <span class="keyword">from</span> scott.emp;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>视图操作</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 创建视图【必须要dba权限】</span></span><br><span class="line"><span class="keyword">create</span> <span class="keyword">view</span> v_emp <span class="keyword">as</span> <span class="keyword">select</span> ename,job <span class="keyword">from</span> emp;</span><br><span class="line"><span class="comment">-- 查询视图</span></span><br><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> v_emp;</span><br><span class="line"><span class="comment">-- 修改视图【不推荐】</span></span><br><span class="line">udpate v_emp <span class="keyword">set</span> job=<span class="string">&#x27;LER&#x27;</span> <span class="keyword">where</span> ename=<span class="string">&#x27;ALLEN&#x27;</span>;</span><br><span class="line"><span class="comment">-- 创建只读视图【一般设置为只读】</span></span><br><span class="line"><span class="keyword">create</span> <span class="keyword">view</span> v_emp1 <span class="keyword">as</span> <span class="keyword">select</span> ename,job <span class="keyword">from</span> emp <span class="keyword">with</span> <span class="keyword">read</span> <span class="keyword">only</span>;</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>视图的作用：</p>
-<pre><code>1. 视图可以屏蔽一些敏感字段。
-
-   2. 保证总部和分部数据及时统一。</code></pre>
-</blockquote>
-</li>
-</ol>
-<h2 id="2-索引"><a href="#2-索引" class="headerlink" title="2. 索引"></a>2. 索引</h2><blockquote>
-<p>索引就是在表的列上构建一个二叉树，从而达到大大提高查询效率的目的。</p>
-<p>但是索引会影响增删改的效率。</p>
-</blockquote>
-<ol>
-<li><p>单列索引</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 创建单列索引</span></span><br><span class="line"><span class="keyword">create</span> <span class="keyword">index</span> idx_ename <span class="keyword">on</span> emp(ename);</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>单列索引触发规则，条件必须是索引列中的原始值。</p>
-<p>单列函数，模糊查询，都会影响索引的触发</p>
-</blockquote>
-</li>
-<li><p>复合索引</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 创建复合索引</span></span><br><span class="line"><span class="keyword">create</span> <span class="keyword">index</span> idx_enamejob <span class="keyword">on</span> emp(ename,job);</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>复合索引中第一列为优先检索列。</p>
-<p>如果要触发复合索引，<strong>必须包含有优先索引中的原始值</strong>。</p>
-</blockquote>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> emp <span class="keyword">where</span> ename = <span class="string">&#x27;SCOTT&#x27;</span> <span class="keyword">and</span> job=<span class="string">&#x27;xx&#x27;</span>;	<span class="comment">-- 触发复合索引</span></span><br><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> emp <span class="keyword">where</span> job = <span class="string">&#x27;xx&#x27;</span>;						<span class="comment">-- 不触发索引</span></span><br><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> emp <span class="keyword">where</span> ename = <span class="string">&quot;SCOTT&quot;</span>;				<span class="comment">-- 触发单列索引</span></span><br></pre></td></tr></table></figure>
-
-</li>
-</ol>
-<h2 id="3-pl-sql编程语言"><a href="#3-pl-sql编程语言" class="headerlink" title="3. pl/sql编程语言"></a>3. pl/sql编程语言</h2><blockquote>
-<p>是对sql语言的扩展，使得sql语言具有过程化编程的特性。</p>
-<p>比一般过程编程语言，更加灵活高效。</p>
-<p>主要用来编写存储过程和存储函数等。</p>
-</blockquote>
-<ol>
-<li><p>声明方法</p>
-<blockquote>
-<p>赋值操作可以使用**:=**，也可以使用into查询语句赋值。</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">declare</span><br><span class="line">	-- 变量声明</span><br><span class="line">	i number(2) :&#x3D; 10;</span><br><span class="line">	s varchar(10) :&#x3D;&#39;tobing&#39;;</span><br><span class="line">	ena emp.ename%type;	--引用型变量</span><br><span class="line">	emprow emp%rowtype;	--记录型变量</span><br><span class="line">begin</span><br><span class="line">	dbms_output.put_line(i);</span><br><span class="line">	dbms_output.put_line(s);</span><br><span class="line">	-- 应用型变量赋值</span><br><span class="line">	select ename into ena from emp where empno &#x3D; 7788;</span><br><span class="line">	-- 记录型变量赋值</span><br><span class="line">	select * into emprow from emp where empno &#x3D; 7788;</span><br><span class="line">	dbms_output.put_line(emprow.ename||&#39;工作为：&#39;||emprow.job);</span><br><span class="line">end;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>if判断</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">-- 输入小于18的数字，输入‘less than 18’</span><br><span class="line">-- 输入大于18小于40的数字，输出‘18·40’</span><br><span class="line">-- 输入大于40的数字，输出‘older than 40’</span><br><span class="line">declare</span><br><span class="line">	i number(3) :&#x3D;&amp;ii;</span><br><span class="line">begin</span><br><span class="line">	if i&lt;18 then</span><br><span class="line">		dbms_output.put_line(&#39;less than 18&#39;);</span><br><span class="line">	elsif i&lt;40 then</span><br><span class="line">		dbms_output.put_line(&#39;18-40&#39;);</span><br><span class="line">	else</span><br><span class="line">		dbms_output.put_line(&#39;older than 40&#39;);</span><br><span class="line">	end if;</span><br><span class="line">end;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>while循环</p>
-<blockquote>
-<p>循环输出1-10数值</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">declare</span><br><span class="line">	i number(1) :&#x3D; 1;</span><br><span class="line">begin</span><br><span class="line">	while i&lt;11 loop</span><br><span class="line">		dbms_output.put_line(i);</span><br><span class="line">		i:&#x3D;i+1;</span><br><span class="line">	end loop;</span><br><span class="line">end;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>exit循环【重点掌握】</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">declare</span><br><span class="line">	i number(1) :&#x3D;1;</span><br><span class="line">begin</span><br><span class="line">	loop</span><br><span class="line">	exit when i&gt;10;</span><br><span class="line">		dbms_output.put_line(i);</span><br><span class="line">		i:&#x3D;i+1;</span><br><span class="line">	end loop</span><br><span class="line">end;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>for循环</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">declare</span><br><span class="line">	</span><br><span class="line">begin</span><br><span class="line">	for i in 1..10 loop</span><br><span class="line">		dbms_output.put_line(i);</span><br><span class="line">	end loop;</span><br><span class="line">end;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>游标</p>
-<blockquote>
-<p>可以存放多个对象，多行记录</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">-- 输出emp表中所有员工姓名</span><br><span class="line">declare</span><br><span class="line">	cursor c1 is select * from emp; -- 存储emp表所有记录</span><br><span class="line">	emprow emp%rowtype;		-- 存储一行的变量</span><br><span class="line">begin</span><br><span class="line">	open c1;</span><br><span class="line">		loop</span><br><span class="line">			fetch c1 into emprow;		-- 取出c1中每行记录，存储到emprow中</span><br><span class="line">			exit when c1%nutfound;		-- 结束标志</span><br><span class="line">			dbms_output.put_line(emprow.ename);	-- 输出</span><br><span class="line">		end loop;</span><br><span class="line">    close c1;</span><br><span class="line">end;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">-- 给指定部门涨工资</span><br><span class="line">declare</span><br><span class="line">	-- 获取指定部门的所有empno</span><br><span class="line">	cursor c2(eno emp.deptno%type) is select empno from emp where deptno &#x3D; eno;</span><br><span class="line">	-- 用于存储每次获取到的empno</span><br><span class="line">	en emp.empno%type;</span><br><span class="line">begin</span><br><span class="line">	open c2(10);	-- 获取10部门的所有empno</span><br><span class="line">        loop</span><br><span class="line">            fetch c2 into en;	-- 循环取出10部门的empno</span><br><span class="line">            exit when c2%notfound;	-- 循环结束标志</span><br><span class="line">            update emp set sal&#x3D;sal+10 where cempno&#x3D;en;	-- 通过取出的empno进行操作</span><br><span class="line">        end loop;</span><br><span class="line">    close c2;</span><br><span class="line">end;</span><br></pre></td></tr></table></figure>
-
-</li>
-</ol>
+      <p>Oracle数据库第二弹。</p>
     
   </div>
   
@@ -469,7 +393,7 @@
         <time>2020-01-22</time>
         
           <span class="dot"></span>
-          <a class="category-link" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a>
+          <a class="category-link" href="/categories/%E7%90%86%E8%AE%BA%E5%AD%A6%E4%B9%A0/">理论学习</a>
         
       </div>
       
@@ -503,81 +427,7 @@
   
   <div class='md'>
     
-      <h1 id="Oracle-上"><a href="#Oracle-上" class="headerlink" title="Oracle-上"></a>Oracle-上</h1><h2 id="1-基本使用"><a href="#1-基本使用" class="headerlink" title="1. 基本使用"></a>1. 基本使用</h2><ol>
-<li><p>创建表空间，并给表空间指定用户</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--创建表空间</span></span><br><span class="line"><span class="keyword">create</span> <span class="keyword">tablespace</span> tbspace	<span class="comment">--指定表空间名称</span></span><br><span class="line"><span class="keyword">datafile</span> <span class="string">&#x27;c:\tbspace.dbf&#x27;</span>	<span class="comment">--指定表空间存储文件</span></span><br><span class="line"><span class="keyword">size</span> <span class="number">100</span>m					<span class="comment">--指定初始大小</span></span><br><span class="line"><span class="keyword">autoextend</span> <span class="keyword">on</span>				<span class="comment">--指定自增长</span></span><br><span class="line"><span class="keyword">next</span> <span class="number">10</span>m;					<span class="comment">--指定每次自增长大小</span></span><br><span class="line"></span><br><span class="line"><span class="comment">--创建用户</span></span><br><span class="line"><span class="keyword">create</span> <span class="keyword">user</span> tobing			<span class="comment">--指定用户名</span></span><br><span class="line"><span class="keyword">identified</span> <span class="keyword">by</span> tobing		<span class="comment">--指定用户密码</span></span><br><span class="line"><span class="keyword">default</span> <span class="keyword">tablespace</span> tbspace; <span class="comment">--指定使用的表</span></span><br><span class="line"></span><br><span class="line"><span class="comment">--给用户授权</span></span><br><span class="line"><span class="comment">--Oracle中常用角色</span></span><br><span class="line">connect	<span class="comment">--连接角色（基本角色）</span></span><br><span class="line">resource<span class="comment">--开发者角色</span></span><br><span class="line">dba		<span class="comment">--超级管理员角色</span></span><br><span class="line"><span class="keyword">grant</span> dba <span class="keyword">to</span> tobing;	<span class="comment">-- 给tobing授权超级管理员角色</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>表结构的操作</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--创建表</span></span><br><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> person(	<span class="comment">-- 创建person表</span></span><br><span class="line">	pid <span class="built_in">number</span>(<span class="number">20</span>),</span><br><span class="line">    pname <span class="built_in">varchar2</span>(<span class="number">10</span>)</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="comment">--修改表结构</span></span><br><span class="line"><span class="keyword">alter</span> <span class="keyword">table</span> person <span class="keyword">add</span> (gender <span class="built_in">number</span>(<span class="number">1</span>));		<span class="comment">--添加一行</span></span><br><span class="line"><span class="keyword">alter</span> <span class="keyword">table</span> person <span class="keyword">modify</span> gender <span class="built_in">char</span>(<span class="number">1</span>);		<span class="comment">--修改列类型</span></span><br><span class="line"><span class="keyword">alter</span> <span class="keyword">table</span> person <span class="keyword">rename</span> <span class="keyword">column</span> gender <span class="keyword">to</span> sex;	<span class="comment">--修改类名称</span></span><br><span class="line"><span class="keyword">alter</span> <span class="keyword">table</span> person <span class="keyword">drop</span> <span class="keyword">column</span> sex;				<span class="comment">--删除一列</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>表数据的操作</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--查询表中记录</span></span><br><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> person;</span><br><span class="line"><span class="comment">---添加一条记录</span></span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> person (pid,pname) <span class="keyword">values</span>(<span class="number">1</span>,<span class="string">&#x27;tobing&#x27;</span>);</span><br><span class="line"><span class="keyword">commit</span>;</span><br><span class="line"><span class="comment">---修改一条记录</span></span><br><span class="line"><span class="keyword">update</span> person <span class="keyword">set</span> pname =<span class="string">&#x27;扶上梁&#x27;</span> <span class="keyword">where</span> pid = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">commit</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">--三个删除</span></span><br><span class="line"><span class="comment">---删除表中所有记录</span></span><br><span class="line"><span class="keyword">delete</span> <span class="keyword">from</span> person;</span><br><span class="line"><span class="comment">---删除表结构</span></span><br><span class="line"><span class="keyword">drop</span> <span class="keyword">table</span> person;</span><br><span class="line"><span class="comment">---先删除表，再创建表效果等于删除表中所有记录</span></span><br><span class="line"><span class="keyword">truncate</span> <span class="keyword">table</span> person;</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<ol>
-<li>在对表中数据进行增删改操作的时候，需要手动将事务提交，否则可能会导致操作的丢失。<strong>Oracle的默认事务隔离级别和MySQL是不一样的。</strong></li>
-<li>delete和truncate两种方式删除表中所有数据底层的实现原理是不一样的。delete是直接删除表中的记录，而truncate是<strong>先删除整个表结构</strong>，<strong>然后再创建一样的表结构。</strong></li>
-<li>在<strong>数据量比较大，特别是含有索引的表中，使用truncate方式效率远大于delete方式。</strong></li>
-</ol>
-</blockquote>
-</li>
-<li><p>序列</p>
-<blockquote>
-<p>序列不真的属于任何一张表，但是可以逻辑和表做绑点。</p>
-<p>默认从1开始，依次递增，主要用来主键赋值使用。</p>
-<p><strong>dual：虚表，只是为了补全语法，没有任何意义。</strong></p>
-</blockquote>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">sequence</span> s_person;</span><br><span class="line"><span class="keyword">select</span> s_person.nextval <span class="keyword">from</span> dual;</span><br><span class="line"><span class="comment">--序列使用</span></span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> person(pid,pname) <span class="keyword">values</span>(s_person.nextval,<span class="string">&#x27;小明&#x27;</span>);</span><br><span class="line"><span class="keyword">commit</span>;</span><br><span class="line"><span class="comment">--查询效果</span></span><br><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> person;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>scott用户</p>
-<blockquote>
-<p>scott是Oracle提供给初学者研究学习的一张表。</p>
-</blockquote>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--解锁scott表</span></span><br><span class="line"><span class="keyword">alter</span> <span class="keyword">user</span> scott <span class="keyword">account</span> <span class="keyword">unlock</span>;</span><br><span class="line"><span class="comment">--解锁scoot密码【也可以用于重置密码】</span></span><br><span class="line"><span class="keyword">alter</span> <span class="keyword">user</span> scott <span class="keyword">identified</span> <span class="keyword">by</span> tiger;</span><br></pre></td></tr></table></figure>
-
-
-
-</li>
-</ol>
-<h2 id="2-单行函数"><a href="#2-单行函数" class="headerlink" title="2. 单行函数"></a>2. 单行函数</h2><blockquote>
-<p>单行函数作用于一行，放回一个值</p>
-</blockquote>
-<ol>
-<li><p>字符函数</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- upper()：将字符转换为大写</span></span><br><span class="line"><span class="keyword">select</span> <span class="keyword">upper</span>(<span class="string">&quot;tobing&quot;</span>) <span class="keyword">from</span> dual;	<span class="comment">-- 输出TOBING</span></span><br><span class="line"><span class="comment">-- lowwer()：将字符转换为小写</span></span><br><span class="line"><span class="keyword">select</span> lowwer(<span class="string">&quot;TOBING&quot;</span>) <span class="keyword">from</span> dual;	<span class="comment">-- 输出tobing</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>数值函数</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- round(number,n) 将数值保留n位（负数表示小数点前面）四舍五入</span></span><br><span class="line"><span class="keyword">select</span> <span class="keyword">round</span>(<span class="number">12</span>,<span class="number">56</span>,<span class="number">0</span>) <span class="keyword">from</span> dual;	<span class="comment">-- 输出13</span></span><br><span class="line"><span class="comment">-- trunc(number,n) 直接将数值截断，保留n位</span></span><br><span class="line"><span class="keyword">select</span> trunc(<span class="number">12</span>,<span class="number">56</span>,<span class="number">0</span>) <span class="keyword">from</span> dual; 	<span class="comment">-- 输出12</span></span><br><span class="line"><span class="comment">-- mod(number,n) 将number对n取余数</span></span><br><span class="line"><span class="keyword">select</span> <span class="keyword">mod</span>(<span class="number">10</span>,<span class="number">3</span>) <span class="keyword">from</span> dual;		<span class="comment">-- 输出1</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>日期函数</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 查询emp表中所有员工入职距离现在几天</span></span><br><span class="line"><span class="keyword">select</span>  <span class="keyword">sysdate</span>-e.hiredate <span class="keyword">from</span> emp e;</span><br><span class="line"><span class="comment">-- 算出明天此刻</span></span><br><span class="line"><span class="keyword">select</span> <span class="keyword">sysdate</span>+<span class="number">1</span> <span class="keyword">from</span> dual;</span><br><span class="line"><span class="comment">-- 查询emp表中所有员工入职距离现在几月</span></span><br><span class="line"><span class="keyword">select</span> months_between(<span class="keyword">sysdate</span>-e.hiredate)<span class="keyword">from</span> emp e;</span><br><span class="line"><span class="comment">-- 查询emp表中所有员工入职距离现在几年</span></span><br><span class="line"><span class="keyword">select</span> months_between(<span class="keyword">sysdate</span>-e.hiredate)/<span class="number">12</span> <span class="keyword">from</span> emp e;</span><br><span class="line"><span class="comment">-- 查询emp表中所有员工入职距离现在几周</span></span><br><span class="line"><span class="keyword">select</span> <span class="keyword">sysdate</span>-e.hiredate/<span class="number">7</span> <span class="keyword">from</span> emp e;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>转换函数</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- to_char(date,regex) 日期转字符串</span></span><br><span class="line"><span class="comment">-- fm：表示不用0补位</span></span><br><span class="line"><span class="comment">-- mi：分钟，由于不区分大小写，需要使用mi与mm区别</span></span><br><span class="line"><span class="comment">-- hh24：使用24小时方式显示</span></span><br><span class="line"><span class="keyword">select</span> to_char(<span class="keyword">sysdate</span>,<span class="string">&quot;fm yyyy-mm-dd hh24:mi:ss&quot;</span> ) <span class="keyword">from</span> dual;</span><br><span class="line"><span class="comment">-- to_date(char,regex) 字符串转日期</span></span><br><span class="line"><span class="keyword">select</span> <span class="keyword">to_date</span>(<span class="string">&quot;2018-12-12 12:12:12&quot;</span>,<span class="string">&quot;fm yyyy-mm-dd hh24:mi:ss&quot;</span>) <span class="keyword">from</span> dual;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>通用函数</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 算出emp表中所有员工的年薪（月新*12+奖金）</span></span><br><span class="line"><span class="comment">-- 存在问题：有点员工奖金为null，直接跟null运算结果是null</span></span><br><span class="line"><span class="comment">-- 如何解决：使用nvl(value,number),如果value为null，使number替换</span></span><br><span class="line"><span class="keyword">select</span> e.sal*<span class="number">12</span>+nvl(e.comm,<span class="number">0</span>) <span class="keyword">from</span> emp e;</span><br></pre></td></tr></table></figure>
-
-</li>
-</ol>
-<h2 id="3-条件表达式"><a href="#3-条件表达式" class="headerlink" title="3. 条件表达式"></a>3. 条件表达式</h2><ol>
-<li><p>通用用法</p>
-<blockquote>
-<p>适用于Oracle和mysql</p>
-</blockquote>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 需求1：给emp表中的员工名称起中文名</span></span><br><span class="line"><span class="keyword">select</span> e.ename,</span><br><span class="line">	<span class="keyword">case</span> e.ename</span><br><span class="line">	<span class="keyword">when</span> <span class="string">&#x27;SMITH&#x27;</span> <span class="keyword">then</span> <span class="string">&#x27;张三丰&#x27;</span></span><br><span class="line">	<span class="keyword">when</span> <span class="string">&#x27;ALLEN&#x27;</span> <span class="keyword">then</span> <span class="string">&#x27;张无忌&#x27;</span></span><br><span class="line">	<span class="keyword">when</span> <span class="string">&#x27;WARD&#x27;</span> <span class="keyword">then</span> <span class="string">&#x27;张翠山&#x27;</span></span><br><span class="line">	<span class="keyword">else</span> <span class="string">&#x27;无名&#x27;</span> 		<span class="comment">-- 可以省略</span></span><br><span class="line">	<span class="keyword">end</span>				<span class="comment">-- 结束标记，不要忘记</span></span><br><span class="line"><span class="keyword">from</span> emp e;</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 需求2：判断emp表中员工，&gt;3000为高收入，1500-3000为中等收入，其余为低收入</span></span><br><span class="line"><span class="keyword">select</span> e.sal</span><br><span class="line">	<span class="keyword">case</span></span><br><span class="line">	<span class="keyword">then</span> e.sal&gt;<span class="number">3000</span> <span class="keyword">then</span> <span class="string">&#x27;高收入&#x27;</span></span><br><span class="line">	<span class="keyword">then</span> e.sal&gt;<span class="number">1500</span> <span class="keyword">then</span> <span class="string">&#x27;中等收入&#x27;</span></span><br><span class="line">	<span class="keyword">else</span> <span class="string">&#x27;低收入&#x27;</span></span><br><span class="line">	<span class="keyword">end</span></span><br><span class="line"><span class="keyword">from</span> emp e;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>Oracle特有</p>
-<blockquote>
-<p>oracle中除了取别名，动用单引号</p>
-</blockquote>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 需求1：给emp表中的员工名称起中文名</span></span><br><span class="line"><span class="keyword">select</span> e.ename</span><br><span class="line">	<span class="keyword">decode</span>(e.name,<span class="string">&#x27;SMITH&#x27;</span>,<span class="string">&#x27;张三丰&#x27;</span>,<span class="string">&#x27;WARD&#x27;</span>,<span class="string">&#x27;张无忌&#x27;</span>,<span class="string">&#x27;无名&#x27;</span>) 中文名</span><br><span class="line"><span class="keyword">from</span> emp e;</span><br></pre></td></tr></table></figure>
-
-</li>
-</ol>
-<h2 id="4-多行函数"><a href="#4-多行函数" class="headerlink" title="4. 多行函数"></a>4. 多行函数</h2><blockquote>
-<p>多行函数【聚合函数】：作用于多行，返回一个值。</p>
-</blockquote>
+      <p>Oracle学习第一弹。</p>
     
   </div>
   
@@ -587,7 +437,7 @@
         <time>2020-01-19</time>
         
           <span class="dot"></span>
-          <a class="category-link" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a>
+          <a class="category-link" href="/categories/%E7%90%86%E8%AE%BA%E5%AD%A6%E4%B9%A0/">理论学习</a>
         
       </div>
       
@@ -704,64 +554,24 @@
       <ul class="entry navigation">
         
           <li><a class="flat-box"
-            title="/categories/Hexo/" href="/categories/Hexo/"
-            id="categoriesHexo"
-            ><div class='name'>Hexo</div><div class='badge'>(2)</div></a></li>
+            title="/categories/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/" href="/categories/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/"
+            id="categoriesE5B7A5E585B7E4BDBFE794A8"
+            ><div class='name'>工具使用</div><div class='badge'>(5)</div></a></li>
         
           <li><a class="flat-box"
-            title="/categories/Intellij-Idea/" href="/categories/Intellij-Idea/"
-            id="categoriesIntellij-Idea"
-            ><div class='name'>Intellij Idea</div><div class='badge'>(1)</div></a></li>
+            title="/categories/%E6%8A%80%E6%9C%AF%E5%BA%94%E7%94%A8/" href="/categories/%E6%8A%80%E6%9C%AF%E5%BA%94%E7%94%A8/"
+            id="categoriesE68A80E69CAFE5BA94E794A8"
+            ><div class='name'>技术应用</div><div class='badge'>(3)</div></a></li>
         
           <li><a class="flat-box"
-            title="/categories/Java/" href="/categories/Java/"
-            id="categoriesJava"
-            ><div class='name'>Java</div><div class='badge'>(24)</div></a></li>
+            title="/categories/%E6%9D%82%E4%B8%83%E6%9D%82%E5%85%AB/" href="/categories/%E6%9D%82%E4%B8%83%E6%9D%82%E5%85%AB/"
+            id="categoriesE69D82E4B883E69D82E585AB"
+            ><div class='name'>杂七杂八</div><div class='badge'>(4)</div></a></li>
         
           <li><a class="flat-box"
-            title="/categories/Linux/" href="/categories/Linux/"
-            id="categoriesLinux"
-            ><div class='name'>Linux</div><div class='badge'>(1)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/git/" href="/categories/git/"
-            id="categoriesgit"
-            ><div class='name'>git</div><div class='badge'>(1)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/windows%E4%BD%BF%E7%94%A8/" href="/categories/windows%E4%BD%BF%E7%94%A8/"
-            id="categorieswindowsE4BDBFE794A8"
-            ><div class='name'>windows使用</div><div class='badge'>(1)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/%E6%89%8B%E6%9C%BA/" href="/categories/%E6%89%8B%E6%9C%BA/"
-            id="categoriesE6898BE69CBA"
-            ><div class='name'>手机</div><div class='badge'>(1)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/%E6%8A%80%E5%B7%A7/" href="/categories/%E6%8A%80%E5%B7%A7/"
-            id="categoriesE68A80E5B7A7"
-            ><div class='name'>技巧</div><div class='badge'>(1)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/"
-            id="categoriesE695B0E68DAEE5BA93"
-            ><div class='name'>数据库</div><div class='badge'>(7)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/%E7%89%A9%E8%81%94%E7%BD%91/" href="/categories/%E7%89%A9%E8%81%94%E7%BD%91/"
-            id="categoriesE789A9E88194E7BD91"
-            ><div class='name'>物联网</div><div class='badge'>(2)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/%E7%9E%8E%E6%89%AF/" href="/categories/%E7%9E%8E%E6%89%AF/"
-            id="categoriesE79E8EE689AF"
-            ><div class='name'>瞎扯</div><div class='badge'>(1)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/%E8%B7%AF%E7%94%B1%E5%99%A8/" href="/categories/%E8%B7%AF%E7%94%B1%E5%99%A8/"
-            id="categoriesE8B7AFE794B1E599A8"
-            ><div class='name'>路由器</div><div class='badge'>(1)</div></a></li>
+            title="/categories/%E7%90%86%E8%AE%BA%E5%AD%A6%E4%B9%A0/" href="/categories/%E7%90%86%E8%AE%BA%E5%AD%A6%E4%B9%A0/"
+            id="categoriesE79086E8AEBAE5ADA6E4B9A0"
+            ><div class='name'>理论学习</div><div class='badge'>(36)</div></a></li>
         
       </ul>
     </div>
@@ -785,7 +595,7 @@
 
 
     <div class='content'>
-      <a href="/tags/2019/" style="font-size: 14px; color: #999">2019</a> <a href="/tags/DHT11/" style="font-size: 14px; color: #999">DHT11</a> <a href="/tags/ElasticSearch/" style="font-size: 14px; color: #999">ElasticSearch</a> <a href="/tags/JDBC/" style="font-size: 14px; color: #999">JDBC</a> <a href="/tags/Java/" style="font-size: 22.33px; color: #606060">Java</a> <a href="/tags/Linux/" style="font-size: 14px; color: #999">Linux</a> <a href="/tags/MongoDB/" style="font-size: 14px; color: #999">MongoDB</a> <a href="/tags/MySQL/" style="font-size: 20.67px; color: #6c6c6c">MySQL</a> <a href="/tags/Mybatis/" style="font-size: 24px; color: #555">Mybatis</a> <a href="/tags/Oracle/" style="font-size: 15.67px; color: #8e8e8e">Oracle</a> <a href="/tags/Spring/" style="font-size: 17.33px; color: #828282">Spring</a> <a href="/tags/Spring-Security/" style="font-size: 14px; color: #999">Spring-Security</a> <a href="/tags/SpringMVC/" style="font-size: 17.33px; color: #828282">SpringMVC</a> <a href="/tags/Spring%E5%85%A8%E5%AE%B6%E6%A1%B6/" style="font-size: 14px; color: #999">Spring全家桶</a> <a href="/tags/docker/" style="font-size: 14px; color: #999">docker</a> <a href="/tags/git/" style="font-size: 14px; color: #999">git</a> <a href="/tags/gitHub/" style="font-size: 14px; color: #999">gitHub</a> <a href="/tags/githubpage/" style="font-size: 14px; color: #999">githubpage</a> <a href="/tags/hexo/" style="font-size: 15.67px; color: #8e8e8e">hexo</a> <a href="/tags/idea/" style="font-size: 14px; color: #999">idea</a> <a href="/tags/java/" style="font-size: 14px; color: #999">java</a> <a href="/tags/jdbc/" style="font-size: 15.67px; color: #8e8e8e">jdbc</a> <a href="/tags/mysql/" style="font-size: 14px; color: #999">mysql</a> <a href="/tags/root/" style="font-size: 14px; color: #999">root</a> <a href="/tags/token/" style="font-size: 14px; color: #999">token</a> <a href="/tags/win10/" style="font-size: 14px; color: #999">win10</a> <a href="/tags/%E5%85%A5%E9%97%A8/" style="font-size: 14px; color: #999">入门</a> <a href="/tags/%E5%88%86%E9%A1%B5%E6%8F%92%E4%BB%B6/" style="font-size: 14px; color: #999">分页插件</a> <a href="/tags/%E5%8D%95%E7%89%87%E6%9C%BA/" style="font-size: 14px; color: #999">单片机</a> <a href="/tags/%E5%8F%8D%E5%B0%84/" style="font-size: 17.33px; color: #828282">反射</a> <a href="/tags/%E5%9F%9F%E5%90%8D%E7%BB%91%E5%AE%9A/" style="font-size: 14px; color: #999">域名绑定</a> <a href="/tags/%E5%A4%8D%E4%B9%A0/" style="font-size: 19px; color: #777">复习</a> <a href="/tags/%E5%AE%B9%E5%99%A8%E6%8A%80%E6%9C%AF/" style="font-size: 14px; color: #999">容器技术</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" style="font-size: 14px; color: #999">数据库</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" style="font-size: 15.67px; color: #8e8e8e">数据结构</a> <a href="/tags/%E6%95%B0%E7%BB%84/" style="font-size: 14px; color: #999">数组</a> <a href="/tags/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/" style="font-size: 14px; color: #999">文件上传</a> <a href="/tags/%E6%A0%88/" style="font-size: 14px; color: #999">栈</a> <a href="/tags/%E6%A0%91%E8%8E%93%E6%B4%BE/" style="font-size: 14px; color: #999">树莓派</a> <a href="/tags/%E6%A0%A1%E5%9B%AD%E5%AE%BD%E5%B8%A6/" style="font-size: 14px; color: #999">校园宽带</a> <a href="/tags/%E6%B3%A8%E8%A7%A3/" style="font-size: 14px; color: #999">注解</a> <a href="/tags/%E8%BF%9E%E6%8E%A5%E6%B1%A0/" style="font-size: 14px; color: #999">连接池</a> <a href="/tags/%E9%98%9F%E5%88%97/" style="font-size: 14px; color: #999">队列</a> <a href="/tags/%E9%9B%86%E5%90%88/" style="font-size: 14px; color: #999">集合</a> <a href="/tags/%E9%AD%85%E8%93%9DNote5/" style="font-size: 14px; color: #999">魅蓝Note5</a>
+      <a href="/tags/CentOS/" style="font-size: 14px; color: #999">CentOS</a> <a href="/tags/DHT11/" style="font-size: 14px; color: #999">DHT11</a> <a href="/tags/ElasticSearch/" style="font-size: 14px; color: #999">ElasticSearch</a> <a href="/tags/GitHub/" style="font-size: 14px; color: #999">GitHub</a> <a href="/tags/GithubPage/" style="font-size: 14px; color: #999">GithubPage</a> <a href="/tags/Hexo/" style="font-size: 15.67px; color: #8e8e8e">Hexo</a> <a href="/tags/Intellij-idea/" style="font-size: 14px; color: #999">Intellij idea</a> <a href="/tags/JDBC/" style="font-size: 17.33px; color: #828282">JDBC</a> <a href="/tags/Java/" style="font-size: 24px; color: #555">Java</a> <a href="/tags/Linux/" style="font-size: 14px; color: #999">Linux</a> <a href="/tags/MongoDB/" style="font-size: 14px; color: #999">MongoDB</a> <a href="/tags/MySQL/" style="font-size: 20.67px; color: #6c6c6c">MySQL</a> <a href="/tags/Mybatis/" style="font-size: 22.33px; color: #606060">Mybatis</a> <a href="/tags/Oracle/" style="font-size: 15.67px; color: #8e8e8e">Oracle</a> <a href="/tags/PageHelper/" style="font-size: 14px; color: #999">PageHelper</a> <a href="/tags/Spring/" style="font-size: 19px; color: #777">Spring</a> <a href="/tags/Spring-Security/" style="font-size: 14px; color: #999">Spring-Security</a> <a href="/tags/SpringBoot/" style="font-size: 14px; color: #999">SpringBoot</a> <a href="/tags/SpringMVC/" style="font-size: 17.33px; color: #828282">SpringMVC</a> <a href="/tags/Windows/" style="font-size: 14px; color: #999">Windows</a> <a href="/tags/docker/" style="font-size: 14px; color: #999">docker</a> <a href="/tags/git/" style="font-size: 14px; color: #999">git</a> <a href="/tags/jwt/" style="font-size: 14px; color: #999">jwt</a> <a href="/tags/root/" style="font-size: 14px; color: #999">root</a> <a href="/tags/%E5%85%A8%E6%96%87%E6%A3%80%E7%B4%A2/" style="font-size: 14px; color: #999">全文检索</a> <a href="/tags/%E5%88%86%E4%BA%AB/" style="font-size: 14px; color: #999">分享</a> <a href="/tags/%E5%8D%95%E7%89%87%E6%9C%BA/" style="font-size: 14px; color: #999">单片机</a> <a href="/tags/%E5%8F%8D%E5%B0%84/" style="font-size: 17.33px; color: #828282">反射</a> <a href="/tags/%E5%9F%9F%E5%90%8D%E7%BB%91%E5%AE%9A/" style="font-size: 14px; color: #999">域名绑定</a> <a href="/tags/%E5%AE%9E%E9%AA%8C/" style="font-size: 15.67px; color: #8e8e8e">实验</a> <a href="/tags/%E5%AE%B9%E5%99%A8%E6%8A%80%E6%9C%AF/" style="font-size: 14px; color: #999">容器技术</a> <a href="/tags/%E5%B0%8F%E7%A8%8B%E5%BA%8F/" style="font-size: 14px; color: #999">小程序</a> <a href="/tags/%E6%80%BB%E7%BB%93/" style="font-size: 14px; color: #999">总结</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93%E8%BF%9E%E6%8E%A5%E6%B1%A0/" style="font-size: 14px; color: #999">数据库连接池</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" style="font-size: 17.33px; color: #828282">数据结构</a> <a href="/tags/%E6%95%B0%E7%BB%84-Java/" style="font-size: 14px; color: #999">数组 - Java</a> <a href="/tags/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/" style="font-size: 14px; color: #999">文件上传</a> <a href="/tags/%E6%A0%88/" style="font-size: 14px; color: #999">栈</a> <a href="/tags/%E6%A0%91%E8%8E%93%E6%B4%BE/" style="font-size: 14px; color: #999">树莓派</a> <a href="/tags/%E6%A0%A1%E5%9B%AD%E5%AE%BD%E5%B8%A6/" style="font-size: 14px; color: #999">校园宽带</a> <a href="/tags/%E6%B3%A8%E8%A7%A3/" style="font-size: 14px; color: #999">注解</a> <a href="/tags/%E7%89%A9%E8%81%94%E7%BD%91/" style="font-size: 15.67px; color: #8e8e8e">物联网</a> <a href="/tags/%E8%AE%A4%E8%AF%81%E6%9C%BA%E5%88%B6/" style="font-size: 14px; color: #999">认证机制</a> <a href="/tags/%E8%B7%AF%E7%94%B1%E5%99%A8/" style="font-size: 14px; color: #999">路由器</a> <a href="/tags/%E9%98%9F%E5%88%97/" style="font-size: 14px; color: #999">队列</a> <a href="/tags/%E9%9B%86%E5%90%88/" style="font-size: 14px; color: #999">集合</a> <a href="/tags/%E9%AD%85%E8%93%9DNote5/" style="font-size: 14px; color: #999">魅蓝Note5</a>
     </div>
   </section>
 

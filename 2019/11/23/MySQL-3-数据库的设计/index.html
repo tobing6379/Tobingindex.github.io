@@ -21,32 +21,11 @@
   
   <title>MySQL-3-数据库的设计 - tobing</title>
   
-    <meta name="keywords" content="MySQL,复习">
+    <meta name="keywords" content="MySQL">
   
 
   
-    <meta name="description" content="MySQL-3-数据库的设计1. 表之间的关系1. 分类
-
-一对一
-人和身份证
-一个人只有一个身份证，一个身份证对应一个人
-
-
-一对多
-部门和员工
-一个部门有多个员工，而多个员工对应一个部门
-
-
-多对多
-学生和课程
-一个学生可以选多门课程，一个课程可以被多个学生选择
-
-
-
-
-2. 实现
-一对多：例如，部门和员工
-...">
+    <meta name="description" content="MySQL学习第三弹。">
   
 
   <!-- feed -->
@@ -404,7 +383,7 @@
   <div class='new-meta-item category'>
     <a class='notlink'>
       <i class="fas fa-folder-open fa-fw" aria-hidden="true"></i>
-      <a class="category-link" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a>
+      <a class="category-link" href="/categories/%E7%90%86%E8%AE%BA%E5%AD%A6%E4%B9%A0/">理论学习</a>
     </a>
   </div>
 
@@ -443,7 +422,10 @@
 
 
   
-  <h1 id="MySQL-3-数据库的设计"><a href="#MySQL-3-数据库的设计" class="headerlink" title="MySQL-3-数据库的设计"></a>MySQL-3-数据库的设计</h1><h2 id="1-表之间的关系"><a href="#1-表之间的关系" class="headerlink" title="1. 表之间的关系"></a>1. 表之间的关系</h2><h3 id="1-分类"><a href="#1-分类" class="headerlink" title="1. 分类"></a>1. 分类</h3><blockquote>
+  <p>MySQL学习第三弹。</p>
+<a id="more"></a>
+
+<h1 id="MySQL-3-数据库的设计"><a href="#MySQL-3-数据库的设计" class="headerlink" title="MySQL-3-数据库的设计"></a>MySQL-3-数据库的设计</h1><h2 id="1-表之间的关系"><a href="#1-表之间的关系" class="headerlink" title="1. 表之间的关系"></a>1. 表之间的关系</h2><h3 id="1-分类"><a href="#1-分类" class="headerlink" title="1. 分类"></a>1. 分类</h3><blockquote>
 <ol>
 <li>一对一<ul>
 <li>人和身份证</li>
@@ -467,20 +449,20 @@
 <blockquote>
 <p>实现方式：在【多】的一方建立外键，指向【一】的一方的主键。</p>
 </blockquote>
-<p><img src="/images/MySQL/OneToN.png" class="lazyload" data-srcset="/images/MySQL/OneToN.png" srcset="data:image/png;base64,666" alt="OneToN"></p>
+<p><img src="https://gitee.com/tobing/imagebed/raw/master/image-20210115121413016.png" class="lazyload" data-srcset="https://gitee.com/tobing/imagebed/raw/master/image-20210115121413016.png" srcset="data:image/png;base64,666" alt="image-20210115121413016"></p>
 </li>
 <li><p>多对多：例如，学生和课程</p>
 <blockquote>
 <p>实现方式：借助第三张中间表。表中至少包含两个字段，这两个字段作为第三张表的外键，分别指向两张表的主键</p>
 </blockquote>
-<p><img src="/images/MySQL/NToN.png" class="lazyload" data-srcset="/images/MySQL/NToN.png" srcset="data:image/png;base64,666" alt="NToN"></p>
+<p><img src="https://gitee.com/tobing/imagebed/raw/master/NToN.png" class="lazyload" data-srcset="https://gitee.com/tobing/imagebed/raw/master/NToN.png" srcset="data:image/png;base64,666" alt="NToN"></p>
 </li>
 <li><p>一对一：人和身份证</p>
 <blockquote>
 <p>实现方式：在任意一方添加唯一约束的主键，指向另外一方。</p>
 <p>注意：实际中很少这种情况，既然存在一对一，为何不把它们放在同一张表中呢？</p>
 </blockquote>
-<p><img src="/images/MySQL/oneToone.png" class="lazyload" data-srcset="/images/MySQL/oneToone.png" srcset="data:image/png;base64,666" alt="oneToone"></p>
+<p><img src="https://gitee.com/tobing/imagebed/raw/master/oneToone.png" class="lazyload" data-srcset="https://gitee.com/tobing/imagebed/raw/master/oneToone.png" srcset="data:image/png;base64,666" alt="oneToone"></p>
 </li>
 </ol>
 <h3 id="3-旅游线路的分析"><a href="#3-旅游线路的分析" class="headerlink" title="3. 旅游线路的分析"></a>3. 旅游线路的分析</h3><ul>
@@ -490,13 +472,13 @@
 </blockquote>
 </li>
 <li><p>分析：</p>
-<p><img src="/images/MySQL/traveldemo.png" class="lazyload" data-srcset="/images/MySQL/traveldemo.png" srcset="data:image/png;base64,666" alt="traveldemo"></p>
+<p><img src="https://gitee.com/tobing/imagebed/raw/master/traveldemo.png" class="lazyload" data-srcset="https://gitee.com/tobing/imagebed/raw/master/traveldemo.png" srcset="data:image/png;base64,666" alt="traveldemo"></p>
 </li>
 <li><p>代码实现：</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 旅游分类表</span></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> tab_categroy(</span><br><span class="line">	cid <span class="built_in">INT</span> PRIMARY <span class="keyword">KEY</span> AUTO_INCREMENT,	<span class="comment">-- 主键，自增长</span></span><br><span class="line">	cname <span class="built_in">VARCHAR</span>(<span class="number">100</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span> <span class="keyword">UNIQUE</span>  <span class="comment">-- cname 非空，唯一</span></span><br><span class="line">);</span><br><span class="line"><span class="comment">-- 旅游线路表</span></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> tab_route(</span><br><span class="line">	rid <span class="built_in">INT</span> PRIMARY <span class="keyword">KEY</span> AUTO_INCREMENT,  <span class="comment">-- 主键，自增长</span></span><br><span class="line">	rname <span class="built_in">VARCHAR</span>(<span class="number">100</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span> <span class="keyword">UNIQUE</span>,  <span class="comment">-- rname 非空，唯一</span></span><br><span class="line">	price <span class="keyword">DOUBLE</span>,						 </span><br><span class="line">	rdate <span class="built_in">DATE</span>,</span><br><span class="line">	cid <span class="built_in">INT</span>,							 <span class="comment">-- 外键</span></span><br><span class="line">    <span class="comment">-- 将cid与tab_categroy中的cid关联</span></span><br><span class="line">	<span class="keyword">FOREIGN</span> <span class="keyword">KEY</span>(cid) <span class="keyword">REFERENCES</span> tab_categroy(cid)</span><br><span class="line">);</span><br><span class="line"><span class="comment">-- 用户表</span></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> tab_user(</span><br><span class="line">	uid <span class="built_in">INT</span> PRIMARY <span class="keyword">KEY</span> AUTO_INCREMENT,  <span class="comment">-- 主键，自增长</span></span><br><span class="line">	username <span class="built_in">VARCHAR</span>(<span class="number">100</span>) <span class="keyword">UNIQUE</span> <span class="keyword">NOT</span> <span class="literal">NULL</span>, </span><br><span class="line">	<span class="keyword">PASSWORD</span> <span class="built_in">VARCHAR</span>(<span class="number">30</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span>,</span><br><span class="line">	<span class="keyword">NAME</span> <span class="built_in">VARCHAR</span>(<span class="number">100</span>),</span><br><span class="line">	birthday <span class="built_in">DATE</span>,</span><br><span class="line">	sex <span class="built_in">CHAR</span>(<span class="number">1</span>) <span class="keyword">DEFAULT</span> <span class="string">&#x27;男&#x27;</span>,            <span class="comment">-- 性别，默认男</span></span><br><span class="line">	telephone <span class="built_in">VARCHAR</span>(<span class="number">11</span>),</span><br><span class="line">	email <span class="built_in">VARCHAR</span>(<span class="number">100</span>)</span><br><span class="line">);</span><br><span class="line"><span class="comment">-- 收藏（连接用户与线路）</span></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> tab_favorite(</span><br><span class="line">	rid <span class="built_in">INT</span>,</span><br><span class="line">	<span class="built_in">DATE</span> DATETIME,						<span class="comment">-- 关联时间</span></span><br><span class="line">	uid <span class="built_in">INT</span>,</span><br><span class="line">	PRIMARY <span class="keyword">KEY</span>(rid,uid),</span><br><span class="line">	<span class="keyword">FOREIGN</span> <span class="keyword">KEY</span>(rid) <span class="keyword">REFERENCES</span> tab_route(rid), <span class="comment">-- rid关联tab_route中的rid</span></span><br><span class="line">	<span class="keyword">FOREIGN</span> <span class="keyword">KEY</span>(uid) <span class="keyword">REFERENCES</span> tab_user(uid)   <span class="comment">-- uid关联tab_user中的uid</span></span><br><span class="line">);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 </li>
 <li><p>SQLyog架构设计器显示</p>
-<p><img src="/images/MySQL/demo.png" class="lazyload" data-srcset="/images/MySQL/demo.png" srcset="data:image/png;base64,666" alt="demo"></p>
+<p><img src="https://gitee.com/tobing/imagebed/raw/master/demo.png" class="lazyload" data-srcset="https://gitee.com/tobing/imagebed/raw/master/demo.png" srcset="data:image/png;base64,666" alt="demo"></p>
 </li>
 </ul>
 <h2 id="2-范式（略）"><a href="#2-范式（略）" class="headerlink" title="2. 范式（略）"></a>2. 范式（略）</h2>
@@ -533,10 +515,10 @@
     <div class='new-meta-box'>
       
         
-          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2019-11-23T10:33:05+08:00">
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-01-15T12:14:52+08:00">
   <a class='notlink'>
     <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
-    <p>更新于：Nov 23, 2019</p>
+    <p>更新于：Jan 15, 2021</p>
   </a>
 </div>
 
@@ -545,7 +527,7 @@
         
           
   
-  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/MySQL/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>MySQL</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/%E5%A4%8D%E4%B9%A0/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>复习</p></a></div>
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/MySQL/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>MySQL</p></a></div>
 
 
         
@@ -558,63 +540,7 @@
       
         <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer noopener"
           
-          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://tobing.top/2019/11/23/MySQL-3-%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E8%AE%BE%E8%AE%A1/&title=MySQL-3-数据库的设计 - tobing&summary=MySQL-3-数据库的设计1. 表之间的关系1. 分类
-
-一对一
-人和身份证
-一个人只有一个身份证，一个身份证对应一个人
-
-
-一对多
-部门和员工
-一个部门有多个员工，而多个员工对应一个部门
-
-
-多对多
-学生和课程
-一个学生可以选多门课程，一个课程可以被多个学生选择
-
-
-
-
-2. 实现
-一对多：例如，部门和员工
-
-实现方式：在【多】的一方建立外键，指向【一】的一方的主键。
-
-
-
-多对多：例如，学生和课程
-
-实现方式：借助第三张中间表。表中至少包含两个字段，这两个字段作为第三张表的外键，分别指向两张表的主键
-
-
-
-一对一：人和身份证
-
-实现方式：在任意一方添加唯一约束的主键，指向另外一方。
-注意：实际中很少这种情况，既然存在一对一，为何不把它们放在同一张表中呢？
-
-
-
-
-3. 旅游线路的分析
-旅游线路表、线路分类表、用户表
-
-线路分类下有很多条旅游线路，一条旅游线路可以被多个用户收藏，一个用户可以收藏多条线路。
-
-
-分析：
-
-
-代码实现：
-123456789101112131415161718192021222324252627282930313233343536-- 旅游分类表CREATE TABLE tab_categroy(	cid INT PRIMARY KEY AUTO_INCREMENT,	-- 主键，自增长	cname VARCHAR(100) NOT NULL UNIQUE  -- cname 非空，唯一);-- 旅游线路表CREATE TABLE tab_route(	rid INT PRIMARY KEY AUTO_INCREMENT,  -- 主键，自增长	rname VARCHAR(100) NOT NULL UNIQUE,  -- rname 非空，唯一	price DOUBLE,						 	rdate DATE,	cid INT,							 -- 外键    -- 将cid与tab_categroy中的cid关联	FOREIGN KEY(cid) REFERENCES tab_categroy(cid));-- 用户表CREATE TABLE tab_user(	uid INT PRIMARY KEY AUTO_INCREMENT,  -- 主键，自增长	username VARCHAR(100) UNIQUE NOT NULL, 	PASSWORD VARCHAR(30) NOT NULL,	NAME VARCHAR(100),	birthday DATE,	sex CHAR(1) DEFAULT &#x27;男&#x27;,            -- 性别，默认男	telephone VARCHAR(11),	email VARCHAR(100));-- 收藏（连接用户与线路）CREATE TABLE tab_favorite(	rid INT,	DATE DATETIME,						-- 关联时间	uid INT,	PRIMARY KEY(rid,uid),	FOREIGN KEY(rid) REFERENCES tab_route(rid), -- rid关联tab_route中的rid	FOREIGN KEY(uid) REFERENCES tab_user(uid)   -- uid关联tab_user中的uid);
-
-SQLyog架构设计器显示
-
-
-
-2. 范式（略）"
+          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://tobing.top/2019/11/23/MySQL-3-%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E8%AE%BE%E8%AE%A1/&title=MySQL-3-数据库的设计 - tobing&summary=MySQL学习第三弹。"
           
           >
           
@@ -626,63 +552,7 @@ SQLyog架构设计器显示
       
         <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer noopener"
           
-          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://tobing.top/2019/11/23/MySQL-3-%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E8%AE%BE%E8%AE%A1/&title=MySQL-3-数据库的设计 - tobing&summary=MySQL-3-数据库的设计1. 表之间的关系1. 分类
-
-一对一
-人和身份证
-一个人只有一个身份证，一个身份证对应一个人
-
-
-一对多
-部门和员工
-一个部门有多个员工，而多个员工对应一个部门
-
-
-多对多
-学生和课程
-一个学生可以选多门课程，一个课程可以被多个学生选择
-
-
-
-
-2. 实现
-一对多：例如，部门和员工
-
-实现方式：在【多】的一方建立外键，指向【一】的一方的主键。
-
-
-
-多对多：例如，学生和课程
-
-实现方式：借助第三张中间表。表中至少包含两个字段，这两个字段作为第三张表的外键，分别指向两张表的主键
-
-
-
-一对一：人和身份证
-
-实现方式：在任意一方添加唯一约束的主键，指向另外一方。
-注意：实际中很少这种情况，既然存在一对一，为何不把它们放在同一张表中呢？
-
-
-
-
-3. 旅游线路的分析
-旅游线路表、线路分类表、用户表
-
-线路分类下有很多条旅游线路，一条旅游线路可以被多个用户收藏，一个用户可以收藏多条线路。
-
-
-分析：
-
-
-代码实现：
-123456789101112131415161718192021222324252627282930313233343536-- 旅游分类表CREATE TABLE tab_categroy(	cid INT PRIMARY KEY AUTO_INCREMENT,	-- 主键，自增长	cname VARCHAR(100) NOT NULL UNIQUE  -- cname 非空，唯一);-- 旅游线路表CREATE TABLE tab_route(	rid INT PRIMARY KEY AUTO_INCREMENT,  -- 主键，自增长	rname VARCHAR(100) NOT NULL UNIQUE,  -- rname 非空，唯一	price DOUBLE,						 	rdate DATE,	cid INT,							 -- 外键    -- 将cid与tab_categroy中的cid关联	FOREIGN KEY(cid) REFERENCES tab_categroy(cid));-- 用户表CREATE TABLE tab_user(	uid INT PRIMARY KEY AUTO_INCREMENT,  -- 主键，自增长	username VARCHAR(100) UNIQUE NOT NULL, 	PASSWORD VARCHAR(30) NOT NULL,	NAME VARCHAR(100),	birthday DATE,	sex CHAR(1) DEFAULT &#x27;男&#x27;,            -- 性别，默认男	telephone VARCHAR(11),	email VARCHAR(100));-- 收藏（连接用户与线路）CREATE TABLE tab_favorite(	rid INT,	DATE DATETIME,						-- 关联时间	uid INT,	PRIMARY KEY(rid,uid),	FOREIGN KEY(rid) REFERENCES tab_route(rid), -- rid关联tab_route中的rid	FOREIGN KEY(uid) REFERENCES tab_user(uid)   -- uid关联tab_user中的uid);
-
-SQLyog架构设计器显示
-
-
-
-2. 范式（略）"
+          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://tobing.top/2019/11/23/MySQL-3-%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E8%AE%BE%E8%AE%A1/&title=MySQL-3-数据库的设计 - tobing&summary=MySQL学习第三弹。"
           
           >
           
@@ -694,63 +564,7 @@ SQLyog架构设计器显示
       
         <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer noopener"
           
-          target="_blank" href="http://service.weibo.com/share/share.php?url=https://tobing.top/2019/11/23/MySQL-3-%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E8%AE%BE%E8%AE%A1/&title=MySQL-3-数据库的设计 - tobing&summary=MySQL-3-数据库的设计1. 表之间的关系1. 分类
-
-一对一
-人和身份证
-一个人只有一个身份证，一个身份证对应一个人
-
-
-一对多
-部门和员工
-一个部门有多个员工，而多个员工对应一个部门
-
-
-多对多
-学生和课程
-一个学生可以选多门课程，一个课程可以被多个学生选择
-
-
-
-
-2. 实现
-一对多：例如，部门和员工
-
-实现方式：在【多】的一方建立外键，指向【一】的一方的主键。
-
-
-
-多对多：例如，学生和课程
-
-实现方式：借助第三张中间表。表中至少包含两个字段，这两个字段作为第三张表的外键，分别指向两张表的主键
-
-
-
-一对一：人和身份证
-
-实现方式：在任意一方添加唯一约束的主键，指向另外一方。
-注意：实际中很少这种情况，既然存在一对一，为何不把它们放在同一张表中呢？
-
-
-
-
-3. 旅游线路的分析
-旅游线路表、线路分类表、用户表
-
-线路分类下有很多条旅游线路，一条旅游线路可以被多个用户收藏，一个用户可以收藏多条线路。
-
-
-分析：
-
-
-代码实现：
-123456789101112131415161718192021222324252627282930313233343536-- 旅游分类表CREATE TABLE tab_categroy(	cid INT PRIMARY KEY AUTO_INCREMENT,	-- 主键，自增长	cname VARCHAR(100) NOT NULL UNIQUE  -- cname 非空，唯一);-- 旅游线路表CREATE TABLE tab_route(	rid INT PRIMARY KEY AUTO_INCREMENT,  -- 主键，自增长	rname VARCHAR(100) NOT NULL UNIQUE,  -- rname 非空，唯一	price DOUBLE,						 	rdate DATE,	cid INT,							 -- 外键    -- 将cid与tab_categroy中的cid关联	FOREIGN KEY(cid) REFERENCES tab_categroy(cid));-- 用户表CREATE TABLE tab_user(	uid INT PRIMARY KEY AUTO_INCREMENT,  -- 主键，自增长	username VARCHAR(100) UNIQUE NOT NULL, 	PASSWORD VARCHAR(30) NOT NULL,	NAME VARCHAR(100),	birthday DATE,	sex CHAR(1) DEFAULT &#x27;男&#x27;,            -- 性别，默认男	telephone VARCHAR(11),	email VARCHAR(100));-- 收藏（连接用户与线路）CREATE TABLE tab_favorite(	rid INT,	DATE DATETIME,						-- 关联时间	uid INT,	PRIMARY KEY(rid,uid),	FOREIGN KEY(rid) REFERENCES tab_route(rid), -- rid关联tab_route中的rid	FOREIGN KEY(uid) REFERENCES tab_user(uid)   -- uid关联tab_user中的uid);
-
-SQLyog架构设计器显示
-
-
-
-2. 范式（略）"
+          target="_blank" href="http://service.weibo.com/share/share.php?url=https://tobing.top/2019/11/23/MySQL-3-%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E8%AE%BE%E8%AE%A1/&title=MySQL-3-数据库的设计 - tobing&summary=MySQL学习第三弹。"
           
           >
           
@@ -782,22 +596,27 @@ SQLyog架构设计器显示
       
         <a class='prev' href='/2019/11/23/MySQL-4-%E5%A4%9A%E8%A1%A8%E6%9F%A5%E8%AF%A2%E4%B8%8E%E4%BA%8B%E5%8A%A1/'>
           <p class='title'><i class="fas fa-chevron-left" aria-hidden="true"></i>MySQL-4-多表查询与事务</p>
-          <p class='content'>MySQL-4-多表查询与事务1. 多表查询
+          <p class='content'>MySQL学习第四弹。
+
+
+MySQL-4-多表查询与事务1. 多表查询
 语法
 123456select	[列名列表]from	[表名列表]where	.....
 
-案例准备：两张表，部门表、员工表
-12345678910...</p>
+案例准备：两张表，部门表、员...</p>
         </a>
       
       
         <a class='next' href='/2019/11/15/MySQL-2-%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C/'>
           <p class='title'>MySQL-2-基本操作<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
-          <p class='content'>MySQL-2-基本操作1. DDL：操作数据库、表
+          <p class='content'>MySQL复习第二弹。
+
+
+MySQL-2-基本操作1. DDL：操作数据库、表
 操作数据库：CRUD
 
 C（Create）：创建
-1234-- 创建数据库create database [数据库名称];			create...</p>
+1234-- 创建数据库create database [数据...</p>
         </a>
       
     </div>

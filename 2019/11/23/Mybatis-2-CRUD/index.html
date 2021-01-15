@@ -25,23 +25,7 @@
   
 
   
-    <meta name="description" content="Mybatis-2-简单CRUD
-步骤
-
-创建Maven工程
-关联坐标
-编写实体类和持久层接口
-编写SqlMapConfig.xml
-编写映射配置文件
-编写测试类
-添加其他查询功能
-
-
-使用要求
-
-
-持久层接口和持久层接口的映射配置必须在相同包下
-持久层映射中mapper标签的namespace属性取值必须是持久...">
+    <meta name="description" content="Mybatis学习第二弹。">
   
 
   <!-- feed -->
@@ -399,7 +383,7 @@
   <div class='new-meta-item category'>
     <a class='notlink'>
       <i class="fas fa-folder-open fa-fw" aria-hidden="true"></i>
-      <a class="category-link" href="/categories/Java/">Java</a>
+      <a class="category-link" href="/categories/%E7%90%86%E8%AE%BA%E5%AD%A6%E4%B9%A0/">理论学习</a>
     </a>
   </div>
 
@@ -438,7 +422,10 @@
 
 
   
-  <h1 id="Mybatis-2-简单CRUD"><a href="#Mybatis-2-简单CRUD" class="headerlink" title="Mybatis-2-简单CRUD"></a>Mybatis-2-简单CRUD</h1><ul>
+  <p>Mybatis学习第二弹。</p>
+<a id="more"></a>
+
+<h1 id="Mybatis-2-简单CRUD"><a href="#Mybatis-2-简单CRUD" class="headerlink" title="Mybatis-2-简单CRUD"></a>Mybatis-2-简单CRUD</h1><ul>
 <li><p>步骤</p>
 <ol>
 <li>创建Maven工程</li>
@@ -672,10 +659,10 @@
     <div class='new-meta-box'>
       
         
-          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2020-01-10T10:25:13+08:00">
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-01-15T11:19:25+08:00">
   <a class='notlink'>
     <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
-    <p>更新于：Jan 10, 2020</p>
+    <p>更新于：Jan 15, 2021</p>
   </a>
 </div>
 
@@ -697,56 +684,7 @@
       
         <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer noopener"
           
-          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://tobing.top/2019/11/23/Mybatis-2-CRUD/&title=Mybatis-2-CRUD - tobing&summary=Mybatis-2-简单CRUD
-步骤
-
-创建Maven工程
-关联坐标
-编写实体类和持久层接口
-编写SqlMapConfig.xml
-编写映射配置文件
-编写测试类
-添加其他查询功能
-
-
-使用要求
-
-
-持久层接口和持久层接口的映射配置必须在相同包下
-持久层映射中mapper标签的namespace属性取值必须是持久层接口的全限定类名。
-SQL语句的配置标签：select、insert、delete、update的id属性必须和持久层接口的方法名相同。
-
-
-
-
-1. 创建Maven工程2. 导入坐标
-pom.xml
-12345678910111213141516171819202122232425262728293031&lt;dependencies&gt;        &lt;dependency&gt;            &lt;groupId&gt;mysql&lt;/groupId&gt;            &lt;artifactId&gt;mysql-connector-java&lt;/artifactId&gt;            &lt;version&gt;5.1.6&lt;/version&gt;        &lt;/dependency&gt;        &lt;dependency&gt;            &lt;groupId&gt;org.mybatis&lt;/groupId&gt;            &lt;artifactId&gt;mybatis&lt;/artifactId&gt;            &lt;version&gt;3.4.5&lt;/version&gt;        &lt;/dependency&gt;        &lt;dependency&gt;            &lt;groupId&gt;dom4j&lt;/groupId&gt;            &lt;artifactId&gt;dom4j&lt;/artifactId&gt;            &lt;version&gt;1.6&lt;/version&gt;        &lt;/dependency&gt;        &lt;dependency&gt;            &lt;groupId&gt;log4j&lt;/groupId&gt;            &lt;artifactId&gt;log4j&lt;/artifactId&gt;            &lt;version&gt;1.2.12&lt;/version&gt;        &lt;/dependency&gt;        &lt;dependency&gt;            &lt;groupId&gt;junit&lt;/groupId&gt;            &lt;artifactId&gt;junit&lt;/artifactId&gt;            &lt;version&gt;4.10&lt;/version&gt;            &lt;scope&gt;test&lt;/scope&gt;        &lt;/dependency&gt;    &lt;/dependencies&gt;
-
-
-
-3. 编写实体类和持久层接口
-在main-&gt;java下讲解domain和dao包
-
-domain-&gt;User实体类
-12345678910111213141516package top.tobing.domain;import java.util.Date;public class User &#123;    private Integer id;    private String username;    private Date birthday;    private String sex;    private String address;        // getter and setter.....            @Override    public String toString() &#123;        return .....    &#125;&#125;
-
-dao-&gt;UserDao持久层接口
-12345678package top.tobing.dao;import top.tobing.domain.User;import java.util.List;public interface UserDao &#123;    public List&lt;User&gt; findAll();&#125;
-
-
-
-4. 编写SqlMapConfig.xml
-SqlMapConfig.xml用于配置数据库相关信息。以及关联UserDao的配置文件。
-
-在resources目下新建SQLMapConfig.xml文件
-1234567891011121314151617181920212223&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;!DOCTYPE configuration        PUBLIC &quot;-//mybatis.org//DTD Config 3.0//EN&quot;        &quot;http://mybatis.org/dtd/mybatis-3-config.dtd&quot;&gt;&lt;configuration &gt;    &lt;!--连接数据库环境--&gt;    &lt;environments default=&quot;mysql&quot;&gt;        &lt;environment id=&quot;mysql&quot;&gt;            &lt;transactionManager type=&quot;JDBC&quot;&gt;&lt;/transactionManager&gt;            &lt;dataSource type=&quot;POOLED&quot;&gt;                &lt;!--连接数据库信息--&gt;                &lt;property name=&quot;driver&quot; value=&quot;com.mysql.jdbc.Driver&quot;/&gt;                &lt;property name=&quot;url&quot; value=&quot;jdbc:mysql://localhost:3306/ee50&quot;/&gt;                &lt;property name=&quot;username&quot; value=&quot;root&quot;/&gt;                &lt;property name=&quot;password&quot; value=&quot;root&quot;/&gt;            &lt;/dataSource&gt;        &lt;/environment&gt;    &lt;/environments&gt;    &lt;mappers&gt;        &lt;mapper resource=&quot;top/tobing/dao/UserDao.xml&quot;&gt;&lt;/mapper&gt;    &lt;/mappers&gt;&lt;/configuration&gt;
-
-
-
-
-
-5. 编写映射配置文件"
+          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://tobing.top/2019/11/23/Mybatis-2-CRUD/&title=Mybatis-2-CRUD - tobing&summary=Mybatis学习第二弹。"
           
           >
           
@@ -758,56 +696,7 @@ SqlMapConfig.xml用于配置数据库相关信息。以及关联UserDao的配置
       
         <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer noopener"
           
-          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://tobing.top/2019/11/23/Mybatis-2-CRUD/&title=Mybatis-2-CRUD - tobing&summary=Mybatis-2-简单CRUD
-步骤
-
-创建Maven工程
-关联坐标
-编写实体类和持久层接口
-编写SqlMapConfig.xml
-编写映射配置文件
-编写测试类
-添加其他查询功能
-
-
-使用要求
-
-
-持久层接口和持久层接口的映射配置必须在相同包下
-持久层映射中mapper标签的namespace属性取值必须是持久层接口的全限定类名。
-SQL语句的配置标签：select、insert、delete、update的id属性必须和持久层接口的方法名相同。
-
-
-
-
-1. 创建Maven工程2. 导入坐标
-pom.xml
-12345678910111213141516171819202122232425262728293031&lt;dependencies&gt;        &lt;dependency&gt;            &lt;groupId&gt;mysql&lt;/groupId&gt;            &lt;artifactId&gt;mysql-connector-java&lt;/artifactId&gt;            &lt;version&gt;5.1.6&lt;/version&gt;        &lt;/dependency&gt;        &lt;dependency&gt;            &lt;groupId&gt;org.mybatis&lt;/groupId&gt;            &lt;artifactId&gt;mybatis&lt;/artifactId&gt;            &lt;version&gt;3.4.5&lt;/version&gt;        &lt;/dependency&gt;        &lt;dependency&gt;            &lt;groupId&gt;dom4j&lt;/groupId&gt;            &lt;artifactId&gt;dom4j&lt;/artifactId&gt;            &lt;version&gt;1.6&lt;/version&gt;        &lt;/dependency&gt;        &lt;dependency&gt;            &lt;groupId&gt;log4j&lt;/groupId&gt;            &lt;artifactId&gt;log4j&lt;/artifactId&gt;            &lt;version&gt;1.2.12&lt;/version&gt;        &lt;/dependency&gt;        &lt;dependency&gt;            &lt;groupId&gt;junit&lt;/groupId&gt;            &lt;artifactId&gt;junit&lt;/artifactId&gt;            &lt;version&gt;4.10&lt;/version&gt;            &lt;scope&gt;test&lt;/scope&gt;        &lt;/dependency&gt;    &lt;/dependencies&gt;
-
-
-
-3. 编写实体类和持久层接口
-在main-&gt;java下讲解domain和dao包
-
-domain-&gt;User实体类
-12345678910111213141516package top.tobing.domain;import java.util.Date;public class User &#123;    private Integer id;    private String username;    private Date birthday;    private String sex;    private String address;        // getter and setter.....            @Override    public String toString() &#123;        return .....    &#125;&#125;
-
-dao-&gt;UserDao持久层接口
-12345678package top.tobing.dao;import top.tobing.domain.User;import java.util.List;public interface UserDao &#123;    public List&lt;User&gt; findAll();&#125;
-
-
-
-4. 编写SqlMapConfig.xml
-SqlMapConfig.xml用于配置数据库相关信息。以及关联UserDao的配置文件。
-
-在resources目下新建SQLMapConfig.xml文件
-1234567891011121314151617181920212223&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;!DOCTYPE configuration        PUBLIC &quot;-//mybatis.org//DTD Config 3.0//EN&quot;        &quot;http://mybatis.org/dtd/mybatis-3-config.dtd&quot;&gt;&lt;configuration &gt;    &lt;!--连接数据库环境--&gt;    &lt;environments default=&quot;mysql&quot;&gt;        &lt;environment id=&quot;mysql&quot;&gt;            &lt;transactionManager type=&quot;JDBC&quot;&gt;&lt;/transactionManager&gt;            &lt;dataSource type=&quot;POOLED&quot;&gt;                &lt;!--连接数据库信息--&gt;                &lt;property name=&quot;driver&quot; value=&quot;com.mysql.jdbc.Driver&quot;/&gt;                &lt;property name=&quot;url&quot; value=&quot;jdbc:mysql://localhost:3306/ee50&quot;/&gt;                &lt;property name=&quot;username&quot; value=&quot;root&quot;/&gt;                &lt;property name=&quot;password&quot; value=&quot;root&quot;/&gt;            &lt;/dataSource&gt;        &lt;/environment&gt;    &lt;/environments&gt;    &lt;mappers&gt;        &lt;mapper resource=&quot;top/tobing/dao/UserDao.xml&quot;&gt;&lt;/mapper&gt;    &lt;/mappers&gt;&lt;/configuration&gt;
-
-
-
-
-
-5. 编写映射配置文件"
+          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://tobing.top/2019/11/23/Mybatis-2-CRUD/&title=Mybatis-2-CRUD - tobing&summary=Mybatis学习第二弹。"
           
           >
           
@@ -819,56 +708,7 @@ SqlMapConfig.xml用于配置数据库相关信息。以及关联UserDao的配置
       
         <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer noopener"
           
-          target="_blank" href="http://service.weibo.com/share/share.php?url=https://tobing.top/2019/11/23/Mybatis-2-CRUD/&title=Mybatis-2-CRUD - tobing&summary=Mybatis-2-简单CRUD
-步骤
-
-创建Maven工程
-关联坐标
-编写实体类和持久层接口
-编写SqlMapConfig.xml
-编写映射配置文件
-编写测试类
-添加其他查询功能
-
-
-使用要求
-
-
-持久层接口和持久层接口的映射配置必须在相同包下
-持久层映射中mapper标签的namespace属性取值必须是持久层接口的全限定类名。
-SQL语句的配置标签：select、insert、delete、update的id属性必须和持久层接口的方法名相同。
-
-
-
-
-1. 创建Maven工程2. 导入坐标
-pom.xml
-12345678910111213141516171819202122232425262728293031&lt;dependencies&gt;        &lt;dependency&gt;            &lt;groupId&gt;mysql&lt;/groupId&gt;            &lt;artifactId&gt;mysql-connector-java&lt;/artifactId&gt;            &lt;version&gt;5.1.6&lt;/version&gt;        &lt;/dependency&gt;        &lt;dependency&gt;            &lt;groupId&gt;org.mybatis&lt;/groupId&gt;            &lt;artifactId&gt;mybatis&lt;/artifactId&gt;            &lt;version&gt;3.4.5&lt;/version&gt;        &lt;/dependency&gt;        &lt;dependency&gt;            &lt;groupId&gt;dom4j&lt;/groupId&gt;            &lt;artifactId&gt;dom4j&lt;/artifactId&gt;            &lt;version&gt;1.6&lt;/version&gt;        &lt;/dependency&gt;        &lt;dependency&gt;            &lt;groupId&gt;log4j&lt;/groupId&gt;            &lt;artifactId&gt;log4j&lt;/artifactId&gt;            &lt;version&gt;1.2.12&lt;/version&gt;        &lt;/dependency&gt;        &lt;dependency&gt;            &lt;groupId&gt;junit&lt;/groupId&gt;            &lt;artifactId&gt;junit&lt;/artifactId&gt;            &lt;version&gt;4.10&lt;/version&gt;            &lt;scope&gt;test&lt;/scope&gt;        &lt;/dependency&gt;    &lt;/dependencies&gt;
-
-
-
-3. 编写实体类和持久层接口
-在main-&gt;java下讲解domain和dao包
-
-domain-&gt;User实体类
-12345678910111213141516package top.tobing.domain;import java.util.Date;public class User &#123;    private Integer id;    private String username;    private Date birthday;    private String sex;    private String address;        // getter and setter.....            @Override    public String toString() &#123;        return .....    &#125;&#125;
-
-dao-&gt;UserDao持久层接口
-12345678package top.tobing.dao;import top.tobing.domain.User;import java.util.List;public interface UserDao &#123;    public List&lt;User&gt; findAll();&#125;
-
-
-
-4. 编写SqlMapConfig.xml
-SqlMapConfig.xml用于配置数据库相关信息。以及关联UserDao的配置文件。
-
-在resources目下新建SQLMapConfig.xml文件
-1234567891011121314151617181920212223&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;!DOCTYPE configuration        PUBLIC &quot;-//mybatis.org//DTD Config 3.0//EN&quot;        &quot;http://mybatis.org/dtd/mybatis-3-config.dtd&quot;&gt;&lt;configuration &gt;    &lt;!--连接数据库环境--&gt;    &lt;environments default=&quot;mysql&quot;&gt;        &lt;environment id=&quot;mysql&quot;&gt;            &lt;transactionManager type=&quot;JDBC&quot;&gt;&lt;/transactionManager&gt;            &lt;dataSource type=&quot;POOLED&quot;&gt;                &lt;!--连接数据库信息--&gt;                &lt;property name=&quot;driver&quot; value=&quot;com.mysql.jdbc.Driver&quot;/&gt;                &lt;property name=&quot;url&quot; value=&quot;jdbc:mysql://localhost:3306/ee50&quot;/&gt;                &lt;property name=&quot;username&quot; value=&quot;root&quot;/&gt;                &lt;property name=&quot;password&quot; value=&quot;root&quot;/&gt;            &lt;/dataSource&gt;        &lt;/environment&gt;    &lt;/environments&gt;    &lt;mappers&gt;        &lt;mapper resource=&quot;top/tobing/dao/UserDao.xml&quot;&gt;&lt;/mapper&gt;    &lt;/mappers&gt;&lt;/configuration&gt;
-
-
-
-
-
-5. 编写映射配置文件"
+          target="_blank" href="http://service.weibo.com/share/share.php?url=https://tobing.top/2019/11/23/Mybatis-2-CRUD/&title=Mybatis-2-CRUD - tobing&summary=Mybatis学习第二弹。"
           
           >
           
@@ -900,21 +740,26 @@ SqlMapConfig.xml用于配置数据库相关信息。以及关联UserDao的配置
       
         <a class='prev' href='/2019/11/23/Mybatis-3-%E5%8A%A8%E6%80%81SQL/'>
           <p class='title'><i class="fas fa-chevron-left" aria-hidden="true"></i>Mybatis-3-动态SQL</p>
-          <p class='content'>Mybatis-3-动态SQLif标签
+          <p class='content'>Mybatis学习第三弹。
+
+
+Mybatis-3-动态SQLif标签
 当我们传入的条件是多个，且不同条件查询语句不同的时候常常使用if
 
-12345678910&lt;select id=&quot;findByUser&q...</p>
+12345678910&lt;select id=&q...</p>
         </a>
       
       
         <a class='next' href='/2019/11/23/MySQL-4-%E5%A4%9A%E8%A1%A8%E6%9F%A5%E8%AF%A2%E4%B8%8E%E4%BA%8B%E5%8A%A1/'>
           <p class='title'>MySQL-4-多表查询与事务<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
-          <p class='content'>MySQL-4-多表查询与事务1. 多表查询
+          <p class='content'>MySQL学习第四弹。
+
+
+MySQL-4-多表查询与事务1. 多表查询
 语法
 123456select	[列名列表]from	[表名列表]where	.....
 
-案例准备：两张表，部门表、员工表
-12345678910...</p>
+案例准备：两张表，部门表、员...</p>
         </a>
       
     </div>
