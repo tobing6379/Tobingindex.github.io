@@ -5,10 +5,6 @@
   <!-- SEO相关 -->
   
     
-      
-        <meta name="robots" content="noindex,follow">
-      
-    
   
   <!-- 渲染优化 -->
   <meta http-equiv='x-dns-prefetch-control' content='on' />
@@ -23,9 +19,13 @@
 
   <!-- 页面元数据 -->
   
-  <title>tobing</title>
+  <title>线程池的简单使用 - tobing</title>
+  
+    <meta name="keywords" content="Java,线程池">
   
 
+  
+    <meta name="description" content="线程作为一种稀缺资源，在线程较多的情况下，频繁创建、销毁消除将会带来较大的系统开销。线程池基于池化思想，内部维护多个线程，可以对内部的线程进行统一的管理和监控，一方面避免了处理任务时创建销毁线程开销的代价，另一方面避免了线程数量膨胀导致的过分调度问题，保证了对内核的充分利用。">
   
 
   <!-- feed -->
@@ -313,7 +313,7 @@
     <div id="l_cover">
   
     
-        <div id="full" class='cover-wrapper  search' style="display: none;">
+        <div id="full" class='cover-wrapper post search' style="display: none;">
           
             <div class='cover-bg lazyload placeholder' data-bg="https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/033.jpg"></div>
           
@@ -353,340 +353,317 @@
         
 
 <div class='l_main'>
+  <article class="article post white-box reveal md shadow article-type-post" id="post" itemscope itemprop="blogPost">
   
-  <section class="post-list">
+
+
+  
+  <div class="article-meta" id="top">
     
     
-      
+    
+      <h1 class="title">
+        线程池的简单使用
+      </h1>
+      <div class='new-meta-box'>
         
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow">
-  
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/2019/10/03/GithubPage%E7%BB%91%E5%AE%9A%E5%9F%9F%E5%90%8D%E9%97%AE%E9%A2%98/">
-        GithubPage绑定域名问题
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      <p>在每次使用<code>hexo d</code>推送文章到<code>githubPage</code>的时候，如果不配置，直接输入绑定的域名将无法访问，本文将介绍如何解决这个问题。</p>
-    
+          
+            
+<div class='new-meta-item author'>
+  <a class='author' href="/" rel="nofollow">
+    <img no-lazy src="">
+    <p>请设置文章作者</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+  <div class='new-meta-item category'>
+    <a class='notlink'>
+      <i class="fas fa-folder-open fa-fw" aria-hidden="true"></i>
+      <a class="category-link" href="/categories/%E7%90%86%E8%AE%BA%E5%AD%A6%E4%B9%A0/">理论学习</a>
+    </a>
   </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
+
+
+          
         
-        <time>2019-10-03</time>
+          
+            <div class="new-meta-item date">
+  <a class='notlink'>
+    <i class="fas fa-calendar-alt fa-fw" aria-hidden="true"></i>
+    <p>发布于：Mar 9, 2021</p>
+  </a>
+</div>
+
+          
         
-          <span class="dot"></span>
-          <a class="category-link" href="/categories/%E6%9D%82%E4%B8%83%E6%9D%82%E5%85%AB/">杂七杂八</a>
+          
+            
+  <div class="new-meta-item browse leancloud">
+    <a class='notlink'>
+      
+      <div id="lc-pv" data-title="线程池的简单使用" data-path="/2021/03/09/%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%9A%84%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/">
+        <i class="fas fa-eye fa-fw" aria-hidden="true"></i>
+        <span id='number'><i class="fas fa-circle-notch fa-spin fa-fw" aria-hidden="true"></i></span>
+        次浏览
+      </div>
+    </a>
+  </div>
+
+
+          
         
       </div>
+    
+  </div>
+
+
+  
+  <p>线程作为一种稀缺资源，在线程较多的情况下，频繁创建、销毁消除将会带来较大的系统开销。线程池基于池化思想，内部维护多个线程，可以对内部的线程进行统一的管理和监控，一方面避免了处理任务时创建销毁线程开销的代价，另一方面避免了线程数量膨胀导致的过分调度问题，保证了对内核的充分利用。</p>
+<a id="more"></a>
+
+<h1 id="线程池"><a href="#线程池" class="headerlink" title="线程池"></a>线程池</h1><h2 id="1、线程池的优点"><a href="#1、线程池的优点" class="headerlink" title="1、线程池的优点"></a>1、线程池的优点</h2><p>上面我们提到，线程池是一种稀缺资源，频繁创建销毁线程会造成较大的系统开销，因此引入了线程池技术。</p>
+<p>线程池技术主要具有以下优点：</p>
+<ul>
+<li><p><strong>降低资源消耗。</strong>通过重复利用已经创建的线程，降低线程创建和销毁造成的损耗。</p>
+</li>
+<li><p><strong>提高响应速度。</strong>当任务下达时，任务不需要等待线程创建就能直接执行。</p>
+</li>
+<li><p><strong>提高线程可管理性。</strong>线程是稀缺资源，如果无限创建不仅会消耗系统资源，还会降低系统稳定性。使用线程池可以统一分配、调优和监控。</p>
+</li>
+</ul>
+<h2 id="2、线程池架构设计"><a href="#2、线程池架构设计" class="headerlink" title="2、线程池架构设计"></a>2、线程池架构设计</h2><p>线程池这么好，那么需要我们自己实现吗？可以但没有必要，因为Java中以及封装好了线程池的实现。</p>
+<p>Java中，线程池是通过Executor框架来实现的，该框架主要用到：Executor、ExecutorService、ThreadPoolExecutor、Executors这几个类。</p>
+<p><img src="https://tobing-markdown.oss-cn-shenzhen.aliyuncs.com/93nTP8aoAcH7XGq.png" class="lazyload" data-srcset="https://tobing-markdown.oss-cn-shenzhen.aliyuncs.com/93nTP8aoAcH7XGq.png" srcset="data:image/png;base64,666" alt="image-20201114092231857"></p>
+<ul>
+<li><strong>Executor 接口</strong>：将任务提交和任务执行进行解耦。用户无需关注如何创建线程，如何调度线程来执行任务，用户只需提供Runnable对象，将任务的运行逻辑提交到执行器(Executor)中，由Executor框架完成线程的调配和任务的执行部分。</li>
+<li><strong>ExecutorService 接口</strong>：扩充执行任务的能力，补充可以为一个或一批异步任务生成Future的方法；提供了管控线程池的方法，比如停止线程池的运行。</li>
+<li><strong>AbstractExecutorService 抽象类</strong>：将执行任务的流程串联了起来，保证下层的实现只需关注一个执行任务的方法即可。</li>
+<li><strong>ThreadPoolExecutor 类</strong>：实现最复杂的运行部分，ThreadPoolExecutor将会一方面维护自身的生命周期，另一方面同时管理线程和任务，使两者良好的结合从而执行并行任务。</li>
+</ul>
+<h2 id="3、-线程池的简单使用"><a href="#3、-线程池的简单使用" class="headerlink" title="3、 线程池的简单使用"></a>3、 线程池的简单使用</h2><p>Java中的Executors线程池工具类为我们提供了3种创建线程的方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//执行一个长期的任务,性能好很多</span></span><br><span class="line">ExecutorService threadPool1 = Executors.newFixedThreadPool(<span class="number">5</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 一个任务一个线程执行的任务场景</span></span><br><span class="line">ExecutorService threadPool2 = Executors.newSingleThreadExecutor();</span><br><span class="line"></span><br><span class="line"><span class="comment">// 适用于：执行很多短期异步的小程序或者负载较轻的服务器</span></span><br><span class="line">ExecutorService threadPool3 = Executors.newCachedThreadPool();</span><br></pre></td></tr></table></figure>
+
+<p>尽管Executors为我们提供了3种创建线程池的方式，但是这几种创建方式并不适合在生产环境中使用：</p>
+<blockquote>
+<p>阿里巴巴开发手册</p>
+</blockquote>
+<p><img src="https://tobing-markdown.oss-cn-shenzhen.aliyuncs.com/image-20210309214056272.png" class="lazyload" data-srcset="https://tobing-markdown.oss-cn-shenzhen.aliyuncs.com/image-20210309214056272.png" srcset="data:image/png;base64,666" alt="image-20210309214056272"></p>
+<p>要分析其存在的隐患，要先去了解Java中线程池的核心类：ThreadPoolExecutor</p>
+<h2 id="4、-ThreadPoolExecutor"><a href="#4、-ThreadPoolExecutor" class="headerlink" title="4、 ThreadPoolExecutor"></a>4、 ThreadPoolExecutor</h2><p>上面提到道，Executors方式创建的线程池在实践中容易导致OOM，为了解释清楚，我们先分析一下ThreadPoolExecutor。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">ThreadPoolExecutor</span><span class="params">(<span class="keyword">int</span> corePoolSize,</span></span></span><br><span class="line"><span class="function"><span class="params">                          <span class="keyword">int</span> maximumPoolSize,</span></span></span><br><span class="line"><span class="function"><span class="params">                          <span class="keyword">long</span> keepAliveTime,</span></span></span><br><span class="line"><span class="function"><span class="params">                          TimeUnit unit,</span></span></span><br><span class="line"><span class="function"><span class="params">                          BlockingQueue&lt;Runnable&gt; workQueue,</span></span></span><br><span class="line"><span class="function"><span class="params">                          ThreadFactory threadFactory,</span></span></span><br><span class="line"><span class="function"><span class="params">                          RejectedExecutionHandler handler)</span></span></span><br></pre></td></tr></table></figure>
+
+<p>上面展示了ThreadPoolExecutor的构造方法，接下来我们了解这个7大参数</p>
+<ul>
+<li><p>corePoolSize：线程池常驻核心线程数</p>
+</li>
+<li><p>maximumPoolSize：线程池能够容纳同时执行的最大线程数</p>
+</li>
+<li><p>keepAliveTime：多余的空闲线程存活时间、当空闲时间达到keepAliveTime，多余线程会被销毁直到剩下corePoolSize</p>
+</li>
+<li><p>unit：keepAliveTime单位</p>
+</li>
+<li><p>workQueue：任务队列，提交但未执行的任务。</p>
+</li>
+<li><p>threadFactory：线程池中工作线程的线程工厂，一般采用默认即可</p>
+</li>
+<li><p>handler：拒绝策略。当线程队列满并且工作线程大于线程池最大线程数，handler将指定任何拒绝新来的线程。</p>
+</li>
+</ul>
+<p>在使用ThreadPoolExecutor前，我们先通过图解方式讲解线程池底层执行的原理：</p>
+<p><img src="https://i.loli.net/2020/11/14/UVDLHZGlF6hsIkv.png" class="lazyload" data-srcset="https://i.loli.net/2020/11/14/UVDLHZGlF6hsIkv.png" srcset="data:image/png;base64,666" alt="image-20201114094735529"></p>
+<ol>
+<li>创建线程池后，等待提交过来的线程任务</li>
+<li>在调用execut()方法添加一个任务请求，线程池会做如下判断：<ul>
+<li>如果正在运行的线程数量小于corePoolSize，则马上创建线程运行这个任务。</li>
+<li>如果正在运行的线程数量大于corePoolSize，则在<strong>workQueue中等待</strong>。</li>
+<li>如果workQueue队列已满，且正在运行的线程数量还小于maximumPoolSize，则创建<strong>非核心线程</strong>立即执行这个任务。</li>
+<li>如果workQueue队列已满，且正在运行的线程数量大于或等于maximumPoolSize，则会使用<strong>拒绝策略</strong>执行拒绝。</li>
+</ul>
+</li>
+<li>当一个线程完成任务，会从workQueue中取出一个人任务执行。</li>
+<li>当一个线程空闲时间超过keepAliveTime，线程池会判断：<ul>
+<li>如果当前运行的线程数大于corePoolSize，那么线程会被停用</li>
+</ul>
+</li>
+</ol>
+<h2 id="5、拒绝策略"><a href="#5、拒绝策略" class="headerlink" title="5、拒绝策略"></a>5、拒绝策略</h2><p>上面提到当<strong>等待队列已满且线程池最大线程数也满</strong>的时候，无法继续为新任务提供服务，这时候，需要拒绝策略机制合理处理这个问题。</p>
+<p>JDK中为我们提供了4种拒绝策略：</p>
+<ul>
+<li>AbortPolicy：默认策略，直接<strong>抛出异常</strong>阻止系统正常运行。</li>
+<li>CallerRunPolicy：“调用者运行”机制，不会抛弃任务，也不会抛出异常，而是给调用线程池的线程执行。</li>
+<li>DiscardOldestPolicy：抛弃队列中等待最久的。</li>
+<li>DiscardPolicy：直接丢弃任务，不做任务响应。（如果允许任务丢失，将会是最好的拒绝策略）。</li>
+</ul>
+<h2 id="6、Executors风险分析"><a href="#6、Executors风险分析" class="headerlink" title="6、Executors风险分析"></a>6、Executors风险分析</h2><p>上面我们已经简单介绍了ThreadPoolExecuto构造函数的各个参数，下面我们观察Executors中几种常见线程池的方式，进而分析其风险。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// FixedThreadPool</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> ExecutorService <span class="title">newFixedThreadPool</span><span class="params">(<span class="keyword">int</span> nThreads)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> ThreadPoolExecutor(nThreads, nThreads,</span><br><span class="line">                                  <span class="number">0L</span>, TimeUnit.MILLISECONDS,	</span><br><span class="line">                                  <span class="keyword">new</span> LinkedBlockingQueue&lt;Runnable&gt;());</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// SingleThreadExecutor</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> ExecutorService <span class="title">newSingleThreadExecutor</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> FinalizableDelegatedExecutorService</span><br><span class="line">        (<span class="keyword">new</span> ThreadPoolExecutor(<span class="number">1</span>, <span class="number">1</span>,</span><br><span class="line">                                <span class="number">0L</span>, TimeUnit.MILLISECONDS,</span><br><span class="line">                                <span class="keyword">new</span> LinkedBlockingQueue&lt;Runnable&gt;()));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// CacheThreadPool</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> ExecutorService <span class="title">newCachedThreadPool</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> ThreadPoolExecutor(<span class="number">0</span>, Integer.MAX_VALUE,</span><br><span class="line">                                  <span class="number">60L</span>, TimeUnit.SECONDS,</span><br><span class="line">                                  <span class="keyword">new</span> SynchronousQueue&lt;Runnable&gt;());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>上面代码展示了Executors中创建创建线程池的逻辑，可以看到底层都是通过 ThreadPoolExecutor 来创建，这就是为什么要在分析前先了解一下它。</p>
+<p>从上面提到的ThreadPoolExecutor 我看可以知道</p>
+<ul>
+<li>对于FixedThreadPool 与 SingleThreadExecutor 都是使用 LinkedBlockingQueue 作为阻塞队列，这是一个无界第队列，当阻塞的任务过多的时候，将会导致内存占用太大，从而导致OOM。</li>
+<li>对于CacheThreadPool ，最大线程数没有进行限制，当线程提交过多，将会导致线程池创建的线程太多，从而导致OOM。</li>
+</ul>
+<h2 id="7、自定义线程池"><a href="#7、自定义线程池" class="headerlink" title="7、自定义线程池"></a>7、自定义线程池</h2><p>从上面分析，我们知道Executors的方式创建线程池确实存在安全隐患，因此我们应该使用 ThreadPoolExecutor 来创建线程池，那么应该如何配置其参数呢？</p>
+<p>这需要我们区分不同类型的业务场景：<strong>CPU密集型和IO密集型</strong>。</p>
+<h4 id="CPU密集型"><a href="#CPU密集型" class="headerlink" title="CPU密集型"></a>CPU密集型</h4><p>CPU密集型指的是，任务需要大量的运算而没有阻塞（如IO阻塞），CPU一直在全力运算。</p>
+<p>CPU密集型任务只有在正在的多核CPU上才能得到加锁。</p>
+<blockquote>
+<p>可以通过Runtime.getRuntime().availableProcessors()拿到CPU核心数。</p>
+</blockquote>
+<p>CPU密集型任务配置尽可能少的线程数量：线程数=CPU核数+1</p>
+<h4 id="IO密集型"><a href="#IO密集型" class="headerlink" title="IO密集型"></a>IO密集型</h4><p>由于IO密集型，线程常常是在等待IO操作而阻塞，因此应该配置尽量多的线程。</p>
+<p>线程数量=CPU核心数*2</p>
+<h2 id="8、参考"><a href="#8、参考" class="headerlink" title="8、参考"></a>8、参考</h2><ul>
+<li><p><a target="_blank" rel="noopener" href="https://tech.meituan.com/2020/04/02/java-pooling-pratice-in-meituan.html">Java线程池实现原理及其在美团业务中的实践</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://book.douban.com/subject/26591326/">Java并发编程的艺术</a></p>
+</li>
+</ul>
+
+  
+  
+    
+    <div class='footer'>
       
-        <div>
-          <a class='readmore' href='/2019/10/03/GithubPage%E7%BB%91%E5%AE%9A%E5%9F%9F%E5%90%8D%E9%97%AE%E9%A2%98/'>
-            阅读全文
-          </a>
+      
+      
+        <div class='copyright'>
+          <blockquote>
+            
+              
+                <p>博客内容遵循 署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</p>
+
+              
+            
+              
+                <p>本文永久链接是：<a href=https://tobing.top/2021/03/09/%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%9A%84%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/>https://tobing.top/2021/03/09/%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%9A%84%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/</a></p>
+              
+            
+          </blockquote>
         </div>
+      
       
     </div>
   
+  
+    
 
+
+  <div class='article-meta' id="bottom">
+    <div class='new-meta-box'>
+      
+        
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-03-09T22:03:03+08:00">
+  <a class='notlink'>
+    <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
+    <p>更新于：Mar 9, 2021</p>
+  </a>
 </div>
 
-          </div>
         
       
         
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow">
+          
   
-  
-  
-  
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/Java/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>Java</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/%E7%BA%BF%E7%A8%8B%E6%B1%A0/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>线程池</p></a></div>
+
+
+        
+      
+        
+          
+  <div class="new-meta-item share -mob-share-list">
+  <div class="-mob-share-list share-body">
     
-    <h2 class="article-title" >
-      <a href="/2019/10/02/git%E7%9A%84%E5%85%A5%E9%97%A8%E4%BD%BF%E7%94%A8/">
-        git的常用命令
-      </a>
-    </h2>
-  
-  <div class='md'>
+      
+        <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://tobing.top/2021/03/09/%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%9A%84%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/&title=线程池的简单使用 - tobing&summary=线程作为一种稀缺资源，在线程较多的情况下，频繁创建、销毁消除将会带来较大的系统开销。线程池基于池化思想，内部维护多个线程，可以对内部的线程进行统一的管理和监控，一方面避免了处理任务时创建销毁线程开销的代价，另一方面避免了线程数量膨胀导致的过分调度问题，保证了对内核的充分利用。"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qq.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qq.png" srcset="data:image/png;base64,666">
+          
+        </a>
+      
     
-      <p>git在日常开发必不可少，本文介绍了git常用命令。</p>
+      
+        <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://tobing.top/2021/03/09/%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%9A%84%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/&title=线程池的简单使用 - tobing&summary=线程作为一种稀缺资源，在线程较多的情况下，频繁创建、销毁消除将会带来较大的系统开销。线程池基于池化思想，内部维护多个线程，可以对内部的线程进行统一的管理和监控，一方面避免了处理任务时创建销毁线程开销的代价，另一方面避免了线程数量膨胀导致的过分调度问题，保证了对内核的充分利用。"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qzone.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qzone.png" srcset="data:image/png;base64,666">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="http://service.weibo.com/share/share.php?url=https://tobing.top/2021/03/09/%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%9A%84%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/&title=线程池的简单使用 - tobing&summary=线程作为一种稀缺资源，在线程较多的情况下，频繁创建、销毁消除将会带来较大的系统开销。线程池基于池化思想，内部维护多个线程，可以对内部的线程进行统一的管理和监控，一方面避免了处理任务时创建销毁线程开销的代价，另一方面避免了线程数量膨胀导致的过分调度问题，保证了对内核的充分利用。"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/weibo.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/weibo.png" srcset="data:image/png;base64,666">
+          
+        </a>
+      
+    
+      
+    
+      
     
   </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
+</div>
+
+
+
         
-        <time>2019-10-02</time>
-        
-          <span class="dot"></span>
-          <a class="category-link" href="/categories/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/">工具使用</a>
-        
-      </div>
       
-        <div>
-          <a class='readmore' href='/2019/10/02/git%E7%9A%84%E5%85%A5%E9%97%A8%E4%BD%BF%E7%94%A8/'>
-            阅读全文
-          </a>
-        </div>
+    </div>
+  </div>
+
+
+  
+  
+
+  
+    <div class="prev-next">
+      
+      
+        <a class='next' href='/2021/03/06/%E5%8F%8C%E4%BA%B2%E5%A7%94%E6%B4%BE%E6%9C%BA%E5%88%B6/'>
+          <p class='title'>双亲委派机制<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
+          <p class='content'>JVM可以使用类加载器通过全限定类名的方式来加载一个类。类加载器在加载类的时候会使用一种称为「双亲委派」的机制来实现类的加载，本文将简要介绍双亲委派机制。
+
+
+双亲委派机制类加载器是JVM执行类...</p>
+        </a>
       
     </div>
   
+</article>
 
+
+  
+
+  <article class="post white-box reveal shadow" id="comments">
+    <p ct><i class='fas fa-comments'></i> 评论</p>
+    
+    <div id="valine_container" class="valine_thread">
+  <i class="fas fa-cog fa-spin fa-fw fa-2x"></i>
 </div>
 
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow">
-  
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/2019/10/02/Java%E9%9B%86%E5%90%88/">
-        Java集合
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      <p>Java集合在Java语言生态的重要地位不可忽视，接下来让我们一探究竟。</p>
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-        <time>2019-10-02</time>
-        
-          <span class="dot"></span>
-          <a class="category-link" href="/categories/%E7%90%86%E8%AE%BA%E5%AD%A6%E4%B9%A0/">理论学习</a>
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/2019/10/02/Java%E9%9B%86%E5%90%88/'>
-            阅读全文
-          </a>
-        </div>
-      
-    </div>
-  
+  </article>
 
-</div>
 
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow">
-  
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/2019/10/02/%E9%AD%85%E8%93%9DNote5%E8%8E%B7%E5%8F%96%E5%AE%8C%E6%95%B4Root%E6%9D%83%E9%99%90/">
-        魅蓝Note5获取完整Root权限
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      <p>介绍如何获取魅蓝note5的root权限</p>
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-        <time>2019-10-02</time>
-        
-          <span class="dot"></span>
-          <a class="category-link" href="/categories/%E6%9D%82%E4%B8%83%E6%9D%82%E5%85%AB/">杂七杂八</a>
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/2019/10/02/%E9%AD%85%E8%93%9DNote5%E8%8E%B7%E5%8F%96%E5%AE%8C%E6%95%B4Root%E6%9D%83%E9%99%90/'>
-            阅读全文
-          </a>
-        </div>
-      
-    </div>
-  
 
-</div>
 
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow">
-  
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/2019/10/02/CentOS%E7%9A%84%E5%88%9D%E6%AD%A5%E4%BD%BF%E7%94%A8/">
-        CentOS的初步使用
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      <p>Linux最初是由芬兰赫尔辛基大学学生Linus Torvalds由于自己不满意教学中使用的MINIX操作系统， 所以在1990年底由于个人爱好设计出了LINUX系统核心。后来发布于芬兰最大的ftp服务器上，用户可以免费下载，所以它的周边的程序越来越多，Linux本身也逐渐发展壮大起来，之后Linux在不到三年的时间里成为了一个功能完善，稳定可靠的操作系统.</p>
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-        <time>2019-10-02</time>
-        
-          <span class="dot"></span>
-          <a class="category-link" href="/categories/%E7%90%86%E8%AE%BA%E5%AD%A6%E4%B9%A0/">理论学习</a>
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/2019/10/02/CentOS%E7%9A%84%E5%88%9D%E6%AD%A5%E4%BD%BF%E7%94%A8/'>
-            阅读全文
-          </a>
-        </div>
-      
-    </div>
-  
-
-</div>
-
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow">
-  
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/2019/10/02/Java%E5%B8%B8%E7%94%A8%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">
-        Java常用数据结构
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      <p>有人说：程序=算法+数据结构，接下来就让我们看一下Java中常用的数据结构吧。</p>
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-        <time>2019-10-02</time>
-        
-          <span class="dot"></span>
-          <a class="category-link" href="/categories/%E7%90%86%E8%AE%BA%E5%AD%A6%E4%B9%A0/">理论学习</a>
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/2019/10/02/Java%E5%B8%B8%E7%94%A8%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/'>
-            阅读全文
-          </a>
-        </div>
-      
-    </div>
-  
-
-</div>
-
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow">
-  
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/2019/10/02/Hello/">
-        Hello! Hexo
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      <h3 id="你好Hexo"><a href="#你好Hexo" class="headerlink" title="你好Hexo"></a>你好Hexo</h3><hr>
-<h4 id="多读书，多看报"><a href="#多读书，多看报" class="headerlink" title="多读书，多看报 :)"></a>多读书，多看报 :)</h4>
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-        <time>2019-10-02</time>
-        
-          <span class="dot"></span>
-          <a class="category-link" href="/categories/%E6%8A%80%E6%9C%AF%E5%BA%94%E7%94%A8/">技术应用</a>
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/2019/10/02/Hello/'>
-            阅读全文
-          </a>
-        </div>
-      
-    </div>
-  
-
-</div>
-
-          </div>
-        
-      
-    
-  </section>
-  
-    
-      <br>
-      <div class="prev-next">
-        
-          <a class="prev" rel="prev" href="/page/5/">
-            <section class="post prev white-box shadow" >
-              <i class="fas fa-chevron-left" aria-hidden="true"></i>&nbsp;上一页&nbsp;
-            </section>
-          </a>
-        
-        <p class="current">
-          6 / 6
-        </p>
-        
-      </div>
-    
-  
 
 
 </div>
@@ -696,136 +673,22 @@
     
     
 
-<section class="widget blogger shadow desktop mobile">
-  <div class='content'>
-    
-      
-        <a class='avatar flat-box rectangle' href='/about/'>
-          <img no-lazy src='https://portrait.gitee.com/uploads/avatars/user/1875/5627411_tobing_1599371351.png'/>
-        </a>
-      
-    
-    
-      <div class='text'>
-        
-        
-        
-          <p><span id="jinrishici-sentence">tobing</span></p>
-          <script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
-        
-      </div>
-    
-    
-      <div class="social-wrapper">
-        
-          
-            <a href="https://blog.csdn.net/qq_30033537"
-              class="social fas fa-comment-dots flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-              
-            </a>
-          
-        
-          
-            <a href="mailto:652916578@qq.com"
-              class="social fas fa-envelope flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-              
-            </a>
-          
-        
-          
-            <a href="https://gitee.com/tobing"
-              class="social fab fa-github flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-              
-            </a>
-          
-        
-          
-            <a href="https://music.163.com/#/user/home?id=451463574"
-              class="social fas fa-headphones-alt flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-              
-            </a>
-          
-        
-      </div>
-    
-  </div>
-</section>
 
-  
 
-  
-    
-    
-  
-
-  <section class="widget category shadow desktop">
+  <section class="widget toc-wrapper shadow desktop mobile" id="toc-div" >
     
   <header>
     
-      <a href='/blog/categories/'><i class="fas fa-folder-open fa-fw" aria-hidden="true"></i><span class='name'>文章分类</span></a>
+      <i class="fas fa-list fa-fw" aria-hidden="true"></i><span class='name'>本文目录</span>
     
   </header>
 
 
     <div class='content'>
-      <ul class="entry navigation">
-        
-          <li><a class="flat-box"
-            title="/categories/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/" href="/categories/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/"
-            id="categoriesE5B7A5E585B7E4BDBFE794A8"
-            ><div class='name'>工具使用</div><div class='badge'>(5)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/%E6%8A%80%E6%9C%AF%E5%BA%94%E7%94%A8/" href="/categories/%E6%8A%80%E6%9C%AF%E5%BA%94%E7%94%A8/"
-            id="categoriesE68A80E69CAFE5BA94E794A8"
-            ><div class='name'>技术应用</div><div class='badge'>(3)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/%E6%9D%82%E4%B8%83%E6%9D%82%E5%85%AB/" href="/categories/%E6%9D%82%E4%B8%83%E6%9D%82%E5%85%AB/"
-            id="categoriesE69D82E4B883E69D82E585AB"
-            ><div class='name'>杂七杂八</div><div class='badge'>(4)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/%E7%90%86%E8%AE%BA%E5%AD%A6%E4%B9%A0/" href="/categories/%E7%90%86%E8%AE%BA%E5%AD%A6%E4%B9%A0/"
-            id="categoriesE79086E8AEBAE5ADA6E4B9A0"
-            ><div class='name'>理论学习</div><div class='badge'>(38)</div></a></li>
-        
-      </ul>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1%E3%80%81%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%9A%84%E4%BC%98%E7%82%B9"><span class="toc-text">1、线程池的优点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2%E3%80%81%E7%BA%BF%E7%A8%8B%E6%B1%A0%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1"><span class="toc-text">2、线程池架构设计</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3%E3%80%81-%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%9A%84%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8"><span class="toc-text">3、 线程池的简单使用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4%E3%80%81-ThreadPoolExecutor"><span class="toc-text">4、 ThreadPoolExecutor</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5%E3%80%81%E6%8B%92%E7%BB%9D%E7%AD%96%E7%95%A5"><span class="toc-text">5、拒绝策略</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6%E3%80%81Executors%E9%A3%8E%E9%99%A9%E5%88%86%E6%9E%90"><span class="toc-text">6、Executors风险分析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7%E3%80%81%E8%87%AA%E5%AE%9A%E4%B9%89%E7%BA%BF%E7%A8%8B%E6%B1%A0"><span class="toc-text">7、自定义线程池</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#CPU%E5%AF%86%E9%9B%86%E5%9E%8B"><span class="toc-text">CPU密集型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#IO%E5%AF%86%E9%9B%86%E5%9E%8B"><span class="toc-text">IO密集型</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8%E3%80%81%E5%8F%82%E8%80%83"><span class="toc-text">8、参考</span></a></li></ol>
     </div>
   </section>
 
-
-  
-
-  
-    
-    
-  
-
-  <section class="widget tagcloud shadow desktop mobile">
-    
-  <header>
-    
-      <a href='/blog/tags/'><i class="fas fa-tags fa-fw" aria-hidden="true"></i><span class='name'>热门标签</span></a>
-    
-  </header>
-
-
-    <div class='content'>
-      <a href="/tags/CentOS/" style="font-size: 14px; color: #999">CentOS</a> <a href="/tags/DHT11/" style="font-size: 14px; color: #999">DHT11</a> <a href="/tags/ElasticSearch/" style="font-size: 14px; color: #999">ElasticSearch</a> <a href="/tags/GitHub/" style="font-size: 14px; color: #999">GitHub</a> <a href="/tags/GithubPage/" style="font-size: 14px; color: #999">GithubPage</a> <a href="/tags/Hexo/" style="font-size: 15.67px; color: #8e8e8e">Hexo</a> <a href="/tags/Intellij-idea/" style="font-size: 14px; color: #999">Intellij idea</a> <a href="/tags/JDBC/" style="font-size: 17.33px; color: #828282">JDBC</a> <a href="/tags/JVM/" style="font-size: 14px; color: #999">JVM</a> <a href="/tags/Java/" style="font-size: 24px; color: #555">Java</a> <a href="/tags/Linux/" style="font-size: 14px; color: #999">Linux</a> <a href="/tags/MongoDB/" style="font-size: 14px; color: #999">MongoDB</a> <a href="/tags/MySQL/" style="font-size: 20.67px; color: #6c6c6c">MySQL</a> <a href="/tags/Mybatis/" style="font-size: 22.33px; color: #606060">Mybatis</a> <a href="/tags/Oracle/" style="font-size: 15.67px; color: #8e8e8e">Oracle</a> <a href="/tags/PageHelper/" style="font-size: 14px; color: #999">PageHelper</a> <a href="/tags/Spring/" style="font-size: 19px; color: #777">Spring</a> <a href="/tags/Spring-Security/" style="font-size: 14px; color: #999">Spring-Security</a> <a href="/tags/SpringBoot/" style="font-size: 14px; color: #999">SpringBoot</a> <a href="/tags/SpringMVC/" style="font-size: 17.33px; color: #828282">SpringMVC</a> <a href="/tags/Windows/" style="font-size: 14px; color: #999">Windows</a> <a href="/tags/docker/" style="font-size: 14px; color: #999">docker</a> <a href="/tags/git/" style="font-size: 14px; color: #999">git</a> <a href="/tags/jwt/" style="font-size: 14px; color: #999">jwt</a> <a href="/tags/root/" style="font-size: 14px; color: #999">root</a> <a href="/tags/%E5%85%A8%E6%96%87%E6%A3%80%E7%B4%A2/" style="font-size: 14px; color: #999">全文检索</a> <a href="/tags/%E5%88%86%E4%BA%AB/" style="font-size: 14px; color: #999">分享</a> <a href="/tags/%E5%8D%95%E7%89%87%E6%9C%BA/" style="font-size: 14px; color: #999">单片机</a> <a href="/tags/%E5%8F%8D%E5%B0%84/" style="font-size: 17.33px; color: #828282">反射</a> <a href="/tags/%E5%9F%9F%E5%90%8D%E7%BB%91%E5%AE%9A/" style="font-size: 14px; color: #999">域名绑定</a> <a href="/tags/%E5%AE%9E%E9%AA%8C/" style="font-size: 15.67px; color: #8e8e8e">实验</a> <a href="/tags/%E5%AE%B9%E5%99%A8%E6%8A%80%E6%9C%AF/" style="font-size: 14px; color: #999">容器技术</a> <a href="/tags/%E5%B0%8F%E7%A8%8B%E5%BA%8F/" style="font-size: 14px; color: #999">小程序</a> <a href="/tags/%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F/" style="font-size: 14px; color: #999">归并排序</a> <a href="/tags/%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F/" style="font-size: 14px; color: #999">快速排序</a> <a href="/tags/%E6%80%BB%E7%BB%93/" style="font-size: 14px; color: #999">总结</a> <a href="/tags/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/" style="font-size: 15.67px; color: #8e8e8e">排序算法</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93%E8%BF%9E%E6%8E%A5%E6%B1%A0/" style="font-size: 14px; color: #999">数据库连接池</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" style="font-size: 17.33px; color: #828282">数据结构</a> <a href="/tags/%E6%95%B0%E7%BB%84-Java/" style="font-size: 14px; color: #999">数组 - Java</a> <a href="/tags/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/" style="font-size: 14px; color: #999">文件上传</a> <a href="/tags/%E6%A0%88/" style="font-size: 14px; color: #999">栈</a> <a href="/tags/%E6%A0%91%E8%8E%93%E6%B4%BE/" style="font-size: 14px; color: #999">树莓派</a> <a href="/tags/%E6%A0%A1%E5%9B%AD%E5%AE%BD%E5%B8%A6/" style="font-size: 14px; color: #999">校园宽带</a> <a href="/tags/%E6%B3%A8%E8%A7%A3/" style="font-size: 14px; color: #999">注解</a> <a href="/tags/%E7%89%A9%E8%81%94%E7%BD%91/" style="font-size: 15.67px; color: #8e8e8e">物联网</a> <a href="/tags/%E7%BA%BF%E7%A8%8B%E6%B1%A0/" style="font-size: 14px; color: #999">线程池</a> <a href="/tags/%E8%AE%A4%E8%AF%81%E6%9C%BA%E5%88%B6/" style="font-size: 14px; color: #999">认证机制</a> <a href="/tags/%E8%B7%AF%E7%94%B1%E5%99%A8/" style="font-size: 14px; color: #999">路由器</a> <a href="/tags/%E9%98%9F%E5%88%97/" style="font-size: 14px; color: #999">队列</a> <a href="/tags/%E9%9B%86%E5%90%88/" style="font-size: 14px; color: #999">集合</a> <a href="/tags/%E9%AD%85%E8%93%9DNote5/" style="font-size: 14px; color: #999">魅蓝Note5</a>
-    </div>
-  </section>
-
-
-  
 
   
 
@@ -841,8 +704,8 @@
 
 <script>
   window.pdata={}
-  pdata.ispage=false;
-  pdata.postTitle="";
+  pdata.ispage=true;
+  pdata.postTitle="线程池的简单使用";
   pdata.commentPath="";
   pdata.commentPlaceholder="";
 
