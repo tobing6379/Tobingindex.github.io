@@ -5,8 +5,6 @@
   <!-- SEO相关 -->
   
     
-      <meta name="robots" content="noindex,follow">
-    
   
   <!-- 渲染优化 -->
   <meta http-equiv='x-dns-prefetch-control' content='on' />
@@ -21,9 +19,13 @@
 
   <!-- 页面元数据 -->
   
-  <title>分类：工具使用 - tobing</title>
+  <title>再谈反射 - tobing</title>
+  
+    <meta name="keywords" content="Java,反射">
   
 
+  
+    <meta name="description" content="JVM在加载完类之后，会在方法区产生一个对应的Class类型的对象，这个对象包含了完整类的结构信息。这个对象就像一面镜子，可以反映类的内部结构，我们形象地称这种机制为「反射」。反射的使用场景有很多，比如 Spring IOC 便利用了反射机制，接下我们来聊一下反射。">
   
 
   <!-- feed -->
@@ -311,7 +313,7 @@
     <div id="l_cover">
   
     
-        <div id="full" class='cover-wrapper  search' style="display: none;">
+        <div id="full" class='cover-wrapper post search' style="display: none;">
           
             <div class='cover-bg lazyload placeholder' data-bg="https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/033.jpg"></div>
           
@@ -350,258 +352,345 @@
       <div class='body-wrapper' id="pjax-container">
         
 
-
 <div class='l_main'>
+  <article class="article post white-box reveal md shadow article-type-post" id="post" itemscope itemprop="blogPost">
   
+
+
+  
+  <div class="article-meta" id="top">
     
-      
-  <section class="post-list">
     
-      
+    
+      <h1 class="title">
+        再谈反射
+      </h1>
+      <div class='new-meta-box'>
         
+          
+            
+<div class='new-meta-item author'>
+  <a class='author' href="/" rel="nofollow">
+    <img no-lazy src="">
+    <p>请设置文章作者</p>
+  </a>
+</div>
+
           
         
           
-        
+            
+  <div class='new-meta-item category'>
+    <a class='notlink'>
+      <i class="fas fa-folder-open fa-fw" aria-hidden="true"></i>
+      <a class="category-link" href="/categories/%E7%90%86%E8%AE%BA%E5%AD%A6%E4%B9%A0/">理论学习</a>
+    </a>
+  </div>
+
+
           
         
           
-        
+            <div class="new-meta-item date">
+  <a class='notlink'>
+    <i class="fas fa-calendar-alt fa-fw" aria-hidden="true"></i>
+    <p>发布于：Mar 10, 2021</p>
+  </a>
+</div>
+
           
         
+          
+            
+  <div class="new-meta-item browse leancloud">
+    <a class='notlink'>
       
-    
-    
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow">
-  
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/2020/11/16/Github%E9%AA%9A%E6%93%8D%E4%BD%9C/">
-        Github骚操作
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      <p>GitHub作为一个基于git的代码托管平台，具有全球海量的用户，其中也包含了很多价值极高的开源项目，接下来接受一下GitHub骚操作。</p>
-    
+      <div id="lc-pv" data-title="再谈反射" data-path="/2021/03/10/%E5%86%8D%E8%B0%88%E5%8F%8D%E5%B0%84/">
+        <i class="fas fa-eye fa-fw" aria-hidden="true"></i>
+        <span id='number'><i class="fas fa-circle-notch fa-spin fa-fw" aria-hidden="true"></i></span>
+        次浏览
+      </div>
+    </a>
   </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-        <time>2020-11-16</time>
-        
-          <span class="dot"></span>
-          <a class="category-link" href="/categories/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/">工具使用</a>
+
+
+          
         
       </div>
+    
+  </div>
+
+
+  
+  <p>JVM在加载完类之后，会在方法区产生一个对应的Class类型的对象，这个对象包含了完整类的结构信息。这个对象就像一面镜子，可以反映类的内部结构，我们形象地称这种机制为「反射」。反射的使用场景有很多，比如 Spring IOC 便利用了反射机制，接下我们来聊一下反射。</p>
+<a id="more"></a>
+
+<h1 id="Reflection"><a href="#Reflection" class="headerlink" title="Reflection"></a>Reflection</h1><p>反射(Reflection)，指在程序运行期间可以动态获取一个类的所有信息，并且能够直接操作任意对象的内部属性以及方法。</p>
+<p>反射是「动态语言」的关键，，可以使得编程更加灵活。</p>
+<h2 id="1、概述"><a href="#1、概述" class="headerlink" title="1、概述"></a>1、概述</h2><p>JVM的「类加载子系统」可以从文件系统或者网络中加载.class文件。加载之后的.class文件会在类加载子系统执行：<strong>加载、链接、初始化</strong>。</p>
+<p><img src="https://tobing-markdown.oss-cn-shenzhen.aliyuncs.com/image-20201120221030003.png" class="lazyload" data-srcset="https://tobing-markdown.oss-cn-shenzhen.aliyuncs.com/image-20201120221030003.png" srcset="data:image/png;base64,666" alt="image-20201120221030003"></p>
+<p>在加载阶段，JVM通过类的全限定类名获取定义此类的二进制字节流，将字节流代表的静态存储结构转换为方法区的运行时数据结构，并在内存中生成一个代表该类的<code>java.lang.Class</code>对象，作为方法区这个类的各种数据访问入口。</p>
+<p>通过内存中的这个<code>java.lang.Class</code>，可以映射类的所有信息，因此我们形象地称这种机制为：<strong>「反射」</strong>。</p>
+<h2 id="2、Class"><a href="#2、Class" class="headerlink" title="2、Class"></a>2、Class</h2><h3 id="2-1-Class获取的方式"><a href="#2-1-Class获取的方式" class="headerlink" title="2.1 Class获取的方式"></a>2.1 Class获取的方式</h3><p>从上面可以知道，与类关联的Class是在加载过程生成的，可以反映类的结构信息。那么我们该然后获取到这个Class呢？主要有以下几种方式。</p>
+<ul>
+<li><strong>通过类的静态属性class</strong>，这种方式比较安全，性能较高</li>
+<li><strong>通过实例的getClass方法</strong>，getClass是Object的弍native方法</li>
+<li><strong>通过全限定类名</strong>，JDBC的驱动加载使用过这种方式</li>
+</ul>
+<blockquote>
+<p>获取Class的几种方式</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ReflectionDemo</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> ClassNotFoundException </span>&#123;</span><br><span class="line">        <span class="comment">// 方式1：通过类的class属性获取</span></span><br><span class="line">        Class&lt;ReflectionDemo&gt; clazz1 = ReflectionDemo.class;</span><br><span class="line">        <span class="comment">// 方式2：通过类的实例，调用getClass方法</span></span><br><span class="line">        Class&lt;? extends ReflectionDemo&gt; clazz2 = <span class="keyword">new</span> ReflectionDemo().getClass();</span><br><span class="line">        <span class="comment">// 方式3：通过类的全限定类名</span></span><br><span class="line">        Class&lt;? extends Class&gt; clazz3 = Class.forName(<span class="string">&quot;top.tobing.review.ReflectionDemo&quot;</span>).getClass();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-2-Class的特征"><a href="#2-2-Class的特征" class="headerlink" title="2.2 Class的特征"></a>2.2 Class的特征</h3><p>Class 中可以获取某个类的属性、方法和构造器、某个类到底实现了哪些接口。对于每个类而言，JRE 都为其保留一个不变的 Class 类型的对象。值得注意的是，Class具有以下特征。</p>
+<ul>
+<li>Class本身也是一个类 </li>
+<li>Class 对象只能由系统建立对象 </li>
+<li>一个加载的类在 JVM 中只会有一个Class实例</li>
+<li>一个Class对象对应的是一个加载到JVM中的一个.class文件 </li>
+<li>每个类的实例都会记得自己是由哪个 Class 实例所生成</li>
+<li>通过Class可以完整地得到一个类中的所有被加载的结构</li>
+<li>Class类是Reflection的根源，针对任何你想动态加载、运行的类，唯有先获得相应的 Class对象</li>
+</ul>
+<blockquote>
+<p>Class中常用API</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>方法名称</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>static Class forName(String name)</td>
+<td>返回指定类名 name 的 Class 对象</td>
+</tr>
+<tr>
+<td>Object newInstance()</td>
+<td>调用缺省构造函数，返回该Class对象的一个实例</td>
+</tr>
+<tr>
+<td>getName()</td>
+<td>返回此Class对象所表示的实体（类、接口、数组类、基本类型 或void）名称</td>
+</tr>
+<tr>
+<td>Class getSuperClass()</td>
+<td>返回当前Class对象的父类的Class对象</td>
+</tr>
+<tr>
+<td>Class [] getInterfaces()</td>
+<td>获取当前Class对象的接口</td>
+</tr>
+<tr>
+<td>ClassLoader getClassLoader()</td>
+<td>返回该类的类加载器</td>
+</tr>
+<tr>
+<td>Class getSuperclass()</td>
+<td>返回表示此Class所表示的实体的超类的Class</td>
+</tr>
+<tr>
+<td>Constructor[] getConstructors()</td>
+<td>返回一个包含某些Constructor对象的数组</td>
+</tr>
+<tr>
+<td>Field[] getDeclaredFields()</td>
+<td>返回Field对象的一个数组</td>
+</tr>
+<tr>
+<td>Method getMethod(String  name,Class … paramTypes)</td>
+<td>返回一个Method对象，此对象的形参类型为paramType</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>利用反射获取一个类的所有方法</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ReflectionDemo02</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Class&lt;String&gt; clazz = String.class;</span><br><span class="line">        StringBuilder res = <span class="keyword">new</span> StringBuilder();</span><br><span class="line">        <span class="keyword">for</span> (Method method : clazz.getMethods()) &#123;</span><br><span class="line">            res.append(method.getReturnType().getSimpleName());</span><br><span class="line">            res.append(<span class="string">&quot; &quot;</span>);</span><br><span class="line">            res.append(method.getName());</span><br><span class="line">            res.append(<span class="string">&quot;(&quot;</span>);</span><br><span class="line">            Parameter[] parameters = method.getParameters();</span><br><span class="line">            <span class="keyword">if</span> (parameters != <span class="keyword">null</span> &amp;&amp; parameters.length != <span class="number">0</span>) &#123;</span><br><span class="line">                <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; parameters.length; i++) &#123;</span><br><span class="line">                    res.append(parameters[i].getType().getSimpleName());</span><br><span class="line">                    res.append(<span class="string">&quot; &quot;</span>);</span><br><span class="line">                    res.append(parameters[i].getName());</span><br><span class="line">                    <span class="keyword">if</span> (i != parameters.length - <span class="number">1</span>) &#123;</span><br><span class="line">                        res.append(<span class="string">&quot;, &quot;</span>);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            res.append(<span class="string">&quot;)\n&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(res.toString());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="3、反射的应用"><a href="#3、反射的应用" class="headerlink" title="3、反射的应用"></a>3、反射的应用</h2><p>我们常用的Spring框架底层大量使用了反射技术。</p>
+<h3 id="3-1-Spring-IOC"><a href="#3-1-Spring-IOC" class="headerlink" title="3.1 Spring IOC"></a>3.1 Spring IOC</h3><p>IOC，Inversion Of Control，控制反转，即将对象生命周期和对象间关系等控制权从程序员手上交到Spring IOC容器中。IOC并不是一种具体的技术，而是一种设计思想。</p>
+<blockquote>
+<p>为什么使用Spring IOC</p>
+</blockquote>
+<p>传统的Java SE 编程中，类的数量不多，类之间的关系不复杂，可以通过new在对象内部创建需要依赖的对象，这是一种主动的方式来创建对象；</p>
+<p>然而在Java EE编程中，类的数量开始变多，对象之间相互依赖开始变的复杂，Controller层的一个实例可能依赖了若干个Service层的实例，Service层实例可能又依赖了若干个Dao层实例，不同Service、Controller中可能依赖同一个对象；</p>
+<p>这时，如果再通过手动的方式为每个类创建依赖的对象，则对象之间存在较高的耦合度，维护起来并不方便。于是Spring 通过IOC的方式，将对象生命周期以及依赖关系管理的控制权从编码人员手上移到了Spring手上。Spring可以提前创建好需要使用的对象，并将这些对象放到IOC容器中进行管理，当需要某个对象时，只需要通过<code>@Autowried</code>等方式来将对象注入。这样编码人员便不用关心类的创建以及依赖管理等细节，可以将精力放到实际的逻辑中，从而提高开发效率。</p>
+<blockquote>
+<p>如何实现 IOC</p>
+</blockquote>
+<p>那么Spring是如何通过一个<code>@Autowried</code>注解就可以实现依赖对象的注入呢？答案尽在反射技术。</p>
+<p><img src="https://tobing-markdown.oss-cn-shenzhen.aliyuncs.com/SpringIOC.png" class="lazyload" data-srcset="https://tobing-markdown.oss-cn-shenzhen.aliyuncs.com/SpringIOC.png" srcset="data:image/png;base64,666" alt="SpringIOC"></p>
+<p>Web容器在启动时会启动Spring容器，Spring容器在启动时会通过xml、或者注解扫描的方式来创建出各种Bean，这种在运行期间创建对象的方式正是反射。</p>
+<p>详细将会在「再谈Spring」中见。</p>
+<h2 id="4、反射的优缺点"><a href="#4、反射的优缺点" class="headerlink" title="4、反射的优缺点"></a>4、反射的优缺点</h2><h3 id="4-1-优点"><a href="#4-1-优点" class="headerlink" title="4.1 优点"></a>4.1 优点</h3><ul>
+<li><strong>可扩展性</strong> ：应用程序可以利用全限定名创建可扩展对象的实例，来使用来自外部的用户自定义类。</li>
+<li><strong>类浏览器和可视化开发环境</strong> ：一个类浏览器需要可以枚举类的成员。可视化开发环境（如 IDE）可以从利用反射中可用的类型信息中受益，以帮助程序员编写正确的代码。</li>
+<li><strong>调试器和测试工具</strong> ： 调试器需要能够检查一个类里的私有成员。测试工具可以利用反射来自动地调用类里定义的可被发现的 API 定义，以确保一组测试中有较高的代码覆盖率。</li>
+</ul>
+<h3 id="4-2-缺点"><a href="#4-2-缺点" class="headerlink" title="4.2 缺点"></a>4.2 缺点</h3><p>尽管反射非常强大，但也不能滥用。如果一个功能可以不用反射完成，那么最好就不用。在我们使用反射技术时，下面几条内容应该牢记于心。</p>
+<ul>
+<li><strong>性能开销</strong> ：反射涉及了动态类型的解析，所以 JVM 无法对这些代码进行优化。因此，反射操作的效率要比那些非反射操作低得多。我们应该避免在经常被执行的代码或对性能要求很高的程序中使用反射。</li>
+<li><strong>安全限制</strong> ：使用反射技术要求程序必须在一个没有安全限制的环境中运行。如果一个程序必须在有安全限制的环境中运行，如 Applet，那么这就是个问题了。</li>
+<li><strong>内部暴露</strong> ：由于反射允许代码执行一些在正常情况下不被允许的操作（比如访问私有的属性和方法），所以使用反射可能会导致意料之外的副作用，这可能导致代码功能失调并破坏可移植性。反射代码破坏了抽象性，因此当平台发生改变的时候，代码的行为就有可能也随着变化。</li>
+</ul>
+<h2 id="5、总结"><a href="#5、总结" class="headerlink" title="5、总结"></a>5、总结</h2><p>在JVM会在类加载阶段生成与类唯一的匹配的Class对象放到内存中，通过这个Class对象可以反映类的内部结构，如方法、变量、构造器等信息，通过Class对象的还可以动态地创建该类的实例，我们形象地将这种机制称为「反射」。如果想要通过「反射」来动态创建类的实例，就要先获取该类的Class对象，主要有三种方式获取：</p>
+<ul>
+<li>类名.class</li>
+<li>实例.getClass()</li>
+<li>Class.forName(“全限定类名”)</li>
+</ul>
+<p>反射的应用场景比较广泛，在一些框架中被广泛适应，如Spring中实现控制反转的时就是利用反射来创建对象，并将对象放到容器中管理。</p>
+<h2 id="6、参考"><a href="#6、参考" class="headerlink" title="6、参考"></a>6、参考</h2><ul>
+<li><p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1Kb411W75N">尚硅谷Java基础-宋红康</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://book.douban.com/subject/34907497/">深入理解Java虚拟机</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://github.com/CyC2018/CS-Notes/blob/master/notes/Java%20%E5%9F%BA%E7%A1%80.md#%E4%B8%83%E5%8F%8D%E5%B0%84">CyC2018/CS-Notes</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://docs.oracle.com/javase/tutorial/reflect/index.html">Trail: The Reflection API</a></p>
+</li>
+</ul>
+
+  
+  
+    
+    <div class='footer'>
       
-        <div>
-          <a class='readmore' href='/2020/11/16/Github%E9%AA%9A%E6%93%8D%E4%BD%9C/'>
-            阅读全文
-          </a>
+      
+      
+        <div class='copyright'>
+          <blockquote>
+            
+              
+                <p>博客内容遵循 署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</p>
+
+              
+            
+              
+                <p>本文永久链接是：<a href=https://tobing.top/2021/03/10/%E5%86%8D%E8%B0%88%E5%8F%8D%E5%B0%84/>https://tobing.top/2021/03/10/%E5%86%8D%E8%B0%88%E5%8F%8D%E5%B0%84/</a></p>
+              
+            
+          </blockquote>
         </div>
+      
       
     </div>
   
+  
+    
 
+
+  <div class='article-meta' id="bottom">
+    <div class='new-meta-box'>
+      
+        
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-03-11T16:12:14+08:00">
+  <a class='notlink'>
+    <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
+    <p>更新于：Mar 11, 2021</p>
+  </a>
 </div>
 
-          </div>
         
       
         
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow">
+          
   
-  
-  
-  
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/Java/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>Java</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/%E5%8F%8D%E5%B0%84/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>反射</p></a></div>
+
+
+        
+      
+        
+          
+  <div class="new-meta-item share -mob-share-list">
+  <div class="-mob-share-list share-body">
     
-    <h2 class="article-title" >
-      <a href="/2019/10/26/%E7%94%B5%E4%BF%A1%E6%A0%A1%E5%9B%AD%E5%AE%BD%E5%B8%A6%E5%AE%89%E8%A3%85%E8%B7%AF%E7%94%B1%E5%99%A8/">
-        电信校园宽带安装路由器
-      </a>
-    </h2>
-  
-  <div class='md'>
+      
+        <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://tobing.top/2021/03/10/%E5%86%8D%E8%B0%88%E5%8F%8D%E5%B0%84/&title=再谈反射 - tobing&summary=JVM在加载完类之后，会在方法区产生一个对应的Class类型的对象，这个对象包含了完整类的结构信息。这个对象就像一面镜子，可以反映类的内部结构，我们形象地称这种机制为「反射」。反射的使用场景有很多，比如 Spring IOC 便利用了反射机制，接下我们来聊一下反射。"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qq.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qq.png" srcset="data:image/png;base64,666">
+          
+        </a>
+      
     
-      <p>本文介绍本校电信校园网如何使用路由器拨号。</p>
+      
+        <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://tobing.top/2021/03/10/%E5%86%8D%E8%B0%88%E5%8F%8D%E5%B0%84/&title=再谈反射 - tobing&summary=JVM在加载完类之后，会在方法区产生一个对应的Class类型的对象，这个对象包含了完整类的结构信息。这个对象就像一面镜子，可以反映类的内部结构，我们形象地称这种机制为「反射」。反射的使用场景有很多，比如 Spring IOC 便利用了反射机制，接下我们来聊一下反射。"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qzone.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qzone.png" srcset="data:image/png;base64,666">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="http://service.weibo.com/share/share.php?url=https://tobing.top/2021/03/10/%E5%86%8D%E8%B0%88%E5%8F%8D%E5%B0%84/&title=再谈反射 - tobing&summary=JVM在加载完类之后，会在方法区产生一个对应的Class类型的对象，这个对象包含了完整类的结构信息。这个对象就像一面镜子，可以反映类的内部结构，我们形象地称这种机制为「反射」。反射的使用场景有很多，比如 Spring IOC 便利用了反射机制，接下我们来聊一下反射。"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/weibo.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/weibo.png" srcset="data:image/png;base64,666">
+          
+        </a>
+      
+    
+      
+    
+      
     
   </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
+</div>
+
+
+
         
-        <time>2019-10-26</time>
-        
-          <span class="dot"></span>
-          <a class="category-link" href="/categories/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/">工具使用</a>
-        
-      </div>
       
-        <div>
-          <a class='readmore' href='/2019/10/26/%E7%94%B5%E4%BF%A1%E6%A0%A1%E5%9B%AD%E5%AE%BD%E5%B8%A6%E5%AE%89%E8%A3%85%E8%B7%AF%E7%94%B1%E5%99%A8/'>
-            阅读全文
-          </a>
-        </div>
+    </div>
+  </div>
+
+
+  
+  
+
+  
+    <div class="prev-next">
+      
+      
+        <a class='next' href='/2021/03/09/%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%9A%84%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/'>
+          <p class='title'>线程池的简单使用<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
+          <p class='content'>线程作为一种稀缺资源，在线程较多的情况下，频繁创建、销毁消除将会带来较大的系统开销。线程池基于池化思想，内部维护多个线程，可以对内部的线程进行统一的管理和监控，一方面避免了处理任务时创建销毁线程...</p>
+        </a>
       
     </div>
   
+</article>
 
+
+  
+
+  <article class="post white-box reveal shadow" id="comments">
+    <p ct><i class='fas fa-comments'></i> 评论</p>
+    
+    <div id="valine_container" class="valine_thread">
+  <i class="fas fa-cog fa-spin fa-fw fa-2x"></i>
 </div>
 
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow">
-  
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/2019/10/20/%E6%95%88%E7%8E%87%E4%BD%BF%E7%94%A8win10/">
-        效率使用win10
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      <p>电脑作为我们最常用的生产力工具，如何高效地使用它对提高工作和学习的效率非常重要。</p>
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-        <time>2019-10-20</time>
-        
-          <span class="dot"></span>
-          <a class="category-link" href="/categories/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/">工具使用</a>
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/2019/10/20/%E6%95%88%E7%8E%87%E4%BD%BF%E7%94%A8win10/'>
-            阅读全文
-          </a>
-        </div>
-      
-    </div>
-  
-
-</div>
-
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow">
-  
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/2019/10/03/Idea-java-%E4%B8%8D%E6%94%AF%E6%8C%81%E5%8F%91%E8%A1%8C%E7%89%88%E6%9C%AC5/">
-        Idea:java 不支持发行版本5
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      <p>在使用Intellij idea构建Maven工程的时候，运行报错<code>Error : java 不支持发行版本5</code>。本文针对该问题提出了几个解决方法。</p>
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-        <time>2019-10-03</time>
-        
-          <span class="dot"></span>
-          <a class="category-link" href="/categories/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/">工具使用</a>
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/2019/10/03/Idea-java-%E4%B8%8D%E6%94%AF%E6%8C%81%E5%8F%91%E8%A1%8C%E7%89%88%E6%9C%AC5/'>
-            阅读全文
-          </a>
-        </div>
-      
-    </div>
-  
-
-</div>
-
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow">
-  
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/2019/10/02/git%E7%9A%84%E5%85%A5%E9%97%A8%E4%BD%BF%E7%94%A8/">
-        git的常用命令
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      <p>git在日常开发必不可少，本文介绍了git常用命令。</p>
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-        <time>2019-10-02</time>
-        
-          <span class="dot"></span>
-          <a class="category-link" href="/categories/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/">工具使用</a>
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/2019/10/02/git%E7%9A%84%E5%85%A5%E9%97%A8%E4%BD%BF%E7%94%A8/'>
-            阅读全文
-          </a>
-        </div>
-      
-    </div>
-  
-
-</div>
-
-          </div>
-        
-      
-    
-  </section>
-  
-    
-  
+  </article>
 
 
-    
-  
+
+
+
+
 </div>
 <aside class='l_side'>
   
@@ -609,141 +698,28 @@
     
     
 
-<section class="widget blogger shadow desktop mobile">
-  <div class='content'>
-    
-      
-        <a class='avatar flat-box rectangle' href='/about/'>
-          <img no-lazy src='https://portrait.gitee.com/uploads/avatars/user/1875/5627411_tobing_1599371351.png'/>
-        </a>
-      
-    
-    
-      <div class='text'>
-        
-        
-        
-          <p><span id="jinrishici-sentence">tobing</span></p>
-          <script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
-        
-      </div>
-    
-    
-      <div class="social-wrapper">
-        
-          
-            <a href="https://blog.csdn.net/qq_30033537"
-              class="social fas fa-comment-dots flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-              
-            </a>
-          
-        
-          
-            <a href="mailto:652916578@qq.com"
-              class="social fas fa-envelope flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-              
-            </a>
-          
-        
-          
-            <a href="https://gitee.com/tobing"
-              class="social fab fa-github flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-              
-            </a>
-          
-        
-          
-            <a href="https://music.163.com/#/user/home?id=451463574"
-              class="social fas fa-headphones-alt flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-              
-            </a>
-          
-        
-      </div>
-    
-  </div>
-</section>
 
-  
 
-  
-    
-    
-  
-
-  <section class="widget category shadow desktop">
+  <section class="widget toc-wrapper shadow desktop mobile" id="toc-div" >
     
   <header>
     
-      <a href='/blog/categories/'><i class="fas fa-folder-open fa-fw" aria-hidden="true"></i><span class='name'>文章分类</span></a>
+      <i class="fas fa-list fa-fw" aria-hidden="true"></i><span class='name'>本文目录</span>
     
   </header>
 
 
     <div class='content'>
-      <ul class="entry navigation">
-        
-          <li><a class="flat-box"
-            title="/categories/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/" href="/categories/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/"
-            id="categoriesE5B7A5E585B7E4BDBFE794A8"
-            ><div class='name'>工具使用</div><div class='badge'>(5)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/%E6%8A%80%E6%9C%AF%E5%BA%94%E7%94%A8/" href="/categories/%E6%8A%80%E6%9C%AF%E5%BA%94%E7%94%A8/"
-            id="categoriesE68A80E69CAFE5BA94E794A8"
-            ><div class='name'>技术应用</div><div class='badge'>(3)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/%E6%9D%82%E4%B8%83%E6%9D%82%E5%85%AB/" href="/categories/%E6%9D%82%E4%B8%83%E6%9D%82%E5%85%AB/"
-            id="categoriesE69D82E4B883E69D82E585AB"
-            ><div class='name'>杂七杂八</div><div class='badge'>(4)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/%E7%90%86%E8%AE%BA%E5%AD%A6%E4%B9%A0/" href="/categories/%E7%90%86%E8%AE%BA%E5%AD%A6%E4%B9%A0/"
-            id="categoriesE79086E8AEBAE5ADA6E4B9A0"
-            ><div class='name'>理论学习</div><div class='badge'>(39)</div></a></li>
-        
-      </ul>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1%E3%80%81%E6%A6%82%E8%BF%B0"><span class="toc-text">1、概述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2%E3%80%81Class"><span class="toc-text">2、Class</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-Class%E8%8E%B7%E5%8F%96%E7%9A%84%E6%96%B9%E5%BC%8F"><span class="toc-text">2.1 Class获取的方式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-Class%E7%9A%84%E7%89%B9%E5%BE%81"><span class="toc-text">2.2 Class的特征</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3%E3%80%81%E5%8F%8D%E5%B0%84%E7%9A%84%E5%BA%94%E7%94%A8"><span class="toc-text">3、反射的应用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-Spring-IOC"><span class="toc-text">3.1 Spring IOC</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4%E3%80%81%E5%8F%8D%E5%B0%84%E7%9A%84%E4%BC%98%E7%BC%BA%E7%82%B9"><span class="toc-text">4、反射的优缺点</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1-%E4%BC%98%E7%82%B9"><span class="toc-text">4.1 优点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-2-%E7%BC%BA%E7%82%B9"><span class="toc-text">4.2 缺点</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5%E3%80%81%E6%80%BB%E7%BB%93"><span class="toc-text">5、总结</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6%E3%80%81%E5%8F%82%E8%80%83"><span class="toc-text">6、参考</span></a></li></ol>
     </div>
   </section>
 
-
-  
-
-  
-    
-    
-  
-
-  <section class="widget tagcloud shadow desktop mobile">
-    
-  <header>
-    
-      <a href='/blog/tags/'><i class="fas fa-tags fa-fw" aria-hidden="true"></i><span class='name'>热门标签</span></a>
-    
-  </header>
-
-
-    <div class='content'>
-      <a href="/tags/CentOS/" style="font-size: 14px; color: #999">CentOS</a> <a href="/tags/DHT11/" style="font-size: 14px; color: #999">DHT11</a> <a href="/tags/ElasticSearch/" style="font-size: 14px; color: #999">ElasticSearch</a> <a href="/tags/GitHub/" style="font-size: 14px; color: #999">GitHub</a> <a href="/tags/GithubPage/" style="font-size: 14px; color: #999">GithubPage</a> <a href="/tags/Hexo/" style="font-size: 15.67px; color: #8e8e8e">Hexo</a> <a href="/tags/Intellij-idea/" style="font-size: 14px; color: #999">Intellij idea</a> <a href="/tags/JDBC/" style="font-size: 17.33px; color: #828282">JDBC</a> <a href="/tags/JVM/" style="font-size: 14px; color: #999">JVM</a> <a href="/tags/Java/" style="font-size: 24px; color: #555">Java</a> <a href="/tags/Linux/" style="font-size: 14px; color: #999">Linux</a> <a href="/tags/MongoDB/" style="font-size: 14px; color: #999">MongoDB</a> <a href="/tags/MySQL/" style="font-size: 20.67px; color: #6c6c6c">MySQL</a> <a href="/tags/Mybatis/" style="font-size: 22.33px; color: #606060">Mybatis</a> <a href="/tags/Oracle/" style="font-size: 15.67px; color: #8e8e8e">Oracle</a> <a href="/tags/PageHelper/" style="font-size: 14px; color: #999">PageHelper</a> <a href="/tags/Spring/" style="font-size: 19px; color: #777">Spring</a> <a href="/tags/Spring-Security/" style="font-size: 14px; color: #999">Spring-Security</a> <a href="/tags/SpringBoot/" style="font-size: 14px; color: #999">SpringBoot</a> <a href="/tags/SpringMVC/" style="font-size: 17.33px; color: #828282">SpringMVC</a> <a href="/tags/Windows/" style="font-size: 14px; color: #999">Windows</a> <a href="/tags/docker/" style="font-size: 14px; color: #999">docker</a> <a href="/tags/git/" style="font-size: 14px; color: #999">git</a> <a href="/tags/jwt/" style="font-size: 14px; color: #999">jwt</a> <a href="/tags/root/" style="font-size: 14px; color: #999">root</a> <a href="/tags/%E5%85%A8%E6%96%87%E6%A3%80%E7%B4%A2/" style="font-size: 14px; color: #999">全文检索</a> <a href="/tags/%E5%88%86%E4%BA%AB/" style="font-size: 14px; color: #999">分享</a> <a href="/tags/%E5%8D%95%E7%89%87%E6%9C%BA/" style="font-size: 14px; color: #999">单片机</a> <a href="/tags/%E5%8F%8D%E5%B0%84/" style="font-size: 19px; color: #777">反射</a> <a href="/tags/%E5%9F%9F%E5%90%8D%E7%BB%91%E5%AE%9A/" style="font-size: 14px; color: #999">域名绑定</a> <a href="/tags/%E5%AE%9E%E9%AA%8C/" style="font-size: 15.67px; color: #8e8e8e">实验</a> <a href="/tags/%E5%AE%B9%E5%99%A8%E6%8A%80%E6%9C%AF/" style="font-size: 14px; color: #999">容器技术</a> <a href="/tags/%E5%B0%8F%E7%A8%8B%E5%BA%8F/" style="font-size: 14px; color: #999">小程序</a> <a href="/tags/%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F/" style="font-size: 14px; color: #999">归并排序</a> <a href="/tags/%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F/" style="font-size: 14px; color: #999">快速排序</a> <a href="/tags/%E6%80%BB%E7%BB%93/" style="font-size: 14px; color: #999">总结</a> <a href="/tags/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/" style="font-size: 15.67px; color: #8e8e8e">排序算法</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93%E8%BF%9E%E6%8E%A5%E6%B1%A0/" style="font-size: 14px; color: #999">数据库连接池</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" style="font-size: 17.33px; color: #828282">数据结构</a> <a href="/tags/%E6%95%B0%E7%BB%84-Java/" style="font-size: 14px; color: #999">数组 - Java</a> <a href="/tags/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/" style="font-size: 14px; color: #999">文件上传</a> <a href="/tags/%E6%A0%88/" style="font-size: 14px; color: #999">栈</a> <a href="/tags/%E6%A0%91%E8%8E%93%E6%B4%BE/" style="font-size: 14px; color: #999">树莓派</a> <a href="/tags/%E6%A0%A1%E5%9B%AD%E5%AE%BD%E5%B8%A6/" style="font-size: 14px; color: #999">校园宽带</a> <a href="/tags/%E6%B3%A8%E8%A7%A3/" style="font-size: 14px; color: #999">注解</a> <a href="/tags/%E7%89%A9%E8%81%94%E7%BD%91/" style="font-size: 15.67px; color: #8e8e8e">物联网</a> <a href="/tags/%E7%BA%BF%E7%A8%8B%E6%B1%A0/" style="font-size: 14px; color: #999">线程池</a> <a href="/tags/%E8%AE%A4%E8%AF%81%E6%9C%BA%E5%88%B6/" style="font-size: 14px; color: #999">认证机制</a> <a href="/tags/%E8%B7%AF%E7%94%B1%E5%99%A8/" style="font-size: 14px; color: #999">路由器</a> <a href="/tags/%E9%98%9F%E5%88%97/" style="font-size: 14px; color: #999">队列</a> <a href="/tags/%E9%9B%86%E5%90%88/" style="font-size: 14px; color: #999">集合</a> <a href="/tags/%E9%AD%85%E8%93%9DNote5/" style="font-size: 14px; color: #999">魅蓝Note5</a>
-    </div>
-  </section>
-
-
-  
 
   
 
 
 </aside>
+
 
 
         
@@ -753,8 +729,8 @@
 
 <script>
   window.pdata={}
-  pdata.ispage=false;
-  pdata.postTitle="";
+  pdata.ispage=true;
+  pdata.postTitle="再谈反射";
   pdata.commentPath="";
   pdata.commentPlaceholder="";
 
