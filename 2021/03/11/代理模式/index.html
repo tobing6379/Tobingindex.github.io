@@ -1,0 +1,1557 @@
+<!DOCTYPE html>
+<html lang="zh-Hans,zh-CN,en,zh-HK,zh-TW,default">
+<head hexo-theme='https://github.com/volantis-x/hexo-theme-volantis/tree/4.2.0'>
+  <meta charset="utf-8">
+  <!-- SEO相关 -->
+  
+    
+  
+  <!-- 渲染优化 -->
+  <meta http-equiv='x-dns-prefetch-control' content='on' />
+  <link rel='dns-prefetch' href='https://cdn.jsdelivr.net'>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <!-- 页面元数据 -->
+  
+  <title>代理模式 - tobing</title>
+  
+    <meta name="keywords" content="Java,动态代理,设计模式">
+  
+
+  
+    <meta name="description" content="代理模式对于我们来说并不难理解，日常生活中我们经常能看到代理模式的影子。我们平时使用「智行」、「同程」等买票的时候，就是一个典型代理模式的应用。
+1我们(使用者) ----- 智行&#x2F;同程(代理者) ----&gt; 12306(被代理者)
+
+我们不直接通过12306买票，因为这样抢票并不方便，我们通过「...">
+  
+
+  <!-- feed -->
+  
+
+  <!-- import meta -->
+  
+
+  <!-- link -->
+  
+    <link rel="shortcut icon" type='image/x-icon' href="https://cdn.jsdelivr.net/gh/xaoxuu/assets@master/favicon/favicon.ico">
+  
+
+  <!-- import link -->
+  
+
+  
+    
+<link rel="stylesheet" href="/css/first.css">
+
+  
+
+  
+  <link rel="stylesheet" href="/css/style.css" media="print" onload="this.media='all';this.onload=null">
+  <noscript><link rel="stylesheet" href="/css/style.css"></noscript>
+  
+
+  <script id="loadcss"></script>
+
+</head>
+
+<body>
+  
+
+<header id="l_header" class="l_header auto shadow blur show" style='opacity: 0' >
+  <div class='container'>
+  <div id='wrapper'>
+    <div class='nav-sub'>
+      <p class="title"></p>
+      <ul class='switcher nav-list-h m-phone' id="pjax-header-nav-list">
+        <li><a id="s-comment" class="fas fa-comments fa-fw" target="_self" href='javascript:void(0)'></a></li>
+        
+          <li><a id="s-toc" class="s-toc fas fa-list fa-fw" target="_self" href='javascript:void(0)'></a></li>
+        
+      </ul>
+    </div>
+		<div class="nav-main">
+      
+        
+        <a class="title flat-box" target="_self" href='/'>
+          
+          
+            <i class='https://portrait.gitee.com/uploads/avatars/user/1875/5627411_tobing_1599371351.png'></i>
+          
+          
+            tobing's blog
+          
+        </a>
+      
+
+			<div class='menu navigation'>
+				<ul class='nav-list-h m-pc'>
+          
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/
+                  
+                  
+                  
+                    id="home"
+                  >
+                  <i class='fas fa-rss fa-fw'></i>博客
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/categories/
+                  
+                  
+                  
+                    id="categories"
+                  >
+                  <i class='fas fa-folder-open fa-fw'></i>分类
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/tags/
+                  
+                  
+                  
+                    id="tags"
+                  >
+                  <i class='fas fa-tags fa-fw'></i>标签
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/archives/
+                  
+                  
+                  
+                    id="archives"
+                  >
+                  <i class='fas fa-archive fa-fw'></i>归档
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/friends/
+                  
+                  
+                  
+                    id="friends"
+                  >
+                  <i class='fas fa-link fa-fw'></i>友链
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/about/
+                  
+                  
+                  
+                    id="about"
+                  >
+                  <i class='fas fa-info-circle fa-fw'></i>关于
+                </a>
+                
+              </li>
+            
+          
+          
+				</ul>
+			</div>
+
+      <div class="m_search">
+        <form name="searchform" class="form u-search-form">
+          <i class="icon fas fa-search fa-fw"></i>
+          <input type="text" class="input u-search-input" placeholder="Search..." />
+        </form>
+      </div>
+
+			<ul class='switcher nav-list-h m-phone'>
+				
+					<li><a class="s-search fas fa-search fa-fw" target="_self" href='javascript:void(0)'></a></li>
+				
+				<li>
+          <a class="s-menu fas fa-bars fa-fw" target="_self" href='javascript:void(0)'></a>
+          <ul class="menu-phone list-v navigation white-box">
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/
+                  
+                  
+                  
+                    id="home"
+                  >
+                  <i class='fas fa-rss fa-fw'></i>博客
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/categories/
+                  
+                  
+                  
+                    id="categories"
+                  >
+                  <i class='fas fa-folder-open fa-fw'></i>分类
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/tags/
+                  
+                  
+                  
+                    id="tags"
+                  >
+                  <i class='fas fa-tags fa-fw'></i>标签
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/archives/
+                  
+                  
+                  
+                    id="archives"
+                  >
+                  <i class='fas fa-archive fa-fw'></i>归档
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/friends/
+                  
+                  
+                  
+                    id="friends"
+                  >
+                  <i class='fas fa-link fa-fw'></i>友链
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/about/
+                  
+                  
+                  
+                    id="about"
+                  >
+                  <i class='fas fa-info-circle fa-fw'></i>关于
+                </a>
+                
+              </li>
+            
+          
+            
+          </ul>
+        </li>
+			</ul>
+		</div>
+	</div>
+  </div>
+</header>
+
+  <div id="l_body">
+    <div id="l_cover">
+  
+    
+        <div id="full" class='cover-wrapper post search' style="display: none;">
+          
+            <div class='cover-bg lazyload placeholder' data-bg="https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/033.jpg"></div>
+          
+          <div class='cover-body'>
+  <div class='top'>
+    
+    
+      <p class="title">Welcome !</p>
+    
+    
+  </div>
+  <div class='bottom'>
+    
+      <div class="m_search">
+        <form name="searchform" class="form u-search-form">
+          <input type="text" class="input u-search-input" placeholder="Search..." />
+          <i class="icon fas fa-search fa-fw"></i>
+        </form>
+      </div>
+    
+    <div class='menu navigation'>
+      <div class='list-h'>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+          <div id="scroll-down" style="display: none;"><i class="fa fa-chevron-down scroll-down-effects"></i></div>
+        </div>
+    
+  
+  </div>
+
+    <div id='safearea'>
+      <div class='body-wrapper' id="pjax-container">
+        
+
+<div class='l_main'>
+  <article class="article post white-box reveal md shadow article-type-post" id="post" itemscope itemprop="blogPost">
+  
+
+
+  
+  <div class="article-meta" id="top">
+    
+    
+    
+      <h1 class="title">
+        代理模式
+      </h1>
+      <div class='new-meta-box'>
+        
+          
+            
+<div class='new-meta-item author'>
+  <a class='author' href="/" rel="nofollow">
+    <img no-lazy src="">
+    <p>请设置文章作者</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+  <div class='new-meta-item category'>
+    <a class='notlink'>
+      <i class="fas fa-folder-open fa-fw" aria-hidden="true"></i>
+      <a class="category-link" href="/categories/%E7%90%86%E8%AE%BA%E5%AD%A6%E4%B9%A0/">理论学习</a>
+    </a>
+  </div>
+
+
+          
+        
+          
+            <div class="new-meta-item date">
+  <a class='notlink'>
+    <i class="fas fa-calendar-alt fa-fw" aria-hidden="true"></i>
+    <p>发布于：Mar 11, 2021</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+  <div class="new-meta-item browse leancloud">
+    <a class='notlink'>
+      
+      <div id="lc-pv" data-title="代理模式" data-path="/2021/03/11/%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F/">
+        <i class="fas fa-eye fa-fw" aria-hidden="true"></i>
+        <span id='number'><i class="fas fa-circle-notch fa-spin fa-fw" aria-hidden="true"></i></span>
+        次浏览
+      </div>
+    </a>
+  </div>
+
+
+          
+        
+      </div>
+    
+  </div>
+
+
+  
+  <p>代理模式对于我们来说并不难理解，日常生活中我们经常能看到代理模式的影子。我们平时使用「智行」、「同程」等买票的时候，就是一个典型代理模式的应用。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">我们(使用者) ----- 智行&#x2F;同程(代理者) ----&gt; 12306(被代理者)</span><br></pre></td></tr></table></figure>
+
+<p>我们不直接通过12306买票，因为这样抢票并不方便，我们通过「智行」/「同程」等第三方专业机构来帮我们买票，这些机构建来代替我们去12306买票，同时这些机构代代理买票的过程中会增强一系列功能，如：增值服务、用户消费记录等。</p>
+<p>Java中也是实现了代理模式，本文我们来讨论一下「代理模式」。</p>
+<a id="more"></a>
+
+<h1 id="代理模式"><a href="#代理模式" class="headerlink" title="代理模式"></a>代理模式</h1><h2 id="1、概述"><a href="#1、概述" class="headerlink" title="1、概述"></a>1、概述</h2><p>使用代理对象来代替真实对象的访问，可以在不修改原目标对象的前提下，提供额外的功能操作，扩展目标对象的功能。</p>
+<p>Java中的代理按照代理类生成时机不同又分为静态代理和动态代理。静态代理代理类在编译期就生成，而动态代理代理类则是在Java运行时动态生成。动态代理又有JDK代理和CGLib代理两种。</p>
+<h2 id="2、静态代理"><a href="#2、静态代理" class="headerlink" title="2、静态代理"></a>2、静态代理</h2><p><strong>静态代理中，对目标的每个方法增强都是通过手动完成。</strong>实际应用场景很少，日常开发几乎用不到。</p>
+<p>【静态代理的实现步骤：】</p>
+<ol>
+<li>定义一个接口及其实现类；</li>
+<li>创建一个代理类实现这个类；</li>
+<li>将目标对象放到代理类中，任何代理类的对应方法调用目标类的对应方法，主要可以通过代理类屏蔽对目标对象的访问。</li>
+</ol>
+<p>场景：买火车票我们不通过12306买票，而是使用「智行」、「同程」等代理购买，这些软件可以提供更加智能的路线选择，同时也提供了一些增值的服务(增强)</p>
+<blockquote>
+<p>卖票接口</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">SellTicket</span> </span>&#123;</span><br><span class="line">    <span class="function">String <span class="title">sell</span><span class="params">(Integer money)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>12306网站</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SellTicketImpl</span> <span class="keyword">implements</span> <span class="title">SellTicket</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">sell</span><span class="params">(Integer money)</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;花费&quot;</span> + money + <span class="string">&quot;元购票.&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;购票成功&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>智行</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ZhixingProxy</span> <span class="keyword">implements</span> <span class="title">SellTicket</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> SellTicket sellTicket;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">ZhixingProxy</span><span class="params">(SellTicket sellTicket)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.sellTicket = sellTicket;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">sell</span><span class="params">(Integer money)</span> </span>&#123;</span><br><span class="line">        money -= <span class="number">10</span>;            <span class="comment">// 收取手续费</span></span><br><span class="line">        System.out.println(<span class="string">&quot;[INFO]:智行购票中...&quot;</span>);</span><br><span class="line">        String ret = sellTicket.sell(money);<span class="comment">// 购票</span></span><br><span class="line">        System.out.println(<span class="string">&quot;[INFO]:智行购票成功...&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;智行:&quot;</span> + ret;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>使用者</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ProxyDemo</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        SellTicketImpl sellTicket = <span class="keyword">new</span> SellTicketImpl();</span><br><span class="line">        ZhixingProxy zhixingProxy = <span class="keyword">new</span> ZhixingProxy(sellTicket);</span><br><span class="line">        String ret = zhixingProxy.sell(<span class="number">100</span>);</span><br><span class="line">        System.out.println(ret);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>输出</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[INFO]:智行购票中...</span><br><span class="line">花费90元购票.</span><br><span class="line">[INFO]:智行购票成功...</span><br><span class="line">智行:购票成功</span><br></pre></td></tr></table></figure>
+
+<h2 id="3、动态代理"><a href="#3、动态代理" class="headerlink" title="3、动态代理"></a>3、动态代理</h2><p>与静态代理相比，动态代理更加灵活，不需要针对每一个目标对象单独创建一个代理类，并且不需要必须实现接口，可以直接代理实现类。</p>
+<p><strong>JVM动态生成代理类的字节码。Spring AOP、RPC框架的实现都依赖了动态代理。</strong></p>
+<p>动态代理实际开发中使用较少，但是框架中被频繁使用。</p>
+<p>Java 动态代理实现主要有两种：<strong>JDK 动态代理、CGLIB 动态代理</strong>。</p>
+<h3 id="3-1-JDK-动态代理"><a href="#3-1-JDK-动态代理" class="headerlink" title="3.1 JDK 动态代理"></a>3.1 JDK 动态代理</h3><h4 id="3-1-1-API"><a href="#3-1-1-API" class="headerlink" title="3.1.1 API"></a>3.1.1 API</h4><p>JDK 动态代理中 <strong>InvocationHandler 接口</strong>和 <strong>Proxy 类</strong>是核心。</p>
+<p>Proxy 类中的 newProxyInstance() 方法用来生成一个代理对象。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Object <span class="title">newProxyInstance</span><span class="params">(ClassLoader loader,		// 类加载器，用来加载代理对象</span></span></span><br><span class="line"><span class="function"><span class="params">                                      Class&lt;?&gt;[] interfaces,	// 被代理类实现的一些接口</span></span></span><br><span class="line"><span class="function"><span class="params">                                      InvocationHandler h)</span>		<span class="comment">// 实现了 InvocationHandler 的对象</span></span></span><br><span class="line"><span class="function">    <span class="keyword">throws</span> IllegalArgumentException </span>&#123;</span><br><span class="line">    ......</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>JDK 动态代理中通过 InvocationHandler 来自定义代理逻辑。</p>
+<p>当动态代理调用工业方法是，这个方法的调用会被转发到实现了 InvocationHandler 接口类的 invoke 方法来调用。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">InvocationHandler</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">invoke</span><span class="params">(Object proxy, 		// 动态生成的代理类</span></span></span><br><span class="line"><span class="function"><span class="params">                         Method method, 	// 与代理类对象调用的方法相对应</span></span></span><br><span class="line"><span class="function"><span class="params">                         Object[] args)</span>		<span class="comment">// 当前method方法的参数</span></span></span><br><span class="line"><span class="function">        <span class="keyword">throws</span> Throwable</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>通过Proxy 类的 newProxyInstance() 创建的代理对象在调用方法的时候，实际会调用到实现了 InvocationHandler 接口类的 invoke 方法 。</p>
+<p>因此可以在 invoke 方法中自定义处理逻辑。</p>
+<h4 id="3-1-2-使用步骤"><a href="#3-1-2-使用步骤" class="headerlink" title="3.1.2 使用步骤"></a>3.1.2 使用步骤</h4><p>1、定义一个接口以及实现类，该实现类是被代理类</p>
+<p>2、自定 InvocationHandler 接口并重写 invoke方法，在 invoke 内部调用被代理对象的方法，并自定义一些逻辑。</p>
+<p>3、通过 Proxy.newProxyInstance 创建一个代理对象。</p>
+<h4 id="3-1-3-场景实现"><a href="#3-1-3-场景实现" class="headerlink" title="3.1.3 场景实现"></a>3.1.3 场景实现</h4><blockquote>
+<p>卖票接口：参考上面</p>
+</blockquote>
+<blockquote>
+<p>12306：参考上面</p>
+</blockquote>
+<blockquote>
+<p>JDK 动态代理</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">JDKProxy</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        SellTicketImpl sellTicket = <span class="keyword">new</span> SellTicketImpl();</span><br><span class="line">        Class&lt;SellTicketImpl&gt; sellTicketClass = SellTicketImpl.class;</span><br><span class="line">        SellTicket sellTicketProxy = (SellTicket)Proxy.newProxyInstance(sellTicketClass.getClassLoader(), sellTicketClass.getInterfaces(), <span class="keyword">new</span> InvocationHandler() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> Object <span class="title">invoke</span><span class="params">(Object proxy, Method method, Object[] args)</span> <span class="keyword">throws</span> Throwable </span>&#123;</span><br><span class="line">                System.out.println(<span class="string">&quot;[JDKProxy INFO]:执行前&quot;</span>);</span><br><span class="line">                String ret = (String) method.invoke(sellTicket, args);</span><br><span class="line">                System.out.println(<span class="string">&quot;[JDKProxy INFO]:执行后&quot;</span>);</span><br><span class="line">                <span class="keyword">return</span> <span class="string">&quot;[JDKProxy ]:&quot;</span> + ret;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">        String ret = sellTicketProxy.sell(<span class="number">100</span>);</span><br><span class="line">        System.out.println(ret);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>上面代码中我们通过匿名对象的方式将InvocationHandler实现传递个newProxyInstance参数中。</p>
+<blockquote>
+<p>输出</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[JDKProxy INFO]:执行前</span><br><span class="line">花费100元购票.</span><br><span class="line">[JDKProxy INFO]:执行后</span><br><span class="line">[JDKProxy ]:购票成功</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-2-CGLib-动态代理"><a href="#3-2-CGLib-动态代理" class="headerlink" title="3.2 CGLib 动态代理"></a>3.2 CGLib 动态代理</h3><p><strong>JDK 动态代理中存在一个问题，只能代理实现了接口的类。</strong></p>
+<p><strong>为了解决这个问题，可以使用 CGLIB 动态代理开避免这个问题。</strong></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/cglib/cglib">CBLIB</a>，Code Generation Lib ，是一个基于<a target="_blank" rel="noopener" href="https://www.baeldung.com/java-asm">ASM</a>的动态字节码生成库，它允许我们在运行时对字节码进行修改和动态生成。</p>
+<p>CGLIB 通过继承方式实现代理，很知名的开源框架使用了 CGLIB ，如 Spring AOP。</p>
+<h4 id="3-2-1-API"><a href="#3-2-1-API" class="headerlink" title="3.2.1 API"></a>3.2.1 API</h4><p><strong>CGLIB 动态代理中， MethodInterceptor 接口和 Enhancer 类是核心。</strong></p>
+<p>使用时需要自定义 MethodInterceptor 接口 并重写 intercept 方法，intercept 用于增强。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">MethodInterceptor</span> <span class="keyword">extends</span> <span class="title">Callback</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">intercept</span><span class="params">(Object obj, 					// 被代理的对象，需要被增强的对象</span></span></span><br><span class="line"><span class="function"><span class="params">                            java.lang.reflect.Method method,// 被增强的方法</span></span></span><br><span class="line"><span class="function"><span class="params">                            Object[] args,					// 方法传入的参数</span></span></span><br><span class="line"><span class="function"><span class="params">                            MethodProxy proxy				// 用于调用原始方法的参数</span></span></span><br><span class="line"><span class="function"><span class="params">                           )</span> <span class="keyword">throws</span> Throwable</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>可以通过 Enhancer 类动态获取被代理类，当代理类调用方法时，实际调用的是 MethodInterceptor 的 intercept 方法。</p>
+<h4 id="3-2-2-使用步骤"><a href="#3-2-2-使用步骤" class="headerlink" title="3.2.2 使用步骤"></a>3.2.2 使用步骤</h4><p>1、定义被代理类</p>
+<p>2、自定义 MethodInterceptor 重写 intercept 方法，intercept 与 JDK动态代理的 invoke 方法类似。</p>
+<p>3、通过 Enhancer 类的 create 方法创建对象。</p>
+<h4 id="3-2-3-代码示例"><a href="#3-2-3-代码示例" class="headerlink" title="3.2.3 代码示例"></a>3.2.3 代码示例</h4><blockquote>
+<p>添加依赖：CGLIB 不是JDK原生内容，是有个开源项目</p>
+</blockquote>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>cglib<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>cglib<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>3.3.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>接口：参考静态代理代码</p>
+</blockquote>
+<blockquote>
+<p>12306：参考静态代码</p>
+</blockquote>
+<blockquote>
+<p>CGLIBProxy</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CGLibProxy</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        SellTicketImpl sellTicket = <span class="keyword">new</span> SellTicketImpl();</span><br><span class="line">        Class&lt;SellTicketImpl&gt; sellTicketClass = SellTicketImpl.class;</span><br><span class="line">        SellTicket sellTicketProxy = (SellTicket) Enhancer.create(sellTicketClass, sellTicketClass.getInterfaces(), <span class="keyword">new</span> MethodInterceptor() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> Object <span class="title">intercept</span><span class="params">(Object o, Method method, Object[] objects, MethodProxy methodProxy)</span> <span class="keyword">throws</span> Throwable </span>&#123;</span><br><span class="line">                System.out.println(<span class="string">&quot;[CGLib INFO]:动态前&quot;</span>);</span><br><span class="line">                String ret = (String) methodProxy.invoke(sellTicket, objects);</span><br><span class="line">                System.out.println(<span class="string">&quot;[CGLib INFO]:执行后&quot;</span>);</span><br><span class="line">                <span class="keyword">return</span> <span class="string">&quot;[CGLib INFO]:&quot;</span> + ret;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">        String ret = sellTicketProxy.sell(<span class="number">100</span>);</span><br><span class="line">        System.out.println(ret);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>上面通过匿名对象来传递MethodInterceptor实现。</p>
+<blockquote>
+<p>输出</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[CGLib INFO]:动态前</span><br><span class="line">花费100元购票.</span><br><span class="line">[CGLib INFO]:执行后</span><br><span class="line">[CGLib INFO]:购票成功</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-3-JDK-与-CGLIB-对比"><a href="#3-3-JDK-与-CGLIB-对比" class="headerlink" title="3.3 JDK 与 CGLIB 对比"></a>3.3 JDK 与 CGLIB 对比</h3><table>
+<thead>
+<tr>
+<th></th>
+<th>JDK动态代理</th>
+<th>CGLib动态代理</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>实现原理</td>
+<td>反射机制生成</td>
+<td>ASM字节码框架</td>
+</tr>
+<tr>
+<td>使用场景</td>
+<td>实现了接口的类</td>
+<td>对于不实现接口的可以使用CGLib</td>
+</tr>
+<tr>
+<td>效率</td>
+<td>一般较高</td>
+<td>相对较低</td>
+</tr>
+<tr>
+<td>核心API</td>
+<td>Proxy/InvocationHandler</td>
+<td>Enhancer/MethodInterceptor</td>
+</tr>
+</tbody></table>
+<p>注意：由于CGlib是通过生成被代理类的子类的方式来增强，因此不用用于final修饰的类中。</p>
+<h2 id="4、补充-代理模式对比"><a href="#4、补充-代理模式对比" class="headerlink" title="4、补充-代理模式对比"></a>4、补充-代理模式对比</h2><h3 id="4-1-JDK代理和CGLIB代理"><a href="#4-1-JDK代理和CGLIB代理" class="headerlink" title="4.1 JDK代理和CGLIB代理"></a>4.1 JDK代理和CGLIB代理</h3><p>使用CGLib实现动态代理，CGLib底层采用ASM字节码生成框架，使用字节码技术生成代理类，在 JDK1.6之前比使用Java反射效率要高。唯一需要注意的是，CGLib不能对声明为final的类或者 方法进行代理，因为CGLib原理是动态生成被代理类的子类。</p>
+<p>在JDK1.6、JDK1.7、JDK1.8逐步对JDK动态代理优化之后，在调用次数较少的情况下，JDK代 理效率高于CGLib代理效率，只有当进行大量调用的时候，JDK1.6和JDK1.7比CGLib代理效率 低一点，但是到JDK1.8的时候，JDK代理效率高于CGLib代理。所以如果有接口使用JDK动态代 理，如果没有接口使用CGLIB代理。</p>
+<h3 id="4-2-静态代理与动态代理"><a href="#4-2-静态代理与动态代理" class="headerlink" title="4.2 静态代理与动态代理"></a>4.2 静态代理与动态代理</h3><p>动态代理与静态代理相比较，最大的好处是接口中声明的所有方法都被转移到调用处理器一个集中 的方法中处理（InvocationHandler.invoke）。这样，在接口方法数量比较多的时候，我们 可以进行灵活处理，而不需要像静态代理那样每一个方法进行中转。</p>
+<p>如果接口增加一个方法，静态代理模式除了所有实现类需要实现这个方法外，所有代理类也需要实 现此方法。增加了代码维护的复杂度。而动态代理不会出现该问题</p>
+<h2 id="5、参考"><a href="#5、参考" class="headerlink" title="5、参考"></a>5、参考</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/Snailclimb/JavaGuide">JavaGuide</a></li>
+<li><a href="%E9%BB%91%E9%A9%AC%E7%A8%8B%E5%BA%8F%E5%91%98Java%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E8%AF%A6%E8%A7%A3">黑马程序员Java设计模式详解</a></li>
+</ul>
+
+  
+  
+    
+    <div class='footer'>
+      
+      
+      
+        <div class='copyright'>
+          <blockquote>
+            
+              
+                <p>博客内容遵循 署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</p>
+
+              
+            
+              
+                <p>本文永久链接是：<a href=https://tobing.top/2021/03/11/%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F/>https://tobing.top/2021/03/11/%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F/</a></p>
+              
+            
+          </blockquote>
+        </div>
+      
+      
+    </div>
+  
+  
+    
+
+
+  <div class='article-meta' id="bottom">
+    <div class='new-meta-box'>
+      
+        
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-03-11T17:59:34+08:00">
+  <a class='notlink'>
+    <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
+    <p>更新于：Mar 11, 2021</p>
+  </a>
+</div>
+
+        
+      
+        
+          
+  
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/Java/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>Java</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>动态代理</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>设计模式</p></a></div>
+
+
+        
+      
+        
+          
+  <div class="new-meta-item share -mob-share-list">
+  <div class="-mob-share-list share-body">
+    
+      
+        <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://tobing.top/2021/03/11/%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F/&title=代理模式 - tobing&summary=代理模式对于我们来说并不难理解，日常生活中我们经常能看到代理模式的影子。我们平时使用「智行」、「同程」等买票的时候，就是一个典型代理模式的应用。
+1我们(使用者) ----- 智行&#x2F;同程(代理者) ----&gt; 12306(被代理者)
+
+我们不直接通过12306买票，因为这样抢票并不方便，我们通过「智行」/「同程」等第三方专业机构来帮我们买票，这些机构建来代替我们去12306买票，同时这些机构代代理买票的过程中会增强一系列功能，如：增值服务、用户消费记录等。
+Java中也是实现了代理模式，本文我们来讨论一下「代理模式」。"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qq.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qq.png" srcset="data:image/png;base64,666">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://tobing.top/2021/03/11/%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F/&title=代理模式 - tobing&summary=代理模式对于我们来说并不难理解，日常生活中我们经常能看到代理模式的影子。我们平时使用「智行」、「同程」等买票的时候，就是一个典型代理模式的应用。
+1我们(使用者) ----- 智行&#x2F;同程(代理者) ----&gt; 12306(被代理者)
+
+我们不直接通过12306买票，因为这样抢票并不方便，我们通过「智行」/「同程」等第三方专业机构来帮我们买票，这些机构建来代替我们去12306买票，同时这些机构代代理买票的过程中会增强一系列功能，如：增值服务、用户消费记录等。
+Java中也是实现了代理模式，本文我们来讨论一下「代理模式」。"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qzone.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qzone.png" srcset="data:image/png;base64,666">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="http://service.weibo.com/share/share.php?url=https://tobing.top/2021/03/11/%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F/&title=代理模式 - tobing&summary=代理模式对于我们来说并不难理解，日常生活中我们经常能看到代理模式的影子。我们平时使用「智行」、「同程」等买票的时候，就是一个典型代理模式的应用。
+1我们(使用者) ----- 智行&#x2F;同程(代理者) ----&gt; 12306(被代理者)
+
+我们不直接通过12306买票，因为这样抢票并不方便，我们通过「智行」/「同程」等第三方专业机构来帮我们买票，这些机构建来代替我们去12306买票，同时这些机构代代理买票的过程中会增强一系列功能，如：增值服务、用户消费记录等。
+Java中也是实现了代理模式，本文我们来讨论一下「代理模式」。"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/weibo.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/weibo.png" srcset="data:image/png;base64,666">
+          
+        </a>
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+
+
+        
+      
+    </div>
+  </div>
+
+
+  
+  
+
+  
+    <div class="prev-next">
+      
+      
+        <a class='next' href='/2021/03/10/%E5%86%8D%E8%B0%88%E5%8F%8D%E5%B0%84/'>
+          <p class='title'>再谈反射<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
+          <p class='content'>JVM在加载完类之后，会在方法区产生一个对应的Class类型的对象，这个对象包含了完整类的结构信息。这个对象就像一面镜子，可以反映类的内部结构，我们形象地称这种机制为「反射」。反射的使用场景有很...</p>
+        </a>
+      
+    </div>
+  
+</article>
+
+
+  
+
+  <article class="post white-box reveal shadow" id="comments">
+    <p ct><i class='fas fa-comments'></i> 评论</p>
+    
+    <div id="valine_container" class="valine_thread">
+  <i class="fas fa-cog fa-spin fa-fw fa-2x"></i>
+</div>
+
+  </article>
+
+
+
+
+
+
+</div>
+<aside class='l_side'>
+  
+  
+    
+    
+
+
+
+  <section class="widget toc-wrapper shadow desktop mobile" id="toc-div" >
+    
+  <header>
+    
+      <i class="fas fa-list fa-fw" aria-hidden="true"></i><span class='name'>本文目录</span>
+    
+  </header>
+
+
+    <div class='content'>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1%E3%80%81%E6%A6%82%E8%BF%B0"><span class="toc-text">1、概述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2%E3%80%81%E9%9D%99%E6%80%81%E4%BB%A3%E7%90%86"><span class="toc-text">2、静态代理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3%E3%80%81%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86"><span class="toc-text">3、动态代理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-JDK-%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86"><span class="toc-text">3.1 JDK 动态代理</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-1-1-API"><span class="toc-text">3.1.1 API</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-1-2-%E4%BD%BF%E7%94%A8%E6%AD%A5%E9%AA%A4"><span class="toc-text">3.1.2 使用步骤</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-1-3-%E5%9C%BA%E6%99%AF%E5%AE%9E%E7%8E%B0"><span class="toc-text">3.1.3 场景实现</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-CGLib-%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86"><span class="toc-text">3.2 CGLib 动态代理</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2-1-API"><span class="toc-text">3.2.1 API</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2-2-%E4%BD%BF%E7%94%A8%E6%AD%A5%E9%AA%A4"><span class="toc-text">3.2.2 使用步骤</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2-3-%E4%BB%A3%E7%A0%81%E7%A4%BA%E4%BE%8B"><span class="toc-text">3.2.3 代码示例</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3-JDK-%E4%B8%8E-CGLIB-%E5%AF%B9%E6%AF%94"><span class="toc-text">3.3 JDK 与 CGLIB 对比</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4%E3%80%81%E8%A1%A5%E5%85%85-%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F%E5%AF%B9%E6%AF%94"><span class="toc-text">4、补充-代理模式对比</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1-JDK%E4%BB%A3%E7%90%86%E5%92%8CCGLIB%E4%BB%A3%E7%90%86"><span class="toc-text">4.1 JDK代理和CGLIB代理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-2-%E9%9D%99%E6%80%81%E4%BB%A3%E7%90%86%E4%B8%8E%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86"><span class="toc-text">4.2 静态代理与动态代理</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5%E3%80%81%E5%8F%82%E8%80%83"><span class="toc-text">5、参考</span></a></li></ol>
+    </div>
+  </section>
+
+
+  
+
+
+</aside>
+
+
+
+        
+        
+          <!--此文件用来存放一些不方便取值的变量-->
+<!--思路大概是将值藏到重加载的区域内-->
+
+<script>
+  window.pdata={}
+  pdata.ispage=true;
+  pdata.postTitle="代理模式";
+  pdata.commentPath="";
+  pdata.commentPlaceholder="";
+
+  var l_header=document.getElementById("l_header");
+  
+  l_header.classList.add("show");
+  
+</script>
+
+        
+      </div>
+      
+  
+  <footer class="footer clearfix">
+    <br><br>
+    
+      
+        <div class="aplayer-container">
+          
+
+
+        </div>
+      
+    
+      
+        
+          <div><p>时不待我，舍我其谁</p>
+</div>
+        
+      
+    
+      
+        
+          <div><br></div>
+        
+      
+    
+      
+        
+          <div><p><span id="lc-sv">本站总访问量为 <span id='number'><i class="fas fa-circle-notch fa-spin fa-fw" aria-hidden="true"></i></span> 次</span> <span id="lc-uv">访客数为 <span id='number'><i class="fas fa-circle-notch fa-spin fa-fw" aria-hidden="true"></i></span> 人</span></p>
+</div>
+        
+      
+    
+      
+        <div class='copyright'>
+        <p><a target="_blank" rel="noopener" href="https://gitee.com/tobing">Copyright © 2017-2020 Tobing</a></p>
+
+        </div>
+      
+    
+      
+        
+          <div><p><a target="_blank" rel="noopener" href="https://beian.miit.gov.cn/">粤ICP备2020114697号</a></p>
+</div>
+        
+      
+    
+  </footer>
+
+
+      <a id="s-top" class="fas fa-arrow-up fa-fw" href='javascript:void(0)'></a>
+    </div>
+  </div>
+  <div>
+    <script>
+window.volantis={};
+window.volantis.loadcss=document.getElementById("loadcss");
+/********************脚本懒加载函数********************************/
+function loadScript(src, cb) {
+var HEAD = document.getElementsByTagName('head')[0] || document.documentElement;
+var script = document.createElement('script');
+script.setAttribute('type','text/javascript');
+if (cb) script.onload = cb;
+script.setAttribute('src', src);
+HEAD.appendChild(script);
+}
+//https://github.com/filamentgroup/loadCSS
+var loadCSS = function( href, before, media, attributes ){
+	var doc = window.document;
+	var ss = doc.createElement( "link" );
+	var ref;
+	if( before ){
+		ref = before;
+	}
+	else {
+		var refs = ( doc.body || doc.getElementsByTagName( "head" )[ 0 ] ).childNodes;
+		ref = refs[ refs.length - 1];
+	}
+	var sheets = doc.styleSheets;
+	if( attributes ){
+		for( var attributeName in attributes ){
+			if( attributes.hasOwnProperty( attributeName ) ){
+				ss.setAttribute( attributeName, attributes[attributeName] );
+			}
+		}
+	}
+	ss.rel = "stylesheet";
+	ss.href = href;
+	ss.media = "only x";
+	function ready( cb ){
+		if( doc.body ){
+			return cb();
+		}
+		setTimeout(function(){
+			ready( cb );
+		});
+	}
+	ready( function(){
+		ref.parentNode.insertBefore( ss, ( before ? ref : ref.nextSibling ) );
+	});
+	var onloadcssdefined = function( cb ){
+		var resolvedHref = ss.href;
+		var i = sheets.length;
+		while( i-- ){
+			if( sheets[ i ].href === resolvedHref ){
+				return cb();
+			}
+		}
+		setTimeout(function() {
+			onloadcssdefined( cb );
+		});
+	};
+	function loadCB(){
+		if( ss.addEventListener ){
+			ss.removeEventListener( "load", loadCB );
+		}
+		ss.media = media || "all";
+	}
+	if( ss.addEventListener ){
+		ss.addEventListener( "load", loadCB);
+	}
+	ss.onloadcssdefined = onloadcssdefined;
+	onloadcssdefined( loadCB );
+	return ss;
+};
+</script>
+<script>
+  
+  loadCSS("https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.14/css/all.min.css", window.volantis.loadcss);
+  
+  
+  
+  
+</script>
+<!-- required -->
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5/dist/jquery.min.js"></script>
+
+<script>
+  function pjax_fancybox() {
+    $(".md .gallery").find("img").each(function () { //渲染 fancybox
+      var element = document.createElement("a"); // a 标签
+      $(element).attr("class", "fancybox");
+      $(element).attr("pjax-fancybox", "");  // 过滤 pjax
+      $(element).attr("href", $(this).attr("src"));
+      if ($(this).attr("data-original")) {
+        $(element).attr("href", $(this).attr("data-original"));
+      }
+      $(element).attr("data-fancybox", "images");
+      var caption = "";   // 描述信息
+      if ($(this).attr('alt')) {  // 判断当前页面是否存在描述信息
+        $(element).attr('data-caption', $(this).attr('alt'));
+        caption = $(this).attr('alt');
+      }
+      var div = document.createElement("div");
+      $(div).addClass("fancybox");
+      $(this).wrap(div); // 最外层套 div ，其实主要作用还是 class 样式
+      var span = document.createElement("span");
+      $(span).addClass("image-caption");
+      $(span).text(caption); // 加描述
+      $(this).after(span);  // 再套一层描述
+      $(this).wrap(element);  // 最后套 a 标签
+    })
+    $(".md .gallery").find("img").fancybox({
+      selector: '[data-fancybox="images"]',
+      hash: false,
+      loop: false,
+      closeClick: true,
+      helpers: {
+        overlay: {closeClick: true}
+      },
+      buttons: [
+        "zoom",
+        "close"
+      ]
+    });
+  };
+  function SCload_fancybox() {
+    if ($(".md .gallery").find("img").length == 0) return;
+    loadCSS("https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css", document.getElementById("loadcss"));
+    setTimeout(function() {
+      loadScript('https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js', pjax_fancybox)
+    }, 1);
+  };
+  $(function () {
+    SCload_fancybox();
+  });
+</script>
+
+
+<!-- internal -->
+
+
+
+
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.1.0/dist/lazyload.min.js"></script>
+<script>
+  // https://www.npmjs.com/package/vanilla-lazyload
+  // Set the options globally
+  // to make LazyLoad self-initialize
+  window.lazyLoadOptions = {
+    elements_selector: ".lazyload",
+    threshold: 0
+  };
+  // Listen to the initialization event
+  // and get the instance of LazyLoad
+  window.addEventListener(
+    "LazyLoad::Initialized",
+    function (event) {
+      window.lazyLoadInstance = event.detail.instance;
+    },
+    false
+  );
+  document.addEventListener('DOMContentLoaded', function () {
+    lazyLoadInstance.update();
+  });
+  document.addEventListener('pjax:complete', function () {
+    lazyLoadInstance.update();
+  });
+</script>
+
+
+
+
+  
+  
+    <script>
+      window.FPConfig = {
+        delay: 0,
+        ignoreKeywords: [],
+        maxRPS: 5,
+        hoverDelay: 25
+      };
+    </script>
+    <script defer src="https://cdn.jsdelivr.net/gh/gijo-varghese/flying-pages@2.1.2/flying-pages.min.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+<script src="/js/valine.js"></script>
+
+
+<script>
+  var GUEST_INFO = ['nick', 'mail', 'link'];
+  var meta = 'nick,mail,link'.split(',').filter(function (item) {
+    return GUEST_INFO.indexOf(item) > -1
+  });
+  var REQUIRED_FIELDS = ['nick', 'mail', 'link'];
+  var requiredFields = 'nick,mail'.split(',').filter(function (item) {
+    return REQUIRED_FIELDS.indexOf(item) > -1
+  });
+
+  function emoji(path, idx, ext) {
+    return path + "/" + path + "-" + idx + "." + ext;
+  }
+
+  var emojiMaps = {};
+  for (var i = 1; i <= 54; i++) {
+    emojiMaps['tieba-' + i] = emoji('tieba', i, 'png');
+  }
+  for (var i = 1; i <= 101; i++) {
+    emojiMaps['qq-' + i] = emoji('qq', i, 'gif');
+  }
+  for (var i = 1; i <= 116; i++) {
+    emojiMaps['aru-' + i] = emoji('aru', i, 'gif');
+  }
+  for (var i = 1; i <= 125; i++) {
+    emojiMaps['twemoji-' + i] = emoji('twemoji', i, 'png');
+  }
+  for (var i = 1; i <= 4; i++) {
+    emojiMaps['weibo-' + i] = emoji('weibo', i, 'png');
+  }
+
+  function pjax_valine() {
+    if(!document.querySelectorAll("#valine_container")[0])return;
+
+    let pagePlaceholder = pdata.commentPlaceholder || "快来评论吧:)~";
+
+    let path = pdata.commentPath;
+    if (path.length == 0) {
+      let defaultPath = '';
+      path = defaultPath || decodeURI(window.location.pathname);
+    }
+
+    var valine = new Valine();
+    valine.init({
+      el: '#valine_container',
+      meta: meta,
+      placeholder: pagePlaceholder,
+      path: path,
+      appId: "Vy5O9liYY1EruxX5WAaSWiFU-gzGzoHsz",
+      appKey: "LkbvdUheh7noXFlcQzKXf4hV",
+      pageSize: '10',
+      avatar: 'robohash',
+      lang: 'zh-cn',
+      visitor: 'true',
+      highlight: 'true',
+      mathJax: 'false',
+      enableQQ: 'true',
+      recordIP: 'false',
+      requiredFields: requiredFields,
+      emojiCDN: 'https://cdn.jsdelivr.net/gh/volantis-x/cdn-emoji/valine/',
+      emojiMaps: emojiMaps
+    })
+  }
+
+  $(function () {
+    pjax_valine();
+  });
+</script>
+
+
+
+
+
+  
+<script src="/js/app.js"></script>
+
+
+
+<!-- optional -->
+
+  <script>
+const SearchServiceimagePath="https://cdn.jsdelivr.net/gh/volantis-x/cdn-volantis@master/img/";
+const ROOT =  ("/" || "/").endsWith('/') ? ("/" || "/") : ("//" || "/" );
+
+$('.input.u-search-input').one('focus',function(){
+	
+		loadScript('https://cdn.jsdelivr.net/gh/volantis-x/cdn-volantis@2.6.4/js/search.js',setSearchService);
+	
+})
+
+function listenSearch(){
+  
+    customSearch = new HexoSearch({
+      imagePath: SearchServiceimagePath
+    });
+  
+}
+function setSearchService() {
+	listenSearch();
+	
+		document.addEventListener("pjax:success", listenSearch);
+	
+}
+</script>
+
+
+
+
+
+
+
+
+
+
+
+  <script defer>
+
+  const LCCounter = {
+    app_id: 'Vy5O9liYY1EruxX5WAaSWiFU-gzGzoHsz',
+    app_key: 'LkbvdUheh7noXFlcQzKXf4hV',
+    custom_api_server: '',
+
+    // 查询存储的记录
+    getRecord(Counter, url, title) {
+      return new Promise(function (resolve, reject) {
+        Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({url})))
+          .then(resp => resp.json())
+          .then(({results, code, error}) => {
+            if (code === 401) {
+              throw error;
+            }
+            if (results && results.length > 0) {
+              var record = results[0];
+              resolve(record);
+            } else {
+              Counter('post', '/classes/Counter', {url, title: title, times: 0})
+                .then(resp => resp.json())
+                .then((record, error) => {
+                  if (error) {
+                    throw error;
+                  }
+                  resolve(record);
+                }).catch(error => {
+                console.error('Failed to create', error);
+                reject(error);
+              });
+            }
+          }).catch((error) => {
+          console.error('LeanCloud Counter Error:', error);
+          reject(error);
+        });
+      })
+    },
+
+    // 发起自增请求
+    increment(Counter, incrArr) {
+      return new Promise(function (resolve, reject) {
+        Counter('post', '/batch', {
+          "requests": incrArr
+        }).then((res) => {
+          res = res.json();
+          if (res.error) {
+            throw res.error;
+          }
+          resolve(res);
+        }).catch((error) => {
+          console.error('Failed to save visitor count', error);
+          reject(error);
+        });
+      });
+    },
+
+    // 构建自增请求体
+    buildIncrement(objectId) {
+      return {
+        "method": "PUT",
+        "path": `/1.1/classes/Counter/${ objectId }`,
+        "body": {
+          "times": {
+            '__op': 'Increment',
+            'amount': 1
+          }
+        }
+      }
+    },
+
+    // 校验是否为有效的 UV
+    validUV() {
+      var key = 'LeanCloudUVTimestamp';
+      var flag = localStorage.getItem(key);
+      if (flag) {
+        // 距离标记小于 24 小时则不计为 UV
+        if (new Date().getTime() - parseInt(flag) <= 86400000) {
+          return false;
+        }
+      }
+      localStorage.setItem(key, new Date().getTime().toString());
+      return true;
+    },
+
+    addCount(Counter) {
+      var enableIncr = '' === 'true' && window.location.hostname !== 'localhost';
+      enableIncr = true;
+      var getterArr = [];
+      var incrArr = [];
+      // 请求 PV 并自增
+      var pvCtn = document.querySelector('#lc-sv');
+      if (pvCtn || enableIncr) {
+        var pvGetter = this.getRecord(Counter, 'https://tobing.top' + '/#lc-sv', 'Visits').then((record) => {
+          incrArr.push(this.buildIncrement(record.objectId))
+          var eles = document.querySelectorAll('#lc-sv #number');
+          if (eles.length > 0) {
+            eles.forEach((el,index,array)=>{
+              el.innerText = record.times + 1;
+              if (pvCtn) {
+                pvCtn.style.display = 'inline';
+              }
+            })
+          }
+        });
+        getterArr.push(pvGetter);
+      }
+
+      // 请求 UV 并自增
+      var uvCtn = document.querySelector('#lc-uv');
+      if (uvCtn || enableIncr) {
+        var uvGetter = this.getRecord(Counter, 'https://tobing.top' + '/#lc-uv', 'Visitors').then((record) => {
+          var vuv = this.validUV();
+          vuv && incrArr.push(this.buildIncrement(record.objectId))
+          var eles = document.querySelectorAll('#lc-uv #number');
+          if (eles.length > 0) {
+            eles.forEach((el,index,array)=>{
+              el.innerText = record.times + (vuv ? 1 : 0);
+              if (uvCtn) {
+                uvCtn.style.display = 'inline';
+              }
+            })
+          }
+        });
+        getterArr.push(uvGetter);
+      }
+
+      // 请求文章的浏览数，如果是当前页面就自增
+      var allPV = document.querySelectorAll('#lc-pv');
+      if (allPV.length > 0 || enableIncr) {
+        for (i = 0; i < allPV.length; i++) {
+          let pv = allPV[i];
+          let title = pv.getAttribute('data-title');
+          var url = 'https://tobing.top' + pv.getAttribute('data-path');
+          if (url) {
+            var viewGetter = this.getRecord(Counter, url, title).then((record) => {
+              // 是当前页面就自增
+              let curPath = window.location.pathname;
+              if (curPath.includes('index.html')) {
+                curPath = curPath.substring(0, curPath.lastIndexOf('index.html'));
+              }
+              if (pv.getAttribute('data-path') == curPath) {
+                incrArr.push(this.buildIncrement(record.objectId));
+              }
+              if (pv) {
+                var ele = pv.querySelector('#lc-pv #number');
+                if (ele) {
+                  if (pv.getAttribute('data-path') == curPath) {
+                    ele.innerText = (record.times || 0) + 1;
+                  } else {
+                    ele.innerText = record.times || 0;
+                  }
+                  pv.style.display = 'inline';
+                }
+              }
+            });
+            getterArr.push(viewGetter);
+          }
+        }
+      }
+
+      // 如果启动计数自增，批量发起自增请求
+      if (enableIncr) {
+        Promise.all(getterArr).then(() => {
+          incrArr.length > 0 && this.increment(Counter, incrArr);
+        })
+      }
+
+    },
+
+
+    fetchData(api_server) {
+      var Counter = (method, url, data) => {
+        return fetch(`${ api_server }/1.1${ url }`, {
+          method,
+          headers: {
+            'X-LC-Id': this.app_id,
+            'X-LC-Key': this.app_key,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+      this.addCount(Counter);
+    },
+
+    refreshCounter() {
+      var api_server = this.app_id.slice(-9) !== '-MdYXbMMI' ? this.custom_api_server : `https://${ this.app_id.slice(0, 8).toLowerCase() }.api.lncldglobal.com`;
+      if (api_server) {
+        this.fetchData(api_server);
+      } else {
+        fetch('https://app-router.leancloud.cn/2/route?appId=' + this.app_id)
+          .then(resp => resp.json())
+          .then(({api_server}) => {
+            this.fetchData('https://' + api_server);
+          });
+      }
+    }
+
+  };
+
+  LCCounter.refreshCounter();
+
+  document.addEventListener('pjax:complete', function () {
+    LCCounter.refreshCounter();
+  });
+</script>
+
+
+
+
+
+
+
+
+<script>
+function listennSidebarTOC() {
+  const navItems = document.querySelectorAll(".toc li");
+  if (!navItems.length) return;
+  const sections = [...navItems].map((element) => {
+    const link = element.querySelector(".toc-link");
+    const target = document.getElementById(
+      decodeURI(link.getAttribute("href")).replace("#", "")
+    );
+    link.addEventListener("click", (event) => {
+      event.preventDefault();
+      window.scrollTo({
+		top: target.offsetTop + 100,
+		
+		behavior: "smooth"
+		
+	  });
+    });
+    return target;
+  });
+
+  function activateNavByIndex(target) {
+    if (target.classList.contains("active-current")) return;
+
+    document.querySelectorAll(".toc .active").forEach((element) => {
+      element.classList.remove("active", "active-current");
+    });
+    target.classList.add("active", "active-current");
+    let parent = target.parentNode;
+    while (!parent.matches(".toc")) {
+      if (parent.matches("li")) parent.classList.add("active");
+      parent = parent.parentNode;
+    }
+  }
+
+  function findIndex(entries) {
+    let index = 0;
+    let entry = entries[index];
+    if (entry.boundingClientRect.top > 0) {
+      index = sections.indexOf(entry.target);
+      return index === 0 ? 0 : index - 1;
+    }
+    for (; index < entries.length; index++) {
+      if (entries[index].boundingClientRect.top <= 0) {
+        entry = entries[index];
+      } else {
+        return sections.indexOf(entry.target);
+      }
+    }
+    return sections.indexOf(entry.target);
+  }
+
+  function createIntersectionObserver(marginTop) {
+    marginTop = Math.floor(marginTop + 10000);
+    let intersectionObserver = new IntersectionObserver(
+      (entries, observe) => {
+        let scrollHeight = document.documentElement.scrollHeight + 100;
+        if (scrollHeight > marginTop) {
+          observe.disconnect();
+          createIntersectionObserver(scrollHeight);
+          return;
+        }
+        let index = findIndex(entries);
+        activateNavByIndex(navItems[index]);
+      },
+      {
+        rootMargin: marginTop + "px 0px -100% 0px",
+        threshold: 0,
+      }
+    );
+    sections.forEach((element) => {
+      element && intersectionObserver.observe(element);
+    });
+  }
+  createIntersectionObserver(document.documentElement.scrollHeight);
+}
+
+document.addEventListener("DOMContentLoaded", listennSidebarTOC);
+document.addEventListener("pjax:success", listennSidebarTOC);
+</script>
+
+<!-- more -->
+
+
+
+
+    
+      
+
+
+<script src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.min.js"></script>
+
+
+<script>
+    var pjax;
+    document.addEventListener('DOMContentLoaded', function () {
+      pjax = new Pjax({
+        elements: 'a[href]:not([href^="#"]):not([href="javascript:void(0)"]):not([pjax-fancybox])',
+        selectors: [
+          "title",
+          "#l_cover",
+          "#pjax-container",
+          "#pjax-header-nav-list"
+        ],
+        cacheBust: false,   // url 地址追加时间戳，用以避免浏览器缓存
+        timeout: 5000
+      });
+    });
+
+    document.addEventListener('pjax:send', function (e) {
+      //window.stop(); // 相当于点击了浏览器的停止按钮
+
+      try {
+        var currentUrl = window.location.pathname;
+        var targetUrl = e.triggerElement.href;
+        var banUrl = [""];
+        if (banUrl[0] != "") {
+          banUrl.forEach(item => {
+            if(currentUrl.indexOf(item) != -1 || targetUrl.indexOf(item) != -1) {
+              window.location.href = targetUrl;
+            }
+          });
+        }
+      } catch (error) {}
+
+      window.subData = null; // 移除标题（用于一二级导航栏切换处）
+      if (typeof $.fancybox != "undefined") {
+        $.fancybox.close();    // 关闭弹窗
+      }
+      volantis.$switcher.removeClass('active'); // 关闭移动端激活的搜索框
+      volantis.$header.removeClass('z_search-open'); // 关闭移动端激活的搜索框
+      volantis.$wrapper.removeClass('sub'); // 跳转页面时关闭二级导航
+
+      // 解绑事件 避免重复监听
+      volantis.$topBtn.unbind('click');
+      $('.menu a').unbind('click');
+      $(window).unbind('resize');
+      $(window).unbind('scroll');
+      $(document).unbind('scroll');
+      $(document).unbind('click');
+      $('body').unbind('click');
+	  
+    });
+
+    document.addEventListener('pjax:complete', function () {
+      // 关于百度统计对 SPA 页面的处理：
+      // 方案一：百度统计>管理>单页应用设置中，打开开启按钮即可对SPA进行统计。 https://tongji.baidu.com/web/help/article?id=324
+      // 方案二：取消注释下列代码。 https://tongji.baidu.com/web/help/article?id=235
+       
+
+      // 关于谷歌统计对 SPA 页面的处理：
+      // 当应用以动态方式加载内容并更新地址栏中的网址时，也应该更新通过 gtag.js 存储的网页网址。
+      // https://developers.google.cn/analytics/devguides/collection/gtagjs/single-page-applications?hl=zh-cn
+      
+	 
+
+      $('.nav-main').find('.list-v').not('.menu-phone').removeAttr("style",""); // 移除小尾巴的移除
+      $('.menu-phone.list-v').removeAttr("style",""); // 移除小尾巴的移除
+      $('script[data-pjax], .pjax-reload script').each(function () {
+        $(this).parent().append($(this).remove());
+      });
+      try{
+          if (typeof $.fancybox == "undefined") {
+            SCload_fancybox();
+          } else {
+            pjax_fancybox();
+          }
+        
+        
+        
+        
+        
+        
+          pjax_valine();
+        
+        
+        
+        
+        
+      } catch (e) {
+        console.log(e);
+      }
+	  
+    });
+
+    document.addEventListener('pjax:error', function (e) {
+	  
+      window.location.href = e.triggerElement.href;
+    });
+</script>
+
+    
+  </div>
+</body>
+</html>
