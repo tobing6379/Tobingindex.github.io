@@ -1,0 +1,1527 @@
+<!DOCTYPE html>
+<html lang="zh-Hans,zh-CN,en,zh-HK,zh-TW,default">
+<head hexo-theme='https://github.com/volantis-x/hexo-theme-volantis/tree/4.2.0'>
+  <meta charset="utf-8">
+  <!-- SEO相关 -->
+  
+    
+  
+  <!-- 渲染优化 -->
+  <meta http-equiv='x-dns-prefetch-control' content='on' />
+  <link rel='dns-prefetch' href='https://cdn.jsdelivr.net'>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <!-- 页面元数据 -->
+  
+  <title>CompletableFuture 实践 - tobing</title>
+  
+    <meta name="keywords" content="Java,CompletableFuture">
+  
+
+  
+    <meta name="description" content="有时候，合适的异步编排可以大大提高数据获取的效率，本文介绍在项目中如何使用 CompletableFuture 实现异步编排，进而加速订单数据的获取。">
+  
+
+  <!-- feed -->
+  
+
+  <!-- import meta -->
+  
+
+  <!-- link -->
+  
+    <link rel="shortcut icon" type='image/x-icon' href="https://cdn.jsdelivr.net/gh/xaoxuu/assets@master/favicon/favicon.ico">
+  
+
+  <!-- import link -->
+  
+
+  
+    
+<link rel="stylesheet" href="/css/first.css">
+
+  
+
+  
+  <link rel="stylesheet" href="/css/style.css" media="print" onload="this.media='all';this.onload=null">
+  <noscript><link rel="stylesheet" href="/css/style.css"></noscript>
+  
+
+  <script id="loadcss"></script>
+
+</head>
+
+<body>
+  
+
+<header id="l_header" class="l_header auto shadow blur show" style='opacity: 0' >
+  <div class='container'>
+  <div id='wrapper'>
+    <div class='nav-sub'>
+      <p class="title"></p>
+      <ul class='switcher nav-list-h m-phone' id="pjax-header-nav-list">
+        <li><a id="s-comment" class="fas fa-comments fa-fw" target="_self" href='javascript:void(0)'></a></li>
+        
+          <li><a id="s-toc" class="s-toc fas fa-list fa-fw" target="_self" href='javascript:void(0)'></a></li>
+        
+      </ul>
+    </div>
+		<div class="nav-main">
+      
+        
+        <a class="title flat-box" target="_self" href='/'>
+          
+          
+            <i class='https://portrait.gitee.com/uploads/avatars/user/1875/5627411_tobing_1599371351.png'></i>
+          
+          
+            tobing's blog
+          
+        </a>
+      
+
+			<div class='menu navigation'>
+				<ul class='nav-list-h m-pc'>
+          
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/
+                  
+                  
+                  
+                    id="home"
+                  >
+                  <i class='fas fa-rss fa-fw'></i>博客
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/categories/
+                  
+                  
+                  
+                    id="categories"
+                  >
+                  <i class='fas fa-folder-open fa-fw'></i>分类
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/tags/
+                  
+                  
+                  
+                    id="tags"
+                  >
+                  <i class='fas fa-tags fa-fw'></i>标签
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/archives/
+                  
+                  
+                  
+                    id="archives"
+                  >
+                  <i class='fas fa-archive fa-fw'></i>归档
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/friends/
+                  
+                  
+                  
+                    id="friends"
+                  >
+                  <i class='fas fa-link fa-fw'></i>友链
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/about/
+                  
+                  
+                  
+                    id="about"
+                  >
+                  <i class='fas fa-info-circle fa-fw'></i>关于
+                </a>
+                
+              </li>
+            
+          
+          
+				</ul>
+			</div>
+
+      <div class="m_search">
+        <form name="searchform" class="form u-search-form">
+          <i class="icon fas fa-search fa-fw"></i>
+          <input type="text" class="input u-search-input" placeholder="Search..." />
+        </form>
+      </div>
+
+			<ul class='switcher nav-list-h m-phone'>
+				
+					<li><a class="s-search fas fa-search fa-fw" target="_self" href='javascript:void(0)'></a></li>
+				
+				<li>
+          <a class="s-menu fas fa-bars fa-fw" target="_self" href='javascript:void(0)'></a>
+          <ul class="menu-phone list-v navigation white-box">
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/
+                  
+                  
+                  
+                    id="home"
+                  >
+                  <i class='fas fa-rss fa-fw'></i>博客
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/categories/
+                  
+                  
+                  
+                    id="categories"
+                  >
+                  <i class='fas fa-folder-open fa-fw'></i>分类
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/tags/
+                  
+                  
+                  
+                    id="tags"
+                  >
+                  <i class='fas fa-tags fa-fw'></i>标签
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/archives/
+                  
+                  
+                  
+                    id="archives"
+                  >
+                  <i class='fas fa-archive fa-fw'></i>归档
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/friends/
+                  
+                  
+                  
+                    id="friends"
+                  >
+                  <i class='fas fa-link fa-fw'></i>友链
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/about/
+                  
+                  
+                  
+                    id="about"
+                  >
+                  <i class='fas fa-info-circle fa-fw'></i>关于
+                </a>
+                
+              </li>
+            
+          
+            
+          </ul>
+        </li>
+			</ul>
+		</div>
+	</div>
+  </div>
+</header>
+
+  <div id="l_body">
+    <div id="l_cover">
+  
+    
+        <div id="full" class='cover-wrapper post search' style="display: none;">
+          
+            <div class='cover-bg lazyload placeholder' data-bg="https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/033.jpg"></div>
+          
+          <div class='cover-body'>
+  <div class='top'>
+    
+    
+      <p class="title">Welcome !</p>
+    
+    
+  </div>
+  <div class='bottom'>
+    
+      <div class="m_search">
+        <form name="searchform" class="form u-search-form">
+          <input type="text" class="input u-search-input" placeholder="Search..." />
+          <i class="icon fas fa-search fa-fw"></i>
+        </form>
+      </div>
+    
+    <div class='menu navigation'>
+      <div class='list-h'>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+          <div id="scroll-down" style="display: none;"><i class="fa fa-chevron-down scroll-down-effects"></i></div>
+        </div>
+    
+  
+  </div>
+
+    <div id='safearea'>
+      <div class='body-wrapper' id="pjax-container">
+        
+
+<div class='l_main'>
+  <article class="article post white-box reveal md shadow article-type-post" id="post" itemscope itemprop="blogPost">
+  
+
+
+  
+  <div class="article-meta" id="top">
+    
+    
+    
+      <h1 class="title">
+        CompletableFuture 实践
+      </h1>
+      <div class='new-meta-box'>
+        
+          
+            
+<div class='new-meta-item author'>
+  <a class='author' href="/" rel="nofollow">
+    <img no-lazy src="https://portrait.gitee.com/uploads/avatars/user/1875/5627411_tobing_1599371351.png">
+    <p>tobing</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+  <div class='new-meta-item category'>
+    <a class='notlink'>
+      <i class="fas fa-folder-open fa-fw" aria-hidden="true"></i>
+      <a class="category-link" href="/categories/%E6%8A%80%E6%9C%AF%E5%BA%94%E7%94%A8/">技术应用</a>
+    </a>
+  </div>
+
+
+          
+        
+          
+            <div class="new-meta-item date">
+  <a class='notlink'>
+    <i class="fas fa-calendar-alt fa-fw" aria-hidden="true"></i>
+    <p>发布于：Jun 22, 2021</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+  <div class="new-meta-item browse leancloud">
+    <a class='notlink'>
+      
+      <div id="lc-pv" data-title="CompletableFuture 实践" data-path="/2021/06/22/completablefuture-practice/">
+        <i class="fas fa-eye fa-fw" aria-hidden="true"></i>
+        <span id='number'><i class="fas fa-circle-notch fa-spin fa-fw" aria-hidden="true"></i></span>
+        次浏览
+      </div>
+    </a>
+  </div>
+
+
+          
+        
+      </div>
+    
+  </div>
+
+
+  
+  <p>有时候，合适的异步编排可以大大提高数据获取的效率，本文介绍在项目中如何使用 CompletableFuture 实现异步编排，进而加速订单数据的获取。</p>
+<a id="more"></a>
+
+<h1 id="CompletableFuture-实践"><a href="#CompletableFuture-实践" class="headerlink" title="CompletableFuture 实践"></a>CompletableFuture 实践</h1><h3 id="一、简介"><a href="#一、简介" class="headerlink" title="一、简介"></a>一、简介</h3><p>在 JDK1.5 中引入了 Future 接口来描述异步运算的结果。可以通过方法 isDone 方法来检查计算是否完成，或者使用 get 阻塞调用线程，直到计算完成返回结果，或者通过 cancel 方法停止任务的执行。</p>
+<p>虽然 Future 接口提供了异步执行任务的能力，但是对于结果的获取却不是很方便，只能通过阻塞或轮询方式得到任务的结果。阻塞方式显然和异步编程的初衷背离，轮询的方式有会浪费无谓的CPU资源，而且也不能及时的计算结果。</p>
+<p>很多语言， 比如 Node.js， 采用回调的方式实现异步编程。 Java 的一些框架， 比如 Netty， 自己扩展了 Java 的 <code>Future</code>接口， 提供了<code>addListener</code>等多个扩展方法； Google guava 也提供了通用的扩展 Future； Scala 也提供了简单易用且功能强大的 Future/Promise 异步编程模式。  但Future并不可以将其他运行组合或则进行异常处理的方法。</p>
+<p>同样地，在 Java 8 中, 新增加了一个包含 50 个方法左右的类: CompletableFuture， 提供了非常强大的Future 的扩展功能， 可以帮助我们简化异步编程的复杂性， 提供了函数式编程的能力， 可以通过回调的方式处理计算结果， 并且提供了转换和组合 CompletableFuture 的方法。CompletableFuture 类实现了 Future 接口， 所以你还是可以像以前一样通过<code>get</code>方法阻塞或者轮询的方式获得结果， 但是这种方式不推荐使用 。</p>
+<p>CompletableFuture 和 FutureTask 同属于 Future 接口的实现类， 都可以获取线程的执行结果。  </p>
+<p><img src="https://gitee.com/tobing/imagebed/raw/master/image-20210622184727953.png" class="lazyload" data-srcset="https://gitee.com/tobing/imagebed/raw/master/image-20210622184727953.png" srcset="data:image/png;base64,666" alt="image-20210622184727953"></p>
+<p>有了对 CompletableFuture 的基本了解，下面来简单介绍 Completeable 的一些 API 。</p>
+<h4 id="创建异步对象"><a href="#创建异步对象" class="headerlink" title="创建异步对象"></a>创建异步对象</h4><p>CompletableFuture 提供了四个静态方法来创建一个异步操作。</p>
+<p><img src="https://gitee.com/tobing/imagebed/raw/master/image-20210622194843007.png" class="lazyload" data-srcset="https://gitee.com/tobing/imagebed/raw/master/image-20210622194843007.png" srcset="data:image/png;base64,666" alt="image-20210622194843007"></p>
+<ul>
+<li>runXxxx 都是没有返回结果的， supplyXxx 都是可以获取返回结果的 ；</li>
+<li>可以传入自定义的线程池， 否则就用默认的线程池；  </li>
+</ul>
+<h4 id="计算完成回调方法"><a href="#计算完成回调方法" class="headerlink" title="计算完成回调方法"></a>计算完成回调方法</h4><p><img src="https://gitee.com/tobing/imagebed/raw/master/image-20210622194800177.png" class="lazyload" data-srcset="https://gitee.com/tobing/imagebed/raw/master/image-20210622194800177.png" srcset="data:image/png;base64,666" alt="image-20210622194800177"></p>
+<ul>
+<li>whenComplete 可以处理正常和异常的计算结果，exceptionally 处理异常情况；</li>
+<li>whenCompleteAsync 把任务交给线程池异步执行，whenComplete 是执行当前任务的线程继续执行；</li>
+</ul>
+<h4 id="handle-方法"><a href="#handle-方法" class="headerlink" title="handle 方法"></a>handle 方法</h4><p><img src="https://gitee.com/tobing/imagebed/raw/master/image-20210622194630102.png" class="lazyload" data-srcset="https://gitee.com/tobing/imagebed/raw/master/image-20210622194630102.png" srcset="data:image/png;base64,666" alt="image-20210622194630102"></p>
+<ul>
+<li>和 complete 类似，可以对结果做最后处理（可处理异常），可改变返回值。</li>
+</ul>
+<h4 id="线程串行化方法"><a href="#线程串行化方法" class="headerlink" title="线程串行化方法"></a>线程串行化方法</h4><p><img src="https://gitee.com/tobing/imagebed/raw/master/image-20210622194544713.png" class="lazyload" data-srcset="https://gitee.com/tobing/imagebed/raw/master/image-20210622194544713.png" srcset="data:image/png;base64,666" alt="image-20210622194544713"></p>
+<ul>
+<li>thenApply  方法：当一个线程依赖另一个线程时，获取上一个任务返回的结果，并返回当前任务的返回值；</li>
+<li>thenAccept 方法：接收任务的处理结果，并消费处理，无返回结果；</li>
+<li>thenRun 方法：只要上面任务完成，就开始执行 thenRun，只是处理完任务后，执行 thenRun 的后继操作。</li>
+</ul>
+<h4 id="两任务组合-都完成"><a href="#两任务组合-都完成" class="headerlink" title="两任务组合-都完成"></a>两任务组合-都完成</h4><p><img src="https://gitee.com/tobing/imagebed/raw/master/image-20210622194451406.png" class="lazyload" data-srcset="https://gitee.com/tobing/imagebed/raw/master/image-20210622194451406.png" srcset="data:image/png;base64,666" alt="image-20210622194451406"></p>
+<p>两个任务都必须完成，才触发该任务。</p>
+<ul>
+<li><p>thenCombine： 组合两个 future， 获取两个 future 的返回结果，并返回当前任务的返回值</p>
+</li>
+<li><p>thenAcceptBoth： 组合两个 future， 获取两个 future 任务的返回结果， 然后处理任务，没有返回值。</p>
+</li>
+<li><p>runAfterBoth： 组合两个 future， 不需要获取 future 的结果， 只需两个 future 处理完任务后，处理该任务。  </p>
+<h4 id="两任务完成-完成其一"><a href="#两任务完成-完成其一" class="headerlink" title="两任务完成-完成其一"></a>两任务完成-完成其一</h4></li>
+</ul>
+<p><img src="https://gitee.com/tobing/imagebed/raw/master/image-20210622194935711.png" class="lazyload" data-srcset="https://gitee.com/tobing/imagebed/raw/master/image-20210622194935711.png" srcset="data:image/png;base64,666" alt="image-20210622194935711"></p>
+<p>当两任务中，任意一个Future任务完成是，执行任务。</p>
+<ul>
+<li><p>applyToEither： 两个任务有一个执行完成， 获取它的返回值， 处理任务并有新的返回值。</p>
+</li>
+<li><p>acceptEither： 两个任务有一个执行完成， 获取它的返回值， 处理任务， 没有新的返回值。</p>
+</li>
+<li><p>runAfterEither： 两个任务有一个执行完成， 不需要获取 future 的结果， 处理任务， 也没有返回值。  </p>
+</li>
+</ul>
+<h4 id="多任务组合"><a href="#多任务组合" class="headerlink" title="多任务组合"></a>多任务组合</h4><p><img src="https://gitee.com/tobing/imagebed/raw/master/image-20210622195045142.png" class="lazyload" data-srcset="https://gitee.com/tobing/imagebed/raw/master/image-20210622195045142.png" srcset="data:image/png;base64,666" alt="image-20210622195045142"></p>
+<ul>
+<li>allOf：等待所有任务完成</li>
+<li>anyOf：只要一个任务完成</li>
+</ul>
+<h3 id="二、CompletableFuture-在项目的运用"><a href="#二、CompletableFuture-在项目的运用" class="headerlink" title="二、CompletableFuture 在项目的运用"></a>二、CompletableFuture 在项目的运用</h3><p>在查询商品详情页时，需要调用多个模块的接口获取多种数据（如会员模块的用户数据、库存模块的库存数据、优惠模块的优惠卷数据等等）。</p>
+<p>由于这些数据分布在不同的服务中，这些数据的时候需要通过远程调用来获取，如常见的OpenFeign。</p>
+<p>由于部分数据不存在依赖性限制，即一些数据查询是可以相对独立的，此时可以考虑使用异步编排来同时获取数据，优化查询效率。</p>
+<p> 如在项目<a target="_blank" rel="noopener" href="https://github.com/Tobingindex/platform/blob/master/platform-order/src/main/java/top/tobing/platform/order/service/impl/OrderServiceImpl.java#L91-L140">platform-order#toTrade</a>查询创建订单时，需要调用三个服务：</p>
+<ul>
+<li>调用【用户服务】查询购物车地址；（假设100ms完成）</li>
+<li>调用【用户服务】查询用户优惠信息；（假设101ms完成）</li>
+<li>调用【购物车服务】查询购物车选中项；（假设102ms完成）</li>
+<li>调用【库存服务】查询商品库存；（假设103ms完成）</li>
+</ul>
+<img src="https://gitee.com/tobing/imagebed/raw/master/Precursor_figure.jpg" class="lazyload" data-srcset="https://gitee.com/tobing/imagebed/raw/master/Precursor_figure.jpg" srcset="data:image/png;base64,666" alt="Precursor_figure" style="zoom:67%;" />
+
+<p>如果采用串行执行，则需要花费：100ms+101ms+102ms+103ms=405ms（串行执行，依次查询）</p>
+<p>如果采用异步编排，则需要花费：102ms+103ms=205ms（只需要考虑最长路径）</p>
+<p>从分析可以得到，如果不考虑线程上下文切换等因素，异步编排将能够大大提高商品详情页的数据。</p>
+<blockquote>
+<p>简化代码如下：CompletableFuture + ThreadPoolExecutor</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> OrderConfirmVo <span class="title">toTrade</span><span class="params">()</span> <span class="keyword">throws</span> ExecutionException, InterruptedException </span>&#123;</span><br><span class="line">    OrderConfirmVo confirmVo = <span class="keyword">new</span> OrderConfirmVo();</span><br><span class="line">    MemberRespVo memberRespVo = UserContextHolder.getCurrentUser();</span><br><span class="line"></span><br><span class="line">    CompletableFuture&lt;Void&gt; getAddress = CompletableFuture.runAsync(() -&gt; &#123;</span><br><span class="line">        <span class="comment">// 1、查询所有的收货地址【用户服务】</span></span><br><span class="line">        List&lt;MemberAddressVo&gt; address = memberFeignService.addressList(memberRespVo.getId());</span><br><span class="line">        confirmVo.setAddressList(address);</span><br><span class="line">    &#125;, poolExecutor);</span><br><span class="line"></span><br><span class="line">    CompletableFuture&lt;Void&gt; getItems = CompletableFuture.supplyAsync(() -&gt; &#123;</span><br><span class="line">        <span class="comment">// 2、查询购物车选中的商品【购物车服务】</span></span><br><span class="line">        List&lt;OrderItemVo&gt; items = cartFeignService.listOwnCheckItem();</span><br><span class="line">        confirmVo.setItemVoList(items);</span><br><span class="line">        <span class="keyword">return</span> items;</span><br><span class="line">    &#125;, poolExecutor).thenAcceptAsync((items) -&gt; &#123;</span><br><span class="line">        <span class="comment">// 3、查询远程是否存在库存【库存服务】</span></span><br><span class="line">        List&lt;SkuStockSearchVo&gt; stockStatus = wareFeignService.batchSkuStock(skuIds);</span><br><span class="line">        <span class="keyword">if</span> (stockStatus != <span class="keyword">null</span>) &#123;</span><br><span class="line">            Map&lt;Long, Boolean&gt; map = stockStatus.stream().collect(Collectors.toMap(SkuStockSearchVo::getSkuId, SkuStockSearchVo::getStock));</span><br><span class="line">            confirmVo.setHasStockMap(map);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;, poolExecutor);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 4、查询用户优惠信息【用户服务】（简化处理）</span></span><br><span class="line">    Integer integration = memberRespVo.getIntegration();</span><br><span class="line">    confirmVo.setIntegration(integration);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 5、生成防重令牌，分别保存在Redis与返回页面，这样就可以在页面提交的时候直接校验（保重接口幂等性）</span></span><br><span class="line">    String orderToken = UUID.randomUUID().toString().replace(<span class="string">&quot;-&quot;</span>, <span class="string">&quot;&quot;</span>);</span><br><span class="line">    confirmVo.setOrderToken(orderToken);</span><br><span class="line">    redisTemplate.opsForValue().set(PlatformOrderConstant.USER_ORDER_TOKEN_PREFIX + memberRespVo.getId(), orderToken);</span><br><span class="line"></span><br><span class="line">    CompletableFuture.allOf(getAddress, getItems).get();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> confirmVo;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="三、用户信息丢失"><a href="#三、用户信息丢失" class="headerlink" title="三、用户信息丢失"></a>三、用户信息丢失</h3><p>在使用异步编排的时候，需要特别注意一个问题，就是<strong>异步化是否会对原有的逻辑造成影响</strong>。</p>
+<p>在本项目中，由于采用的是 Cookie 进行身份识别，如果直接采用上述代码而不是使用添加额外措施，将会导致在远程调用的时候身份信息丢失，进而导致查询远程接口失败。下面我们就来观察直接异步化存在的问题。</p>
+<blockquote>
+<p>首先，将异步化的程序运行一遍，查看是否能够正常获取数据（串行时是正常的）</p>
+</blockquote>
+<div class="gallery ">
+              <p><img src="https://gitee.com/tobing/imagebed/raw/master/image-20210621221155986.png" class="lazyload" data-srcset="https://gitee.com/tobing/imagebed/raw/master/image-20210621221155986.png" srcset="data:image/png;base64,666" alt="image-20210621221155986"></p>
+            </div>
+
+<p>调用【购物车服务】时报错，查看报错信息发现用户信息尚未认证。</p>
+<blockquote>
+<p>在购物车服务，在拦截器中会根据 Cookie 信息获取验证用户，如果授权成功则会将信息存放到ThreadLocal中</p>
+</blockquote>
+<div class="gallery ">
+              <p><img src="https://gitee.com/tobing/imagebed/raw/master/image-20210621221455094.png" class="lazyload" data-srcset="https://gitee.com/tobing/imagebed/raw/master/image-20210621221455094.png" srcset="data:image/png;base64,666" alt="image-20210621221455094"></p>
+            </div>
+
+<blockquote>
+<p>分析：为什么在串行编程时通过openfeign调用第三方就可以？而异步编排就会丢失信息呢？</p>
+</blockquote>
+<p>默认情况下，使用OpenFeign的时候会丢失header信息的，其中丢失的信息就包含了Cookie信息。</p>
+<p>为了解决OpenFeign构造请求丢失header信息问题，考虑配置一个请求拦截器RequestInterceptor，统一拦截请求来完成设置header等相关请求。</p>
+<p>下面代码中，配置了一个RequestInterceptor，当OpenFeign都会经过该拦截器，而该拦截器会为每个请求添加上原请求的header信息（其中包含了用于身份认证的Cookie信息）。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FeignConfig</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> RequestInterceptor <span class="title">requestInterceptor</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> RequestInterceptor() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">apply</span><span class="params">(RequestTemplate template)</span> </span>&#123;</span><br><span class="line">                <span class="comment">// 1、获取到进入该请求的上下文保持器</span></span><br><span class="line">                ServletRequestAttributes requestAttributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();</span><br><span class="line">                <span class="keyword">if</span> (requestAttributes != <span class="keyword">null</span>) &#123;</span><br><span class="line">                    <span class="comment">// 2、从中获取Request对象</span></span><br><span class="line">                    HttpServletRequest request = requestAttributes.getRequest();</span><br><span class="line">                    <span class="comment">// 3、从请求头中获取Cookie</span></span><br><span class="line">                    String cookies = request.getHeader(<span class="string">&quot;Cookie&quot;</span>);</span><br><span class="line">                    <span class="comment">// 4、将Cookie放到Feign的远程调用的请求中</span></span><br><span class="line">                    template.header(<span class="string">&quot;Cookie&quot;</span>, cookies);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>那么问题来了，原请求的信息是如何获取到的呢？那就是通过<a target="_blank" rel="noopener" href="https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/web/context/request/RequestContextHolder.html">RequestContextHolder</a>，通过RequestContextHolder可以获取到当前请求的信息，其中就包含了当前请求中的header信息。</p>
+<p>而RequestContextHolder内部是通过“thread-bound”方式来共享请求信息的。当一个请求来临，Web容器会为其分配一个用于该请求的线程。由于每个请求都会有一个与之对应的线程进行处理，于是人们就考虑将请求的信息保存在ThreadLocal中，实现请求信息与线程绑定。这样就可以实现，在当前请求的任意位置，只要属于当前线程，就可以获取到请求信息，这也是RequestContextHolder的基本原理。</p>
+<div class="gallery ">
+              <p><img src="https://gitee.com/tobing/imagebed/raw/master/image-20210622170719206.png" class="lazyload" data-srcset="https://gitee.com/tobing/imagebed/raw/master/image-20210622170719206.png" srcset="data:image/png;base64,666" alt="image-20210622170719206"></p>
+            </div>
+
+<p>现在回到一开始的疑问，为啥在串行执行时OpenFeign过载的请求就能成功获取到数据，而异步编排就不行呢？</p>
+<p>通过上面的分析，原因就很明了了，在串行执行中OpenFeign构造请求时始终是在一个请求中，通过该请求可获取到当前的信息；但是在异步编排时，是在线程池获取的线程中构造请求，自然就没办法拿到数据，自然就没办法获取到请求头数据了。</p>
+<p>那么是不是使用了OpenFeign就没办法使用异步编排了呢？显然不是，我们只需要在异步编排内部重新设置当前的请求属性即可了，详情看代码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> OrderConfirmVo <span class="title">toTrade</span><span class="params">()</span> <span class="keyword">throws</span> ExecutionException, InterruptedException </span>&#123;</span><br><span class="line">    OrderConfirmVo confirmVo = <span class="keyword">new</span> OrderConfirmVo();</span><br><span class="line">    MemberRespVo memberRespVo = UserContextHolder.getCurrentUser();</span><br><span class="line">    <span class="comment">// 在异步编排外部获取当前请求的信息。【主处理线程】</span></span><br><span class="line">    RequestAttributes requestAttributes = RequestContextHolder.getRequestAttributes();</span><br><span class="line"></span><br><span class="line">    CompletableFuture&lt;Void&gt; getAddress = CompletableFuture.runAsync(() -&gt; &#123;</span><br><span class="line">        <span class="comment">// 在异步编排内部重新设置主处理线程的请求信息，使OpenFeign在构造请求时可以顺利获取到相应的信息。</span></span><br><span class="line">        RequestContextHolder.setRequestAttributes(requestAttributes);</span><br><span class="line">        <span class="comment">// ...</span></span><br><span class="line">    &#125;, poolExecutor);</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>自此，在OpenFeign下使用CompletableFutrue的问题总算是解决完毕。</p>
+<p>如果需要查看更加详细的代码，通过去访问Github中<a target="_blank" rel="noopener" href="https://github.com/Tobingindex/platform/blob/master/platform-order/src/main/java/top/tobing/platform/order/service/impl/OrderServiceImpl.java#L91-L140">Platform仓库</a>进行查看。</p>
+<h3 id="四、参考文献"><a href="#四、参考文献" class="headerlink" title="四、参考文献"></a>四、参考文献</h3><ul>
+<li><p><a target="_blank" rel="noopener" href="https://www.baeldung.com/java-completablefuture">Guide To CompletableFuture</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://github.com/Tobingindex/platform/blob/master/platform-order/src/main/java/top/tobing/platform/order/service/impl/OrderServiceImpl.java#L91-L140">platform-order#toTrade</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://github.com/Tobingindex/platform/blob/master/platform-order/src/main/java/top/tobing/platform/order/config/FeignConfig.java">platform-order#FeignConfig</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://github.com/OpenFeign/feign/issues/214">Better support for request-specific headers</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://www.baeldung.com/spring-cloud-openfeign#interceptors">Introduction to Spring Cloud OpenFeign</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/1600718">Feign的拦截器RequestInterceptor</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/web/context/request/RequestContextHolder.html">Class RequestContextHolder</a></p>
+</li>
+</ul>
+
+  
+  
+    
+    <div class='footer'>
+      
+      
+      
+        <div class='copyright'>
+          <blockquote>
+            
+              
+                <p>博客内容遵循 署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</p>
+
+              
+            
+              
+                <p>本文永久链接是：<a href=https://tobing.top/2021/06/22/completablefuture-practice/>https://tobing.top/2021/06/22/completablefuture-practice/</a></p>
+              
+            
+          </blockquote>
+        </div>
+      
+      
+    </div>
+  
+  
+    
+
+
+  <div class='article-meta' id="bottom">
+    <div class='new-meta-box'>
+      
+        
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-06-22T20:32:18+08:00">
+  <a class='notlink'>
+    <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
+    <p>更新于：Jun 22, 2021</p>
+  </a>
+</div>
+
+        
+      
+        
+          
+  
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/Java/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>Java</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/CompletableFuture/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>CompletableFuture</p></a></div>
+
+
+        
+      
+        
+          
+  <div class="new-meta-item share -mob-share-list">
+  <div class="-mob-share-list share-body">
+    
+      
+        <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://tobing.top/2021/06/22/completablefuture-practice/&title=CompletableFuture 实践 - tobing&summary=有时候，合适的异步编排可以大大提高数据获取的效率，本文介绍在项目中如何使用 CompletableFuture 实现异步编排，进而加速订单数据的获取。"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qq.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qq.png" srcset="data:image/png;base64,666">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://tobing.top/2021/06/22/completablefuture-practice/&title=CompletableFuture 实践 - tobing&summary=有时候，合适的异步编排可以大大提高数据获取的效率，本文介绍在项目中如何使用 CompletableFuture 实现异步编排，进而加速订单数据的获取。"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qzone.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qzone.png" srcset="data:image/png;base64,666">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="http://service.weibo.com/share/share.php?url=https://tobing.top/2021/06/22/completablefuture-practice/&title=CompletableFuture 实践 - tobing&summary=有时候，合适的异步编排可以大大提高数据获取的效率，本文介绍在项目中如何使用 CompletableFuture 实现异步编排，进而加速订单数据的获取。"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/weibo.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/weibo.png" srcset="data:image/png;base64,666">
+          
+        </a>
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+
+
+        
+      
+    </div>
+  </div>
+
+
+  
+  
+
+  
+    <div class="prev-next">
+      
+      
+        <a class='next' href='/2021/06/20/Redis-Datastruct/'>
+          <p class='title'>Redis-数据结构<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
+          <p class='content'>Redis 是非常常见的中间件，本文将介绍 Redis 的数据结构。
+
+
+Redis-数据结构与对象一、常用数据结构概述Redis 底层的数据结构一共有 6 种，分别是：简单动态字符串（SDS）...</p>
+        </a>
+      
+    </div>
+  
+</article>
+
+
+  
+
+  <article class="post white-box reveal shadow" id="comments">
+    <p ct><i class='fas fa-comments'></i> 评论</p>
+    
+    <div id="valine_container" class="valine_thread">
+  <i class="fas fa-cog fa-spin fa-fw fa-2x"></i>
+</div>
+
+  </article>
+
+
+
+
+
+
+</div>
+<aside class='l_side'>
+  
+  
+    
+    
+
+
+
+  <section class="widget toc-wrapper shadow desktop mobile" id="toc-div" >
+    
+  <header>
+    
+      <i class="fas fa-list fa-fw" aria-hidden="true"></i><span class='name'>本文目录</span>
+    
+  </header>
+
+
+    <div class='content'>
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E7%AE%80%E4%BB%8B"><span class="toc-text">一、简介</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E5%BC%82%E6%AD%A5%E5%AF%B9%E8%B1%A1"><span class="toc-text">创建异步对象</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AE%A1%E7%AE%97%E5%AE%8C%E6%88%90%E5%9B%9E%E8%B0%83%E6%96%B9%E6%B3%95"><span class="toc-text">计算完成回调方法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#handle-%E6%96%B9%E6%B3%95"><span class="toc-text">handle 方法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BA%BF%E7%A8%8B%E4%B8%B2%E8%A1%8C%E5%8C%96%E6%96%B9%E6%B3%95"><span class="toc-text">线程串行化方法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%A4%E4%BB%BB%E5%8A%A1%E7%BB%84%E5%90%88-%E9%83%BD%E5%AE%8C%E6%88%90"><span class="toc-text">两任务组合-都完成</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%A4%E4%BB%BB%E5%8A%A1%E5%AE%8C%E6%88%90-%E5%AE%8C%E6%88%90%E5%85%B6%E4%B8%80"><span class="toc-text">两任务完成-完成其一</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A4%9A%E4%BB%BB%E5%8A%A1%E7%BB%84%E5%90%88"><span class="toc-text">多任务组合</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8C%E3%80%81CompletableFuture-%E5%9C%A8%E9%A1%B9%E7%9B%AE%E7%9A%84%E8%BF%90%E7%94%A8"><span class="toc-text">二、CompletableFuture 在项目的运用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E7%94%A8%E6%88%B7%E4%BF%A1%E6%81%AF%E4%B8%A2%E5%A4%B1"><span class="toc-text">三、用户信息丢失</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9B%9B%E3%80%81%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE"><span class="toc-text">四、参考文献</span></a></li></ol>
+    </div>
+  </section>
+
+
+  
+
+
+</aside>
+
+
+
+        
+        
+          <!--此文件用来存放一些不方便取值的变量-->
+<!--思路大概是将值藏到重加载的区域内-->
+
+<script>
+  window.pdata={}
+  pdata.ispage=true;
+  pdata.postTitle="CompletableFuture 实践";
+  pdata.commentPath="";
+  pdata.commentPlaceholder="";
+
+  var l_header=document.getElementById("l_header");
+  
+  l_header.classList.add("show");
+  
+</script>
+
+        
+      </div>
+      
+  
+  <footer class="footer clearfix">
+    <br><br>
+    
+      
+        <div class="aplayer-container">
+          
+
+
+        </div>
+      
+    
+      
+        
+          <div><p>时不待我，舍我其谁</p>
+</div>
+        
+      
+    
+      
+        
+          <div><br></div>
+        
+      
+    
+      
+        
+          <div><p><span id="lc-sv">本站总访问量为 <span id='number'><i class="fas fa-circle-notch fa-spin fa-fw" aria-hidden="true"></i></span> 次</span> <span id="lc-uv">访客数为 <span id='number'><i class="fas fa-circle-notch fa-spin fa-fw" aria-hidden="true"></i></span> 人</span></p>
+</div>
+        
+      
+    
+      
+        <div class='copyright'>
+        <p><a target="_blank" rel="noopener" href="https://gitee.com/tobing">Copyright © 2017-2020 Tobing</a></p>
+
+        </div>
+      
+    
+      
+        
+          <div><p><a target="_blank" rel="noopener" href="https://beian.miit.gov.cn/">粤ICP备2020114697号</a></p>
+</div>
+        
+      
+    
+  </footer>
+
+
+      <a id="s-top" class="fas fa-arrow-up fa-fw" href='javascript:void(0)'></a>
+    </div>
+  </div>
+  <div>
+    <script>
+window.volantis={};
+window.volantis.loadcss=document.getElementById("loadcss");
+/********************脚本懒加载函数********************************/
+function loadScript(src, cb) {
+var HEAD = document.getElementsByTagName('head')[0] || document.documentElement;
+var script = document.createElement('script');
+script.setAttribute('type','text/javascript');
+if (cb) script.onload = cb;
+script.setAttribute('src', src);
+HEAD.appendChild(script);
+}
+//https://github.com/filamentgroup/loadCSS
+var loadCSS = function( href, before, media, attributes ){
+	var doc = window.document;
+	var ss = doc.createElement( "link" );
+	var ref;
+	if( before ){
+		ref = before;
+	}
+	else {
+		var refs = ( doc.body || doc.getElementsByTagName( "head" )[ 0 ] ).childNodes;
+		ref = refs[ refs.length - 1];
+	}
+	var sheets = doc.styleSheets;
+	if( attributes ){
+		for( var attributeName in attributes ){
+			if( attributes.hasOwnProperty( attributeName ) ){
+				ss.setAttribute( attributeName, attributes[attributeName] );
+			}
+		}
+	}
+	ss.rel = "stylesheet";
+	ss.href = href;
+	ss.media = "only x";
+	function ready( cb ){
+		if( doc.body ){
+			return cb();
+		}
+		setTimeout(function(){
+			ready( cb );
+		});
+	}
+	ready( function(){
+		ref.parentNode.insertBefore( ss, ( before ? ref : ref.nextSibling ) );
+	});
+	var onloadcssdefined = function( cb ){
+		var resolvedHref = ss.href;
+		var i = sheets.length;
+		while( i-- ){
+			if( sheets[ i ].href === resolvedHref ){
+				return cb();
+			}
+		}
+		setTimeout(function() {
+			onloadcssdefined( cb );
+		});
+	};
+	function loadCB(){
+		if( ss.addEventListener ){
+			ss.removeEventListener( "load", loadCB );
+		}
+		ss.media = media || "all";
+	}
+	if( ss.addEventListener ){
+		ss.addEventListener( "load", loadCB);
+	}
+	ss.onloadcssdefined = onloadcssdefined;
+	onloadcssdefined( loadCB );
+	return ss;
+};
+</script>
+<script>
+  
+  loadCSS("https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.14/css/all.min.css", window.volantis.loadcss);
+  
+  
+  
+  
+</script>
+<!-- required -->
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5/dist/jquery.min.js"></script>
+
+<script>
+  function pjax_fancybox() {
+    $(".md .gallery").find("img").each(function () { //渲染 fancybox
+      var element = document.createElement("a"); // a 标签
+      $(element).attr("class", "fancybox");
+      $(element).attr("pjax-fancybox", "");  // 过滤 pjax
+      $(element).attr("href", $(this).attr("src"));
+      if ($(this).attr("data-original")) {
+        $(element).attr("href", $(this).attr("data-original"));
+      }
+      $(element).attr("data-fancybox", "images");
+      var caption = "";   // 描述信息
+      if ($(this).attr('alt')) {  // 判断当前页面是否存在描述信息
+        $(element).attr('data-caption', $(this).attr('alt'));
+        caption = $(this).attr('alt');
+      }
+      var div = document.createElement("div");
+      $(div).addClass("fancybox");
+      $(this).wrap(div); // 最外层套 div ，其实主要作用还是 class 样式
+      var span = document.createElement("span");
+      $(span).addClass("image-caption");
+      $(span).text(caption); // 加描述
+      $(this).after(span);  // 再套一层描述
+      $(this).wrap(element);  // 最后套 a 标签
+    })
+    $(".md .gallery").find("img").fancybox({
+      selector: '[data-fancybox="images"]',
+      hash: false,
+      loop: false,
+      closeClick: true,
+      helpers: {
+        overlay: {closeClick: true}
+      },
+      buttons: [
+        "zoom",
+        "close"
+      ]
+    });
+  };
+  function SCload_fancybox() {
+    if ($(".md .gallery").find("img").length == 0) return;
+    loadCSS("https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css", document.getElementById("loadcss"));
+    setTimeout(function() {
+      loadScript('https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js', pjax_fancybox)
+    }, 1);
+  };
+  $(function () {
+    SCload_fancybox();
+  });
+</script>
+
+
+<!-- internal -->
+
+
+
+
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.1.0/dist/lazyload.min.js"></script>
+<script>
+  // https://www.npmjs.com/package/vanilla-lazyload
+  // Set the options globally
+  // to make LazyLoad self-initialize
+  window.lazyLoadOptions = {
+    elements_selector: ".lazyload",
+    threshold: 0
+  };
+  // Listen to the initialization event
+  // and get the instance of LazyLoad
+  window.addEventListener(
+    "LazyLoad::Initialized",
+    function (event) {
+      window.lazyLoadInstance = event.detail.instance;
+    },
+    false
+  );
+  document.addEventListener('DOMContentLoaded', function () {
+    lazyLoadInstance.update();
+  });
+  document.addEventListener('pjax:complete', function () {
+    lazyLoadInstance.update();
+  });
+</script>
+
+
+
+
+  
+  
+    <script>
+      window.FPConfig = {
+        delay: 0,
+        ignoreKeywords: [],
+        maxRPS: 5,
+        hoverDelay: 25
+      };
+    </script>
+    <script defer src="https://cdn.jsdelivr.net/gh/gijo-varghese/flying-pages@2.1.2/flying-pages.min.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+<script src="/js/valine.js"></script>
+
+
+<script>
+  var GUEST_INFO = ['nick', 'mail', 'link'];
+  var meta = 'nick,mail,link'.split(',').filter(function (item) {
+    return GUEST_INFO.indexOf(item) > -1
+  });
+  var REQUIRED_FIELDS = ['nick', 'mail', 'link'];
+  var requiredFields = 'nick,mail'.split(',').filter(function (item) {
+    return REQUIRED_FIELDS.indexOf(item) > -1
+  });
+
+  function emoji(path, idx, ext) {
+    return path + "/" + path + "-" + idx + "." + ext;
+  }
+
+  var emojiMaps = {};
+  for (var i = 1; i <= 54; i++) {
+    emojiMaps['tieba-' + i] = emoji('tieba', i, 'png');
+  }
+  for (var i = 1; i <= 101; i++) {
+    emojiMaps['qq-' + i] = emoji('qq', i, 'gif');
+  }
+  for (var i = 1; i <= 116; i++) {
+    emojiMaps['aru-' + i] = emoji('aru', i, 'gif');
+  }
+  for (var i = 1; i <= 125; i++) {
+    emojiMaps['twemoji-' + i] = emoji('twemoji', i, 'png');
+  }
+  for (var i = 1; i <= 4; i++) {
+    emojiMaps['weibo-' + i] = emoji('weibo', i, 'png');
+  }
+
+  function pjax_valine() {
+    if(!document.querySelectorAll("#valine_container")[0])return;
+
+    let pagePlaceholder = pdata.commentPlaceholder || "快来评论吧:)~";
+
+    let path = pdata.commentPath;
+    if (path.length == 0) {
+      let defaultPath = '';
+      path = defaultPath || decodeURI(window.location.pathname);
+    }
+
+    var valine = new Valine();
+    valine.init({
+      el: '#valine_container',
+      meta: meta,
+      placeholder: pagePlaceholder,
+      path: path,
+      appId: "Vy5O9liYY1EruxX5WAaSWiFU-gzGzoHsz",
+      appKey: "LkbvdUheh7noXFlcQzKXf4hV",
+      pageSize: '10',
+      avatar: 'robohash',
+      lang: 'zh-cn',
+      visitor: 'true',
+      highlight: 'true',
+      mathJax: 'false',
+      enableQQ: 'true',
+      recordIP: 'false',
+      requiredFields: requiredFields,
+      emojiCDN: 'https://cdn.jsdelivr.net/gh/volantis-x/cdn-emoji/valine/',
+      emojiMaps: emojiMaps
+    })
+  }
+
+  $(function () {
+    pjax_valine();
+  });
+</script>
+
+
+
+
+
+  
+<script src="/js/app.js"></script>
+
+
+
+<!-- optional -->
+
+  <script>
+const SearchServiceimagePath="https://cdn.jsdelivr.net/gh/volantis-x/cdn-volantis@master/img/";
+const ROOT =  ("/" || "/").endsWith('/') ? ("/" || "/") : ("//" || "/" );
+
+$('.input.u-search-input').one('focus',function(){
+	
+		loadScript('https://cdn.jsdelivr.net/gh/volantis-x/cdn-volantis@2.6.4/js/search.js',setSearchService);
+	
+})
+
+function listenSearch(){
+  
+    customSearch = new HexoSearch({
+      imagePath: SearchServiceimagePath
+    });
+  
+}
+function setSearchService() {
+	listenSearch();
+	
+		document.addEventListener("pjax:success", listenSearch);
+	
+}
+</script>
+
+
+
+
+
+
+
+
+
+
+
+  <script defer>
+
+  const LCCounter = {
+    app_id: 'Vy5O9liYY1EruxX5WAaSWiFU-gzGzoHsz',
+    app_key: 'LkbvdUheh7noXFlcQzKXf4hV',
+    custom_api_server: '',
+
+    // 查询存储的记录
+    getRecord(Counter, url, title) {
+      return new Promise(function (resolve, reject) {
+        Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({url})))
+          .then(resp => resp.json())
+          .then(({results, code, error}) => {
+            if (code === 401) {
+              throw error;
+            }
+            if (results && results.length > 0) {
+              var record = results[0];
+              resolve(record);
+            } else {
+              Counter('post', '/classes/Counter', {url, title: title, times: 0})
+                .then(resp => resp.json())
+                .then((record, error) => {
+                  if (error) {
+                    throw error;
+                  }
+                  resolve(record);
+                }).catch(error => {
+                console.error('Failed to create', error);
+                reject(error);
+              });
+            }
+          }).catch((error) => {
+          console.error('LeanCloud Counter Error:', error);
+          reject(error);
+        });
+      })
+    },
+
+    // 发起自增请求
+    increment(Counter, incrArr) {
+      return new Promise(function (resolve, reject) {
+        Counter('post', '/batch', {
+          "requests": incrArr
+        }).then((res) => {
+          res = res.json();
+          if (res.error) {
+            throw res.error;
+          }
+          resolve(res);
+        }).catch((error) => {
+          console.error('Failed to save visitor count', error);
+          reject(error);
+        });
+      });
+    },
+
+    // 构建自增请求体
+    buildIncrement(objectId) {
+      return {
+        "method": "PUT",
+        "path": `/1.1/classes/Counter/${ objectId }`,
+        "body": {
+          "times": {
+            '__op': 'Increment',
+            'amount': 1
+          }
+        }
+      }
+    },
+
+    // 校验是否为有效的 UV
+    validUV() {
+      var key = 'LeanCloudUVTimestamp';
+      var flag = localStorage.getItem(key);
+      if (flag) {
+        // 距离标记小于 24 小时则不计为 UV
+        if (new Date().getTime() - parseInt(flag) <= 86400000) {
+          return false;
+        }
+      }
+      localStorage.setItem(key, new Date().getTime().toString());
+      return true;
+    },
+
+    addCount(Counter) {
+      var enableIncr = '' === 'true' && window.location.hostname !== 'localhost';
+      enableIncr = true;
+      var getterArr = [];
+      var incrArr = [];
+      // 请求 PV 并自增
+      var pvCtn = document.querySelector('#lc-sv');
+      if (pvCtn || enableIncr) {
+        var pvGetter = this.getRecord(Counter, 'https://tobing.top' + '/#lc-sv', 'Visits').then((record) => {
+          incrArr.push(this.buildIncrement(record.objectId))
+          var eles = document.querySelectorAll('#lc-sv #number');
+          if (eles.length > 0) {
+            eles.forEach((el,index,array)=>{
+              el.innerText = record.times + 1;
+              if (pvCtn) {
+                pvCtn.style.display = 'inline';
+              }
+            })
+          }
+        });
+        getterArr.push(pvGetter);
+      }
+
+      // 请求 UV 并自增
+      var uvCtn = document.querySelector('#lc-uv');
+      if (uvCtn || enableIncr) {
+        var uvGetter = this.getRecord(Counter, 'https://tobing.top' + '/#lc-uv', 'Visitors').then((record) => {
+          var vuv = this.validUV();
+          vuv && incrArr.push(this.buildIncrement(record.objectId))
+          var eles = document.querySelectorAll('#lc-uv #number');
+          if (eles.length > 0) {
+            eles.forEach((el,index,array)=>{
+              el.innerText = record.times + (vuv ? 1 : 0);
+              if (uvCtn) {
+                uvCtn.style.display = 'inline';
+              }
+            })
+          }
+        });
+        getterArr.push(uvGetter);
+      }
+
+      // 请求文章的浏览数，如果是当前页面就自增
+      var allPV = document.querySelectorAll('#lc-pv');
+      if (allPV.length > 0 || enableIncr) {
+        for (i = 0; i < allPV.length; i++) {
+          let pv = allPV[i];
+          let title = pv.getAttribute('data-title');
+          var url = 'https://tobing.top' + pv.getAttribute('data-path');
+          if (url) {
+            var viewGetter = this.getRecord(Counter, url, title).then((record) => {
+              // 是当前页面就自增
+              let curPath = window.location.pathname;
+              if (curPath.includes('index.html')) {
+                curPath = curPath.substring(0, curPath.lastIndexOf('index.html'));
+              }
+              if (pv.getAttribute('data-path') == curPath) {
+                incrArr.push(this.buildIncrement(record.objectId));
+              }
+              if (pv) {
+                var ele = pv.querySelector('#lc-pv #number');
+                if (ele) {
+                  if (pv.getAttribute('data-path') == curPath) {
+                    ele.innerText = (record.times || 0) + 1;
+                  } else {
+                    ele.innerText = record.times || 0;
+                  }
+                  pv.style.display = 'inline';
+                }
+              }
+            });
+            getterArr.push(viewGetter);
+          }
+        }
+      }
+
+      // 如果启动计数自增，批量发起自增请求
+      if (enableIncr) {
+        Promise.all(getterArr).then(() => {
+          incrArr.length > 0 && this.increment(Counter, incrArr);
+        })
+      }
+
+    },
+
+
+    fetchData(api_server) {
+      var Counter = (method, url, data) => {
+        return fetch(`${ api_server }/1.1${ url }`, {
+          method,
+          headers: {
+            'X-LC-Id': this.app_id,
+            'X-LC-Key': this.app_key,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+      this.addCount(Counter);
+    },
+
+    refreshCounter() {
+      var api_server = this.app_id.slice(-9) !== '-MdYXbMMI' ? this.custom_api_server : `https://${ this.app_id.slice(0, 8).toLowerCase() }.api.lncldglobal.com`;
+      if (api_server) {
+        this.fetchData(api_server);
+      } else {
+        fetch('https://app-router.leancloud.cn/2/route?appId=' + this.app_id)
+          .then(resp => resp.json())
+          .then(({api_server}) => {
+            this.fetchData('https://' + api_server);
+          });
+      }
+    }
+
+  };
+
+  LCCounter.refreshCounter();
+
+  document.addEventListener('pjax:complete', function () {
+    LCCounter.refreshCounter();
+  });
+</script>
+
+
+
+
+
+
+
+
+<script>
+function listennSidebarTOC() {
+  const navItems = document.querySelectorAll(".toc li");
+  if (!navItems.length) return;
+  const sections = [...navItems].map((element) => {
+    const link = element.querySelector(".toc-link");
+    const target = document.getElementById(
+      decodeURI(link.getAttribute("href")).replace("#", "")
+    );
+    link.addEventListener("click", (event) => {
+      event.preventDefault();
+      window.scrollTo({
+		top: target.offsetTop + 100,
+		
+		behavior: "smooth"
+		
+	  });
+    });
+    return target;
+  });
+
+  function activateNavByIndex(target) {
+    if (target.classList.contains("active-current")) return;
+
+    document.querySelectorAll(".toc .active").forEach((element) => {
+      element.classList.remove("active", "active-current");
+    });
+    target.classList.add("active", "active-current");
+    let parent = target.parentNode;
+    while (!parent.matches(".toc")) {
+      if (parent.matches("li")) parent.classList.add("active");
+      parent = parent.parentNode;
+    }
+  }
+
+  function findIndex(entries) {
+    let index = 0;
+    let entry = entries[index];
+    if (entry.boundingClientRect.top > 0) {
+      index = sections.indexOf(entry.target);
+      return index === 0 ? 0 : index - 1;
+    }
+    for (; index < entries.length; index++) {
+      if (entries[index].boundingClientRect.top <= 0) {
+        entry = entries[index];
+      } else {
+        return sections.indexOf(entry.target);
+      }
+    }
+    return sections.indexOf(entry.target);
+  }
+
+  function createIntersectionObserver(marginTop) {
+    marginTop = Math.floor(marginTop + 10000);
+    let intersectionObserver = new IntersectionObserver(
+      (entries, observe) => {
+        let scrollHeight = document.documentElement.scrollHeight + 100;
+        if (scrollHeight > marginTop) {
+          observe.disconnect();
+          createIntersectionObserver(scrollHeight);
+          return;
+        }
+        let index = findIndex(entries);
+        activateNavByIndex(navItems[index]);
+      },
+      {
+        rootMargin: marginTop + "px 0px -100% 0px",
+        threshold: 0,
+      }
+    );
+    sections.forEach((element) => {
+      element && intersectionObserver.observe(element);
+    });
+  }
+  createIntersectionObserver(document.documentElement.scrollHeight);
+}
+
+document.addEventListener("DOMContentLoaded", listennSidebarTOC);
+document.addEventListener("pjax:success", listennSidebarTOC);
+</script>
+
+<!-- more -->
+
+
+
+
+    
+      
+
+
+<script src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.min.js"></script>
+
+
+<script>
+    var pjax;
+    document.addEventListener('DOMContentLoaded', function () {
+      pjax = new Pjax({
+        elements: 'a[href]:not([href^="#"]):not([href="javascript:void(0)"]):not([pjax-fancybox])',
+        selectors: [
+          "title",
+          "#l_cover",
+          "#pjax-container",
+          "#pjax-header-nav-list"
+        ],
+        cacheBust: false,   // url 地址追加时间戳，用以避免浏览器缓存
+        timeout: 5000
+      });
+    });
+
+    document.addEventListener('pjax:send', function (e) {
+      //window.stop(); // 相当于点击了浏览器的停止按钮
+
+      try {
+        var currentUrl = window.location.pathname;
+        var targetUrl = e.triggerElement.href;
+        var banUrl = [""];
+        if (banUrl[0] != "") {
+          banUrl.forEach(item => {
+            if(currentUrl.indexOf(item) != -1 || targetUrl.indexOf(item) != -1) {
+              window.location.href = targetUrl;
+            }
+          });
+        }
+      } catch (error) {}
+
+      window.subData = null; // 移除标题（用于一二级导航栏切换处）
+      if (typeof $.fancybox != "undefined") {
+        $.fancybox.close();    // 关闭弹窗
+      }
+      volantis.$switcher.removeClass('active'); // 关闭移动端激活的搜索框
+      volantis.$header.removeClass('z_search-open'); // 关闭移动端激活的搜索框
+      volantis.$wrapper.removeClass('sub'); // 跳转页面时关闭二级导航
+
+      // 解绑事件 避免重复监听
+      volantis.$topBtn.unbind('click');
+      $('.menu a').unbind('click');
+      $(window).unbind('resize');
+      $(window).unbind('scroll');
+      $(document).unbind('scroll');
+      $(document).unbind('click');
+      $('body').unbind('click');
+	  
+    });
+
+    document.addEventListener('pjax:complete', function () {
+      // 关于百度统计对 SPA 页面的处理：
+      // 方案一：百度统计>管理>单页应用设置中，打开开启按钮即可对SPA进行统计。 https://tongji.baidu.com/web/help/article?id=324
+      // 方案二：取消注释下列代码。 https://tongji.baidu.com/web/help/article?id=235
+       
+
+      // 关于谷歌统计对 SPA 页面的处理：
+      // 当应用以动态方式加载内容并更新地址栏中的网址时，也应该更新通过 gtag.js 存储的网页网址。
+      // https://developers.google.cn/analytics/devguides/collection/gtagjs/single-page-applications?hl=zh-cn
+      
+	 
+
+      $('.nav-main').find('.list-v').not('.menu-phone').removeAttr("style",""); // 移除小尾巴的移除
+      $('.menu-phone.list-v').removeAttr("style",""); // 移除小尾巴的移除
+      $('script[data-pjax], .pjax-reload script').each(function () {
+        $(this).parent().append($(this).remove());
+      });
+      try{
+          if (typeof $.fancybox == "undefined") {
+            SCload_fancybox();
+          } else {
+            pjax_fancybox();
+          }
+        
+        
+        
+        
+        
+        
+          pjax_valine();
+        
+        
+        
+        
+        
+      } catch (e) {
+        console.log(e);
+      }
+	  
+    });
+
+    document.addEventListener('pjax:error', function (e) {
+	  
+      window.location.href = e.triggerElement.href;
+    });
+</script>
+
+    
+  </div>
+</body>
+</html>
